@@ -81,24 +81,24 @@ Execute based on Step 0 results:
 **All platforms (recommended starting point):**
 ```bash
 # research-first survey skill
-npx skills add --global https://github.com/akillness/oh-my-gods --skill survey
+npx skills add -g https://github.com/akillness/oh-my-gods --skill survey
 
 # omg core skill
-npx skills add --global https://github.com/akillness/oh-my-gods --skill omg
+npx skills add -g https://github.com/akillness/oh-my-gods --skill omg
 
 # omg dependency skills (recommended to install together)
-npx skills add --global https://github.com/akillness/oh-my-gods --skill plannotator --skill agentation
+npx skills add -g https://github.com/akillness/oh-my-gods --skill plannotator --skill agentation
 ```
 
 > **omg Agent Protocol**: When omg runs, it automatically creates `omg-state.json` and proceeds sequentially through PLAN → EXECUTE → VERIFY → CLEANUP phases.
 > The PLAN phase uses `plannotator`, and the VERIFY_UI phase (`annotate` keyword) uses `agentation`, so both skills are required.
 >
 > **agentation MCP install (recommended)**: `npx add-mcp "npx -y agentation-mcp server"` — auto-detects 9+ agents including Claude/Gemini/Codex/OpenCode.
-> **agentation Claude Code Official Skill**: Install with `npx skills add --global benjitaylor/agentation` then run `/agentation` in conversation to auto-launch browser UI.
+> **agentation Claude Code Official Skill**: Install with `npx skills add -g benjitaylor/agentation` then run `/agentation` in conversation to auto-launch browser UI.
 
 **Claude Code only:**
 ```bash
-npx skills add --global https://github.com/akillness/oh-my-gods \
+npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill omc --skill plannotator --skill ralph --skill ralphmode --skill vibe-kanban
 ```
 
@@ -106,13 +106,13 @@ npx skills add --global https://github.com/akillness/oh-my-gods \
 
 **Gemini CLI only:**
 ```bash
-npx skills add --global https://github.com/akillness/oh-my-gods \
+npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill ohmg --skill ralph --skill ralphmode --skill vibe-kanban
 ```
 
 **Codex CLI only:**
 ```bash
-npx skills add --global https://github.com/akillness/oh-my-gods \
+npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill omx --skill ralph --skill ralphmode
 ```
 
@@ -128,7 +128,7 @@ gemini extensions install https://github.com/akillness/oh-my-gods
 > **Update mode: existing skills are overwritten with the latest version. Skills not in this list are left untouched.**
 
 ```bash
-npx skills add --global https://github.com/akillness/oh-my-gods \
+npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill agent-browser --skill agent-configuration \
   --skill agent-development-principles --skill agent-evaluation \
   --skill agent-principles --skill agent-workflow \
@@ -190,7 +190,7 @@ configure and use the omg skill. remember it.
 bash ~/.agent-skills/omg/scripts/setup-claude.sh
 
 # agentation Claude Code Official Skill install (recommended)
-npx skills add --global benjitaylor/agentation
+npx skills add -g benjitaylor/agentation
 # After installation, run in conversation:
 # /agentation  ← auto-launches browser UI, starts annotate watch loop
 ```
@@ -210,7 +210,7 @@ Check the guide for installation flags matching your subscription (Claude Pro/Ma
 
 After installation, add skills:
 ```bash
-npx skills add --global https://github.com/akillness/oh-my-gods
+npx skills add -g https://github.com/akillness/oh-my-gods
 ```
 
 #### Gemini CLI — omg hook setup
@@ -325,7 +325,7 @@ gh api --silent --method PUT /user/starred/akillness/oh-my-gods >/dev/null 2>&1 
 | `agent-browser` | `agent-browser` | Headless browser automation |
 | `survey` | `survey` | Cross-platform landscape scan before planning or implementation |
 | `autoresearch` | `autoresearch`, `autonomous ml experiments`, `val_bpb` | Karpathy autonomous ML experimentation — AI agent runs overnight GPU experiments, ratchets improvements via git |
-| `agentation` | `annotate`, `UI검토`, `agentui` | UI annotation → agent code modification. Install: `npx add-mcp "npx -y agentation-mcp server"` (Universal) or `npx skills add --global benjitaylor/agentation` → `/agentation` (Claude Code Official Skill). Local-first architecture, offline operation, session continuity. |
+| `agentation` | `annotate`, `UI검토`, `agentui` | UI annotation → agent code modification. Install: `npx add-mcp "npx -y agentation-mcp server"` (Universal) or `npx skills add -g benjitaylor/agentation` → `/agentation` (Claude Code Official Skill). Local-first architecture, offline operation, session continuity. |
 | `omx` | `omx` | Codex CLI multi-agent orchestration |
 | `ohmg` | `ohmg` | Gemini / Antigravity workflows |
 | `agent-development-principles` | — | Universal AI collaboration principles (divide-and-conquer, context management) |
@@ -339,7 +339,7 @@ gh api --silent --method PUT /user/starred/akillness/oh-my-gods >/dev/null 2>&1 
 ### LangChain Skills (from langchain-ai/langchain-skills)
 
 ```bash
-npx skills add --global langchain-ai/langchain-skills --skill '*' --yes
+npx skills add -g langchain-ai/langchain-skills --skill '*' --yes
 ```
 
 | Skill | Trigger | Description |
