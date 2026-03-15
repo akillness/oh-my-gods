@@ -181,6 +181,7 @@ stateDiagram-v2
 ║  agent-browser║ Headless browser verification for AI agents     ║
 ║  playwriter  ║  Playwright automation with live browser         ║
 ║  frouter     ║  Free AI model router — discover & configure     ║
+║  deepagents  ║  LangGraph batteries-included agent harness      ║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -199,6 +200,7 @@ stateDiagram-v2
 | `agent-browser` | `agent-browser` | Headless browser snapshot & verification for AI agents | npm:agent-browser |
 | `playwriter` | `playwriter` | Playwright automation connecting to your *running* browser (preserves cookies/logins) | Internal |
 | `frouter` | `frouter`, `--best` | Free AI model router — discover, benchmark & configure NVIDIA NIM / OpenRouter models for OpenCode/OpenClaw | [jyoung105/frouter](https://github.com/jyoung105/frouter) |
+| `deepagents` | `deepagents`, `create_deep_agent` | Batteries-included LangGraph agent harness — file tools, middleware, subagents, HITL out of the box | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) |
 
 ---
 
@@ -340,6 +342,7 @@ graph TD
 | `ai-tool-compliance` | Internal AI tool compliance automation (P0/P1) |
 | `opencontext` | Persistent memory and context management |
 | `prompt-repetition` | LLM accuracy via prompt repetition technique |
+| `deepagents` | Batteries-included LangGraph agent harness — `create_deep_agent()`, middleware, subagents, HITL |
 
 ### Content & Media
 
@@ -400,7 +403,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
   --skill fabric --skill autoresearch --skill langextract \
-  --skill frouter
+  --skill frouter --skill deepagents
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -470,6 +473,7 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | `autoresearch` | Andrej Karpathy methodology | — |
 | LangChain skills | [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills) | MIT |
 | `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
+| `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |
 | `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
