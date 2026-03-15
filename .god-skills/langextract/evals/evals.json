@@ -1,0 +1,61 @@
+{
+  "skill_name": "langextract",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use langextract to extract medication names and dosages from this clinical note: 'Patient was prescribed 10mg lisinopril once daily and 500mg metformin twice daily for hypertension and diabetes management.'",
+      "expected_output": "Python code using lx.extract() with appropriate prompt_description, ExampleData examples defining medication/dosage extraction schema, and model_id set. Result should show extractions with character offsets.",
+      "assertions": [
+        "Code imports langextract as lx",
+        "Code calls lx.extract() with text_or_documents parameter",
+        "Code includes ExampleData examples for few-shot schema definition",
+        "Code includes prompt_description mentioning medications and dosages",
+        "Code accesses extraction.start and extraction.end offsets"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to extract structured data from a 200-page legal document at https://example.com/contract.txt — how do I handle this long document with langextract?",
+      "expected_output": "Code using lx.extract() with extraction_passes=3, max_workers=10-20, max_char_buffer=1000 and URL as text_or_documents. Should explain chunking + parallel processing + multi-pass merge strategy.",
+      "assertions": [
+        "Code uses extraction_passes >= 2",
+        "Code uses max_workers >= 5",
+        "Code sets max_char_buffer",
+        "Explanation mentions chunking, parallel processing, and multi-pass merging"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "How do I use langextract with a local Ollama model to keep my data private?",
+      "expected_output": "Code using lx.extract() with model_id='gemma2:2b' (or similar), model_url='http://localhost:11434', fence_output=False, use_schema_constraints=False. Should include installation note for Ollama.",
+      "assertions": [
+        "Code sets model_url to localhost:11434",
+        "Code sets fence_output=False",
+        "Code sets use_schema_constraints=False",
+        "Response mentions no API key needed for local Ollama"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "After running langextract, how do I visualize the extracted entities overlaid on the source text?",
+      "expected_output": "Code showing lx.io.save_annotated_documents() followed by lx.visualize() and saving the HTML output to a file.",
+      "assertions": [
+        "Code calls lx.io.save_annotated_documents()",
+        "Code calls lx.visualize()",
+        "Code writes HTML content to a .html file",
+        "Mentions that HTML shows color-coded annotations on source text"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Explain how to create a custom langextract provider plugin for my own LLM API",
+      "expected_output": "Code showing class inheriting from lx.inference.BaseLanguageModel with @lx.providers.registry.register decorator, implementing infer() method that yields ScoredOutput. Should include pyproject.toml entry_points configuration.",
+      "assertions": [
+        "Code uses @lx.providers.registry.register decorator with regex patterns",
+        "Class inherits from lx.inference.BaseLanguageModel",
+        "Class implements infer() method",
+        "Response includes entry_points configuration for PyPI package"
+      ]
+    }
+  ]
+}

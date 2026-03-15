@@ -327,6 +327,7 @@ graph TD
 |------|------|
 | `autoresearch` | 자율 ML 실험 (Karpathy 방법론) |
 | `fabric` | AI 프롬프트 패턴 — YouTube 요약, 문서 분석 · [LM Studio 설정](docs/fabric/README.md) |
+| `langextract` | LLM 기반 비정형 텍스트 구조화 추출 — 문자 단위 출처 추적 지원 (Gemini/OpenAI/Ollama) |
 | `genkit` | Firebase Genkit AI 플로우 및 RAG 파이프라인 |
 | `firebase-ai-logic` | Firebase Gemini 통합 |
 | `data-analysis` | 데이터셋 분석, 시각화, 통계 |
@@ -393,7 +394,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill opencontext --skill plannotator --skill playwriter \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
-  --skill fabric --skill autoresearch
+  --skill fabric --skill autoresearch --skill langextract
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -462,6 +463,7 @@ oh-my-gods가 도움이 되셨다면 프로젝트를 후원해 주세요!
 | `fabric` | [danielmiessler/fabric](https://github.com/danielmiessler/fabric) | MIT |
 | `autoresearch` | Andrej Karpathy 방법론 | — |
 | LangChain 스킬 | [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills) | MIT |
+| `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | 에이전트 개발 원칙 | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 

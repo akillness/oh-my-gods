@@ -327,6 +327,7 @@ graph TD
 |-------|-------------|
 | `autoresearch` | Autonomous ML experiments (Karpathy methodology) |
 | `fabric` | AI prompt patterns — YouTube summaries, doc analysis · [LM Studio 설정](docs/fabric/README.md) |
+| `langextract` | LLM-powered structured extraction from text with character-level provenance (Gemini/OpenAI/Ollama) |
 | `genkit` | Firebase Genkit AI flows and RAG pipelines |
 | `firebase-ai-logic` | Gemini in Firebase integration |
 | `data-analysis` | Dataset analysis, visualizations, statistics |
@@ -393,7 +394,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill opencontext --skill plannotator --skill playwriter \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
-  --skill fabric --skill autoresearch
+  --skill fabric --skill autoresearch --skill langextract
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -462,6 +463,7 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | `fabric` | [danielmiessler/fabric](https://github.com/danielmiessler/fabric) | MIT |
 | `autoresearch` | Andrej Karpathy methodology | — |
 | LangChain skills | [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills) | MIT |
+| `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
