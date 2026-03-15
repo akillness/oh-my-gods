@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![스킬](https://img.shields.io/badge/스킬-85개%2B-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
+[![스킬](https://img.shields.io/badge/스킬-86개%2B-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![플랫폼](https://img.shields.io/badge/플랫폼-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![라이선스](https://img.shields.io/badge/라이선스-MIT-green?style=for-the-badge)](LICENSE)
 [![버전](https://img.shields.io/badge/버전-2.0.0-purple?style=for-the-badge)](CHANGELOG.md)
