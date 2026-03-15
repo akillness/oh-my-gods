@@ -70,7 +70,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
 
 ## 🎯 What is oh-my-gods?
 
-`oh-my-gods` is a curated collection of **85+ AI agent skills** designed for LLM-based development workflows. Built around the `omg` orchestration protocol, it provides:
+`oh-my-gods` is a curated collection of **86+ AI agent skills** designed for LLM-based development workflows. Built around the `omg` orchestration protocol, it provides:
 
 - **Unified orchestration** across Claude Code, Gemini CLI, OpenAI Codex, and OpenCode
 - **Plan → Execute → Verify → Cleanup** automated pipelines
@@ -281,6 +281,7 @@ graph TD
 | `agentation` | `annotate`, `UI검토` | UI annotation → targeted code fixes |
 | `agent-browser` | `agent-browser` | Headless browser verification |
 | `playwriter` | `playwriter` | Playwright with live browser (cookies preserved) |
+| `frouter` | `frouter` | Free AI model router — discover, ping & apply best free model to OpenCode/OpenClaw |
 | `vibe-kanban` | `kanbanview` | Visual Kanban board for agent tasks |
 
 ### Development Workflow
@@ -398,7 +399,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill opencontext --skill plannotator --skill playwriter \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
-  --skill fabric --skill autoresearch --skill langextract
+  --skill fabric --skill autoresearch --skill langextract \
+  --skill frouter
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -469,6 +471,7 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | LangChain skills | [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills) | MIT |
 | `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
+| `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
 ---

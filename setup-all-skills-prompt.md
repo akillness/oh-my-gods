@@ -163,7 +163,8 @@ npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill vercel-deploy --skill vercel-react-best-practices \
   --skill vibe-kanban --skill video-production \
   --skill web-design-guidelines --skill workflow-automation \
-  --skill langextract
+  --skill langextract \
+  --skill frouter
 ```
 
 > Skip condition is only allowed when the user explicitly requests (`core only`, `minimal install`, `quick install`).
@@ -334,6 +335,7 @@ gh api --silent --method PUT /user/starred/akillness/oh-my-gods >/dev/null 2>&1 
 | `agent-workflow` | — | Daily workflow optimization: shortcuts, Git, MCP, session management |
 | `fabric` | `fabric` | AI prompt patterns — YouTube summaries, doc analysis, content extraction |
 | `playwriter` | `playwriter` | Playwright automation connecting to your running browser (cookies/logins preserved) |
+| `frouter` | `frouter`, `free model router`, `best free model`, `opencode model config` | Free AI model router CLI — discover, ping & configure NVIDIA NIM / OpenRouter free models for OpenCode/OpenClaw. Interactive TUI with live latency/uptime. `frouter --best` for scripted best-model selection. |
 | `langextract` | `langextract`, `information extraction`, `entity extraction`, `structured extraction` | LLM-powered structured extraction from unstructured text with character-level provenance. Supports Gemini, OpenAI, Ollama, custom providers. |
 
 ---

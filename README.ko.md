@@ -26,6 +26,8 @@
 
 *Plan → Execute → Verify → Ship*
 
+> **86개 이상의 스킬** — 신규 추가: `frouter` — OpenCode/OpenClaw를 위한 무료 AI 모델 라우터
+
 [빠른 시작](#-빠른-시작) · [OMG 핵심](#-omg--핵심-오케스트레이션-스킬) · [숨겨진 기능](#-숨겨진-강력-기능) · [LangChain](#-langchain-통합) · [전체 카탈로그](#-전체-스킬-카탈로그) · [English](README.md)
 
 </div>
@@ -68,7 +70,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
 
 ## 🎯 oh-my-gods란?
 
-`oh-my-gods`는 LLM 기반 개발 워크플로우를 위한 **85개 이상의 AI 에이전트 스킬** 모음입니다. `omg` 오케스트레이션 프로토콜을 중심으로 구성되어 있으며 다음을 제공합니다:
+`oh-my-gods`는 LLM 기반 개발 워크플로우를 위한 **86개 이상의 AI 에이전트 스킬** 모음입니다. `omg` 오케스트레이션 프로토콜을 중심으로 구성되어 있으며 다음을 제공합니다:
 
 - **통합 오케스트레이션** — Claude Code, Gemini CLI, OpenAI Codex, OpenCode 전 플랫폼 지원
 - **Plan → Execute → Verify → Cleanup** 자동화 파이프라인
@@ -178,6 +180,7 @@ stateDiagram-v2
 ║  plannotator ║  시각적 계획/diff 리뷰 브라우저 UI               ║
 ║  agent-browser║ AI 에이전트용 헤드리스 브라우저 검증             ║
 ║  playwriter  ║  실제 브라우저 연결 Playwright 자동화             ║
+║  frouter     ║  무료 AI 모델 라우터 — 탐색 & 설정               ║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -195,6 +198,7 @@ stateDiagram-v2
 | `plannotator` | `plan` | AI 생성 계획 브라우저 리뷰 UI; 승인 또는 피드백 전송 | [plannotator](https://plannotator.ai) |
 | `agent-browser` | `agent-browser` | AI 에이전트용 헤드리스 브라우저 스냅샷 및 검증 | npm:agent-browser |
 | `playwriter` | `playwriter` | 실행 중인 브라우저에 연결하는 Playwright 자동화 | 내부 |
+| `frouter` | `frouter`, `--best` | 무료 AI 모델 라우터 — NVIDIA NIM / OpenRouter 모델 탐색·벤치마크·설정 | [jyoung105/frouter](https://github.com/jyoung105/frouter) |
 
 ---
 
@@ -277,6 +281,7 @@ graph TD
 | `agentation` | `annotate`, `UI검토` | UI 어노테이션 → 타겟 코드 수정 |
 | `agent-browser` | `agent-browser` | 헤드리스 브라우저 검증 |
 | `playwriter` | `playwriter` | 실제 브라우저 연결 Playwright (쿠키 보존) |
+| `frouter` | `frouter` | 무료 AI 모델 라우터 — 탐색·핑 테스트 후 OpenCode/OpenClaw에 최적 모델 적용 |
 | `vibe-kanban` | `kanbanview` | 에이전트 작업 시각적 칸반 보드 |
 
 ### 개발 워크플로우
@@ -394,7 +399,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill opencontext --skill plannotator --skill playwriter \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
-  --skill fabric --skill autoresearch --skill langextract
+  --skill fabric --skill autoresearch --skill langextract \
+  --skill frouter
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -465,6 +471,7 @@ oh-my-gods가 도움이 되셨다면 프로젝트를 후원해 주세요!
 | LangChain 스킬 | [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills) | MIT |
 | `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | 에이전트 개발 원칙 | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
+| `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
 ---
