@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **86+ skills** including the new `frouter` — free AI model router for OpenCode/OpenClaw
+> **87+ skills** — new: `agent-manager` — tmux + Python agent lifecycle manager, no server required
 
 [Quick Start](#-quick-start) · [OMG Core](#-omg--core-orchestration-skill) · [Hidden Features](#-hidden-power-features) · [LangChain](#-langchain-integration) · [Full Catalog](#-full-skill-catalog) · [한국어](README.ko.md)
 
@@ -183,6 +183,7 @@ stateDiagram-v2
 ║  frouter     ║  Free AI model router — discover & configure     ║
 ║  deepagents  ║  LangGraph batteries-included agent harness      ║
 ║  clawteam    ║  Framework-agnostic multi-agent coordination CLI  ║
+║  agent-manager║ tmux+Python agent lifecycle mgr — no server     ║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -203,6 +204,7 @@ stateDiagram-v2
 | `frouter` | `frouter`, `--best` | Free AI model router — discover, benchmark & configure NVIDIA NIM / OpenRouter models for OpenCode/OpenClaw | [jyoung105/frouter](https://github.com/jyoung105/frouter) |
 | `deepagents` | `deepagents`, `create_deep_agent` | Batteries-included LangGraph agent harness — file tools, middleware, subagents, HITL out of the box | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) |
 | `clawteam` | `clawteam`, `agent swarm` | Framework-agnostic multi-agent coordination CLI — spawn tmux teams, task queues, inboxes, kanban board | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) |
+| `agent-manager` | `agent-manager`, `start agent`, `stop agent`, `monitor agent` | tmux + Python agent lifecycle manager — start/stop/monitor/schedule/heartbeat without a server | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) |
 
 ---
 
@@ -302,6 +304,7 @@ graph TD
 | `git-submodule` | Git submodule management |
 | `debugging` | Root cause analysis, regression isolation |
 | `code-review` | Comprehensive code review with API contracts |
+| `agent-manager` | tmux + Python agent lifecycle manager — start/stop/monitor/schedule/heartbeat without a server |
 
 ### Backend & Infrastructure
 
@@ -406,7 +409,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
   --skill fabric --skill autoresearch --skill langextract \
-  --skill frouter --skill deepagents --skill clawteam
+  --skill frouter --skill deepagents --skill clawteam \
+  --skill agent-manager
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -474,6 +478,7 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | `agentation` | [benjitaylor/agentation](https://github.com/benjitaylor/agentation) | MIT |
 | `fabric` | [danielmiessler/fabric](https://github.com/danielmiessler/fabric) | MIT |
 | `autoresearch` | Andrej Karpathy methodology | — |
+| `agent-manager` | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) | MIT |
 | LangChain skills | [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills) | MIT |
 | `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |

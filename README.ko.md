@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **86개 이상의 스킬** — 신규 추가: `frouter` — OpenCode/OpenClaw를 위한 무료 AI 모델 라우터
+> **87개 이상의 스킬** — 신규 추가: `agent-manager` — 서버 없이 tmux + Python으로 AI 에이전트 생명주기 관리
 
 [빠른 시작](#-빠른-시작) · [OMG 핵심](#-omg--핵심-오케스트레이션-스킬) · [숨겨진 기능](#-숨겨진-강력-기능) · [LangChain](#-langchain-통합) · [전체 카탈로그](#-전체-스킬-카탈로그) · [English](README.md)
 
@@ -183,6 +183,7 @@ stateDiagram-v2
 ║  frouter     ║  무료 AI 모델 라우터 — 탐색 & 설정               ║
 ║  deepagents  ║  LangGraph 배터리 포함 AI 에이전트 하네스         ║
 ║  clawteam    ║  프레임워크 무관 멀티에이전트 조율 CLI             ║
+║  agent-manager║ tmux+Python 에이전트 생명주기 관리 — 서버 불필요 ║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -203,6 +204,7 @@ stateDiagram-v2
 | `frouter` | `frouter`, `--best` | 무료 AI 모델 라우터 — NVIDIA NIM / OpenRouter 모델 탐색·벤치마크·설정 | [jyoung105/frouter](https://github.com/jyoung105/frouter) |
 | `deepagents` | `deepagents`, `create_deep_agent` | 배터리 포함 LangGraph 에이전트 하네스 — 파일 도구, 미들웨어, 서브에이전트, HITL 즉시 사용 가능 | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) |
 | `clawteam` | `clawteam`, `agent swarm` | 프레임워크 무관 멀티에이전트 조율 CLI — tmux 팀 스폰, 태스크 큐, 인박스, 칸반 보드 | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) |
+| `agent-manager` | `agent-manager`, `start agent`, `stop agent`, `monitor agent` | tmux + Python 에이전트 생명주기 관리 — 서버 없이 시작/중지/모니터/일정 예약/하트비트 | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) |
 
 ---
 
@@ -302,6 +304,7 @@ graph TD
 | `git-submodule` | Git 서브모듈 관리 |
 | `debugging` | 근본 원인 분석, 회귀 격리 |
 | `code-review` | API 계약 포함 종합 코드 리뷰 |
+| `agent-manager` | tmux + Python 에이전트 생명주기 관리 — 서버 없이 시작/중지/모니터/일정 예약/하트비트 |
 
 ### 백엔드 & 인프라
 
@@ -406,7 +409,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
   --skill fabric --skill autoresearch --skill langextract \
-  --skill frouter --skill deepagents --skill clawteam
+  --skill frouter --skill deepagents --skill clawteam \
+  --skill agent-manager
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -478,6 +482,7 @@ oh-my-gods가 도움이 되셨다면 프로젝트를 후원해 주세요!
 | `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |
 | `clawteam` | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) | MIT |
+| `agent-manager` | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) | MIT |
 | 에이전트 개발 원칙 | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
