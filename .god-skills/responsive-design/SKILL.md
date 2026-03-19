@@ -1,6 +1,7 @@
 ---
 name: responsive-design
 description: Create responsive web designs that work across all devices and screen sizes. Use when building mobile-first layouts, implementing breakpoints, or optimizing for different viewports. Handles CSS Grid, Flexbox, media queries, viewport units, and responsive images.
+allowed-tools: Read Write Edit Grep Glob
 metadata:
   tags: responsive, mobile-first, CSS, Flexbox, Grid, media-query, viewport
   platforms: Claude, ChatGPT, Gemini

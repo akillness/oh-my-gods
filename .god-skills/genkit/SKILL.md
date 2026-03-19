@@ -1,6 +1,7 @@
 ---
 name: genkit
 description: Build production-ready AI workflows using Firebase Genkit. Use when creating flows, tool-calling agents, RAG pipelines, multi-agent systems, or deploying AI to Firebase/Cloud Run. Supports TypeScript, Go, and Python with Gemini, OpenAI, Anthropic, Ollama, and Vertex AI plugins.
+allowed-tools: Bash Read Write Edit Glob Grep WebFetch
 metadata:
   tags: genkit, firebase, ai, llm, flows, agents, rag, gemini, typescript, google-cloud
   platforms: Claude, ChatGPT, Gemini, Codex

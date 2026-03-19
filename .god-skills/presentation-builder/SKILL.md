@@ -1,6 +1,7 @@
 ---
 name: presentation-builder
 description: Build editable presentations with slides-grab. Use when creating slide decks as HTML slides, iterating visually in a browser, and exporting approved decks to PPTX or PDF.
+allowed-tools: Bash Read Write Grep Glob WebFetch
 metadata:
   tags: presentation, slides-grab, pptx, pdf, html-slides, slide-editor, storytelling
   platforms: Claude, ChatGPT, Gemini, Codex

@@ -1,6 +1,7 @@
 ---
 name: authentication-setup
 description: Design and implement authentication and authorization systems. Use when setting up user login, JWT tokens, OAuth, session management, or role-based access control. Handles password security, token management, SSO integration.
+allowed-tools: Read Write Bash Grep Glob
 metadata:
   tags: authentication, authorization, security, JWT, OAuth, RBAC
   platforms: Claude, ChatGPT, Gemini
