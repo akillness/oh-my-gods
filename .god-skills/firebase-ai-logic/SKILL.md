@@ -4,6 +4,7 @@ description: Integrate Firebase AI Logic (Gemini in Firebase) for intelligent ap
 metadata:
   tags: firebase, ai, gemini, generative-ai, sdk
   platforms: Claude, ChatGPT, Gemini
+allowed-tools: Read Write Bash Grep Glob
 ---
 
 

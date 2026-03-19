@@ -4,6 +4,7 @@ description: Produce production-grade UI designs using clear design tokens, layo
 metadata:
   tags: frontend, design, ui, ux, typography, animation, design-tokens, accessibility
   platforms: Claude, ChatGPT, Gemini, Codex
+allowed-tools: Read Write Grep Glob
 ---
 
 

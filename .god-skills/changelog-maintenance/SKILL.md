@@ -4,6 +4,7 @@ description: Maintain a clear and informative changelog for software releases. U
 metadata:
   tags: changelog, release-notes, versioning, semantic-versioning, documentation
   platforms: Claude, ChatGPT, Gemini
+allowed-tools: Read Write Grep Glob
 ---
 
 
