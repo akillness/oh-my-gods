@@ -4,6 +4,7 @@ description: Write comprehensive backend tests including unit tests, integration
 metadata:
   tags: testing, backend, unit-test, integration-test, API-test, Jest, Pytest, TDD
   platforms: Claude, ChatGPT, Gemini
+allowed-tools: Read Write Bash Grep Glob
 ---
 
 
