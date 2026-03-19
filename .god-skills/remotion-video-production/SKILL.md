@@ -2,6 +2,9 @@
 name: remotion-video-production
 description: Produce programmable videos with Remotion using scene planning, asset orchestration, and validation gates for automated, brand-consistent video content.
 allowed-tools: Bash Write Read Glob Grep
+metadata:
+  tags: [video, remotion, animation, storytelling, automation, react]
+  platforms: [Claude, ChatGPT, Gemini, Codex]
 ---
 
 # Remotion Video Production

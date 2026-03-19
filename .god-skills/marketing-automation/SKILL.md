@@ -1,6 +1,7 @@
 ---
 name: marketing-automation
 description: Generate marketing deliverables across CRO, copywriting, SEO, analytics, and growth using 23 specialized sub-skills with clear objectives, constraints, and validation.
+allowed-tools: Read Write Grep Glob
 metadata:
   tags: marketing, cro, copywriting, seo, analytics, growth, automation
   platforms: Claude, ChatGPT, Gemini, Codex
