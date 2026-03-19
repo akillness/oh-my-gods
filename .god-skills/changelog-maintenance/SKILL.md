@@ -5,6 +5,7 @@ allowed-tools: Read Write Grep Glob
 metadata:
   tags: changelog, release-notes, versioning, semantic-versioning, documentation
   platforms: Claude, ChatGPT, Gemini
+allowed-tools: Read Write Grep Glob
 ---
 
 

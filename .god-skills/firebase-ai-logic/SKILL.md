@@ -5,6 +5,7 @@ allowed-tools: Read Write Bash Grep Glob
 metadata:
   tags: firebase, ai, gemini, generative-ai, sdk
   platforms: Claude, ChatGPT, Gemini
+allowed-tools: Read Write Bash Grep Glob
 ---
 
 

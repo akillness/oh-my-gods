@@ -5,6 +5,7 @@ allowed-tools: Read Write Bash Grep Glob
 metadata:
   tags: authentication, authorization, security, JWT, OAuth, RBAC
   platforms: Claude, ChatGPT, Gemini
+allowed-tools: Read Write Bash Grep Glob
 ---
 
 

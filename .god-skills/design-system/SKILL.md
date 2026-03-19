@@ -5,6 +5,7 @@ allowed-tools: Read Write Grep Glob
 metadata:
   tags: frontend, design, ui, ux, typography, animation, design-tokens, accessibility
   platforms: Claude, ChatGPT, Gemini, Codex
+allowed-tools: Read Write Grep Glob
 ---
 
 

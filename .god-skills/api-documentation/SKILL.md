@@ -5,6 +5,7 @@ allowed-tools: Read Write Grep Glob
 metadata:
   tags: API-documentation, OpenAPI, Swagger, REST, GraphQL, developer-docs
   platforms: Claude, ChatGPT, Gemini
+allowed-tools: Read Write Grep Glob
 ---
 
 

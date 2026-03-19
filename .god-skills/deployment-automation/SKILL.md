@@ -5,6 +5,7 @@ allowed-tools: Read Write Bash Grep Glob
 metadata:
   tags: deployment, CI/CD, Docker, Kubernetes, AWS, GitHub-Actions, automation
   platforms: Claude, ChatGPT, Gemini
+allowed-tools: Read Write Bash Grep Glob
 ---
 
 
