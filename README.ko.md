@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![스킬](https://img.shields.io/badge/스킬-87개%2B-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
+[![스킬](https://img.shields.io/badge/스킬-89개%2B-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![플랫폼](https://img.shields.io/badge/플랫폼-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![라이선스](https://img.shields.io/badge/라이선스-MIT-green?style=for-the-badge)](LICENSE)
 [![버전](https://img.shields.io/badge/버전-2.0.0-purple?style=for-the-badge)](CHANGELOG.md)
@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **88개 이상의 스킬** — 신규 추가: `pm-skills` — PM용 AI OS — 65개 스킬, 36개 명령어, 8개 플러그인
+> **89개 이상의 스킬** — 신규 추가: `ai-research-skills` — 자율 ML 연구를 위한 86개 AI 연구 스킬 (아이디어→논문)
 
 [빠른 시작](#-빠른-시작) · [OMG 핵심](#-omg--핵심-오케스트레이션-스킬) · [숨겨진 기능](#-숨겨진-강력-기능) · [LangChain](#-langchain-통합) · [전체 카탈로그](#-전체-스킬-카탈로그) · [English](README.md)
 
@@ -185,6 +185,7 @@ stateDiagram-v2
 ║  clawteam    ║  프레임워크 무관 멀티에이전트 조율 CLI             ║
 ║  agent-manager║ tmux+Python 에이전트 생명주기 관리 — 서버 불필요 ║
 ║  pm-skills   ║  PM용 AI OS — 65개 스킬, 36개 명령어, 8개 플러그인║
+║  ai-research-skills║ AI 연구 86개 스킬 — 아이디어에서 논문까지 자율 연구║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -207,6 +208,7 @@ stateDiagram-v2
 | `clawteam` | `clawteam`, `agent swarm` | 프레임워크 무관 멀티에이전트 조율 CLI — tmux 팀 스폰, 태스크 큐, 인박스, 칸반 보드 | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) |
 | `agent-manager` | `agent-manager`, `start agent`, `stop agent`, `monitor agent` | tmux + Python 에이전트 생명주기 관리 — 서버 없이 시작/중지/모니터/일정 예약/하트비트 | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) |
 | `pm-skills` | `pm-skills`, `product discovery`, `write PRD`, `user stories`, `product strategy` | PM용 AI OS — Teresa Torres, Marty Cagan, Alberto Savoia 프레임워크를 담은 65개 스킬, 36개 명령어, 8개 플러그인 | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) |
+| `ai-research-skills` | `ai-research-skills`, `autoresearch`, `ml experiments`, `fine-tuning`, `grpo`, `vllm`, `rlhf` | AI 연구 86개 스킬 (22개 카테고리) — 파인튜닝, RLHF, GRPO, vLLM, RAG, 멀티모달, ML 논문 작성 자율 연구 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
 
 ---
 
@@ -352,6 +354,7 @@ graph TD
 | `opencontext` | 세션 간 영속적 메모리 및 컨텍스트 관리 |
 | `prompt-repetition` | 프롬프트 반복 기법으로 LLM 정확도 향상 |
 | `deepagents` | 배터리 포함 LangGraph 에이전트 하네스 — `create_deep_agent()`, 미들웨어, 서브에이전트, HITL |
+| `ai-research-skills` | AI 연구 86개 스킬 (22개 카테고리) — 자율 연구 오케스트레이션, 파인튜닝, RLHF/GRPO, vLLM, RAG, 멀티모달, ML 논문 작성 |
 
 ### 콘텐츠 & 미디어
 
@@ -413,7 +416,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill survey --skill vibe-kanban --skill workflow-automation \
   --skill fabric --skill autoresearch --skill langextract \
   --skill frouter --skill deepagents --skill clawteam \
-  --skill agent-manager --skill pm-skills
+  --skill agent-manager --skill pm-skills \
+  --skill ai-research-skills
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -487,6 +491,7 @@ oh-my-gods가 도움이 되셨다면 프로젝트를 후원해 주세요!
 | `clawteam` | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) | MIT |
 | `agent-manager` | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) | MIT |
 | `pm-skills` | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) | MIT |
+| `ai-research-skills` | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | MIT |
 | 에이전트 개발 원칙 | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
