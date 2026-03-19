@@ -10,9 +10,9 @@ description: >
   planning, go-to-market, market research, product roadmap, pretotyping, jobs to be done.
 license: MIT
 compatibility: >
-  Requires Claude Code (claude.ai/code) with plugin support. Install each plugin individually
-  via the Claude marketplace. No external dependencies needed — all skills run as Claude
-  Code plugins. Optional: any Claude-compatible CLI for additional agent routing.
+  Works on all platforms. Install via `npx skills add pm-skills` (cross-platform) or
+  via the Claude Code marketplace. No external dependencies needed — all skills run as
+  Claude Code plugins. Optional: any Claude-compatible CLI for additional agent routing.
 metadata:
   version: "1.0"
   source: phuryn/pm-skills
@@ -52,6 +52,17 @@ structured AI skills ready to drive real product work.
 | `pm-go-to-market` | 6 skills | Launch planning, positioning, pricing, channel strategy |
 | `pm-marketing-growth` | 5 skills | Growth loops, retention frameworks, activation playbook |
 | `pm-toolkit` | 4 skills | Stakeholder communication, meeting facilitation, PM templates |
+
+## Instructions
+
+Invoke this skill by mentioning a PM task or using any of the slash commands below.
+The skill routes your request to the appropriate plugin and framework automatically.
+
+1. Describe your product challenge in natural language, or use a slash command directly.
+2. The skill selects the relevant PM framework (OST, JTBD, Pretotyping, etc.) and guides you through it.
+3. Output is structured and ready to paste into Notion, Jira, or your doc tool of choice.
+
+Start with `/discover` for new features, `/write-prd` for specs, or `/north-star` for strategy.
 
 ## Installation
 
@@ -225,7 +236,7 @@ Validate demand before building:
 /sprint
 ```
 
-## Best Practices
+## Best practices
 
 - **Discovery before execution**: Always run `/discover` before writing PRDs
 - **JTBD framing**: Frame requirements with `/jobs-to-be-done` to stay customer-centric
@@ -244,3 +255,10 @@ Validate demand before building:
 | "How do we grow?" | `/growth-loops` | Growth Loops |
 | "What are customers doing?" | `/jobs-to-be-done` | JTBD (Moesta) |
 | "What are our risks?" | `/map-assumptions` | Assumption Mapping |
+
+## References
+
+- Source repository: https://github.com/phuryn/pm-skills
+- Teresa Torres — Continuous Discovery Habits: https://www.producttalk.org
+- Marty Cagan — SVPG Inspired/Empowered: https://www.svpg.com
+- Alberto Savoia — Pretotyping: https://www.pretotyping.org
