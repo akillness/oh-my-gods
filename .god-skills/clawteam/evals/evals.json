@@ -1,0 +1,60 @@
+{
+  "skill_name": "clawteam",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use clawteam to launch a software development team to build a REST API with auth",
+      "expected_output": "clawteam launch command with software-dev template and goal argument",
+      "assertions": [
+        "Response includes pip install clawteam",
+        "Response shows clawteam launch software-dev --goal '...'",
+        "Response mentions tmux requirement",
+        "Response explains the 6 agents in the software-dev template"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "How do I spawn multiple Claude Code agents working on different tasks in the same repo?",
+      "expected_output": "Manual team setup: spawn-team, task create, spawn tmux claude for each agent, board live",
+      "assertions": [
+        "Response shows clawteam team spawn-team command",
+        "Response shows clawteam task create with -o owner flag",
+        "Response shows clawteam spawn tmux claude --team ... --agent-name ...",
+        "Response shows clawteam board live or board attach for monitoring"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "How do agents communicate with each other in clawteam?",
+      "expected_output": "Inbox system: clawteam inbox send, broadcast, receive, watch with --exec",
+      "assertions": [
+        "Response explains inbox send for direct messaging",
+        "Response explains inbox broadcast for all-agent messages",
+        "Response mentions inbox watch --exec for reactive automation",
+        "Response clarifies messages are stored as JSON files in ~/.clawteam/teams/{team}/inboxes/"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I want each agent to work on its own git branch to avoid conflicts",
+      "expected_output": "workspace isolation via --workspace flag and workspace commands",
+      "assertions": [
+        "Response mentions --workspace flag in clawteam spawn",
+        "Response shows clawteam workspace checkpoint for committing",
+        "Response shows clawteam workspace merge to integrate changes",
+        "Response explains each agent gets its own git worktree branch"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "How do I monitor the real-time progress of my clawteam agents?",
+      "expected_output": "board commands: show, live, attach, serve with HTTP/SSE API",
+      "assertions": [
+        "Response covers clawteam board live for auto-refresh kanban",
+        "Response covers clawteam board attach for tmux tile view",
+        "Response mentions clawteam board serve for web dashboard",
+        "Response mentions /api/events/{team} SSE endpoint for real-time push"
+      ]
+    }
+  ]
+}

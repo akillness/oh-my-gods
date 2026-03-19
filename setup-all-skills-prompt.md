@@ -164,7 +164,7 @@ npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill vibe-kanban --skill video-production \
   --skill web-design-guidelines --skill workflow-automation \
   --skill langextract \
-  --skill frouter --skill deepagents
+  --skill frouter --skill deepagents --skill clawteam
 ```
 
 > Skip condition is only allowed when the user explicitly requests (`core only`, `minimal install`, `quick install`).
@@ -338,6 +338,7 @@ gh api --silent --method PUT /user/starred/akillness/oh-my-gods >/dev/null 2>&1 
 | `frouter` | `frouter`, `free model router`, `best free model`, `opencode model config` | Free AI model router CLI — discover, ping & configure NVIDIA NIM / OpenRouter free models for OpenCode/OpenClaw. Interactive TUI with live latency/uptime. `frouter --best` for scripted best-model selection. |
 | `langextract` | `langextract`, `information extraction`, `entity extraction`, `structured extraction` | LLM-powered structured extraction from unstructured text with character-level provenance. Supports Gemini, OpenAI, Ollama, custom providers. |
 | `deepagents` | `deepagents`, `create_deep_agent`, `langchain agent harness`, `deep agent` | Batteries-included LangGraph agent harness — file tools, middleware, subagents, HITL out of the box. Source: [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) |
+| `clawteam` | `clawteam`, `agent swarm`, `multi-agent team`, `spawn agents`, `clawteam launch` | Framework-agnostic multi-agent coordination CLI — spawn tmux teams, task queues, inboxes, kanban board. Source: [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) |
 
 ---
 

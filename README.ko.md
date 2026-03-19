@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![스킬](https://img.shields.io/badge/스킬-86개%2B-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
+[![스킬](https://img.shields.io/badge/스킬-87개%2B-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![플랫폼](https://img.shields.io/badge/플랫폼-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![라이선스](https://img.shields.io/badge/라이선스-MIT-green?style=for-the-badge)](LICENSE)
 [![버전](https://img.shields.io/badge/버전-2.0.0-purple?style=for-the-badge)](CHANGELOG.md)
@@ -182,6 +182,7 @@ stateDiagram-v2
 ║  playwriter  ║  실제 브라우저 연결 Playwright 자동화             ║
 ║  frouter     ║  무료 AI 모델 라우터 — 탐색 & 설정               ║
 ║  deepagents  ║  LangGraph 배터리 포함 AI 에이전트 하네스         ║
+║  clawteam    ║  프레임워크 무관 멀티에이전트 조율 CLI             ║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -201,6 +202,7 @@ stateDiagram-v2
 | `playwriter` | `playwriter` | 실행 중인 브라우저에 연결하는 Playwright 자동화 | 내부 |
 | `frouter` | `frouter`, `--best` | 무료 AI 모델 라우터 — NVIDIA NIM / OpenRouter 모델 탐색·벤치마크·설정 | [jyoung105/frouter](https://github.com/jyoung105/frouter) |
 | `deepagents` | `deepagents`, `create_deep_agent` | 배터리 포함 LangGraph 에이전트 하네스 — 파일 도구, 미들웨어, 서브에이전트, HITL 즉시 사용 가능 | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) |
+| `clawteam` | `clawteam`, `agent swarm` | 프레임워크 무관 멀티에이전트 조율 CLI — tmux 팀 스폰, 태스크 큐, 인박스, 칸반 보드 | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) |
 
 ---
 
@@ -274,6 +276,7 @@ graph TD
 | `bmad` | `bmad`, `/workflow-init` | 전체 | 단계 기반 AI 구조적 개발 |
 | `bmad-idea` | `bmad-idea` | 전체 | 창의적 지능 — 5개 전문 아이디에이션 에이전트 |
 | `survey` | `survey` | 전체 | 구현 전 환경 분석 스캔 |
+| `clawteam` | `clawteam`, `agent swarm` | 전체 | 프레임워크 무관 멀티에이전트 조율 — tmux 팀 스폰, 태스크 큐, 칸반 보드 |
 
 ### 계획 & 리뷰
 
@@ -403,7 +406,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
   --skill fabric --skill autoresearch --skill langextract \
-  --skill frouter --skill deepagents
+  --skill frouter --skill deepagents --skill clawteam
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -474,6 +477,7 @@ oh-my-gods가 도움이 되셨다면 프로젝트를 후원해 주세요!
 | LangChain 스킬 | [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills) | MIT |
 | `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |
+| `clawteam` | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) | MIT |
 | 에이전트 개발 원칙 | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
