@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **87+ skills** — new: `agent-manager` — tmux + Python agent lifecycle manager, no server required
+> **88+ skills** — new: `pm-skills` — AI OS for product managers — 65 skills, 36 commands, 8 plugins
 
 [Quick Start](#-quick-start) · [OMG Core](#-omg--core-orchestration-skill) · [Hidden Features](#-hidden-power-features) · [LangChain](#-langchain-integration) · [Full Catalog](#-full-skill-catalog) · [한국어](README.ko.md)
 
@@ -184,6 +184,7 @@ stateDiagram-v2
 ║  deepagents  ║  LangGraph batteries-included agent harness      ║
 ║  clawteam    ║  Framework-agnostic multi-agent coordination CLI  ║
 ║  agent-manager║ tmux+Python agent lifecycle mgr — no server     ║
+║  pm-skills   ║  AI OS for PMs — 65 skills, 36 commands, 8 plugins║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -205,6 +206,7 @@ stateDiagram-v2
 | `deepagents` | `deepagents`, `create_deep_agent` | Batteries-included LangGraph agent harness — file tools, middleware, subagents, HITL out of the box | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) |
 | `clawteam` | `clawteam`, `agent swarm` | Framework-agnostic multi-agent coordination CLI — spawn tmux teams, task queues, inboxes, kanban board | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) |
 | `agent-manager` | `agent-manager`, `start agent`, `stop agent`, `monitor agent` | tmux + Python agent lifecycle manager — start/stop/monitor/schedule/heartbeat without a server | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) |
+| `pm-skills` | `pm-skills`, `product discovery`, `write PRD`, `user stories`, `product strategy` | AI OS for product managers — 65 skills, 36 commands across 8 plugins (Teresa Torres, Marty Cagan, Alberto Savoia) | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) |
 
 ---
 
@@ -279,6 +281,7 @@ graph TD
 | `bmad-idea` | `bmad-idea` | All | Creative intelligence — 5 specialist ideation agents |
 | `survey` | `survey` | All | Pre-implementation landscape scan |
 | `clawteam` | `clawteam`, `agent swarm` | All | Framework-agnostic multi-agent coordination — spawn tmux teams, task queues, kanban board |
+| `pm-skills` | `pm-skills`, `product discovery`, `write PRD` | All | AI OS for product managers — 65 skills, 36 commands, 8 plugins encoding PM frameworks |
 
 ### Planning & Review
 
@@ -410,7 +413,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill survey --skill vibe-kanban --skill workflow-automation \
   --skill fabric --skill autoresearch --skill langextract \
   --skill frouter --skill deepagents --skill clawteam \
-  --skill agent-manager
+  --skill agent-manager --skill pm-skills
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -483,6 +486,7 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |
 | `clawteam` | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) | MIT |
+| `pm-skills` | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) | MIT |
 | `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |

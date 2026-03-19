@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **87개 이상의 스킬** — 신규 추가: `agent-manager` — 서버 없이 tmux + Python으로 AI 에이전트 생명주기 관리
+> **88개 이상의 스킬** — 신규 추가: `pm-skills` — PM용 AI OS — 65개 스킬, 36개 명령어, 8개 플러그인
 
 [빠른 시작](#-빠른-시작) · [OMG 핵심](#-omg--핵심-오케스트레이션-스킬) · [숨겨진 기능](#-숨겨진-강력-기능) · [LangChain](#-langchain-통합) · [전체 카탈로그](#-전체-스킬-카탈로그) · [English](README.md)
 
@@ -184,6 +184,7 @@ stateDiagram-v2
 ║  deepagents  ║  LangGraph 배터리 포함 AI 에이전트 하네스         ║
 ║  clawteam    ║  프레임워크 무관 멀티에이전트 조율 CLI             ║
 ║  agent-manager║ tmux+Python 에이전트 생명주기 관리 — 서버 불필요 ║
+║  pm-skills   ║  PM용 AI OS — 65개 스킬, 36개 명령어, 8개 플러그인║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -205,6 +206,7 @@ stateDiagram-v2
 | `deepagents` | `deepagents`, `create_deep_agent` | 배터리 포함 LangGraph 에이전트 하네스 — 파일 도구, 미들웨어, 서브에이전트, HITL 즉시 사용 가능 | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) |
 | `clawteam` | `clawteam`, `agent swarm` | 프레임워크 무관 멀티에이전트 조율 CLI — tmux 팀 스폰, 태스크 큐, 인박스, 칸반 보드 | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) |
 | `agent-manager` | `agent-manager`, `start agent`, `stop agent`, `monitor agent` | tmux + Python 에이전트 생명주기 관리 — 서버 없이 시작/중지/모니터/일정 예약/하트비트 | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) |
+| `pm-skills` | `pm-skills`, `product discovery`, `write PRD`, `user stories`, `product strategy` | PM용 AI OS — Teresa Torres, Marty Cagan, Alberto Savoia 프레임워크를 담은 65개 스킬, 36개 명령어, 8개 플러그인 | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) |
 
 ---
 
@@ -279,6 +281,7 @@ graph TD
 | `bmad-idea` | `bmad-idea` | 전체 | 창의적 지능 — 5개 전문 아이디에이션 에이전트 |
 | `survey` | `survey` | 전체 | 구현 전 환경 분석 스캔 |
 | `clawteam` | `clawteam`, `agent swarm` | 전체 | 프레임워크 무관 멀티에이전트 조율 — tmux 팀 스폰, 태스크 큐, 칸반 보드 |
+| `pm-skills` | `pm-skills`, `product discovery`, `write PRD` | 전체 | PM용 AI OS — 65개 스킬, 36개 명령어, 8개 플러그인 (Teresa Torres, Marty Cagan 프레임워크) |
 
 ### 계획 & 리뷰
 
@@ -410,7 +413,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill survey --skill vibe-kanban --skill workflow-automation \
   --skill fabric --skill autoresearch --skill langextract \
   --skill frouter --skill deepagents --skill clawteam \
-  --skill agent-manager
+  --skill agent-manager --skill pm-skills
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -483,6 +486,7 @@ oh-my-gods가 도움이 되셨다면 프로젝트를 후원해 주세요!
 | `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |
 | `clawteam` | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) | MIT |
 | `agent-manager` | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) | MIT |
+| `pm-skills` | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) | MIT |
 | 에이전트 개발 원칙 | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
