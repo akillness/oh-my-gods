@@ -5,7 +5,6 @@ allowed-tools: Read Write Grep Glob
 metadata:
   tags: database, schema, SQL, NoSQL, PostgreSQL, MySQL, MongoDB, migration
   platforms: Claude, ChatGPT, Gemini
-allowed-tools: Read Write Grep Glob
 ---
 
 
