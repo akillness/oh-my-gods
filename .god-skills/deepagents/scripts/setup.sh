@@ -26,16 +26,24 @@ fi
 echo "✅ Python $python_version — OK"
 
 # --- Install deepagents ---
-if command -v uv &>/dev/null; then
-    echo "Installing deepagents via uv..."
-    uv add deepagents
-elif command -v pip &>/dev/null; then
-    echo "Installing deepagents via pip..."
-    pip install deepagents
-else
-    echo "ERROR: Neither uv nor pip found."
-    echo "Install uv (recommended): curl -LsSf https://astral.sh/uv/install.sh | sh"
+install_python="${PYTHON_BIN:-python3}"
+if ! "$install_python" -m pip --version &>/dev/null; then
+    echo "ERROR: python3 -m pip is not available."
     exit 1
+fi
+
+if command -v uv &>/dev/null && [[ -f "pyproject.toml" ]]; then
+    echo "Installing deepagents into the current uv project..."
+    uv add deepagents
+else
+    if [[ -n "${VIRTUAL_ENV:-}" ]]; then
+        echo "Installing deepagents into the active virtual environment..."
+        "$install_python" -m pip install -U deepagents
+    else
+        echo "No active virtualenv or pyproject.toml detected."
+        echo "Installing deepagents into the current user site-packages..."
+        "$install_python" -m pip install --user -U deepagents
+    fi
 fi
 
 echo "✅ deepagents installed"
@@ -43,29 +51,29 @@ echo "✅ deepagents installed"
 # --- Optional: MCP adapters ---
 if [ "${INSTALL_MCP:-0}" = "1" ]; then
     echo "Installing MCP adapters..."
-    if command -v uv &>/dev/null; then
+    if command -v uv &>/dev/null && [[ -f "pyproject.toml" ]]; then
         uv add langchain-mcp-adapters
     else
-        pip install langchain-mcp-adapters
+        "$install_python" -m pip install -U langchain-mcp-adapters
     fi
     echo "✅ langchain-mcp-adapters installed"
 fi
 
 # --- Optional: provider packages ---
 if [ "${INSTALL_ANTHROPIC:-0}" = "1" ]; then
-    pip install langchain-anthropic && echo "✅ langchain-anthropic installed"
+    "$install_python" -m pip install -U langchain-anthropic && echo "✅ langchain-anthropic installed"
 fi
 if [ "${INSTALL_OPENAI:-0}" = "1" ]; then
-    pip install langchain-openai && echo "✅ langchain-openai installed"
+    "$install_python" -m pip install -U langchain-openai && echo "✅ langchain-openai installed"
 fi
 if [ "${INSTALL_GOOGLE:-0}" = "1" ]; then
-    pip install langchain-google-genai && echo "✅ langchain-google-genai installed"
+    "$install_python" -m pip install -U langchain-google-genai && echo "✅ langchain-google-genai installed"
 fi
 
 # --- Verify import ---
 echo ""
 echo "Verifying installation..."
-python3 -c "from deepagents import create_deep_agent, __version__; print(f'deepagents {__version__} — import OK')"
+"$install_python" -c "from deepagents import create_deep_agent, __version__; print(f'deepagents {__version__} — import OK')"
 
 echo ""
 echo "=== Setup complete ==="
