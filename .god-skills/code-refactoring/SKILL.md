@@ -5,7 +5,6 @@ allowed-tools: Read Write Edit Grep Glob
 metadata:
   tags: refactoring, code-quality, DRY, SOLID, design-patterns, clean-code, simplification, behavior-preservation
   platforms: Claude, ChatGPT, Gemini, Codex
-allowed-tools: Read Write Edit Grep Glob
 ---
 
 
