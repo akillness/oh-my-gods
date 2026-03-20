@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Skills](https://img.shields.io/badge/Skills-89%2B-blue?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0tMiAxNWwtNS01IDEuNDEtMS40MUwxMCAxNC4xN2w3LjU5LTcuNTlMMTkgOGwtOSA5eiIvPjwvc3ZnPg==)](https://github.com/akillness/oh-my-gods)
+[![Skills](https://img.shields.io/badge/Skills-76-blue?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0tMiAxNWwtNS01IDEuNDEtMS40MUwxMCAxNC4xN2w3LjU5LTcuNTlMMTkgOGwtOSA5eiIvPjwvc3ZnPg==)](https://github.com/akillness/oh-my-gods)
 [![Platform](https://img.shields.io/badge/Platform-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-2.0.0-purple?style=for-the-badge)](CHANGELOG.md)
@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **89+ skills** — new: `ai-research-skills` — 86 AI research skills for autonomous ML research from idea to paper
+> **76 skills** — new: `ai-research-skills` — 86 AI research skills for autonomous ML research from idea to paper
 
 [Quick Start](#-quick-start) · [OMG Core](#-omg--core-orchestration-skill) · [Hidden Features](#-hidden-power-features) · [LangChain](#-langchain-integration) · [Full Catalog](#-full-skill-catalog) · [한국어](README.ko.md)
 
@@ -70,7 +70,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
 
 ## 🎯 What is oh-my-gods?
 
-`oh-my-gods` is a curated collection of **86+ AI agent skills** designed for LLM-based development workflows. Built around the `omg` orchestration protocol, it provides:
+`oh-my-gods` is a curated collection of **76 AI agent skills** designed for LLM-based development workflows. Built around the `omg` orchestration protocol, it provides:
 
 - **Unified orchestration** across Claude Code, Gemini CLI, OpenAI Codex, and OpenCode
 - **Plan → Execute → Verify → Cleanup** automated pipelines
@@ -261,6 +261,7 @@ graph TD
 | `langgraph-fundamentals` | "langgraph", "StateGraph" | Graph nodes, edges, streaming |
 | `langgraph-persistence` | "persist state", "checkpointer" | State persistence, PostgresSaver |
 | `langgraph-human-in-the-loop` | "interrupt", "pause for approval" | HITL patterns, idempotency |
+| `langgraph-workflow` | "stateful agent", "agent pipeline", "StateGraph workflow" | Production stateful multi-agent workflows — checkpointing, conditional branching, HITL gates, parallel nodes |
 | `deep-agents-core` | "deep agent", "create_deep_agent" | Deep Agents architecture & middleware |
 | `deep-agents-memory` | "agent memory", "StoreBackend" | Memory, persistence, filesystem |
 | `deep-agents-orchestration` | "subagent", "todo list", "HITL" | Subagents, task planning, approval |
@@ -273,7 +274,7 @@ graph TD
 
 | Skill | Keyword | Platform | Description |
 |-------|---------|----------|-------------|
-|  | `omg` |  | `omg` | All | Integrated orchestration: PLAN→EXECUTE→VERIFY→CLEANUP |
+| `omg` | `omg` | All | Integrated orchestration: PLAN→EXECUTE→VERIFY→CLEANUP |
 | `omc` | `omc`, `autopilot` | Claude Code | 32-agent multi-agent orchestration layer |
 | `omx` | `omx` | Codex CLI | 40+ workflow skills, tmux team orchestration |
 | `ohmg` | `ohmg` | Gemini CLI | Antigravity multi-agent framework |
@@ -354,6 +355,7 @@ graph TD
 | `opencontext` | Persistent memory and context management |
 | `prompt-repetition` | LLM accuracy via prompt repetition technique |
 | `deepagents` | Batteries-included LangGraph agent harness — `create_deep_agent()`, middleware, subagents, HITL |
+| `langgraph-workflow` | Stateful multi-agent workflows — StateGraph, checkpointing, HITL gates, parallel execution |
 | `ai-research-skills` | 86 AI research skills (22 categories) — autoresearch orchestration, fine-tuning, RLHF/GRPO, vLLM, RAG, multimodal, ML paper writing |
 
 ### Content & Media
@@ -415,7 +417,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
   --skill fabric --skill autoresearch --skill langextract \
-  --skill frouter --skill deepagents --skill clawteam \
+  --skill frouter --skill deepagents --skill langgraph-workflow --skill clawteam \
   --skill agent-manager --skill pm-skills \
   --skill ai-research-skills
 
