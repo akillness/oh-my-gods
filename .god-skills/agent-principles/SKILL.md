@@ -6,7 +6,7 @@ metadata:
   tags: agentic-development, principles, context-management, automation, multi-agent
   platforms: Claude, Gemini, ChatGPT, Codex
   version: 2.0.0
-  source: Claude Code Complete Guide: 70 Tips (ykdojo + Ado Kukic)
+  source: "Claude Code Complete Guide: 70 Tips (ykdojo + Ado Kukic)"
 ---
 
 

@@ -1,6 +1,7 @@
 ---
 name: standup-meeting
 description: Conduct effective daily standup meetings for agile teams. Use when facilitating standups, tracking blockers, or improving team synchronization. Handles standup format, time management, and blocker resolution.
+allowed-tools: Read Write Grep Glob
 metadata:
   tags: standup, daily-scrum, agile, team-sync, blockers
   platforms: Claude, ChatGPT, Gemini

@@ -1,6 +1,7 @@
 ---
 name: vercel-deploy
 description: "Deploy applications and websites to Vercel instantly. Use when asked to \"Deploy my app\", \"Deploy this to production\", \"Create a preview deployment\", or \"Push this live\". No authentication required - returns preview URL and claimable deployment link."
+allowed-tools: Bash Read Write Grep Glob
 metadata:
   author: vercel
   version: 1.0.0

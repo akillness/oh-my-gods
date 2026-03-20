@@ -1,0 +1,56 @@
+{
+  "skill_name": "ai-research-skills",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Install the AI Research Skills library and start an autonomous research project on 'Does GRPO training converge faster than PPO on instruction-following tasks?'",
+      "expected_output": "Runs 'npx @orchestra-research/ai-research-skills install --all', loads the autoresearch SKILL.md, sets up the research question, and begins the two-loop research cycle",
+      "assertions": [
+        "Invokes 'npx @orchestra-research/ai-research-skills' for installation",
+        "References the autoresearch skill for orchestration",
+        "Mentions the two-loop architecture (inner optimization + outer synthesis)",
+        "Identifies GRPO and TRL skills as relevant domain skills"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Fine-tune Llama-3.1-8B with LoRA using 4-bit quantization on my dataset",
+      "expected_output": "Activates the fine-tuning skills (Axolotl or Unsloth), provides LoRA + 4-bit config, references PEFT skill",
+      "assertions": [
+        "References at least one of: Axolotl, LLaMA-Factory, Unsloth, PEFT",
+        "Mentions 4-bit quantization (QLoRA / bitsandbytes)",
+        "Provides a configuration example with LoRA rank/alpha parameters"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Set up vLLM to serve my fine-tuned model with tensor parallelism on 2 A100s and target under 50ms TTFT",
+      "expected_output": "Activates the inference-serving (vLLM) skill, provides tensor parallelism config, mentions PagedAttention and continuous batching",
+      "assertions": [
+        "References vLLM skill from category 12-inference-serving",
+        "Includes tensor_parallel_size=2 configuration",
+        "Mentions PagedAttention and/or continuous batching for TTFT optimization"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Run GRPO post-training on my preference dataset using TRL",
+      "expected_output": "Activates the post-training skills (GRPO + TRL), provides training configuration and reward model setup",
+      "assertions": [
+        "References GRPO and TRL skills from category 06-post-training",
+        "Provides GRPOConfig or equivalent configuration",
+        "Mentions reward model or reward function setup"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Write an ML paper about my LoRA experiment results in NeurIPS format",
+      "expected_output": "Activates the ml-paper-writing skill, provides NeurIPS LaTeX template and structure",
+      "assertions": [
+        "References ml-paper-writing skill from category 20-ml-paper-writing",
+        "Mentions NeurIPS LaTeX template",
+        "Includes paper structure: abstract, introduction, related work, methods, experiments, conclusion"
+      ]
+    }
+  ]
+}

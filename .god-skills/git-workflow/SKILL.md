@@ -1,6 +1,7 @@
 ---
 name: git-workflow
 description: Manage Git workflows including commits, branches, merges, and collaboration. Use when working with Git repositories, creating commits, managing branches, or resolving conflicts.
+allowed-tools: Bash Read Write Grep Glob
 metadata:
   tags: git, version-control, branching, commits, collaboration
   platforms: Claude, ChatGPT, Gemini
