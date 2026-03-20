@@ -128,7 +128,7 @@ validate_skill() {
   # For block scalars, also collect continuation lines
   if [[ -z "$desc" ]] || [[ "$desc" == ">" ]] || [[ "$desc" == "|" ]]; then
     # Try to get multi-line description
-    desc=$(awk '/^description:/{found=1; next} found && /^  /{printf "%s ", $0; next} found{exit}' "$skill_md" | xargs)
+    desc=$(awk '/^description:/{found=1; next} found && /^  /{printf "%s ", $0; next} found{exit}' "$skill_md" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')
   fi
 
   if [[ -n "$desc" ]]; then
