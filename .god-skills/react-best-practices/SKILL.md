@@ -15,7 +15,7 @@ metadata:
 
 Comprehensive performance optimization guide for React and Next.js applications, maintained by Vercel. Contains 45 rules across 8 categories, prioritized by impact to guide automated refactoring and code generation.
 
-## When to Apply
+## When to use this skill
 
 Reference these guidelines when:
 - Writing new React components or Next.js pages
@@ -108,7 +108,7 @@ Reference these guidelines when:
 - `advanced-event-handler-refs` - Store event handlers in refs
 - `advanced-use-latest` - useLatest for stable callback refs
 
-## How to Use
+## Instructions
 
 For detailed explanations and code examples, read the full compiled document: `AGENTS.md`
 
@@ -118,7 +118,7 @@ Each rule contains:
 - Correct code example with explanation
 - Additional context and references
 
-## Key Examples
+## Examples
 
 ### Promise.all for Independent Operations (CRITICAL)
 
