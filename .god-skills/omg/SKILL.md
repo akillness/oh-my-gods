@@ -19,6 +19,16 @@ metadata:
 > A unified skill providing fully automated orchestration flow:
 > Plan (ralph+plannotator) → Execute (team/bmad) → UI Feedback (agentation/annotate) → Cleanup (worktree cleanup)
 
+## When to use this skill
+
+- When the user wants an end-to-end AI coding workflow across planning, execution, verification, and cleanup
+- When the task benefits from combining `ralph`, `plannotator`, `team` or `bmad`, browser verification, and optional UI annotation
+- When the user mentions `omg`, `annotate`, `UI검토`, or asks for a coordinated multi-platform agent workflow
+
+## Instructions
+
+Follow the execution protocol below in order. Do not skip PLAN, and only enable the UI feedback lane when the task actually needs browser or visual verification.
+
 ## Control Layers
 
 OMG uses one cross-platform abstraction for orchestration:
@@ -478,6 +488,20 @@ fi
 3. Update `omg-state.json` `phase` to `"done"`
 
 ---
+
+## Examples
+
+### Example 1: Full orchestration
+
+```text
+omg "ship the billing settings page and verify it in the browser"
+```
+
+### Example 2: Orchestration with UI feedback
+
+```text
+omg annotate "review the dashboard layout, collect annotations, and apply the fixes"
+```
 
 ## 1. Quick Start
 
