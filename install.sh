@@ -61,6 +61,40 @@ fatal()   { echo -e "${RED}[FATAL]${NC} $1"; exit 1; }
 cleanup() { [ -d "$TEMP_DIR" ] && rm -rf "$TEMP_DIR" || true; }
 trap cleanup EXIT
 
+available_skill_dir() {
+  [ -d "$SKILLS_SOURCE_DIR/$1" ]
+}
+
+collect_skill_args() {
+  local args=()
+  local skill
+  for skill in "$@"; do
+    if available_skill_dir "$skill"; then
+      args+=("--skill" "$skill")
+    else
+      warn "Skipping missing packaged skill: $skill"
+    fi
+  done
+  printf '%s\n' "${args[@]}"
+}
+
+install_skill_batch() {
+  local repo_url="$1"
+  shift
+  local args=()
+  while IFS= read -r arg; do
+    [ -n "$arg" ] && args+=("$arg")
+  done < <(collect_skill_args "$@")
+
+  if [ ${#args[@]} -eq 0 ]; then
+    warn "No packaged skills available for this install batch"
+    return 0
+  fi
+
+  npx skills add "$repo_url" "${args[@]}" 2>/dev/null || \
+    warn "Some requested skills failed during install — continuing..."
+}
+
 print_banner() {
   echo -e "${BLUE}"
   cat << 'BANNER'
@@ -151,46 +185,44 @@ install_via_skills_cli() {
 
   # Core OMG stack
   info "Installing core OMG stack..."
-  npx skills add "https://github.com/akillness/oh-my-gods" \
-    --skill omg --skill survey --skill plannotator --skill agentation \
-    --skill ralph --skill ralphmode --skill omc --skill omx --skill ohmg \
-    --skill bmad --skill bmad-idea \
-    2>/dev/null || warn "Some core skills may have failed — continuing..."
+  install_skill_batch "https://github.com/akillness/oh-my-gods" \
+    omg survey plannotator agentation \
+    ralph ralphmode omc omx ohmg \
+    bmad bmad-idea
 
   # Full skill set
   info "Installing full skill set..."
-  npx skills add "https://github.com/akillness/oh-my-gods" \
-    --skill agent-configuration --skill agent-evaluation \
-    --skill agent-development-principles --skill agent-principles \
-    --skill agent-workflow \
-    --skill bmad-gds \
-    --skill prompt-repetition --skill api-design \
-    --skill api-documentation --skill authentication-setup \
-    --skill backend-testing --skill database-schema-design \
-    --skill design-system --skill frontend-design-system \
-    --skill react-best-practices --skill vercel-react-best-practices \
-    --skill responsive-design --skill state-management \
-    --skill ui-component-patterns --skill web-design-guidelines \
-    --skill code-refactoring --skill code-review --skill debugging \
-    --skill performance-optimization --skill testing-strategies \
-    --skill deployment-automation --skill firebase-ai-logic \
-    --skill genkit --skill monitoring-observability \
-    --skill security-best-practices --skill environment-setup \
-    --skill vercel-deploy --skill changelog-maintenance \
-    --skill presentation-builder --skill technical-writing \
-    --skill user-guide-writing --skill sprint-retrospective \
-    --skill standup-meeting --skill task-estimation \
-    --skill task-planning --skill codebase-search \
-    --skill data-analysis --skill log-analysis \
-    --skill pattern-detection --skill llm-monitoring-dashboard \
-    --skill image-generation --skill pollinations-ai \
-    --skill video-production --skill marketing-automation \
-    --skill agent-browser --skill ai-tool-compliance \
-    --skill file-organization --skill git-submodule --skill git-workflow \
-    --skill opencontext --skill playwriter \
-    --skill skill-standardization --skill vibe-kanban \
-    --skill workflow-automation --skill fabric --skill autoresearch \
-    2>/dev/null || warn "Some extended skills may have failed — continuing..."
+  install_skill_batch "https://github.com/akillness/oh-my-gods" \
+    agent-configuration agent-evaluation \
+    agent-development-principles agent-principles \
+    agent-workflow \
+    bmad-gds \
+    prompt-repetition api-design \
+    api-documentation authentication-setup \
+    backend-testing database-schema-design \
+    design-system frontend-design-system \
+    react-best-practices vercel-react-best-practices \
+    responsive-design state-management \
+    ui-component-patterns web-design-guidelines \
+    code-refactoring code-review debugging \
+    performance-optimization testing-strategies \
+    deployment-automation firebase-ai-logic \
+    genkit monitoring-observability \
+    security-best-practices environment-setup \
+    vercel-deploy changelog-maintenance \
+    presentation-builder technical-writing \
+    user-guide-writing sprint-retrospective \
+    standup-meeting task-estimation \
+    task-planning codebase-search \
+    data-analysis log-analysis \
+    pattern-detection llm-monitoring-dashboard \
+    image-generation pollinations-ai \
+    video-production marketing-automation \
+    agent-browser ai-tool-compliance \
+    file-organization git-submodule git-workflow \
+    opencontext playwriter \
+    skill-standardization vibe-kanban \
+    workflow-automation fabric autoresearch
 
   ok "Skills installed via skills CLI"
 }
