@@ -175,6 +175,7 @@ stateDiagram-v2
 ║  bmad-idea   ║  Creative AI — 5 specialist ideation agents      ║
 ║  survey      ║  Pre-implementation landscape scan               ║
 ║  autoresearch║  Autonomous overnight ML experiments (Karpathy)  ║
+║  skill-autoresearch║ Eval-driven skill optimization loop        ║
 ║  fabric      ║  AI prompt patterns & content extraction CLI     ║
 ║  agentation  ║  UI annotation → agent code fix (annotate)      ║
 ║  plannotator ║  Visual plan/diff review browser UI              ║
@@ -198,6 +199,7 @@ stateDiagram-v2
 | `bmad-idea` | `bmad-idea` | 5 creative specialist agents — design thinking, innovation, storytelling | Internal |
 | `survey` | `survey` | Cross-platform landscape scan before planning; saves artifacts to `.survey/` | Internal |
 | `autoresearch` | `autoresearch`, `val_bpb` | Karpathy-style autonomous GPU overnight experiments with git ratchet | Karpathy methodology |
+| `skill-autoresearch` | `skill-autoresearch`, `optimize this skill` | Eval-driven loop for improving an existing SKILL.md with binary checks and mutation tracking | olelehmann100kMRR/autoresearch-skill |
 | `fabric` | `fabric` | AI prompt orchestration via reusable Patterns; YouTube summaries, doc analysis | [fabric](https://github.com/danielmiessler/fabric) |
 | `agentation` | `annotate`, `UI검토` | Click UI elements → AI applies targeted code fixes via CSS selectors | [agentation](https://github.com/benjitaylor/agentation) |
 | `plannotator` | `plan` | Visual browser UI for reviewing AI-generated plans; approve or send feedback | [plannotator](https://plannotator.ai) |
@@ -344,6 +346,7 @@ graph TD
 | Skill | Description |
 |-------|-------------|
 | `autoresearch` | Autonomous ML experiments (Karpathy methodology) |
+| `skill-autoresearch` | Eval-driven optimization loop for improving an existing SKILL.md |
 | `fabric` | AI prompt patterns — YouTube summaries, doc analysis · [LM Studio 설정](docs/fabric/README.md) |
 | `langextract` | LLM-powered structured extraction from text with character-level provenance (Gemini/OpenAI/Ollama) |
 | `genkit` | Firebase Genkit AI flows and RAG pipelines |

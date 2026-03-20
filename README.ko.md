@@ -175,6 +175,7 @@ stateDiagram-v2
 ║  bmad-idea   ║  창의적 AI — 5개 전문 아이디에이션 에이전트       ║
 ║  survey      ║  구현 전 환경 분석 스캔                           ║
 ║  autoresearch║  자율 야간 ML 실험 (Karpathy 방법론)              ║
+║  skill-autoresearch║ eval 기반 스킬 최적화 루프                 ║
 ║  fabric      ║  재사용 패턴 기반 AI 프롬프트 오케스트레이션 CLI  ║
 ║  agentation  ║  UI 어노테이션 → 에이전트 코드 수정 (annotate)   ║
 ║  plannotator ║  시각적 계획/diff 리뷰 브라우저 UI               ║
@@ -198,6 +199,7 @@ stateDiagram-v2
 | `bmad-idea` | `bmad-idea` | 5개 창의적 전문 에이전트 — 디자인 씽킹, 혁신, 스토리텔링 | 내부 |
 | `survey` | `survey` | 구현 전 크로스 플랫폼 환경 분석; `.survey/`에 결과물 저장 | 내부 |
 | `autoresearch` | `autoresearch`, `val_bpb` | Karpathy 스타일 자율 GPU 야간 실험 및 git 래칫 | Karpathy 방법론 |
+| `skill-autoresearch` | `skill-autoresearch`, `optimize this skill` | 기존 `SKILL.md` 를 바이너리 체크와 mutation 기록으로 개선하는 eval 기반 루프 | olelehmann100kMRR/autoresearch-skill |
 | `fabric` | `fabric` | 재사용 패턴 AI 프롬프트; YouTube 요약, 문서 분석 | [fabric](https://github.com/danielmiessler/fabric) |
 | `agentation` | `annotate`, `UI검토` | UI 요소 클릭 → AI가 CSS 선택자로 코드 수정 | [agentation](https://github.com/benjitaylor/agentation) |
 | `plannotator` | `plan` | AI 생성 계획 브라우저 리뷰 UI; 승인 또는 피드백 전송 | [plannotator](https://plannotator.ai) |
@@ -344,6 +346,7 @@ graph TD
 | 스킬 | 설명 |
 |------|------|
 | `autoresearch` | 자율 ML 실험 (Karpathy 방법론) |
+| `skill-autoresearch` | 기존 `SKILL.md` 자체를 eval 기반으로 반복 개선하는 최적화 루프 |
 | `fabric` | AI 프롬프트 패턴 — YouTube 요약, 문서 분석 · [LM Studio 설정](docs/fabric/README.md) |
 | `langextract` | LLM 기반 비정형 텍스트 구조화 추출 — 문자 단위 출처 추적 지원 (Gemini/OpenAI/Ollama) |
 | `genkit` | Firebase Genkit AI 플로우 및 RAG 파이프라인 |

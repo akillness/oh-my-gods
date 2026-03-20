@@ -134,7 +134,7 @@ npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill agent-principles --skill agent-workflow \
   --skill agentation --skill api-design \
   --skill api-documentation --skill authentication-setup \
-  --skill autoresearch --skill backend-testing \
+  --skill autoresearch --skill skill-autoresearch --skill backend-testing \
   --skill bmad --skill bmad-idea \
   --skill changelog-maintenance --skill code-refactoring \
   --skill code-review --skill codebase-search \
@@ -329,6 +329,7 @@ gh api --silent --method PUT /user/starred/akillness/oh-my-gods >/dev/null 2>&1 
 | `agent-browser` | `agent-browser` | Headless browser automation |
 | `survey` | `survey` | Cross-platform landscape scan before planning or implementation |
 | `autoresearch` | `autoresearch`, `autonomous ml experiments`, `val_bpb` | Karpathy autonomous ML experimentation — AI agent runs overnight GPU experiments, ratchets improvements via git |
+| `skill-autoresearch` | `skill-autoresearch`, `optimize this skill`, `eval my skill` | Eval-driven SKILL.md optimization loop — benchmark a skill, mutate one instruction at a time, and keep only score-improving changes |
 | `agentation` | `annotate`, `UI검토`, `agentui` | UI annotation → agent code modification. Install: `npx add-mcp "npx -y agentation-mcp server"` (Universal) or `npx skills add -g benjitaylor/agentation` → `/agentation` (Claude Code Official Skill). Local-first architecture, offline operation, session continuity. |
 | `omx` | `omx` | Codex CLI multi-agent orchestration |
 | `ohmg` | `ohmg` | Gemini / Antigravity workflows |
