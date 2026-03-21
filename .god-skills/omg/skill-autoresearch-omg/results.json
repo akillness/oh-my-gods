@@ -1,0 +1,66 @@
+{
+  "skill": "omg",
+  "baseline_path": "SKILL.md.baseline",
+  "evals": [
+    {"id": "E1", "name": "State Bootstrap First", "question": "Does the agent create omg-state.json as the very first action before any other step?"},
+    {"id": "E2", "name": "Plan Before Execute", "question": "Does the agent write plan.md and wait for approval before any execution work?"},
+    {"id": "E3", "name": "Never Rules Respected", "question": "Does the agent output respect all NEVER constraints (no execute without approval, no background plannotator, no draft annotation processing)?"},
+    {"id": "E4", "name": "Platform Detection", "question": "Does the agent correctly detect platform and team availability before choosing execution path?"},
+    {"id": "E5", "name": "Phase Ordering", "question": "Does the agent follow strict PLAN→EXECUTE→VERIFY→CLEANUP ordering without skipping phases?"},
+    {"id": "E6", "name": "Annotate Keyword Handling", "question": "When annotate keyword is present, does the agent correctly enter VERIFY_UI sub-phase with submit gate?"}
+  ],
+  "test_inputs": [
+    {"id": "T1", "input": "omg implement user authentication with JWT", "context": "Claude Code with team mode enabled, no annotate keyword"},
+    {"id": "T2", "input": "omg annotate fix the dashboard layout issues", "context": "Claude Code with team mode, annotate keyword present"},
+    {"id": "T3", "input": "omg redesign the REST API endpoints for v2", "context": "Codex CLI, no team mode, BMAD fallback"},
+    {"id": "T4", "input": "omg add dark mode support", "context": "Claude Code, team mode disabled, should error"},
+    {"id": "T5", "input": "omg 로그인 페이지 리디자인해줘", "context": "Korean input, Claude Code with team mode"}
+  ],
+  "experiments": [
+    {
+      "id": 0,
+      "status": "baseline",
+      "description": "Original SKILL.md as-is (14.5k tokens, 1165 lines)",
+      "score": 28,
+      "max_score": 30,
+      "pass_rate": "93.3%",
+      "details": {
+        "T1": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1},
+        "T2": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1},
+        "T3": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1},
+        "T4": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 0, "E6": 0},
+        "T5": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1}
+      }
+    },
+    {
+      "id": 1,
+      "status": "keep",
+      "description": "Structural rewrite: 1165→285 lines (75% reduction), NEVER rules at top, reference docs extracted",
+      "score": 29,
+      "max_score": 30,
+      "pass_rate": "96.7%",
+      "details": {
+        "T1": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1},
+        "T2": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1},
+        "T3": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1},
+        "T4": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 0, "E6": 1},
+        "T5": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1}
+      }
+    },
+    {
+      "id": 2,
+      "status": "keep",
+      "description": "Add explicit early-exit documentation for Claude Code + teams disabled path",
+      "score": 30,
+      "max_score": 30,
+      "pass_rate": "100%",
+      "details": {
+        "T1": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1},
+        "T2": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1},
+        "T3": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1},
+        "T4": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1},
+        "T5": {"E1": 1, "E2": 1, "E3": 1, "E4": 1, "E5": 1, "E6": 1}
+      }
+    }
+  ]
+}

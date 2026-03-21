@@ -1,0 +1,4 @@
+experiment	score	max_score	pass_rate	status	description
+0	28	30	93.3%	baseline	Original SKILL.md as-is (14.5k tokens, 1165 lines)
+1	29	30	96.7%	keep	Structural rewrite: 1165→285 lines (75% reduction), NEVER rules at top, reference docs extracted
+2	30	30	100%	keep	Add explicit early-exit documentation for Claude Code + teams disabled path

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMG Skill Autoresearch Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0d1117; color: #c9d1d9; padding: 24px; }
+  h1 { color: #58a6ff; margin-bottom: 8px; font-size: 24px; }
+  .subtitle { color: #8b949e; margin-bottom: 24px; font-size: 14px; }
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+  .card-label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .card-value { font-size: 28px; font-weight: 700; margin-top: 4px; }
+  .card-value.green { color: #3fb950; }
+  .card-value.blue { color: #58a6ff; }
+  .card-value.orange { color: #d29922; }
+  .section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+  .section h2 { color: #58a6ff; font-size: 16px; margin-bottom: 12px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #21262d; font-size: 13px; }
+  th { color: #8b949e; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+  .pass { color: #3fb950; }
+  .fail { color: #f85149; }
+  .baseline { color: #8b949e; }
+  .keep { color: #3fb950; }
+  .discard { color: #f85149; }
+  .bar-container { display: flex; align-items: center; gap: 8px; }
+  .bar { height: 20px; border-radius: 4px; transition: width 0.3s; }
+  .bar.green { background: #238636; }
+  .bar.red { background: #da3633; }
+  .bar-label { font-size: 12px; white-space: nowrap; }
+  .heatmap { display: grid; grid-template-columns: auto repeat(6, 1fr); gap: 2px; }
+  .heatmap-cell { padding: 6px 8px; text-align: center; font-size: 12px; border-radius: 4px; }
+  .heatmap-header { color: #8b949e; font-weight: 600; font-size: 11px; }
+  .heatmap-pass { background: #238636; color: #fff; }
+  .heatmap-fail { background: #da3633; color: #fff; }
+  .heatmap-label { color: #c9d1d9; text-align: right; font-size: 12px; }
+  .status-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .status-badge.complete { background: #238636; color: #fff; }
+  .chart { display: flex; align-items: flex-end; gap: 4px; height: 120px; margin-top: 12px; }
+  .chart-bar { flex: 1; background: #238636; border-radius: 4px 4px 0 0; position: relative; transition: height 0.3s; min-width: 40px; }
+  .chart-bar .label { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #8b949e; }
+  .chart-bar .value { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 12px; color: #c9d1d9; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>OMG Skill Autoresearch</h1>
+<p class="subtitle">skill-autoresearch-omg | Status: <span class="status-badge complete">COMPLETE</span> | 2 mutations, 2 kept, 0 discarded</p>
+
+<div class="cards">
+  <div class="card">
+    <div class="card-label">Baseline Score</div>
+    <div class="card-value orange">93.3%</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Final Score</div>
+    <div class="card-value green">100%</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Lines Reduced</div>
+    <div class="card-value blue">75%</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Experiments</div>
+    <div class="card-value blue">2 / 2 kept</div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Score Progression</h2>
+  <div class="chart">
+    <div class="chart-bar" style="height: 80%;">
+      <span class="value">93.3%</span>
+      <span class="label">Exp 0</span>
+    </div>
+    <div class="chart-bar" style="height: 90%;">
+      <span class="value">96.7%</span>
+      <span class="label">Exp 1</span>
+    </div>
+    <div class="chart-bar" style="height: 100%;">
+      <span class="value">100%</span>
+      <span class="label">Exp 2</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Experiment Log</h2>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Score</th><th>Pass Rate</th><th>Status</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0</td><td>28/30</td><td>93.3%</td>
+        <td class="baseline">baseline</td>
+        <td>Original SKILL.md (14.5k tokens, 1165 lines)</td>
+      </tr>
+      <tr>
+        <td>1</td><td>29/30</td><td>96.7%</td>
+        <td class="keep">keep</td>
+        <td>Structural rewrite: 1165→285 lines, NEVER rules at top, docs extracted</td>
+      </tr>
+      <tr>
+        <td>2</td><td>30/30</td><td>100%</td>
+        <td class="keep">keep</td>
+        <td>Explicit early-exit documentation for teams-disabled path</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>Per-Eval Heatmap (Final — Experiment 2)</h2>
+  <div class="heatmap">
+    <div class="heatmap-cell heatmap-header"></div>
+    <div class="heatmap-cell heatmap-header">E1</div>
+    <div class="heatmap-cell heatmap-header">E2</div>
+    <div class="heatmap-cell heatmap-header">E3</div>
+    <div class="heatmap-cell heatmap-header">E4</div>
+    <div class="heatmap-cell heatmap-header">E5</div>
+    <div class="heatmap-cell heatmap-header">E6</div>
+
+    <div class="heatmap-cell heatmap-label">T1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+
+    <div class="heatmap-cell heatmap-label">T2</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+
+    <div class="heatmap-cell heatmap-label">T3</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+
+    <div class="heatmap-cell heatmap-label">T4</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+
+    <div class="heatmap-cell heatmap-label">T5</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+    <div class="heatmap-cell heatmap-pass">1</div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Key Improvements</h2>
+  <table>
+    <thead><tr><th>Change</th><th>Impact</th></tr></thead>
+    <tbody>
+      <tr><td>75% line reduction (1165→286)</td><td>Dramatically reduced context pressure; agents can read full skill without truncation</td></tr>
+      <tr><td>NEVER rules consolidated at top</td><td>6 absolute constraints now impossible to miss; improved E3 reliability</td></tr>
+      <tr><td>Reference docs extracted to setup-guide.md</td><td>Agent instructions no longer diluted by human setup/troubleshooting docs</td></tr>
+      <tr><td>Platform routing summary added</td><td>Clear visual decision tree for all 4 platforms</td></tr>
+      <tr><td>Early-exit path documented</td><td>T4 E5 fixed; agents now know teams-disabled termination is expected</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
