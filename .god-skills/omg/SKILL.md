@@ -7,7 +7,7 @@ metadata:
   tags: omg, orchestration, ralph, plannotator, agentation, annotate, agentui, UI검토, team, bmad, omc, omx, ohmg, agent-browser, multi-agent, workflow, worktree-cleanup, browser-verification, ui-feedback
   platforms: Claude, Codex, Gemini, OpenCode
   keyword: omg
-  version: 1.4.0
+  version: 1.5.0
   source: supercent-io/skills-template
 ---
 
@@ -52,6 +52,7 @@ Authoritative state: `.omc/state/omg-state.json`
 
 ```bash
 mkdir -p .omc/state .omc/plans .omc/logs
+mkdir -p .omg/long-term .omg/short-term
 ```
 
 If `.omc/state/omg-state.json` does not exist, create it:
@@ -90,6 +91,55 @@ If `.omc/state/omg-state.json` does not exist, create it:
 ```
 
 Notify: `"OMG activated. Phase: PLAN. Add the 'annotate' keyword if a UI feedback loop is needed."`
+
+---
+
+## Project Management (.omg/ folder)
+
+Three-phase development flow:
+```
+PLANNING (기획) → DEVELOPMENT (개발) → QA (품질검증)
+```
+
+Each OMG execution maps to one phase:
+- **PLANNING**: Read `.omg/long-term/` (concept, rules, validation), check backlog, write plan.md
+- **DEVELOPMENT**: Read `.omg/short-term/` (system, unit-tests, flow-tests), move backlog → progress, execute
+- **QA**: Run tests per `.omg/short-term/unit-tests.md` + `flow-tests.md`, validate against `.omg/long-term/validation.md`
+
+### Document Lifecycle
+
+At each STEP the agent MUST:
+1. **Check**: Read `.omg/backlog.md` and `.omg/progress.md` at STEP 0
+2. **Update**: Move completed items from `progress.md` → `history.md` at STEP 4 (CLEANUP)
+3. **Prune**: Remove empty plan files in `.omg/short-term/` after all items are completed
+4. **Add**: Append newly discovered tasks to `backlog.md` during execution
+
+### Flow Map
+
+```
+STEP 0: Bootstrap
+  └─ mkdir -p .omg/{long-term,short-term}
+  └─ Read .omg/backlog.md, .omg/progress.md
+  └─ Load context from .omg/long-term/ into plan
+
+STEP 1: PLAN
+  └─ Reference .omg/long-term/concept.md for goals
+  └─ Reference .omg/long-term/rules.md for constraints
+  └─ Move relevant backlog items to progress.md
+
+STEP 2: EXECUTE
+  └─ Follow .omg/short-term/ plans
+  └─ Update progress.md with status
+
+STEP 3: VERIFY
+  └─ Validate against .omg/long-term/validation.md
+  └─ Check .omg/short-term/unit-tests.md + flow-tests.md
+
+STEP 4: CLEANUP
+  └─ Archive completed items: progress.md → history.md
+  └─ Prune empty short-term plan files
+  └─ Add newly discovered tasks to backlog.md
+```
 
 ---
 
@@ -223,6 +273,8 @@ bash scripts/worktree-cleanup.sh || git worktree prune
 ```
 
 Update state: `phase="done"`
+
+Archive completed `.omg/` items: move entries from `progress.md` → `history.md`, then prune empty `.omg/short-term/` plan files and append any newly discovered tasks to `backlog.md`.
 
 > Default: removes only clean extra worktrees. Dirty worktrees are left with a warning. Use `--force` only after review.
 

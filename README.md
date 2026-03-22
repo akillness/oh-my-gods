@@ -120,6 +120,8 @@ graph TD
 
 OMG orchestrates a complete, automated development pipeline across all AI agent platforms.
 
+- **Project management** — `.omg/` folder tracks long-term plans (concept, rules, validation), short-term plans (system, tests), backlog, progress, and history. The OMG agent checks and updates these documents automatically during execution.
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                     OMG WORKFLOW                                │
