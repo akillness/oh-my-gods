@@ -47,10 +47,6 @@ npm install -g skills
 curl -s https://raw.githubusercontent.com/akillness/oh-my-gods/main/setup-all-skills-prompt.md
 ```
 
-```bash
-# Or install directly in one line
-curl -fsSL https://raw.githubusercontent.com/akillness/oh-my-gods/main/install.sh | bash
-```
 
 ```bash
 # Manual — core OMG stack
