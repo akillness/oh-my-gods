@@ -262,7 +262,7 @@ Record checkpoint: `phase="cleanup"`
 ### Pre-flight
 
 ```bash
-git rev-parse --is-inside-work-tree >/dev/null 2>&1 || echo "⚠️ Not a git repo — skip cleanup"
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || echo "WARNING: Not a git repo -- skip cleanup"
 git status --porcelain | wc -l  # warn if uncommitted changes
 ```
 
