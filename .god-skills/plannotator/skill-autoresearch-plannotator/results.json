@@ -1,0 +1,94 @@
+{
+  "experiment": "skill-autoresearch-plannotator",
+  "skill": "plannotator",
+  "skill_path": ".god-skills/plannotator/SKILL.md",
+  "date": "2026-03-22",
+  "baseline_lines": 576,
+  "mutated_lines": 215,
+  "evals": [
+    {
+      "id": "EVAL1",
+      "name": "Plan Review Flow",
+      "question": "Does the skill clearly instruct agents on how to submit a plan for review and handle the response?",
+      "pass_criteria": "Submit plan → wait for feedback → handle approve/reject is explicit",
+      "fail_criteria": "Flow is unclear or missing steps"
+    },
+    {
+      "id": "EVAL2",
+      "name": "Hook Integration",
+      "question": "Does the skill clearly explain how the ExitPlanMode hook triggers plannotator automatically?",
+      "pass_criteria": "Hook trigger mechanism is clear for the agent's platform",
+      "fail_criteria": "Hook mechanism is buried or unclear"
+    },
+    {
+      "id": "EVAL3",
+      "name": "Feedback Handling",
+      "question": "Does the skill clearly instruct agents to read structured feedback and replan when changes are requested?",
+      "pass_criteria": "Feedback parsing and replan loop is explicit",
+      "fail_criteria": "Agent doesn't know what to do with 'request changes' feedback"
+    },
+    {
+      "id": "EVAL4",
+      "name": "Code Review Pattern",
+      "question": "Does the skill clearly instruct agents on when and how to launch diff review after coding?",
+      "pass_criteria": "Code review trigger and usage is clear",
+      "fail_criteria": "Code review is unclear or missing"
+    },
+    {
+      "id": "EVAL5",
+      "name": "Platform Routing",
+      "question": "Does the skill clearly route agents to the correct integration method per platform?",
+      "pass_criteria": "Platform-specific paths are clear and distinct",
+      "fail_criteria": "Platforms are mixed or agent can't determine correct path"
+    }
+  ],
+  "test_inputs": [
+    { "id": "T1", "description": "Plan the authentication feature (Claude Code, ExitPlanMode hook)" },
+    { "id": "T2", "description": "Review the plan before coding (Codex CLI, manual invocation)" },
+    { "id": "T3", "description": "plannotator 코드 리뷰해줘 (Korean, Gemini CLI)" },
+    { "id": "T4", "description": "Review my last commit diff (code review, not plan review)" }
+  ],
+  "results": {
+    "baseline": {
+      "scores": {
+        "EVAL1": { "T1": 1, "T2": 0, "T3": 0, "T4": 0, "total": 1, "pct": 25 },
+        "EVAL2": { "T1": 1, "T2": 0, "T3": 0, "T4": 0, "total": 1, "pct": 25 },
+        "EVAL3": { "T1": 0, "T2": 0, "T3": 0, "T4": 0, "total": 0, "pct": 0 },
+        "EVAL4": { "T1": 0, "T2": 1, "T3": 0, "T4": 1, "total": 2, "pct": 50 },
+        "EVAL5": { "T1": 1, "T2": 0, "T3": 0, "T4": 0, "total": 1, "pct": 25 }
+      },
+      "total_score": 5,
+      "max_score": 20,
+      "overall_pct": 25
+    },
+    "mutated": {
+      "scores": {
+        "EVAL1": { "T1": 1, "T2": 1, "T3": 1, "T4": 1, "total": 4, "pct": 100 },
+        "EVAL2": { "T1": 1, "T2": 1, "T3": 1, "T4": 1, "total": 4, "pct": 100 },
+        "EVAL3": { "T1": 1, "T2": 1, "T3": 1, "T4": 1, "total": 4, "pct": 100 },
+        "EVAL4": { "T1": 1, "T2": 1, "T3": 1, "T4": 1, "total": 4, "pct": 100 },
+        "EVAL5": { "T1": 1, "T2": 1, "T3": 1, "T4": 1, "total": 4, "pct": 100 }
+      },
+      "total_score": 20,
+      "max_score": 20,
+      "overall_pct": 100
+    }
+  },
+  "delta": {
+    "score_gain": 15,
+    "pct_gain": 75,
+    "line_reduction": 361,
+    "line_reduction_pct": 63,
+    "key_changes": [
+      "Added Key Rules section at top — 6 agent-actionable rules",
+      "Added Platform Routing Table — all 4 platforms in one glance",
+      "Rewrote plan review as explicit numbered agent workflow",
+      "Added Feedback Handling section with replan loop diagram",
+      "Added python3 feedback parsing snippet",
+      "Added Annotation Guidance table — maps annotation type to agent action",
+      "Extracted setup/install/Obsidian to references/setup-guide.md (350+ lines)",
+      "Removed 130-line Obsidian section from main skill file",
+      "Removed Pattern 1, 2, 5, 6, 7, 8, 9, 10 from main skill file"
+    ]
+  }
+}

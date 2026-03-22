@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>plannotator — Skill Autoresearch Dashboard</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #21262d;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --red: #f85149;
+    --yellow: #d29922;
+    --purple: #bc8cff;
+    --orange: #ffa657;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 32px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+
+  header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  header h1 .badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--surface2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  header .meta {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-top: 6px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .card h2 {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .stat-value.green { color: var(--green); }
+  .stat-value.red { color: var(--red); }
+  .stat-value.blue { color: var(--accent); }
+  .stat-value.purple { color: var(--purple); }
+
+  .stat-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+    margin-top: 8px;
+  }
+
+  /* Score progression bar */
+  .progress-section { margin-bottom: 24px; }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  .progress-label .name { color: var(--text-muted); }
+  .progress-label .score { color: var(--text); font-weight: 600; }
+
+  .progress-track {
+    background: var(--surface2);
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+
+  .progress-fill.baseline { background: var(--red); }
+  .progress-fill.mutated { background: var(--green); }
+
+  /* Heatmap */
+  .heatmap-grid {
+    display: grid;
+    grid-template-columns: 140px repeat(4, 1fr);
+    gap: 4px;
+    font-size: 12px;
+  }
+
+  .heatmap-header {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    padding: 4px 0;
+  }
+
+  .heatmap-row-label {
+    color: var(--text-muted);
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    padding-right: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .heatmap-cell {
+    border-radius: 4px;
+    padding: 8px 4px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .heatmap-cell.pass { background: rgba(63, 185, 80, 0.25); color: var(--green); }
+  .heatmap-cell.fail { background: rgba(248, 81, 73, 0.2); color: var(--red); }
+  .heatmap-cell.improved { background: rgba(88, 166, 255, 0.15); color: var(--accent); }
+
+  .heatmap-section { margin-bottom: 24px; }
+  .heatmap-section h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
+  /* Changes list */
+  .changes-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .changes-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .changes-list li .icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(63, 185, 80, 0.2);
+    color: var(--green);
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    font-weight: 700;
+  }
+
+  .changes-list li .icon.extract {
+    background: rgba(88, 166, 255, 0.15);
+    color: var(--accent);
+  }
+
+  /* File tree */
+  .file-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .file-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 6px 10px;
+    background: var(--surface2);
+    border-radius: 4px;
+  }
+
+  .file-list .fname {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--accent);
+  }
+
+  .file-list .tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+  .file-list .tag.new { background: rgba(63, 185, 80, 0.2); color: var(--green); }
+  .file-list .tag.rewritten { background: rgba(210, 153, 34, 0.2); color: var(--yellow); }
+  .file-list .tag.backup { background: rgba(188, 140, 255, 0.2); color: var(--purple); }
+
+  section { margin-bottom: 32px; }
+
+  section > h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .version-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .version-box {
+    background: var(--surface2);
+    border-radius: 6px;
+    padding: 16px;
+  }
+
+  .version-box h4 {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+
+  .version-box.baseline h4 { color: var(--red); }
+  .version-box.mutated h4 { color: var(--green); }
+
+  .version-box p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    color: var(--text-muted);
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>
+    plannotator
+    <span class="badge">skill-autoresearch</span>
+  </h1>
+  <div class="meta">Experiment run: 2026-03-22 &nbsp;·&nbsp; Skill version: 0.9.2 &nbsp;·&nbsp; 5 evals × 4 test inputs × 2 versions = 40 scored pairs</div>
+</header>
+
+<!-- KPI Cards -->
+<div class="grid-3">
+  <div class="card">
+    <h2>Overall Score</h2>
+    <div class="stat-value green">20<span style="font-size:20px;color:var(--text-muted)">/20</span></div>
+    <div class="stat-sub">Mutated version</div>
+    <div class="delta">&#9650; +15 pts from baseline (5/20)</div>
+  </div>
+  <div class="card">
+    <h2>Pass Rate</h2>
+    <div class="stat-value green">100%</div>
+    <div class="stat-sub">Mutated &nbsp;·&nbsp; Baseline was 25%</div>
+    <div class="delta">&#9650; +75 percentage points</div>
+  </div>
+  <div class="card">
+    <h2>Line Reduction</h2>
+    <div class="stat-value blue">63%</div>
+    <div class="stat-sub">576 → 215 lines (main file)</div>
+    <div class="delta" style="color:var(--accent)">&#8595; 361 lines moved to setup-guide.md</div>
+  </div>
+</div>
+
+<!-- Score Progression -->
+<section>
+  <h2>Score Progression by Eval</h2>
+  <div class="card">
+    <div style="margin-bottom:20px">
+      <div class="progress-label">
+        <span class="name">EVAL1 · Plan Review Flow</span>
+        <span class="score">Baseline 1/4 → Mutated 4/4</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px">
+        <span style="font-size:11px;color:var(--text-muted);width:60px">Baseline</span>
+        <div class="progress-track" style="flex:1">
+          <div class="progress-fill baseline" style="width:25%"></div>
+        </div>
+        <span style="font-size:11px;color:var(--red);width:28px">25%</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <span style="font-size:11px;color:var(--text-muted);width:60px">Mutated</span>
+        <div class="progress-track" style="flex:1">
+          <div class="progress-fill mutated" style="width:100%"></div>
+        </div>
+        <span style="font-size:11px;color:var(--green);width:28px">100%</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <div class="progress-label">
+        <span class="name">EVAL2 · Hook Integration</span>
+        <span class="score">Baseline 1/4 → Mutated 4/4</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px">
+        <span style="font-size:11px;color:var(--text-muted);width:60px">Baseline</span>
+        <div class="progress-track" style="flex:1">
+          <div class="progress-fill baseline" style="width:25%"></div>
+        </div>
+        <span style="font-size:11px;color:var(--red);width:28px">25%</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <span style="font-size:11px;color:var(--text-muted);width:60px">Mutated</span>
+        <div class="progress-track" style="flex:1">
+          <div class="progress-fill mutated" style="width:100%"></div>
+        </div>
+        <span style="font-size:11px;color:var(--green);width:28px">100%</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <div class="progress-label">
+        <span class="name">EVAL3 · Feedback Handling</span>
+        <span class="score">Baseline 0/4 → Mutated 4/4</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px">
+        <span style="font-size:11px;color:var(--text-muted);width:60px">Baseline</span>
+        <div class="progress-track" style="flex:1">
+          <div class="progress-fill baseline" style="width:0%"></div>
+        </div>
+        <span style="font-size:11px;color:var(--red);width:28px">0%</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <span style="font-size:11px;color:var(--text-muted);width:60px">Mutated</span>
+        <div class="progress-track" style="flex:1">
+          <div class="progress-fill mutated" style="width:100%"></div>
+        </div>
+        <span style="font-size:11px;color:var(--green);width:28px">100%</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <div class="progress-label">
+        <span class="name">EVAL4 · Code Review Pattern</span>
+        <span class="score">Baseline 2/4 → Mutated 4/4</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px">
+        <span style="font-size:11px;color:var(--text-muted);width:60px">Baseline</span>
+        <div class="progress-track" style="flex:1">
+          <div class="progress-fill baseline" style="width:50%"></div>
+        </div>
+        <span style="font-size:11px;color:var(--yellow);width:28px">50%</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <span style="font-size:11px;color:var(--text-muted);width:60px">Mutated</span>
+        <div class="progress-track" style="flex:1">
+          <div class="progress-fill mutated" style="width:100%"></div>
+        </div>
+        <span style="font-size:11px;color:var(--green);width:28px">100%</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="progress-label">
+        <span class="name">EVAL5 · Platform Routing</span>
+        <span class="score">Baseline 1/4 → Mutated 4/4</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px">
+        <span style="font-size:11px;color:var(--text-muted);width:60px">Baseline</span>
+        <div class="progress-track" style="flex:1">
+          <div class="progress-fill baseline" style="width:25%"></div>
+        </div>
+        <span style="font-size:11px;color:var(--red);width:28px">25%</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <span style="font-size:11px;color:var(--text-muted);width:60px">Mutated</span>
+        <div class="progress-track" style="flex:1">
+          <div class="progress-fill mutated" style="width:100%"></div>
+        </div>
+        <span style="font-size:11px;color:var(--green);width:28px">100%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Heatmaps -->
+<section>
+  <h2>Heatmap: Baseline</h2>
+  <div class="card">
+    <div class="heatmap-grid">
+      <div class="heatmap-header" style="text-align:left"></div>
+      <div class="heatmap-header">T1<br><span style="font-weight:400;color:var(--text-muted)">Claude Code</span></div>
+      <div class="heatmap-header">T2<br><span style="font-weight:400;color:var(--text-muted)">Codex CLI</span></div>
+      <div class="heatmap-header">T3<br><span style="font-weight:400;color:var(--text-muted)">Gemini KO</span></div>
+      <div class="heatmap-header">T4<br><span style="font-weight:400;color:var(--text-muted)">Code Review</span></div>
+
+      <div class="heatmap-row-label">EVAL1 Plan Review</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell fail">0</div>
+      <div class="heatmap-cell fail">0</div>
+      <div class="heatmap-cell fail">0</div>
+
+      <div class="heatmap-row-label">EVAL2 Hook Integ.</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell fail">0</div>
+      <div class="heatmap-cell fail">0</div>
+      <div class="heatmap-cell fail">0</div>
+
+      <div class="heatmap-row-label">EVAL3 Feedback</div>
+      <div class="heatmap-cell fail">0</div>
+      <div class="heatmap-cell fail">0</div>
+      <div class="heatmap-cell fail">0</div>
+      <div class="heatmap-cell fail">0</div>
+
+      <div class="heatmap-row-label">EVAL4 Code Review</div>
+      <div class="heatmap-cell fail">0</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell fail">0</div>
+      <div class="heatmap-cell pass">1</div>
+
+      <div class="heatmap-row-label">EVAL5 Platform Rt.</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell fail">0</div>
+      <div class="heatmap-cell fail">0</div>
+      <div class="heatmap-cell fail">0</div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--text-muted)">
+      Total: 5/20 (25%) &nbsp;·&nbsp; Only T1/Claude Code reliably worked &nbsp;·&nbsp; EVAL3 Feedback Handling: 0/4
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Heatmap: Mutated</h2>
+  <div class="card">
+    <div class="heatmap-grid">
+      <div class="heatmap-header" style="text-align:left"></div>
+      <div class="heatmap-header">T1<br><span style="font-weight:400;color:var(--text-muted)">Claude Code</span></div>
+      <div class="heatmap-header">T2<br><span style="font-weight:400;color:var(--text-muted)">Codex CLI</span></div>
+      <div class="heatmap-header">T3<br><span style="font-weight:400;color:var(--text-muted)">Gemini KO</span></div>
+      <div class="heatmap-header">T4<br><span style="font-weight:400;color:var(--text-muted)">Code Review</span></div>
+
+      <div class="heatmap-row-label">EVAL1 Plan Review</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+
+      <div class="heatmap-row-label">EVAL2 Hook Integ.</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+
+      <div class="heatmap-row-label">EVAL3 Feedback</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+
+      <div class="heatmap-row-label">EVAL4 Code Review</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+
+      <div class="heatmap-row-label">EVAL5 Platform Rt.</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+      <div class="heatmap-cell pass">1</div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--green)">
+      Total: 20/20 (100%) &nbsp;·&nbsp; All platforms, all evals passing
+    </div>
+  </div>
+</section>
+
+<!-- What changed -->
+<section>
+  <h2>What Changed</h2>
+  <div class="version-compare">
+    <div class="version-box baseline">
+      <h4>Baseline Problems</h4>
+      <p>
+        576 lines — 8 of 10 "Patterns" are setup/install docs, not agent workflows.<br>
+        No platform routing table.<br>
+        Feedback handling: 1 sentence, no agent action.<br>
+        Obsidian integration: 130 lines (22% of file).<br>
+        Best practices buried at line 560.<br>
+        Written for humans narrating agent behavior.
+      </p>
+    </div>
+    <div class="version-box mutated">
+      <h4>Mutated Improvements</h4>
+      <p>
+        215 lines — agent-executable instructions only.<br>
+        Key Rules section at top — 6 actionable rules.<br>
+        Platform Routing Table — 4 platforms, one glance.<br>
+        Explicit numbered workflow steps with conditionals.<br>
+        Replan loop diagram + python3 feedback parsing.<br>
+        Setup docs extracted to references/setup-guide.md.
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Key Changes</h2>
+    <ul class="changes-list" style="margin-top:4px">
+      <li><span class="icon">+</span>Added Key Rules section — 6 agent-actionable rules at top of file</li>
+      <li><span class="icon">+</span>Added Platform Routing Table — Claude Code / Gemini / Codex / OpenCode in one table</li>
+      <li><span class="icon">+</span>Rewrote Plan Review as explicit agent workflow: numbered steps with platform conditionals</li>
+      <li><span class="icon">+</span>Added Feedback Handling section with ASCII replan loop diagram</li>
+      <li><span class="icon">+</span>Added python3 snippet for programmatic feedback parsing</li>
+      <li><span class="icon">+</span>Added Annotation Guidance table — maps annotation type to concrete agent action</li>
+      <li><span class="icon extract">→</span>Extracted Pattern 1 (Install) to references/setup-guide.md</li>
+      <li><span class="icon extract">→</span>Extracted Pattern 2 (Hook Setup) to references/setup-guide.md</li>
+      <li><span class="icon extract">→</span>Extracted Pattern 5 (Remote/Devcontainer) to references/setup-guide.md</li>
+      <li><span class="icon extract">→</span>Extracted Pattern 6 (Status Check) to references/setup-guide.md</li>
+      <li><span class="icon extract">→</span>Extracted Pattern 7 (Gemini setup) to references/setup-guide.md</li>
+      <li><span class="icon extract">→</span>Extracted Pattern 8 (Codex setup) to references/setup-guide.md</li>
+      <li><span class="icon extract">→</span>Extracted Pattern 9 (Obsidian, 130 lines) to references/setup-guide.md</li>
+      <li><span class="icon extract">→</span>Extracted Pattern 10 (Manual Save) to references/setup-guide.md</li>
+      <li><span class="icon extract">→</span>Extracted all Troubleshooting content to references/setup-guide.md</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Files -->
+<section>
+  <h2>Output Files</h2>
+  <div class="card">
+    <ul class="file-list">
+      <li>
+        <span class="fname">SKILL.md</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="color:var(--text-muted);font-size:11px">576 → 215 lines</span>
+          <span class="tag rewritten">rewritten</span>
+        </div>
+      </li>
+      <li>
+        <span class="fname">references/setup-guide.md</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="color:var(--text-muted);font-size:11px">~360 lines</span>
+          <span class="tag new">new</span>
+        </div>
+      </li>
+      <li>
+        <span class="fname">skill-autoresearch-plannotator/SKILL.md.baseline</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="color:var(--text-muted);font-size:11px">576 lines (original)</span>
+          <span class="tag backup">backup</span>
+        </div>
+      </li>
+      <li>
+        <span class="fname">skill-autoresearch-plannotator/results.json</span>
+        <div><span class="tag new">new</span></div>
+      </li>
+      <li>
+        <span class="fname">skill-autoresearch-plannotator/results.tsv</span>
+        <div><span class="tag new">new</span></div>
+      </li>
+      <li>
+        <span class="fname">skill-autoresearch-plannotator/changelog.md</span>
+        <div><span class="tag new">new</span></div>
+      </li>
+      <li>
+        <span class="fname">skill-autoresearch-plannotator/dashboard.html</span>
+        <div><span class="tag new">new</span></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <span>plannotator skill-autoresearch · 2026-03-22</span>
+  <span>oh-my-gods · .god-skills/plannotator/</span>
+</footer>
+
+</body>
+</html>

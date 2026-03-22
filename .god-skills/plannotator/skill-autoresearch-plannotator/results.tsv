@@ -1,0 +1,41 @@
+version	eval	test_input	score	notes
+baseline	EVAL1_PlanReviewFlow	T1: Plan auth feature (Claude Code ExitPlanMode)	1	Pattern 3 present; hook described; flow partially clear
+baseline	EVAL1_PlanReviewFlow	T2: Review plan before coding (Codex CLI, manual)	0	Codex manual invocation requires setup knowledge; agent flow unclear
+baseline	EVAL1_PlanReviewFlow	T3: plannotator 코드 리뷰해줘 (Korean, Gemini)	0	No Korean routing; Gemini path buried in setup docs
+baseline	EVAL1_PlanReviewFlow	T4: Review my last commit diff (code review)	0	Pattern 3 is plan review not code review; no routing from code-review intent
+baseline	EVAL2_HookIntegration	T1: Plan auth feature (Claude Code ExitPlanMode)	1	ExitPlanMode hook mentioned in Pattern 2; Claude Code path exists
+baseline	EVAL2_HookIntegration	T2: Review plan before coding (Codex CLI, manual)	0	Codex has no hook; agent must know to use /prompts:plannotator manually
+baseline	EVAL2_HookIntegration	T3: plannotator 코드 리뷰해줘 (Korean, Gemini)	0	Gemini hook buried in Pattern 7 setup; not agent-actionable
+baseline	EVAL2_HookIntegration	T4: Review my last commit diff (code review)	0	Code review has no hook; review.sh must be run manually; not explained
+baseline	EVAL3_FeedbackHandling	T1: Plan auth feature (Claude Code ExitPlanMode)	0	"sent back as structured feedback for replanning" mentioned but no agent instruction on what to do
+baseline	EVAL3_FeedbackHandling	T2: Review plan before coding (Codex CLI, manual)	0	No feedback handling instructions for Codex
+baseline	EVAL3_FeedbackHandling	T3: plannotator 코드 리뷰해줘 (Korean, Gemini)	0	No feedback handling instructions anywhere
+baseline	EVAL3_FeedbackHandling	T4: Review my last commit diff (code review)	0	Code review feedback handling completely absent
+baseline	EVAL4_CodeReviewPattern	T1: Plan auth feature (Claude Code ExitPlanMode)	0	Plan review context; code review not mentioned as next step
+baseline	EVAL4_CodeReviewPattern	T2: Review plan before coding (Codex CLI, manual)	1	Pattern 4 has explicit bash commands; review.sh documented
+baseline	EVAL4_CodeReviewPattern	T3: plannotator 코드 리뷰해줘 (Korean, Gemini)	0	No Korean/Gemini-specific code review path
+baseline	EVAL4_CodeReviewPattern	T4: Review my last commit diff (code review)	1	review.sh HEAD~1 explicitly documented in Pattern 4
+baseline	EVAL5_PlatformRouting	T1: Plan auth feature (Claude Code ExitPlanMode)	1	Claude Code path exists across multiple patterns
+baseline	EVAL5_PlatformRouting	T2: Review plan before coding (Codex CLI, manual)	0	Codex path requires /prompts:plannotator; scattered across Pattern 8
+baseline	EVAL5_PlatformRouting	T3: plannotator 코드 리뷰해줘 (Korean, Gemini)	0	Gemini path exists but not agent-routable; no platform decision table
+baseline	EVAL5_PlatformRouting	T4: Review my last commit diff (code review)	0	No platform routing for code review; only Claude Code implied
+mutated	EVAL1_PlanReviewFlow	T1: Plan auth feature (Claude Code ExitPlanMode)	1	Explicit agent flow: ExitPlanMode fires → UI opens → approve/request changes
+mutated	EVAL1_PlanReviewFlow	T2: Review plan before coding (Codex CLI, manual)	1	Platform routing table directs Codex to /prompts:plannotator → plan review flow
+mutated	EVAL1_PlanReviewFlow	T3: plannotator 코드 리뷰해줘 (Korean, Gemini)	1	Platform routing table covers Gemini; plan review flow is generic
+mutated	EVAL1_PlanReviewFlow	T4: Review my last commit diff (code review)	1	Clear separation: code review = bash scripts/review.sh; plan review = separate
+mutated	EVAL2_HookIntegration	T1: Plan auth feature (Claude Code ExitPlanMode)	1	Key Rules section explains hook fires automatically on ExitPlanMode
+mutated	EVAL2_HookIntegration	T2: Review plan before coding (Codex CLI, manual)	1	Platform table shows Codex uses /prompts:plannotator (no hook); clear distinction
+mutated	EVAL2_HookIntegration	T3: plannotator 코드 리뷰해줢 (Korean, Gemini)	1	Platform table shows Gemini hook via ~/.gemini/settings.json; clear
+mutated	EVAL2_HookIntegration	T4: Review my last commit diff (code review)	1	Code review is explicit manual trigger; no hook confusion
+mutated	EVAL3_FeedbackHandling	T1: Plan auth feature (Claude Code ExitPlanMode)	1	Feedback handling section: read /tmp/plannotator_feedback.txt → check status → replan if changes requested
+mutated	EVAL3_FeedbackHandling	T2: Review plan before coding (Codex CLI, manual)	1	Same feedback handling flow applies to all platforms
+mutated	EVAL3_FeedbackHandling	T3: plannotator 코드 리뷰해줘 (Korean, Gemini)	1	Feedback handling explicit; Gemini platform path clear
+mutated	EVAL3_FeedbackHandling	T4: Review my last commit diff (code review)	1	Code review feedback is annotation-based; clearly separate from plan feedback
+mutated	EVAL4_CodeReviewPattern	T1: Plan auth feature (Claude Code ExitPlanMode)	1	Code review section explicitly says "after coding, run bash scripts/review.sh"
+mutated	EVAL4_CodeReviewPattern	T2: Review plan before coding (Codex CLI, manual)	1	Code review commands explicit for all platforms
+mutated	EVAL4_CodeReviewPattern	T3: plannotator 코드 리뷰해줘 (Korean, Gemini)	1	"코드 리뷰" maps to code review section; trigger is explicit
+mutated	EVAL4_CodeReviewPattern	T4: Review my last commit diff (code review)	1	review.sh HEAD~1 and branch diff patterns documented
+mutated	EVAL5_PlatformRouting	T1: Plan auth feature (Claude Code ExitPlanMode)	1	Platform routing table: Claude Code → hook auto-fires
+mutated	EVAL5_PlatformRouting	T2: Review plan before coding (Codex CLI, manual)	1	Platform routing table: Codex → /prompts:plannotator
+mutated	EVAL5_PlatformRouting	T3: plannotator 코드 리뷰해줘 (Korean, Gemini)	1	Platform routing table: Gemini → gemini --approval-mode plan
+mutated	EVAL5_PlatformRouting	T4: Review my last commit diff (code review)	1	Code review platform-agnostic; bash scripts/review.sh works everywhere
