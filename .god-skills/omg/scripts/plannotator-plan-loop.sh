@@ -348,6 +348,19 @@ except Exception:
   return 2
 }
 
+# Guard: if claude-plan-gate.py (Claude Code ExitPlanMode hook) holds its lock,
+# that hook is already managing plannotator — this direct call would cause a
+# second plannotator window. Exit immediately rather than racing on the port probe.
+# Stale lock guard: ignore files older than 1 hour (hook crash without cleanup).
+_OMG_CLAUDE_GATE_LOCK="${TMPDIR:-/tmp}/omg-plannotator-claude-gate.lock"
+if [[ -f "$_OMG_CLAUDE_GATE_LOCK" ]]; then
+  _gate_age=$(( $(date +%s) - $(python3 -c "import os; print(int(os.path.getmtime('${_OMG_CLAUDE_GATE_LOCK}')))" 2>/dev/null || echo 0) ))
+  if [[ "$_gate_age" -lt 3600 ]]; then
+    echo "[OMG][PLAN] claude-plan-gate.py lock active — ExitPlanMode hook is managing plannotator (direct call would cause double execution). Deferring." >&2
+    exit 0
+  fi
+fi
+
 # Pre-launch probe: verify the dedicated port is available before starting plannotator.
 if [[ "${OMG_SKIP_LISTEN_PROBE:-0}" != "1" ]]; then
   set +e
