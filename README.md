@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Skills](https://img.shields.io/badge/Skills-89%2B-blue?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0tMiAxNWwtNS01IDEuNDEtMS40MUwxMCAxNC4xN2w3LjU5LTcuNTlMMTkgOGwtOSA5eiIvPjwvc3ZnPg==)](https://github.com/akillness/oh-my-gods)
+[![Skills](https://img.shields.io/badge/Skills-90%2B-blue?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0tMiAxNWwtNS01IDEuNDEtMS40MUwxMCAxNC4xN2w3LjU5LTcuNTlMMTkgOGwtOSA5eiIvPjwvc3ZnPg==)](https://github.com/akillness/oh-my-gods)
 [![Platform](https://img.shields.io/badge/Platform-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-2.0.0-purple?style=for-the-badge)](CHANGELOG.md)
@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **89+ skills** — new: `ai-research-skills` — 86 AI research skills for autonomous ML research from idea to paper
+> **90+ skills** — new: `langchain-bmad` — BMAD × LangChain unified workflow (installs `langchain-ai/langchain-skills` + `bmad` together)
 
 [Quick Start](#-quick-start) · [OMG Core](#-omg--core-orchestration-skill) · [Hidden Features](#-hidden-power-features) · [LangChain](#-langchain-integration) · [Full Catalog](#-full-skill-catalog) · [한국어](README.ko.md)
 
@@ -264,6 +264,15 @@ graph TD
 | `deep-agents-core` | "deep agent", "create_deep_agent" | Deep Agents architecture & middleware |
 | `deep-agents-memory` | "agent memory", "StoreBackend" | Memory, persistence, filesystem |
 | `deep-agents-orchestration` | "subagent", "todo list", "HITL" | Subagents, task planning, approval |
+| `langchain-bmad` | "langchain bmad", "bmad langchain", "structured agent" | BMAD × LangChain unified workflow — install both skill sets and follow phase-gated development |
+
+### Combined Install (LangChain + BMAD)
+
+```bash
+# Install BMAD + all 11 LangChain skills together
+npx skills add https://github.com/akillness/oh-my-gods --skill bmad --skill langchain-bmad
+npx skills add langchain-ai/langchain-skills --skill '*' --yes
+```
 
 ---
 
@@ -356,6 +365,7 @@ graph TD
 | `prompt-repetition` | LLM accuracy via prompt repetition technique |
 | `deepagents` | Batteries-included LangGraph agent harness — `create_deep_agent()`, middleware, subagents, HITL |
 | `ai-research-skills` | 86 AI research skills (22 categories) — autoresearch orchestration, fine-tuning, RLHF/GRPO, vLLM, RAG, multimodal, ML paper writing |
+| `langchain-bmad` | BMAD × LangChain unified workflow — phase-gated development with `framework-selection` → `langgraph-*` → `deep-agents-*` |
 
 ### Content & Media
 
@@ -418,7 +428,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill fabric --skill autoresearch --skill langextract \
   --skill frouter --skill deepagents --skill clawteam \
   --skill agent-manager --skill pm-skills \
-  --skill ai-research-skills
+  --skill ai-research-skills \
+  --skill langchain-bmad
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes

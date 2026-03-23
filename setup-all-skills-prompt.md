@@ -189,8 +189,14 @@ npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill vibe-kanban \
   --skill video-production \
   --skill web-design-guidelines \
-  --skill workflow-automation
+  --skill workflow-automation \
+  --skill langchain-bmad
 ```
+
+> After installing `langchain-bmad`, also install the official LangChain skills:
+> ```bash
+> npx skills add langchain-ai/langchain-skills --skill '*' --yes
+> ```
 
 > `presentation-builder` note: this skill assumes a `slides-grab` workflow. Before first use, install Node.js 18+, run `npx playwright install chromium`, and ensure `slides-grab --help` succeeds.
 
