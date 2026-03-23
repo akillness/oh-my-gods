@@ -9,7 +9,6 @@ metadata:
   author: Agent Skills Team
   tags: api-design, REST, GraphQL, OpenAPI, versioning, backend
   platforms: Claude, ChatGPT, Gemini
-allowed-tools: Read Write Grep Glob
 ---
 
 

@@ -1,194 +1,184 @@
 ---
 name: langgraph-workflow
 description: >
-  Design and implement stateful multi-agent workflows using LangGraph StateGraph.
-  Use when building production AI pipelines that need checkpointing, conditional
-  branching, Human-in-the-Loop gates, parallel node execution, or long-running
-  agent coordination. Even if the user doesn't explicitly mention "LangGraph" —
-  also triggers on: state graph, stateful agent, agent checkpoint, agent loop,
-  HITL approval gate, multi-step AI workflow, agent retry logic, langgraph studio,
-  conditional edges, persistent agent memory, agentic pipeline, agent branching,
-  agent orchestration with state, LangGraph NVIDIA deep agents.
+  Design and implement durable, stateful AI workflows with LangGraph StateGraph.
+  Use when building branching or retrying agents, adding persistence with
+  thread_id + checkpointers, pausing for human approval with interrupt() or
+  interrupt_before, composing subgraphs, or orchestrating deepagents inside a
+  custom supervisor graph. Triggers on: langgraph, state graph, stateful agent,
+  checkpoint, thread_id, interrupt, Command resume, conditional edges, subgraph,
+  durable execution, long-running workflow, hybrid deep agent supervisor.
 allowed-tools: Bash Read Write Edit Glob Grep
 compatibility: >
-  Requires Python >=3.11. Install via `pip install langgraph langchain-core`.
-  Works with any LangChain-compatible LLM. Optional: LangGraph Studio, LangSmith tracing.
+  Requires Python >=3.11. Install with `pip install -qU langgraph` and add
+  LangChain provider packages for your model. Optional: LangSmith tracing,
+  LangGraph Studio, persistent checkpointer backends.
 metadata:
-  tags: langgraph, stategraph, multi-agent, checkpointing, hitl, workflow, orchestration, python
-  version: "1.0"
+  tags: langgraph, stategraph, multi-agent, persistence, interrupt, hitl, workflow, python
+  version: "1.1"
   source: akillness/oh-my-gods
 ---
 
-# langgraph-workflow — Stateful Multi-Agent Graph Design
+# langgraph-workflow
 
-LangGraph is the industry-standard framework for production multi-agent workflows. Build `StateGraph`-based pipelines with checkpointing, conditional edges, HITL gates, and parallel execution.
+Use this skill to move from prompt chains to explicit graph control flow. LangGraph is the right tool when state, resumability, routing, and human approval need to be first-class instead of hand-wired around LLM calls.
 
 ## When to use this skill
 
-- Building a multi-step AI pipeline where intermediate state must persist between nodes
-- Implementing retry/loop logic (e.g., Editor re-routes to upstream node on low quality)
-- Adding Human-in-the-Loop approval gates before destructive operations
-- Running nodes in parallel to reduce latency
-- Recovering from partial failures via checkpoint resume
-- Integrating LangSmith tracing for observability (`@traceable`)
-
-## Core Concepts
-
-### StateGraph and State Schema
-
-```python
-from typing_extensions import TypedDict
-from langgraph.graph import StateGraph, END
-
-class AgentState(TypedDict):
-    messages: list[dict]
-    draft: str
-    quality_score: float
-    retry_count: int
-    error: str | None
-
-graph = StateGraph(AgentState)
-```
-
-### Node functions
-
-Each node is an `async` function that receives state and returns a partial update:
-
-```python
-async def researcher_node(state: AgentState) -> AgentState:
-    result = await llm.ainvoke(state["messages"])
-    return {"draft": result.content}
-
-async def editor_node(state: AgentState) -> AgentState:
-    score = evaluate_quality(state["draft"])
-    return {"quality_score": score}
-
-graph.add_node("researcher", researcher_node)
-graph.add_node("editor", editor_node)
-```
-
-### Edges and conditional routing
-
-```python
-def route_after_editor(state: AgentState) -> str:
-    if state["quality_score"] < 0.7 and state["retry_count"] < 3:
-        return "retry"
-    return "done"
-
-graph.set_entry_point("researcher")
-graph.add_edge("researcher", "editor")
-graph.add_conditional_edges(
-    "editor",
-    route_after_editor,
-    {"retry": "researcher", "done": END},
-)
-
-compiled = graph.compile()
-```
-
-### Parallel node execution
-
-```python
-# Run two nodes in parallel with Send API
-from langgraph.types import Send
-
-def fan_out(state: AgentState) -> list[Send]:
-    return [
-        Send("analyzer_a", {"input": state["draft"]}),
-        Send("analyzer_b", {"input": state["draft"]}),
-    ]
-
-graph.add_conditional_edges("splitter", fan_out)
-```
+- Building a workflow that must branch, loop, or retry based on state
+- Adding durable execution with checkpointers and stable `thread_id` values
+- Pausing for approval before risky actions with `interrupt()` or `interrupt_before`
+- Streaming long-running node progress back to a UI or worker
+- Composing subgraphs or embedding a prebuilt deep agent inside a supervisor graph
+- Separating deterministic orchestration from tool-calling agent behavior
 
 ## Instructions
 
-### Step 1: Define state schema
+### Step 1: Define a typed state schema
 
-Use `TypedDict` for all state fields. Include error handling fields:
+Prefer `TypedDict` plus reducers only where accumulation is required:
 
 ```python
+from typing import Annotated
+from typing_extensions import TypedDict
+from langgraph.graph.message import add_messages
+
 class WorkflowState(TypedDict):
-    task: str
-    results: dict[str, str]    # keyed by node name
-    quality: float
+    messages: Annotated[list, add_messages]
+    draft: str
+    quality_score: float
     retry_count: int
-    metadata: dict             # token usage, timing, etc.
-    error: str | None
+    approved: bool | None
 ```
 
-### Step 2: Implement nodes
+Rules:
+- Keep top-level fields explicit
+- Track retry counters and decision flags in state
+- Add reducers only for fields that must merge across nodes
 
-One node per logical step. Keep nodes pure (no side effects outside state):
+### Step 2: Keep nodes deterministic
+
+Nodes should return partial updates, not rebuild the whole state. If a node includes side effects or non-deterministic behavior, isolate that logic so replay after resume is safe.
 
 ```python
-async def planning_node(state: WorkflowState) -> WorkflowState:
-    plan = await llm.ainvoke(f"Plan this task: {state['task']}")
-    return {"results": {**state["results"], "plan": plan.content}}
+from langgraph.graph import StateGraph, START, END
+
+def plan_node(state: WorkflowState) -> WorkflowState:
+    return {"draft": f"Plan for: {state['messages'][-1].content}"}
+
+def review_node(state: WorkflowState) -> WorkflowState:
+    score = 0.82 if len(state["draft"]) > 20 else 0.55
+    return {"quality_score": score}
 ```
 
-### Step 3: Add checkpointing (for HITL or resumable workflows)
+### Step 3: Model routing explicitly
+
+Use `add_conditional_edges()` for retries and state-dependent fan-out:
+
+```python
+def route_after_review(state: WorkflowState) -> str:
+    if state["quality_score"] < 0.7 and state["retry_count"] < 3:
+        return "rewrite"
+    return "finalize"
+
+graph = StateGraph(WorkflowState)
+graph.add_node("plan", plan_node)
+graph.add_node("review", review_node)
+graph.add_edge(START, "plan")
+graph.add_edge("plan", "review")
+graph.add_conditional_edges(
+    "review",
+    route_after_review,
+    {
+        "rewrite": "plan",
+        "finalize": END,
+    },
+)
+```
+
+### Step 4: Add persistence before HITL or long runs
+
+If the graph must resume later, compile with a checkpointer and always invoke with a stable `thread_id`:
 
 ```python
 from langgraph.checkpoint.memory import MemorySaver
 
 checkpointer = MemorySaver()
-compiled = graph.compile(checkpointer=checkpointer)
+app = graph.compile(checkpointer=checkpointer)
 
-# Invoke with thread_id for persistence
-result = await compiled.ainvoke(
-    initial_state,
-    config={"configurable": {"thread_id": "session-abc"}},
-)
+config = {"configurable": {"thread_id": "draft-42"}}
+result = app.invoke(initial_state, config=config, version="v2")
 ```
 
-### Step 4: Add HITL interrupt gates
+Use a durable checkpointer in production. `MemorySaver` is a development default, not a deployment strategy.
+
+### Step 5: Choose the right interrupt pattern
+
+Use static pauses when the node boundary itself is the approval gate:
 
 ```python
-# Interrupt BEFORE a node runs
-compiled = graph.compile(
+app = graph.compile(
     checkpointer=checkpointer,
-    interrupt_before=["deploy_node"],  # pause before deploy
-)
-
-# Resume after human approval:
-result = await compiled.ainvoke(
-    None,  # None = resume from checkpoint
-    config={"configurable": {"thread_id": "session-abc"}},
+    interrupt_before=["deploy"],
 )
 ```
 
-### Step 5: Add LangSmith tracing
+Use dynamic interrupts when approval depends on runtime data:
 
 ```python
-import os
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_API_KEY"] = "your-key"
+from langgraph.types import Command, interrupt
 
-# Nodes auto-traced. Add @traceable for custom spans:
-from langsmith import traceable
+def approval_node(state: WorkflowState) -> WorkflowState:
+    approved = interrupt(
+        {
+            "kind": "approval",
+            "summary": "Deploy migration to production?",
+            "retry_count": state["retry_count"],
+        }
+    )
+    return {"approved": approved}
 
-@traceable(name="custom-eval")
-def evaluate_quality(text: str) -> float:
-    ...
+first = app.invoke(initial_state, config=config, version="v2")
+second = app.invoke(Command(resume=True), config=config, version="v2")
 ```
 
-### Step 6: Stream node events
+### Step 6: Compose subgraphs and deep agents deliberately
+
+Use raw LangGraph for orchestration boundaries and call a compiled deep agent only for tool-heavy local reasoning:
 
 ```python
-async for event in compiled.astream(initial_state):
-    node_name = list(event.keys())[0]
-    node_output = event[node_name]
-    print(f"[{node_name}] completed")
+from deepagents import create_deep_agent
+
+deep_agent = create_deep_agent()
+
+def specialist_node(state: WorkflowState) -> WorkflowState:
+    result = deep_agent.invoke(
+        {"messages": [{"role": "user", "content": state["draft"]}]}
+    )
+    return {"draft": result["messages"][-1].content}
+```
+
+Use this hybrid when:
+- supervisor state and routing must remain inspectable
+- a subtask benefits from deepagents’ built-in tool harness
+- you want to swap specialist implementations without changing the graph contract
+
+### Step 7: Stream and trace
+
+For long-running graphs, prefer streaming and attach LangSmith before production rollout:
+
+```python
+for event in app.stream(initial_state, config=config, version="v2"):
+    print(event)
 ```
 
 ## Examples
 
-### Example 1: Quality-gated writing pipeline
+### Example 1: Quality-gated writer
 
 ```python
 from typing_extensions import TypedDict
-from langgraph.graph import StateGraph, END
+from langgraph.graph import StateGraph, START, END
 
 class WriterState(TypedDict):
     topic: str
@@ -196,66 +186,77 @@ class WriterState(TypedDict):
     quality: float
     retries: int
 
-async def write_node(state: WriterState) -> WriterState:
-    draft = await llm.ainvoke(f"Write about: {state['topic']}")
-    return {"draft": draft.content}
+def write_node(state: WriterState) -> WriterState:
+    return {"draft": f"Draft about {state['topic']}"}
 
-async def review_node(state: WriterState) -> WriterState:
-    score = await score_quality(state["draft"])
-    return {"quality": score}
+def review_node(state: WriterState) -> WriterState:
+    return {"quality": 0.6 if state["retries"] == 0 else 0.85}
 
 def route(state: WriterState) -> str:
-    if state["quality"] < 0.7 and state["retries"] < 3:
+    if state["quality"] < 0.7 and state["retries"] < 2:
         return "rewrite"
     return "done"
 
 graph = StateGraph(WriterState)
 graph.add_node("write", write_node)
 graph.add_node("review", review_node)
-graph.set_entry_point("write")
+graph.add_edge(START, "write")
 graph.add_edge("write", "review")
 graph.add_conditional_edges("review", route, {"rewrite": "write", "done": END})
-app = graph.compile()
 ```
 
-### Example 2: Multi-agent research with parallel nodes
+### Example 2: Runtime approval with `interrupt()`
 
 ```python
-async def fetch_sources(state):
-    return [
-        Send("fetch_web", {"query": state["query"]}),
-        Send("fetch_docs", {"query": state["query"]}),
-    ]
+from langgraph.types import Command, interrupt
 
-graph.add_conditional_edges("planner", fetch_sources)
-graph.add_edge("fetch_web", "synthesizer")
-graph.add_edge("fetch_docs", "synthesizer")
+def approval_node(state):
+    approved = interrupt({"action": "delete_file", "path": state["path"]})
+    return {"approved": approved}
+
+result = app.invoke(state, config={"configurable": {"thread_id": "cleanup-1"}}, version="v2")
+if result.interrupts:
+    app.invoke(Command(resume=True), config={"configurable": {"thread_id": "cleanup-1"}}, version="v2")
 ```
 
-### Example 3: HITL deployment gate
+### Example 3: LangGraph supervisor with a deep agent specialist
 
 ```python
-compiled = graph.compile(
-    checkpointer=MemorySaver(),
-    interrupt_before=["deploy"],
-)
-# Agent pauses at "deploy". Human reviews, then:
-await compiled.ainvoke(None, config={"configurable": {"thread_id": tid}})
+from deepagents import create_deep_agent
+from langgraph.graph import StateGraph, START, END
+
+researcher = create_deep_agent()
+
+class ResearchState(TypedDict):
+    question: str
+    answer: str
+
+def specialist(state: ResearchState) -> ResearchState:
+    result = researcher.invoke(
+        {"messages": [{"role": "user", "content": state["question"]}]}
+    )
+    return {"answer": result["messages"][-1].content}
+
+graph = StateGraph(ResearchState)
+graph.add_node("specialist", specialist)
+graph.add_edge(START, "specialist")
+graph.add_edge("specialist", END)
 ```
 
 ## Best practices
 
-1. **Type all state fields** — use `TypedDict`; avoid `dict[str, Any]` at top level
-2. **Return partial updates** — nodes return only changed fields, not the full state
-3. **Cap retry counts in state** — always include `retry_count: int` and check it in routing
-4. **Use checkpointing for any HITL** — `MemorySaver()` for development, `SqliteSaver` for production
-5. **Stream in production** — `astream()` prevents timeout on long-running graphs
-6. **Trace with LangSmith** — set `LANGCHAIN_TRACING_V2=true` before going to production
+1. Type state first, then build nodes around it.
+2. Always cap retries in state instead of implicit loops.
+3. Treat `thread_id` as part of the contract for any resumable workflow.
+4. Use persistent checkpointers for production HITL and fault recovery.
+5. Prefer `interrupt()` when approval is data-dependent and `interrupt_before` when the node boundary is enough.
+6. Keep subgraphs stateless if you will call the same compiled subgraph multiple times inside one parent node.
+7. Use LangGraph for orchestration, not as a dumping ground for all prompt logic.
 
 ## References
 
-- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
-- [LangGraph Studio](https://github.com/langchain-ai/langgraph-studio)
-- [NVIDIA × LangGraph Deep Agents](https://github.com/langchain-ai/langgraph)
-- [LangSmith Tracing](https://docs.smith.langchain.com/tracing)
-- See `references/state-patterns.md` for advanced state management patterns
+- [LangGraph Graph API](https://docs.langchain.com/oss/python/langgraph/use-graph-api)
+- [LangGraph Persistence](https://docs.langchain.com/oss/python/langgraph/persistence)
+- [LangGraph Interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts)
+- [LangGraph Durable Execution](https://docs.langchain.com/oss/python/langgraph/durable-execution)
+- See `references/state-patterns.md` for reducers, subgraphs, interrupts, and hybrid patterns
