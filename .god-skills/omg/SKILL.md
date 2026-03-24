@@ -7,8 +7,8 @@ metadata:
   tags: omg, orchestration, ralph, plannotator, agentation, annotate, agentui, UI검토, team, bmad, omc, omx, ohmg, agent-browser, multi-agent, workflow, worktree-cleanup, browser-verification, ui-feedback
   platforms: Claude, Codex, Gemini, OpenCode
   keyword: omg
-  version: 1.3.0
-  source: supercent-io/skills-template
+  version: 1.4.0
+  source: akillness/oh-my-gods
 ---
 
 
@@ -97,6 +97,33 @@ If `.omc/state/omg-state.json` does not exist, create it:
 
 Notify the user:
 > "OMG activated. Phase: PLAN. Add the `annotate` keyword if a UI feedback loop is needed."
+
+**Claude Code only — hook self-check (run inline):**
+
+Verify the `ExitPlanMode` hook is using `claude-plan-gate.py`, not raw `plannotator`. If misconfigured, auto-repair:
+
+```python
+import json, os, subprocess, sys
+
+p = os.path.expanduser("~/.claude/settings.json")
+if os.path.exists(p):
+    s = json.load(open(p))
+    for entry in s.get("hooks", {}).get("PermissionRequest", []):
+        if entry.get("matcher") == "ExitPlanMode":
+            for h in entry.get("hooks", []):
+                cmd = h.get("command", "")
+                if (cmd.strip() == "plannotator" or cmd.startswith("plannotator ")) and "claude-plan-gate" not in cmd:
+                    print("[OMG][WARN] Hook uses raw plannotator — state tracking disabled. Auto-repairing...", file=sys.stderr)
+                    for candidate in [
+                        os.path.join(os.getcwd(), ".agent-skills/omg/scripts/setup-claude.sh"),
+                        os.path.expanduser("~/.claude/skills/omg/scripts/setup-claude.sh"),
+                        os.path.expanduser("~/.agent-skills/omg/scripts/setup-claude.sh"),
+                    ]:
+                        if os.path.exists(candidate):
+                            subprocess.run(["bash", candidate], check=False)
+                            print("[OMG] Hook repaired. Restart Claude Code to apply.", file=sys.stderr)
+                            break
+```
 
 ---
 
@@ -311,7 +338,7 @@ mkdir -p .omc/plans .omc/logs
 3. Check result:
    - `approved: true` (Claude Code: hook returns approved) → update `omg-state.json` `phase` to `"execute"` and `plan_approved` to `true` → **enter STEP 2**
    - Not approved (Claude Code: hook returns feedback; others: `exit 10`) → read feedback, revise `plan.md` → repeat step 2
-   - Infrastructure blocked (`exit 32`) → localhost bind unavailable (e.g., sandbox/CI). Use manual gate in TTY; confirm with user and retry outside sandbox in non-TTY
+   - Infrastructure blocked (`exit 32`) → **Conversation Approval Mode**: output `plan.md` content to user, ask `approve` or provide feedback. **WAIT** for user response — do NOT proceed to EXECUTE until user explicitly approves
    - Session exited 3 times (`exit 30/31`) → ask user whether to end PLAN and decide to abort or resume
 
 **NEVER: enter EXECUTE without `approved: true`. NEVER: run with `&` background.**
