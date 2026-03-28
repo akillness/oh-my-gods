@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **90개 이상의 스킬** — 신규 추가: `langchain-bmad` — BMAD × LangChain 통합 워크플로우 (`langchain-ai/langchain-skills` + `bmad` 함께 설치)
+> **90개 이상의 스킬** — 신규 추가: `strix` — AI 기반 애플리케이션 보안 테스트 (appsec 스캔, CI/CD, Docker 샌드박스) · `langchain-bmad` — BMAD × LangChain 통합 워크플로우
 
 [빠른 시작](#-빠른-시작) · [OMG 핵심](#-omg--핵심-오케스트레이션-스킬) · [숨겨진 기능](#-숨겨진-강력-기능) · [LangChain](#-langchain-통합) · [전체 카탈로그](#-전체-스킬-카탈로그) · [English](README.md)
 
@@ -189,6 +189,7 @@ stateDiagram-v2
 ║  agent-manager║ tmux+Python 에이전트 생명주기 관리 — 서버 불필요 ║
 ║  pm-skills   ║  PM용 AI OS — 65개 스킬, 36개 명령어, 8개 플러그인║
 ║  ai-research-skills║ AI 연구 86개 스킬 — 아이디어에서 논문까지 자율 연구║
+║  strix       ║  AI 기반 appsec CLI — 로컬/저장소/URL 스캔, CI/CD, Docker 샌드박스║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -213,6 +214,7 @@ stateDiagram-v2
 | `agent-manager` | `agent-manager`, `start agent`, `stop agent`, `monitor agent` | tmux + Python 에이전트 생명주기 관리 — 서버 없이 시작/중지/모니터/일정 예약/하트비트 | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) |
 | `pm-skills` | `pm-skills`, `product discovery`, `write PRD`, `user stories`, `product strategy` | PM용 AI OS — Teresa Torres, Marty Cagan, Alberto Savoia 프레임워크를 담은 65개 스킬, 36개 명령어, 8개 플러그인 | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) |
 | `ai-research-skills` | `ai-research-skills`, `autoresearch`, `ml experiments`, `fine-tuning`, `grpo`, `vllm`, `rlhf` | AI 연구 86개 스킬 (22개 카테고리) — 파인튜닝, RLHF, GRPO, vLLM, RAG, 멀티모달, ML 논문 작성 자율 연구 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
+| `strix` | `strix`, `ai pentest`, `vulnerability scan cli`, `appsec scan`, `strix ci` | AI 기반 애플리케이션 보안 CLI — 로컬 디렉토리·GitHub 저장소·라이브 URL 대상 인가된 스캔; quick/standard/deep 모드; Docker 샌드박스; CI/CD 헤드리스 모드 | [usestrix/strix](https://github.com/usestrix/strix) |
 
 ---
 
@@ -337,6 +339,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `environment-setup` | 개발/스테이징/프로덕션 환경 설정 |
 | `monitoring-observability` | 헬스 체크, 메트릭, 로그 집계 |
 | `security-best-practices` | OWASP Top 10, RBAC, API 보안 |
+| `strix` | AI 기반 appsec CLI — 인가된 취약점 스캔 (로컬·GitHub·URL), Docker 샌드박스, CI/CD 헤드리스 모드 |
 
 ### 프론트엔드 & 디자인
 
@@ -432,7 +435,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill fabric --skill autoresearch --skill langextract \
   --skill frouter --skill deepagents --skill clawteam \
   --skill agent-manager --skill pm-skills \
-  --skill ai-research-skills
+  --skill ai-research-skills \
+  --skill strix
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -509,6 +513,7 @@ oh-my-gods가 도움이 되셨다면 프로젝트를 후원해 주세요!
 | `ai-research-skills` | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | MIT |
 | 에이전트 개발 원칙 | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
+| `strix` | [usestrix/strix](https://github.com/usestrix/strix) | Apache-2.0 |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
 ---

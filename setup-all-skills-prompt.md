@@ -190,7 +190,8 @@ npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill video-production \
   --skill web-design-guidelines \
   --skill workflow-automation \
-  --skill langchain-bmad
+  --skill langchain-bmad \
+  --skill strix
 ```
 
 > After installing `langchain-bmad`, also install the official LangChain skills:
@@ -414,6 +415,7 @@ fi
 | `agent-manager` | `agent-manager`, `start agent`, `stop agent`, `monitor agent`, `assign task to agent`, `agent lifecycle`, `agent scheduling` | tmux+Python agent lifecycle manager — start/stop/monitor/assign/schedule/heartbeat agents without any server dependency. Source: [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) |
 | `pm-skills` | `pm-skills`, `product discovery`, `write PRD`, `user stories`, `opportunity solution tree`, `north star metric`, `product strategy`, `sprint planning`, `go-to-market`, `product roadmap`, `JTBD`, `jobs to be done`, `pretotyping`, `product manager` | AI OS for product managers — 65 skills, 36 commands across 8 plugins encoding PM frameworks by Teresa Torres, Marty Cagan, and Alberto Savoia. Source: [phuryn/pm-skills](https://github.com/phuryn/pm-skills) |
 | `ai-research-skills` | `ai-research-skills`, `autoresearch`, `ml experiments`, `fine-tuning llm`, `grpo training`, `rlhf`, `vllm serve`, `lora`, `qdrant`, `mechanistic interpretability`, `ml paper`, `distributed training`, `inference optimization`, `ai research agent` | 86 AI research skills (22 categories) enabling autonomous research from idea to paper — autoresearch orchestration, fine-tuning (Axolotl/Unsloth/PEFT), post-training (GRPO/TRL/OpenRLHF), distributed (DeepSpeed/Megatron), inference (vLLM/TensorRT), RAG, multimodal, ML paper writing. Source: [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
+| `strix` | `strix`, `ai pentest`, `vulnerability scan cli`, `appsec scan`, `bug bounty automation`, `strix ci`, `strix docker`, `strix scan mode`, `headless security scan` | AI-driven application security CLI — install & preflight, configure Docker + LLM provider, run authorized scans against local dirs/GitHub repos/live URLs, choose quick/standard/deep depth, headless CI/CD mode. Requires Docker + OpenAI-compatible LLM key. Source: [usestrix/strix](https://github.com/usestrix/strix) |
 
 ---
 

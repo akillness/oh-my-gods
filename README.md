@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **90+ skills** — new: `langchain-bmad` — BMAD × LangChain unified workflow (installs `langchain-ai/langchain-skills` + `bmad` together)
+> **90+ skills** — new: `strix` — AI-driven application security testing (appsec scans, CI/CD, Docker sandbox) · `langchain-bmad` — BMAD × LangChain unified workflow
 
 [Quick Start](#-quick-start) · [OMG Core](#-omg--core-orchestration-skill) · [Hidden Features](#-hidden-power-features) · [LangChain](#-langchain-integration) · [Full Catalog](#-full-skill-catalog) · [한국어](README.ko.md)
 
@@ -185,6 +185,7 @@ stateDiagram-v2
 ║  agent-manager║ tmux+Python agent lifecycle mgr — no server     ║
 ║  pm-skills   ║  AI OS for PMs — 65 skills, 36 commands, 8 plugins║
 ║  ai-research-skills║ 86 AI research skills — from ideation to paper (autonomous)║
+║  strix       ║  AI-driven appsec CLI — local/repo/URL scans, CI/CD, Docker sandbox║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -209,6 +210,7 @@ stateDiagram-v2
 | `agent-manager` | `agent-manager`, `start agent`, `stop agent`, `monitor agent` | tmux + Python agent lifecycle manager — start/stop/monitor/schedule/heartbeat without a server | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) |
 | `pm-skills` | `pm-skills`, `product discovery`, `write PRD`, `user stories`, `product strategy` | AI OS for product managers — 65 skills, 36 commands across 8 plugins (Teresa Torres, Marty Cagan, Alberto Savoia) | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) |
 | `ai-research-skills` | `ai-research-skills`, `autoresearch`, `ml experiments`, `fine-tuning`, `grpo`, `vllm`, `rlhf` | 86 AI research skills (22 categories) for autonomous research — fine-tuning, RLHF, GRPO, vLLM, RAG, multimodal, ML papers | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
+| `strix` | `strix`, `ai pentest`, `vulnerability scan cli`, `appsec scan`, `strix ci` | AI-driven application security CLI — authorized scans against local dirs, GitHub repos, live URLs; quick/standard/deep modes; Docker sandbox; CI/CD headless mode | [usestrix/strix](https://github.com/usestrix/strix) |
 
 ---
 
@@ -333,6 +335,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `environment-setup` | Dev/staging/production environment config |
 | `monitoring-observability` | Health checks, metrics, log aggregation |
 | `security-best-practices` | OWASP Top 10, RBAC, API security |
+| `strix` | AI-driven appsec CLI — authorized vulnerability scans (local, GitHub, URLs), Docker sandbox, CI/CD headless mode |
 
 ### Frontend & Design
 
@@ -429,7 +432,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill frouter --skill deepagents --skill clawteam \
   --skill agent-manager --skill pm-skills \
   --skill ai-research-skills \
-  --skill langchain-bmad
+  --skill langchain-bmad \
+  --skill strix
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -506,6 +510,7 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | `ai-research-skills` | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | MIT |
 | `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
+| `strix` | [usestrix/strix](https://github.com/usestrix/strix) | Apache-2.0 |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
 ---
