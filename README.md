@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **90+ skills** — new: `strix` — AI-driven application security testing (appsec scans, CI/CD, Docker sandbox) · `langchain-bmad` — BMAD × LangChain unified workflow
+> **90+ skills** — new: `obsidian-cli` — terminal-driven Obsidian note automation (CLI, TUI, URI workflows) · `strix` — AI-driven appsec testing
 
 [Quick Start](#-quick-start) · [OMG Core](#-omg--core-orchestration-skill) · [Hidden Features](#-hidden-power-features) · [LangChain](#-langchain-integration) · [Full Catalog](#-full-skill-catalog) · [한국어](README.ko.md)
 
@@ -186,6 +186,7 @@ stateDiagram-v2
 ║  pm-skills   ║  AI OS for PMs — 65 skills, 36 commands, 8 plugins║
 ║  ai-research-skills║ 86 AI research skills — from ideation to paper (autonomous)║
 ║  strix       ║  AI-driven appsec CLI — local/repo/URL scans, CI/CD, Docker sandbox║
+║  obsidian-cli║  Terminal-driven Obsidian automation — CLI/TUI, vault/file targeting  ║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -211,6 +212,7 @@ stateDiagram-v2
 | `pm-skills` | `pm-skills`, `product discovery`, `write PRD`, `user stories`, `product strategy` | AI OS for product managers — 65 skills, 36 commands across 8 plugins (Teresa Torres, Marty Cagan, Alberto Savoia) | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) |
 | `ai-research-skills` | `ai-research-skills`, `autoresearch`, `ml experiments`, `fine-tuning`, `grpo`, `vllm`, `rlhf` | 86 AI research skills (22 categories) for autonomous research — fine-tuning, RLHF, GRPO, vLLM, RAG, multimodal, ML papers | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
 | `strix` | `strix`, `ai pentest`, `vulnerability scan cli`, `appsec scan`, `strix ci` | AI-driven application security CLI — authorized scans against local dirs, GitHub repos, live URLs; quick/standard/deep modes; Docker sandbox; CI/CD headless mode | [usestrix/strix](https://github.com/usestrix/strix) |
+| `obsidian-cli` | `obsidian cli`, `obsidian uri`, `obsidian daily note command`, `obsidian plugin reload cli`, `obsidian vault command` | Official terminal CLI for Obsidian — single commands, interactive TUI, vault/file targeting, daily notes, search, tags, tasks, developer commands (plugin reload, screenshot, eval), `obsidian://` URI workflows | [obsidian.md/help/cli](https://obsidian.md/help/cli) |
 
 ---
 
@@ -379,6 +381,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `image-generation` | Image generation via Gemini/compatible APIs |
 | `pollinations-ai` | Free image generation (no API key needed) |
 | `marketing-automation` | 23 sub-skills: CRO, copywriting, SEO, growth |
+| `obsidian-cli` | Official Obsidian terminal CLI — single commands, TUI, vault/file targeting, daily notes, search, tags, tasks, `obsidian://` URI, developer commands |
 
 ---
 
@@ -433,7 +436,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill agent-manager --skill pm-skills \
   --skill ai-research-skills \
   --skill langchain-bmad \
-  --skill strix
+  --skill strix \
+  --skill obsidian-cli
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -511,6 +515,7 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | `strix` | [usestrix/strix](https://github.com/usestrix/strix) | Apache-2.0 |
+| `obsidian-cli` | [obsidian.md/help/cli](https://obsidian.md/help/cli) | Proprietary |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
 ---

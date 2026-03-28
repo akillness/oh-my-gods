@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **90개 이상의 스킬** — 신규 추가: `strix` — AI 기반 애플리케이션 보안 테스트 (appsec 스캔, CI/CD, Docker 샌드박스) · `langchain-bmad` — BMAD × LangChain 통합 워크플로우
+> **90개 이상의 스킬** — 신규 추가: `obsidian-cli` — 터미널 기반 Obsidian 노트 자동화 (CLI, TUI, URI 워크플로우) · `strix` — AI 기반 appsec 테스트
 
 [빠른 시작](#-빠른-시작) · [OMG 핵심](#-omg--핵심-오케스트레이션-스킬) · [숨겨진 기능](#-숨겨진-강력-기능) · [LangChain](#-langchain-통합) · [전체 카탈로그](#-전체-스킬-카탈로그) · [English](README.md)
 
@@ -190,6 +190,7 @@ stateDiagram-v2
 ║  pm-skills   ║  PM용 AI OS — 65개 스킬, 36개 명령어, 8개 플러그인║
 ║  ai-research-skills║ AI 연구 86개 스킬 — 아이디어에서 논문까지 자율 연구║
 ║  strix       ║  AI 기반 appsec CLI — 로컬/저장소/URL 스캔, CI/CD, Docker 샌드박스║
+║  obsidian-cli║  터미널 기반 Obsidian 자동화 — CLI/TUI, 보관함·파일 타게팅         ║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -215,6 +216,7 @@ stateDiagram-v2
 | `pm-skills` | `pm-skills`, `product discovery`, `write PRD`, `user stories`, `product strategy` | PM용 AI OS — Teresa Torres, Marty Cagan, Alberto Savoia 프레임워크를 담은 65개 스킬, 36개 명령어, 8개 플러그인 | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) |
 | `ai-research-skills` | `ai-research-skills`, `autoresearch`, `ml experiments`, `fine-tuning`, `grpo`, `vllm`, `rlhf` | AI 연구 86개 스킬 (22개 카테고리) — 파인튜닝, RLHF, GRPO, vLLM, RAG, 멀티모달, ML 논문 작성 자율 연구 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
 | `strix` | `strix`, `ai pentest`, `vulnerability scan cli`, `appsec scan`, `strix ci` | AI 기반 애플리케이션 보안 CLI — 로컬 디렉토리·GitHub 저장소·라이브 URL 대상 인가된 스캔; quick/standard/deep 모드; Docker 샌드박스; CI/CD 헤드리스 모드 | [usestrix/strix](https://github.com/usestrix/strix) |
+| `obsidian-cli` | `obsidian cli`, `obsidian uri`, `obsidian daily note command`, `obsidian plugin reload cli`, `obsidian vault command` | Obsidian 공식 터미널 CLI — 단일 명령·인터랙티브 TUI, 보관함/파일 타게팅, 데일리 노트, 검색, 태그, 태스크, 개발자 명령어(플러그인 리로드·스크린샷·eval), `obsidian://` URI 워크플로우 | [obsidian.md/help/cli](https://obsidian.md/help/cli) |
 
 ---
 
@@ -383,6 +385,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `image-generation` | Gemini/호환 API를 통한 이미지 생성 |
 | `pollinations-ai` | API 키 없이 무료 이미지 생성 |
 | `marketing-automation` | 23개 서브스킬: CRO, 카피라이팅, SEO, 성장 |
+| `obsidian-cli` | Obsidian 공식 터미널 CLI — 단일 명령·TUI, 보관함/파일 타게팅, 데일리 노트, 검색, 태그, 태스크, `obsidian://` URI, 개발자 명령어 |
 
 ---
 
@@ -436,7 +439,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill frouter --skill deepagents --skill clawteam \
   --skill agent-manager --skill pm-skills \
   --skill ai-research-skills \
-  --skill strix
+  --skill strix \
+  --skill obsidian-cli
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -514,6 +518,7 @@ oh-my-gods가 도움이 되셨다면 프로젝트를 후원해 주세요!
 | 에이전트 개발 원칙 | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | `strix` | [usestrix/strix](https://github.com/usestrix/strix) | Apache-2.0 |
+| `obsidian-cli` | [obsidian.md/help/cli](https://obsidian.md/help/cli) | Proprietary |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
 ---
