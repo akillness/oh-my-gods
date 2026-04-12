@@ -1,0 +1,44 @@
+{
+  "skill": "ohmg",
+  "status": "idle",
+  "current_state": "experiment_recorded",
+  "last_updated": "2026-04-12",
+  "baseline": {
+    "status": "recorded",
+    "runs_per_experiment": 5,
+    "test_input_count": 4,
+    "eval_count": 4,
+    "score": 4,
+    "max_score": 20,
+    "pass_rate": 20.0
+  },
+  "run_contract": {
+    "target_skill": "../SKILL.md",
+    "evals": "../evals/evals.json",
+    "workspace_initializer": "../scripts/init_skill_autoresearch_workspace.sh",
+    "capture_helper": "../scripts/capture_skill_autoresearch_runs.py",
+    "scoring_recorder": "../scripts/record_skill_autoresearch_experiment.py",
+    "mutation_policy": "one_change_at_a_time",
+    "keep_policy": "keep_only_strict_score_improvements",
+    "current_blocker": "A prose-only response-contract mutation is not strong enough to overcome the model's tendency to inspect nearby workspace artifacts inside the skill directory.",
+    "next_action": "Keep the baseline skill wording, then test one different mutation that attacks local-file leakage directly, such as a focused anti-pattern example or stronger negative guidance about not reading autoresearch artifacts for explicit ohmg help prompts."
+  },
+  "experiments": [
+    {
+      "experiment": 0,
+      "score": 4,
+      "max_score": 20,
+      "pass_rate": 20.0,
+      "status": "baseline",
+      "description": "Baseline run with the current ohmg skill wording."
+    },
+    {
+      "experiment": 1,
+      "score": 3,
+      "max_score": 20,
+      "pass_rate": 15.0,
+      "status": "discard",
+      "description": "Add a top-of-skill response contract to anchor ohmg answers to documented surfaces."
+    }
+  ]
+}

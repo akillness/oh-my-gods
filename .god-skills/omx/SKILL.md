@@ -1,6 +1,12 @@
 ---
 name: omx
-description: Multi-agent orchestration layer for OpenAI Codex CLI. Provides 30 specialized agents, 40+ workflow skills, team orchestration in tmux, persistent MCP servers, and staged pipeline execution.
+description: >
+  Orchestrate multi-agent OpenAI Codex CLI workflows with role prompts,
+  workflow skills, tmux team execution, persistent MCP servers, and staged
+  pipelines. Use when the user needs Codex-native planning, delegation,
+  parallel team execution, repository-aware instructions, or MCP-backed
+  state/memory/code-intel support. Triggers on: omx, oh-my-codex, codex team,
+  codex orchestration, codex workflow.
 allowed-tools: Read Write Bash Grep Glob
 metadata:
   tags: omx, multi-agent, orchestration, codex, openai, team-mode, mcp-servers, workflow
@@ -22,6 +28,29 @@ metadata:
 - Leveraging role-based agent prompts for specialized tasks
 
 ---
+
+## Instructions
+
+### Step 1: Match the user request to the right OMX surface
+
+- Use role prompts when the task needs one specialist lane inside the current session
+- Use a workflow skill when the request matches a repeatable OMX playbook such as planning, review, verification, or build fixing
+- Use `omx team` or `$team` when the work naturally splits into independent tmux workers
+- Stay on the direct path for small local edits that do not benefit from OMX overhead
+
+### Step 2: Choose the smallest orchestration shape that still preserves quality
+
+- Start with `$plan` for ambiguous or risky work before wider execution
+- Route implementation-heavy work to `executor` or `team-executor`
+- Use review-focused roles for audit tasks instead of generic execution
+- Keep verification explicit; do not stop at delegation or planning alone
+
+### Step 3: Preserve the platform-specific controls that make OMX valuable
+
+- Mention MCP support when state, memory, code intelligence, or trace surfaces matter
+- Mention AGENTS.md or model-instructions injection when launch configuration matters
+- Use concrete `omx` commands, role prompts, or workflow invocations instead of vague multi-agent advice
+- Prefer reversible team operations such as `status`, `resume`, and `shutdown` over ad hoc tmux guidance
 
 ## 1. Core Concepts
 
@@ -114,6 +143,44 @@ omx team shutdown <team-name>
 
 ---
 
+## Examples
+
+### Example 1: Plan before a risky refactor
+
+Input:
+```text
+Use OMX to plan and execute a medium-sized refactor in Codex CLI with clear verification steps.
+```
+
+Output shape:
+- route to `$plan` first
+- keep verification explicit
+- stay Codex-specific instead of switching to generic agent advice
+
+### Example 2: Launch a tmux-backed team
+
+Input:
+```text
+I need four parallel agents to audit different parts of this repo and report back through tmux.
+```
+
+Output shape:
+- use `omx team 4:executor "..."`
+- include a lifecycle action such as `status`, `resume`, or `shutdown`
+- explain why OMX team mode fits the request
+
+### Example 3: Explain the persistent support surfaces
+
+Input:
+```text
+What persistent support surfaces does OMX provide besides prompts and skills?
+```
+
+Output shape:
+- mention MCP servers
+- cover at least two of state, memory, code intelligence, or trace
+- keep the answer focused on OMX rather than broader agent frameworks
+
 ## 4. Launch Flags
 
 | Flag | Description |
@@ -185,6 +252,13 @@ OMX_MODEL_INSTRUCTIONS_FILE=/path/to/instructions.md omx
 
 ---
 
+## Best practices
+
+1. Keep OMX as the Codex-native answer surface; do not replace it with tool-agnostic delegation advice when the user explicitly wants OMX.
+2. Reach for the smallest orchestration surface that satisfies the task, then escalate to team mode only when the work is truly parallel.
+3. Preserve verification and lifecycle control in examples so the skill teaches safe completion rather than mere task splitting.
+4. Keep the main skill compact and move future deep reference material into supporting files if the entrypoint approaches the 500-line budget.
+
 ## Quick Reference
 
 | Command | Action |
@@ -204,11 +278,14 @@ OMX_MODEL_INSTRUCTIONS_FILE=/path/to/instructions.md omx
 
 ---
 
-## Resources
+## References
 
 - **Website**: https://yeachan-heo.github.io/oh-my-codex-website/
 - **GitHub**: https://github.com/Yeachan-Heo/oh-my-codex
 - **npm**: https://www.npmjs.com/package/oh-my-codex
+- **Agent Skills specification**: https://agentskills.io/specification
+- **Agent Skills description tuning**: https://agentskills.io/skill-creation/optimizing-descriptions
+- **OpenAI Codex overview**: https://openai.com/codex/
 
 ---
 

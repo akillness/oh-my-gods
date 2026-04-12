@@ -1,0 +1,35 @@
+{
+  "skill_name": "survey",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Survey the LLM-agent skill landscape across Claude Code, Codex, and Gemini CLI before we add a new orchestration workflow.",
+      "expected_output": "Creates a survey package under .survey/llm-agent-skill-landscape with triage, context, solutions, and platform-map files, then returns a short factual summary.",
+      "assertions": [
+        "Creates triage.md with problem, audience, and why now",
+        "Creates platform-map.md because the topic is agent/platform related",
+        "Final summary lists the saved files and does not jump into implementation"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Research this space before we build: compare current browser automation options for AI agents and show what people still do manually.",
+      "expected_output": "Produces a solution inventory plus behavior analysis that distinguishes solution claims from real workflows.",
+      "assertions": [
+        "solutions.md includes a deduplicated solution list",
+        "context.md includes current workarounds or user-voice evidence",
+        "Summary remains recommendation-free unless the user asks for a decision"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "What exists already for shared agent skills? Survey the standards and packaging patterns we should understand first.",
+      "expected_output": "Builds a standard survey package and captures platform abstractions in settings, rules, and hooks terms.",
+      "assertions": [
+        "platform-map.md uses settings, rules, and hooks headings",
+        "Survey captures structural gaps rather than only listing products",
+        "Artifacts are saved under .survey/{slug}/ instead of hidden tool-specific directories"
+      ]
+    }
+  ]
+}
