@@ -1,0 +1,45 @@
+{
+  "skill_name": "ohmg",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use ohmg to coordinate a multi-agent Gemini CLI workflow for shipping a small mobile app feature with PM, backend, frontend, and QA lanes.",
+      "expected_output": "Guidance that treats ohmg as the Gemini or Antigravity orchestration surface, assigns specialist roles, and keeps the answer centered on coordinated execution rather than generic brainstorming.",
+      "assertions": [
+        "Response identifies ohmg as the Gemini CLI or Antigravity orchestration layer",
+        "Response includes multiple specialist roles such as PM, frontend, backend, QA, or debug",
+        "Response frames the answer as a coordinated workflow rather than a single-agent task"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "How do I set up ohmg for a new project and verify the installation before I start using it?",
+      "expected_output": "An answer that uses the documented setup and verification path, including the interactive installer and doctor command.",
+      "assertions": [
+        "Response mentions `bunx oh-my-ag` or the interactive installer",
+        "Response mentions `bunx oh-my-ag doctor` for verification",
+        "Response stays focused on ohmg setup instead of switching to omg or omx"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I want Serena Memory to coordinate Gemini, Claude, and Codex workers in one project. What should ohmg tell me to configure?",
+      "expected_output": "A configuration-focused answer that mentions Serena Memory, agent CLI mapping, and cross-agent coordination rather than only high-level marketing language.",
+      "assertions": [
+        "Response mentions Serena Memory",
+        "Response includes a concrete configuration surface such as `.agent/config/user-preferences.yaml` or `agent_cli_mapping`",
+        "Response explains cross-agent coordination in ohmg terms"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "What monitoring or observability surfaces does ohmg provide while a multi-agent run is in progress?",
+      "expected_output": "A concise explanation of the runtime visibility surfaces around Serena memories and the dashboard commands.",
+      "assertions": [
+        "Response mentions `.serena/memories/` or structured state storage",
+        "Response includes `bunx oh-my-ag dashboard` or `bunx oh-my-ag dashboard:web`",
+        "Response answers in terms of runtime monitoring rather than installation only"
+      ]
+    }
+  ]
+}

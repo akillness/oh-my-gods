@@ -1,6 +1,11 @@
 ---
 name: survey
-description: "Cross-platform landscape scan before planning or implementation. Researches context, workarounds, existing solutions, and structural gaps, then writes reusable survey artifacts for OMC, OMX, OHMG, and general agent workflows."
+description: >
+  Scan a landscape before planning or implementation, then write reusable
+  survey artifacts for OMC, OMX, OHMG, and general agent workflows. Use when
+  the user wants a market scan, competitor scan, platform comparison, or a
+  map of what exists before building. Triggers on: survey, landscape scan,
+  research this space, what exists, compare platforms, map the ecosystem.
 allowed-tools: Read Write Bash Grep Glob WebFetch
 metadata:
   tags: survey, landscape-scan, research, discovery, groundwork, omc, omx, ohmg, claude, codex, gemini, hooks, rules, settings
@@ -120,7 +125,7 @@ If a platform-specific specialist does not exist, fall back to a general-purpose
 
 ---
 
-## Workflow
+## Instructions
 
 ### Step 0: Triage
 
@@ -320,6 +325,68 @@ Do not move into planning or implementation unless the user asks.
 
 ---
 
+## Examples
+
+### Example 1: Cross-platform skill landscape
+
+Input:
+
+```text
+survey the LLM-agent skill landscape across Claude Code, Codex, and Gemini CLI
+```
+
+Expected outcome:
+
+- creates `.survey/llm-agent-skill-landscape/triage.md`
+- compares settings, rules, and hooks in `platform-map.md`
+- returns a short factual summary with the saved artifact paths
+
+### Example 2: Competitor scan before a new workflow skill
+
+Input:
+
+```text
+survey alternatives to our current multi-agent planning workflow before we add a new orchestration skill
+```
+
+Expected outcome:
+
+- inventories direct and indirect alternatives
+- separates marketed claims from actual user behavior
+- identifies structural gaps without recommending implementation yet
+
+### Example 3: Reuse an existing survey
+
+Input:
+
+```text
+survey the browser automation space for agent workflows and reuse the last saved survey if it already exists
+```
+
+Expected outcome:
+
+- checks `.survey/{slug}/triage.md` first
+- reuses or summarizes existing artifacts instead of overwriting blindly
+- only performs new research if the saved survey is missing or stale
+
+## Best practices
+
+- Keep the research vendor-neutral unless the user explicitly wants a recommendation.
+- Prefer current official docs, repos, and product docs for platform claims.
+- Normalize findings into `settings`, `rules`, and `hooks` for agent-platform topics.
+- Separate "what vendors advertise" from "what users still do manually."
+- Keep the final user summary factual and short; save the detail in the survey files.
+
+## References
+
+- https://agentskills.io/home
+- https://agentskills.io/skill-creation/optimizing-descriptions
+- https://agentskills.io/skill-creation/evaluating-skills
+- https://code.claude.com/docs/en/skills
+- https://developers.openai.com/codex
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+- https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
+
 ## Quick Reference
 
 | Action | Instruction |
@@ -342,4 +409,3 @@ Do not move into planning or implementation unless the user asks.
 - [ ] `solutions.md` saved
 - [ ] `platform-map.md` saved for agent/platform topics
 - [ ] Final user summary is factual, short, and recommendation-free
-
