@@ -148,3 +148,60 @@ Source links:
 - Blocker: `omg` still exceeds the 500-line review target, so the next follow-up remains decomposition rather than eval-first optimization
 - Next owner: `nanoclaw_engine` for the next `omg` decomposition slice or the next scored `ohmg` mutation after this merge lands
 - Stage: `merge`
+
+## Run 12 refresh
+
+### Survey refresh
+
+- No newer official platform signal changed the priority order from the previous merge run: compact skill entrypoints still matter more than adding more top-level prose, and measured optimization is still only justified where eval-backed baselines already exist.
+- Agent Skills still favors compact `SKILL.md` entrypoints with optional `references/`, `scripts/`, `assets/`, and `evals/` added only when they reduce ambiguity or enable measurement.
+- Claude Code, Codex, and Gemini CLI still all expose reusable skill or extension surfaces, so keeping the central `omg` entrypoint reviewable remains strategically worthwhile.
+
+Source links:
+
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://developers.openai.com/codex
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+
+### Audit and packaging decision
+
+- Fresh-branch validator result before edits: `0` errors and `114` warnings across `.god-skills/`
+- Bounded target for this run: `omg`
+- `omg` did not need new assets, scripts, evals, or another support directory; it already had the right support files, but it did need those references to carry the duplicated operator-manual content instead of keeping it inline
+- `survey` and `omx` remain stable and need no new packaging in this run
+- `ohmg` remains the only justified skill-autoresearch target because it already has a `4/20` baseline, a discarded `3/20` mutation, evals, references, scripts, and a dedicated workspace
+
+### Run 12 action
+
+- Reduced `.god-skills/omg/SKILL.md` from `1218` lines to `495` lines by removing duplicated setup, workflow, state, and troubleshooting prose from the main entrypoint
+- Kept the executable `omg` protocol in place while routing detailed operator guidance to the existing reference files
+- Validator result after the slice: `.god-skills/omg/SKILL.md` now reports `0` errors and `0` warnings; repo-wide warnings dropped from `114` to `113`
+
+### Run 12 status
+
+- Current state: draft PR `#11` is open on `chore/skill-loop-20260412-r3` with a standards-clean `omg` entrypoint
+- Blocker: the next highest-value improvement after this PR is no longer `omg` structure; it is the next scored `ohmg` anti-file-leakage mutation
+- Next owner: reviewer / maintainer for this `omg` cleanup slice, then `nanoclaw_engine` for the next measured `ohmg` experiment
+- Stage: `PR-open`
+
+## Run 13 review
+
+### Review result
+
+- Re-reviewed draft PR `#11` on `chore/skill-loop-20260412-r3` against `main` instead of stacking more work onto the older merged branch.
+- No duplicate work was found: the PR still only carries the intended `omg` decomposition slice plus the loop-lock update.
+- No missing standardization gap was found inside the intended scope: `.god-skills/omg/SKILL.md` validates with `0` errors and `0` warnings at `495` lines, and the extracted operator-manual content is present in `references/FLOW.md`, `references/setup-guide.md`, and `references/checkpoint-helpers.md`.
+- `omg` still lacks evals, but that is not a blocker for this merge because the locked scope of PR `#11` is entrypoint decomposition, not prompt optimization.
+
+### Merge decision
+
+- Intended scope is satisfied, so this run should move from draft review to merge handling for PR `#11`.
+- The next improvement lane stays unchanged after merge: resume the measured `ohmg` loop with one scored anti-file-leakage mutation instead of reopening `omg`.
+
+### Run 13 status
+
+- Current state: PR `#11` is review-clean and merge-ready
+- Blocker: no blocker for the `omg` cleanup slice itself; the remaining blocker is the separate `ohmg` optimization lane
+- Next owner: `nanoclaw_pd` to merge PR `#11`, then `nanoclaw_engine` for the next scored `ohmg` experiment
+- Stage: `merge`
