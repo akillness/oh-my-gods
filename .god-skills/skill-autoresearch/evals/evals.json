@@ -1,0 +1,48 @@
+{
+  "skill_name": "skill-autoresearch",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run skill-autoresearch on `.god-skills/ohmg`. Use the current eval file if it is good enough and tell me what inputs must be locked before the first mutation.",
+      "expected_output": "A gating response that names the required inputs, reuses existing evals when appropriate, and refuses to start experiments before the prerequisites are known.",
+      "assertions": [
+        "Response names the target skill path as a required input",
+        "Response requires representative test inputs and binary yes/no evals before experiments start",
+        "Response mentions runs per experiment, interval, or a budget cap as part of the setup",
+        "Response does not jump straight into mutating the target skill"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Build the eval suite for my `playwriter` skill. The quality bar is login-safe automation, observe-act-observe discipline, and correct MCP setup guidance.",
+      "expected_output": "Three to six binary evals written in yes/no form with observable pass and fail conditions tied to the requested quality bar.",
+      "assertions": [
+        "Output uses the `EVAL N`, `Question`, `Pass`, and `Fail` structure",
+        "Output proposes only binary yes/no checks",
+        "Output includes at least one eval about observe-act-observe behavior",
+        "Output includes at least one eval about MCP or setup guidance"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Set up a `skill-autoresearch` workspace inside `.god-skills/skill-autoresearch` for five runs per experiment before we change anything.",
+      "expected_output": "A setup plan that creates the expected workspace artifacts and records the baseline-first policy before any mutation is attempted.",
+      "assertions": [
+        "Output includes the `skill-autoresearch-[skill-name]/` workspace path",
+        "Output includes `dashboard.html`, `results.json`, `results.tsv`, `changelog.md`, and `SKILL.md.baseline`",
+        "Output states that experiment `0` is the baseline",
+        "Output includes the `results.tsv` header or its required fields"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "The baseline score for this skill is already 18/20. Should we keep running mutations?",
+      "expected_output": "A measured answer that treats a greater-than-90-percent baseline as a decision point and asks whether more optimization is worth the cost before continuing.",
+      "assertions": [
+        "Output references the `above 90 percent` or equivalent decision gate",
+        "Output does not recommend immediate mutation as the default next step",
+        "Output frames the decision in terms of measured upside or user confirmation"
+      ]
+    }
+  ]
+}

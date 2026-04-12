@@ -2,35 +2,36 @@
 
 ## Audit snapshot
 
-- Skills audited: 72
-- Missing `## Instructions`: 23
-- Missing `## Examples`: 26
+- Skills audited: 80
+- Missing `## Instructions`: 20
+- Missing `## Examples`: 24
 - Missing `## Best practices`: 22
-- Missing `## References`: 15
-- Missing `evals/evals.json`: 68
-- Skills over 500 lines: 17
+- Missing `## References`: 11
+- Missing `evals/evals.json`: 67
+- Skills over 500 lines: 14
+- Eval-backed skills: 13
 
 ## Locked direction
 
 Improve one workflow-critical skill per run, in priority order:
 
-1. `survey`
-2. `omx`
+1. `ohmg`
+2. `skill-autoresearch`
 3. `omg`
 
 This order is locked because it balances leverage and boundedness:
 
-- `survey` is the front door for research and direction-setting, and it was still missing standard sections plus evals.
-- `omx` is the next-best orchestration target because it is central, compact enough to standardize in one run, and currently missing the same recommended sections.
-- `omg` has the highest strategic importance but is not a good mutation target yet because it is 1161 lines and needs structural decomposition before optimization.
+- `ohmg` remains the strongest measured optimization lane, but it should only move again when a fresh captured experiment can be scored honestly.
+- `skill-autoresearch` is the meta-workflow that justifies future mutation loops, and the current PR now hardens it with its own eval coverage and compact reviewability scaffolding.
+- `omg` is strategically important but no longer the smallest bounded packaging win after the earlier decomposition work landed.
 
 ## Skill-autoresearch triage
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `survey` | High | Yes | No | No | No | Done | Keep stable unless a measured regression appears |
-| `omx` | High | Not yet | No | No | No | Done | Next run: standardize sections and trigger phrasing |
-| `omg` | Very high | No | No | Already has scripts | Yes, more decomposition | Yes | Future run: split entrypoint below 500 lines before eval work |
+| `skill-autoresearch` | High | N/A for itself in this run | No | No | Existing `references/eval-guide.md` is enough | Added in PR `#16` | Merge the current hardening slice, then keep it stable as the loop's meta-workflow |
+| `ohmg` | High | Yes | No | Existing capture and scoring scripts are enough | Existing baseline note is enough | Done | Next run: score one focused mutation for Gemini-or-Antigravity framing plus Serena Memory |
+| `omg` | Very high | No | No | Already has scripts | Existing references are sufficient for now | Not yet | Keep stable until a deterministic scoring harness exists |
 
 ## Run 1 action
 
@@ -921,5 +922,45 @@ Source links:
 - State: PR `#15` is review-clean and merge-ready for its intended housekeeping scope
 - Blocker: no blocker remains for PR `#15`; the remaining blocker is still the separate `ohmg` optimization lane
 - Next owner: `nanoclaw_pd` to merge PR `#15`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
+- Stage: `merge`
+- Merge-ready: yes
+
+## Run 19 review
+
+### Survey refresh signals
+
+- Agent Skills still favors compact `SKILL.md` entrypoints with optional support directories only when they reduce ambiguity or enable measurement, so the current `skill-autoresearch` slice remains the right bounded PR and no new signal justifies reopening `survey`, `omx`, or `omg` in this review run.
+- Claude Code still documents skills, subagents, and hooks as reusable control surfaces; OpenAI continues to emphasize repository-embedded agent workflows; Gemini CLI still documents extension packaging plus `contextFileName` or `GEMINI.md` loading.
+- Benchmark evidence still points the same way: measured refinement only pays off when the starting skill is already relevant and instrumented, so hardening `skill-autoresearch` before the next scored `ohmg` mutation remains the right order.
+
+Source links:
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/hooks
+- https://developers.openai.com/codex
+- https://openai.com/index/harness-engineering/
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+- https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html
+- https://arxiv.org/abs/2604.04323
+
+### PR review result
+
+- Re-reviewed draft PR `#16` on `chore/skill-loop-pr-open-20260413-r17` against `main`.
+- No duplicate work was found: the diff is still limited to `skill-autoresearch` hardening plus survey-state refresh files.
+- One bounded review fix was needed inside the intended scope: the lock files still claimed `skill-autoresearch` lacked eval coverage even though this PR adds `evals/evals.json` and compact reviewability sections, so this run corrected that state drift without widening the PR.
+- Validation remains clean for the workflow-critical skills: `validate_frontmatter.py` still reports `80/80` skills passing, and `.god-skills/skill-autoresearch/evals/evals.json` remains valid JSON.
+- GitHub review state remains mergeable: PR `#16` is open, draft, and reports merge state `CLEAN`.
+
+### Merge decision
+
+- Intended scope is satisfied after the lock-state correction, so this run should advance PR `#16` through the merge path.
+- After the merge lands, the next smallest bounded action is still scored `ohmg` experiment `3` around non-optional Gemini-or-Antigravity plus Serena Memory framing.
+
+### Current state
+
+- State: PR `#16` is review-clean and merge-ready for its intended `skill-autoresearch` hardening scope
+- Blocker: no blocker remains for PR `#16`; the remaining blocker is the separate `ohmg` optimization lane needing a fresh scored capture
+- Next owner: `nanoclaw_pd` to merge PR `#16`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
 - Stage: `merge`
 - Merge-ready: yes
