@@ -2,35 +2,35 @@
 
 ## Audit snapshot
 
-- Skills audited: 72
+- Skills audited: 80
 - Missing `## Instructions`: 23
-- Missing `## Examples`: 26
-- Missing `## Best practices`: 22
-- Missing `## References`: 15
-- Missing `evals/evals.json`: 68
-- Skills over 500 lines: 17
+- Missing `## Examples`: 24
+- Missing `## Best practices`: 23
+- Missing `## References`: 11
+- Missing `evals/evals.json`: 67
+- Skills over 500 lines: 14
 
 ## Locked direction
 
 Improve one workflow-critical skill per run, in priority order:
 
-1. `survey`
-2. `omx`
+1. `skill-autoresearch`
+2. `ohmg`
 3. `omg`
 
 This order is locked because it balances leverage and boundedness:
 
-- `survey` is the front door for research and direction-setting, and it was still missing standard sections plus evals.
-- `omx` is the next-best orchestration target because it is central, compact enough to standardize in one run, and currently missing the same recommended sections.
-- `omg` has the highest strategic importance but is not a good mutation target yet because it is 1161 lines and needs structural decomposition before optimization.
+- `skill-autoresearch` is the meta-workflow that justifies future mutation loops, but it still lacks its own eval coverage and compact reviewability scaffolding.
+- `ohmg` remains the strongest measured optimization lane, but it should only move again when a fresh captured experiment can be scored honestly.
+- `omg` is strategically important but no longer the smallest bounded packaging win after the earlier decomposition work landed.
 
 ## Skill-autoresearch triage
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `survey` | High | Yes | No | No | No | Done | Keep stable unless a measured regression appears |
-| `omx` | High | Not yet | No | No | No | Done | Next run: standardize sections and trigger phrasing |
-| `omg` | Very high | No | No | Already has scripts | Yes, more decomposition | Yes | Future run: split entrypoint below 500 lines before eval work |
+| `skill-autoresearch` | High | N/A for itself | No | No | Existing `references/eval-guide.md` is enough | Yes | This run: add `evals/evals.json` plus compact `Examples/Best practices/References` sections |
+| `ohmg` | High | Yes | No | Existing capture and scoring scripts are enough | Existing baseline note is enough | Done | Next run: score one focused mutation for Gemini-or-Antigravity framing plus Serena Memory |
+| `omg` | Very high | No | No | Already has scripts | Existing references are sufficient for now | Not yet | Keep stable until a deterministic scoring harness exists |
 
 ## Run 1 action
 

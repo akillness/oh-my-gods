@@ -178,6 +178,40 @@ When the loop stops, report:
 5. Remaining failure patterns
 6. Artifact locations
 
+## Examples
+
+### Example 1: Prepare a measured loop before editing
+
+Input:
+```text
+Run skill-autoresearch on `.god-skills/ohmg`. Use the existing eval file and tell me what has to be locked before the first mutation.
+```
+
+Output shape:
+- verifies the required inputs are known before editing
+- uses the existing eval file if it is already representative
+- creates or checks the baseline workspace before proposing a mutation
+
+### Example 2: Stop when the baseline is already strong
+
+Input:
+```text
+Benchmark this skill first. If the baseline is already above 90 percent, tell me whether more optimization is worth it.
+```
+
+Output shape:
+- records the baseline before any prompt edits
+- highlights the `>90 percent` decision gate
+- avoids running speculative mutations when the measured upside is small
+
+## Best practices
+
+- Fix obvious structural or standards problems before starting a mutation loop.
+- Keep evals tied to user-visible failures instead of vague style preferences.
+- Treat discarded experiments as durable knowledge; keep them in the changelog.
+- Prefer one narrow instruction change over broad rewrites that hide the cause of a score shift.
+- Add support files only when they reduce ambiguity or make repeated scoring easier.
+
 ## Rules
 
 - Do not run experiments before inputs and evals are defined
@@ -201,3 +235,8 @@ skill-autoresearch-[skill-name]/
 ```
 
 The improved skill stays in place at its original path.
+
+## References
+
+- `references/eval-guide.md`
+- https://github.com/olelehmann100kMRR/autoresearch-skill
