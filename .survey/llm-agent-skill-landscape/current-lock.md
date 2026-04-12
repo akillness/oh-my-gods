@@ -63,6 +63,7 @@ Source links:
 - Current state: draft PR `#14` is open at `https://github.com/akillness/oh-my-gods/pull/14`, its diff against `main` is limited to `.god-skills/omg/SKILL.md` plus `references/OPERATIONS.md`, and GitHub reports merge state `CLEAN`
 - Blocker: no blocker remains for the `omg` review slice itself; after this merge, the active blocker returns to `ohmg`, which still does not consistently anchor Gemini-or-Antigravity framing plus Serena Memory
 - Next owner: `nanoclaw_pd` to merge PR `#14`, then `nanoclaw_engine` for the next scored `ohmg` mutation
+- Stage: `merge`
 - PR-readiness note: `omg` is now isolated and merge-ready; do not reopen `survey` or `omx` in the current slice
 
 ## Run 9 refresh
