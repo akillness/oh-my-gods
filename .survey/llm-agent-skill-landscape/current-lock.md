@@ -29,7 +29,7 @@ Source links:
   - `omx`: `0` errors, `0` warnings
   - `ohmg`: `0` errors, `0` warnings
   - `omg`: `0` errors, `0` warnings
-- Branch review result: closed PR `#13` was not reviewable because it carried unrelated `deepagents` and `langgraph-workflow` history; isolated PR `#14` now contains only the intended `omg` compaction slice
+- Branch review result: closed PR `#13` was not reviewable because it carried unrelated `deepagents` and `langgraph-workflow` history; isolated PR `#14` carried only the intended `omg` compaction slice and merged into `main` on 2026-04-12
 - `ohmg` still has the strongest measured optimization signal: baseline `4/20`, discarded mutation `3/20`, kept mutation `8/20`
 
 ## Target Decisions
@@ -38,33 +38,33 @@ Source links:
 |---|---|---|---|---|---|---|---|
 | `survey` | Standards-clean and eval-backed | No | No | No | Already present | No | Leave stable |
 | `omx` | Standards-clean and eval-backed | No | No | No | Already present | Later, once a deterministic scoring harness exists | Leave stable |
-| `ohmg` | Standards-clean, eval-backed, and workspace-backed | No new assets needed | Existing capture and scoring scripts are sufficient | Existing baseline note is sufficient | Already present | Yes | Resume with one scored mutation focused on Gemini-or-Antigravity framing plus Serena Memory after the current merge lane closes |
-| `omg` | Standards-clean, compact, and isolated for review | No new assets needed | Existing scripts are sufficient | `references/OPERATIONS.md` is now sufficient for the extracted operator detail | Not yet justified | No | Merge the isolated PR, then return to `ohmg` optimization |
+| `ohmg` | Standards-clean, eval-backed, and workspace-backed | No new assets needed | Existing capture and scoring scripts are sufficient | Existing baseline note is sufficient | Already present | Yes | Resume with one scored mutation focused on Gemini-or-Antigravity framing plus Serena Memory |
+| `omg` | Standards-clean, compact, and already merged on `main` | No new assets needed | Existing scripts are sufficient | `references/OPERATIONS.md` is sufficient for the extracted operator detail | Not yet justified | No | Leave stable after merged PR `#14` |
 
 ## Locked Direction
 
-- Primary lane: merge the isolated `omg` review branch on PR `#14`.
-- Secondary lane after merge: resume the measured `ohmg` loop with one scored mutation at a time.
-- Keep `survey` and `omx` stable; do not widen packaging work in this run.
+- Primary lane: merge draft PR `#15` for the bounded post-merge handoff slice, then resume the measured `ohmg` loop with one scored mutation at a time from clean `main`.
+- Secondary lane: keep the recurring branch clean by ignoring generated OMX logs, Python bytecode, and raw capture outputs.
+- Keep `survey`, `omx`, and `omg` stable; do not widen packaging work in this run.
 
 ## Cleanup Plan
 
 1. Refresh the survey and standards evidence before changing code.
 2. Do not land an unscored `ohmg` mutation.
-3. Keep the current slice limited to isolating and reopening the `omg` PR path.
-4. Revalidate the touched skill and hand off the next smallest move.
+3. Keep generated `.omx/`, `__pycache__/`, and raw `captured-runs/` directories out of the next PR path.
+4. Revalidate the touched state files and hand off the next smallest scored move.
 
 ## Run Action
 
-- Smallest bounded action for this run: isolate the intended `omg` compaction slice onto a fresh branch from `origin/main` and reopen the PR path without unrelated history
+- Smallest bounded action for this run: re-review draft PR `#15`, confirm it contains no duplicate work or missing improvements inside the intended scope, and advance it through the merge path once the lock state reflects that review
 
 ## Status
 
-- Current state: draft PR `#14` is open at `https://github.com/akillness/oh-my-gods/pull/14`, its diff against `main` is limited to `.god-skills/omg/SKILL.md` plus `references/OPERATIONS.md`, and GitHub reports merge state `CLEAN`
-- Blocker: no blocker remains for the `omg` review slice itself; after this merge, the active blocker returns to `ohmg`, which still does not consistently anchor Gemini-or-Antigravity framing plus Serena Memory
-- Next owner: `nanoclaw_pd` to merge PR `#14`, then `nanoclaw_engine` for the next scored `ohmg` mutation
+- Current state: draft PR `#15` is still limited to `.gitignore` plus the survey lock handoff, re-review found no duplicate work or missing bounded fix inside that scope, and GitHub reports merge state `CLEAN`
+- Blocker: no blocker remains for the PR slice itself; after merge, the active blocker returns to `ohmg`, which still fails to consistently anchor Gemini-or-Antigravity framing plus Serena Memory
+- Next owner: `nanoclaw_pd` to merge PR `#15`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
 - Stage: `merge`
-- PR-readiness note: `omg` is now isolated and merge-ready; do not reopen `survey` or `omx` in the current slice
+- PR-readiness note: intended housekeeping scope is satisfied; merge without widening this PR beyond lock repair and generated-file hygiene
 
 ## Run 9 refresh
 

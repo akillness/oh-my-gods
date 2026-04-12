@@ -808,3 +808,118 @@ Source links:
 - Next owner: `nanoclaw_pd` to merge PR `#14`, then `nanoclaw_engine` for the next scored `ohmg` mutation
 - Stage: `merge`
 - Merge-ready: yes
+
+## Run 16 refresh
+
+### Survey refresh signals
+
+- Agent Skills still favors compact `SKILL.md` entrypoints with optional `scripts/`, `references/`, `assets/`, and `evals/` only when they reduce ambiguity or enable measurement, so the merged `omg` cleanup should stay closed and the next lane should return to measured `ohmg` work.
+- Claude Code still exposes skills, subagents, and hooks as reusable control surfaces, while the OpenAI models docs still position current coding models and tool-backed workflows as the default path for agentic coding tasks.
+- Gemini CLI still documents hierarchical `GEMINI.md` or configured context-file loading plus extension packaging, which keeps Gemini-facing orchestration guidance strategically important and supports the existing `ohmg` framing focus.
+
+Source links:
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/hooks
+- https://developers.openai.com/codex
+- https://developers.openai.com/api/docs/models
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+- https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html
+
+### Audit and packaging decision
+
+- Fresh audit on the post-merge branch: `80` skills, `20` missing `## Instructions`, `25` missing `## Examples`, `23` missing `## Best practices`, `12` missing `## References`, `68` missing `evals/evals.json`, `17` descriptions still lacking trigger phrasing, and `14` skills over `500` lines.
+- Highest-value future standards targets remain compact, under-packaged skills rather than the already-clean workflow quartet. The strongest bounded candidates are:
+  - `bmad-idea`: missing `Instructions`, `Examples`, `Best practices`, `References`, missing evals, and weak trigger phrasing at `123` lines
+  - `bmad`: same packaging gaps plus missing evals at `260` lines
+  - `agentation`: missing `When to use this skill`, `Instructions`, `Examples`, `Best practices`, missing evals, and weak trigger phrasing at `268` lines
+- For the active `ohmg` target, no new assets are justified, no new scripts are justified, no new references are justified, and no new evals are justified. The current blocker is instruction quality, not missing support surfaces.
+- The recurring loop was still producing untracked `.omx/`, `__pycache__/`, and raw `captured-runs/` directories, so this run adds ignore coverage to keep the next branch and PR path bounded.
+
+### Optimization handoff
+
+- `ohmg` keeps the strongest measured signal in the repo:
+  - experiment `0`: `4/20` baseline
+  - experiment `1`: `3/20` discarded
+  - experiment `2`: `8/20` kept
+- The current `ohmg` run contract says the next mutation should make Gemini-or-Antigravity framing plus Serena Memory non-optional for explicit `ohmg` prompts.
+- Local untracked capture state already includes `captured-runs/experiment-3/capture-plan.json`, so the next owner should treat experiment `3` as partially staged capture work rather than starting from an empty workspace.
+
+### Current state
+
+- State: PR `#14` is already merged, the loop has moved back to `improvement`, and this run only repairs the lock state plus generated-file hygiene on a fresh post-merge branch
+- Blocker: `ohmg` still does not reliably anchor Gemini-or-Antigravity framing plus Serena Memory, so the next meaningful change must be one scored mutation instead of another structural cleanup pass
+- Next owner: `nanoclaw_engine`
+- Next bounded action: design and score `ohmg` experiment `3` around non-optional Gemini-or-Antigravity plus Serena Memory framing, while keeping `survey`, `omx`, and `omg` unchanged
+- Stage: `improvement`
+- Merge-ready: not yet; wait for a scored `ohmg` delta or another equally bounded follow-up slice before opening the next PR path
+
+## Run 17 PR registration
+
+### PR path result
+
+- Created fresh branch `chore/skill-loop-pr-open-20260413-r16` from the post-merge `main` state instead of reopening the stale local branch that still tracked `origin/main`.
+- Pushed only the bounded handoff slice:
+  - `.survey/llm-agent-skill-landscape/current-lock.md`
+  - `.survey/llm-agent-skill-landscape/direction.md`
+  - `.gitignore`
+- Opened draft PR `#15` at `https://github.com/akillness/oh-my-gods/pull/15`.
+- GitHub reports merge state `CLEAN`, so the next run should treat this lane as PR review rather than re-opening the PR path.
+
+### Packaging and optimization decision
+
+| Skill | Assets | Scripts | References | Evals | Skill-autoresearch decision | Smallest bounded action after this PR |
+|------|--------|---------|------------|-------|-----------------------------|---------------------------------------|
+| `survey` | No | No | No | Done | Keep stable | No change |
+| `omx` | No | No | No | Done | Keep deferred while `ohmg` still has the stronger measured failure signal | No change |
+| `ohmg` | No new assets needed | Existing capture plus scoring scripts are enough | Existing baseline note is enough | Done | Still justified because the loop now has baseline `4/20`, discarded `3/20`, and kept `8/20` evidence | Score experiment `3` around non-optional Gemini-or-Antigravity plus Serena Memory framing |
+| `bmad-idea` | No | No | No | Needed | Not justified before standards packaging exists | Future compact standards candidate |
+| `bmad` | No | No | No | Needed | Not justified before standards packaging exists | Future compact standards candidate |
+| `agentation` | No | No new scripts justified yet | No new references justified yet | Needed | Not justified before standards packaging exists | Future compact standards candidate |
+
+### Current state
+
+- State: draft PR `#15` is open and review-clean for the bounded post-merge handoff slice
+- Blocker: no blocker remains for this PR itself; the remaining blocker is still the separate `ohmg` optimization lane
+- Next owner: reviewer / maintainer for draft PR `#15`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
+- Stage: `PR-open`
+- Merge-ready: yes for the intended housekeeping scope
+
+## Run 18 review
+
+### Survey refresh signals
+
+- Agent Skills still favors compact `SKILL.md` entrypoints with optional support directories only when they reduce ambiguity or enable measurement, so no new survey signal justifies reopening `survey`, `omx`, or `omg` during this review run.
+- Claude Code still documents skills, subagents, and hooks as reusable control surfaces, OpenAI Codex still documents AGENTS-aware configuration plus tool-backed coding workflows, and Gemini CLI still documents extension packaging with `contextFileName` or `GEMINI.md` loading.
+- Those signals keep the next substantive lane unchanged: after this housekeeping merge, return to one scored `ohmg` mutation focused on Gemini-or-Antigravity framing plus Serena Memory.
+
+Source links:
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/hooks
+- https://developers.openai.com/codex
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+- https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html
+
+### PR review result
+
+- Re-reviewed draft PR `#15` on `chore/skill-loop-pr-open-20260413-r16` against `main`.
+- No duplicate work was found: the diff is still limited to `.gitignore`, `.survey/llm-agent-skill-landscape/current-lock.md`, and `.survey/llm-agent-skill-landscape/direction.md`.
+- No missing bounded improvement was found inside the intended scope: the PR still records the post-merge handoff state, keeps generated OMX and `ohmg` capture byproducts out of the next review path, and leaves `survey`, `omx`, `ohmg`, and `omg` skill content untouched.
+- Validation remains clean for the workflow-critical skills: `validate_frontmatter.py` still reports `80/80` skills passing.
+- GitHub review state is mergeable: PR `#15` is open, draft, and reports merge state `CLEAN`.
+
+### Merge decision
+
+- Intended scope is satisfied, so this run should advance PR `#15` through the merge path.
+- After the merge lands, the next smallest bounded action is not another housekeeping edit; it is scored `ohmg` experiment `3`.
+
+### Current state
+
+- State: PR `#15` is review-clean and merge-ready for its intended housekeeping scope
+- Blocker: no blocker remains for PR `#15`; the remaining blocker is still the separate `ohmg` optimization lane
+- Next owner: `nanoclaw_pd` to merge PR `#15`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
+- Stage: `merge`
+- Merge-ready: yes
