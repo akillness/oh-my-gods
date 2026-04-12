@@ -854,3 +854,34 @@ Source links:
 - Next bounded action: design and score `ohmg` experiment `3` around non-optional Gemini-or-Antigravity plus Serena Memory framing, while keeping `survey`, `omx`, and `omg` unchanged
 - Stage: `improvement`
 - Merge-ready: not yet; wait for a scored `ohmg` delta or another equally bounded follow-up slice before opening the next PR path
+
+## Run 17 PR registration
+
+### PR path result
+
+- Created fresh branch `chore/skill-loop-pr-open-20260413-r16` from the post-merge `main` state instead of reopening the stale local branch that still tracked `origin/main`.
+- Pushed only the bounded handoff slice:
+  - `.survey/llm-agent-skill-landscape/current-lock.md`
+  - `.survey/llm-agent-skill-landscape/direction.md`
+  - `.gitignore`
+- Opened draft PR `#15` at `https://github.com/akillness/oh-my-gods/pull/15`.
+- GitHub reports merge state `CLEAN`, so the next run should treat this lane as PR review rather than re-opening the PR path.
+
+### Packaging and optimization decision
+
+| Skill | Assets | Scripts | References | Evals | Skill-autoresearch decision | Smallest bounded action after this PR |
+|------|--------|---------|------------|-------|-----------------------------|---------------------------------------|
+| `survey` | No | No | No | Done | Keep stable | No change |
+| `omx` | No | No | No | Done | Keep deferred while `ohmg` still has the stronger measured failure signal | No change |
+| `ohmg` | No new assets needed | Existing capture plus scoring scripts are enough | Existing baseline note is enough | Done | Still justified because the loop now has baseline `4/20`, discarded `3/20`, and kept `8/20` evidence | Score experiment `3` around non-optional Gemini-or-Antigravity plus Serena Memory framing |
+| `bmad-idea` | No | No | No | Needed | Not justified before standards packaging exists | Future compact standards candidate |
+| `bmad` | No | No | No | Needed | Not justified before standards packaging exists | Future compact standards candidate |
+| `agentation` | No | No new scripts justified yet | No new references justified yet | Needed | Not justified before standards packaging exists | Future compact standards candidate |
+
+### Current state
+
+- State: draft PR `#15` is open and review-clean for the bounded post-merge handoff slice
+- Blocker: no blocker remains for this PR itself; the remaining blocker is still the separate `ohmg` optimization lane
+- Next owner: reviewer / maintainer for draft PR `#15`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
+- Stage: `PR-open`
+- Merge-ready: yes for the intended housekeeping scope
