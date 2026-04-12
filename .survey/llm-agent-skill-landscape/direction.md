@@ -763,3 +763,48 @@ PR / branch status on 2026-04-12:
 - Next bounded action: move one bulky OMG operational block from `SKILL.md` into an existing file under `references/` so the entrypoint can drop below the validator's 500-line budget before PR-open work starts
 - Stage: `improvement`
 - Merge-ready: not yet; the next run should focus on shrinking `omg` or isolating the current delta onto a fresh PR branch before any PR-open step
+
+## Run 15 review
+
+### Survey refresh signals
+
+- Agent Skills still favors compact `SKILL.md` entrypoints with optional `scripts/`, `references/`, `assets/`, and `evals/` only when they reduce ambiguity or enable measurement, so no new survey signal justifies widening the package surface in this run.
+- Claude Code hook docs still expose subagent and task lifecycle events plus agent or skill scoped hooks, which keeps orchestration skills dependent on clear control-surface language instead of buried operator prose.
+- OpenAI Codex docs still emphasize AGENTS-aware coding workflows and current coding-model surfaces, while Gemini CLI docs still emphasize extensions plus `contextFileName` or fallback `GEMINI.md` loading. That keeps `omg` and `ohmg` strategically important, but it does not change the next measured lane after this PR: one scored `ohmg` mutation at a time.
+
+Source links:
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/hooks
+- https://developers.openai.com/codex
+- https://developers.openai.com/api/docs/models/all
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+- https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html
+
+### PR review and isolation result
+
+- Reviewed the previously closed PR `#13` on `chore/skill-loop-pr-open-20260412-r8` and confirmed the branch carried unrelated history from `fb281a2` (`deepagents` and `langgraph-workflow`), which made the PR unsuitable as the bounded review surface for this loop.
+- Created a fresh branch `chore/skill-loop-pr-open-20260413-r9` from `origin/main`.
+- Cherry-picked only the intended `omg` compaction slice onto the fresh branch; the diff against `main` is now limited to:
+  - `.god-skills/omg/SKILL.md`
+  - `.god-skills/omg/references/OPERATIONS.md`
+- Opened fresh draft PR `#14` at `https://github.com/akillness/oh-my-gods/pull/14`.
+- GitHub reports merge state `CLEAN`, and `.god-skills/omg/SKILL.md` validates with `0` errors and `0` warnings.
+
+### Packaging and optimization decision
+
+| Skill | Assets | Scripts | References | Evals | Skill-autoresearch decision | Smallest bounded action this run |
+|------|--------|---------|------------|-------|-----------------------------|----------------------------------|
+| `survey` | No | No | No | Done | Keep stable | No change |
+| `omx` | No | No | No | Done | Keep deferred while `ohmg` still has the clearer measured failure signal | No change |
+| `ohmg` | No new assets needed | Existing capture plus scoring scripts are enough | Existing baseline note is enough | Done | Still justified because the loop now has baseline `4/20`, discarded `3/20`, and kept `8/20` evidence | No new mutation in this run |
+| `omg` | No new assets needed | Existing scripts are enough | `references/OPERATIONS.md` is sufficient for the extracted operator detail | Still not justified | Not a skill-autoresearch target yet | Isolate the diff and reopen the PR path cleanly |
+
+### Current state
+
+- State: draft PR `#14` is open, isolated, and merge-clean for its intended scope
+- Blocker: no blocker remains for the `omg` review slice itself; after merge, the active blocker returns to `ohmg`, which still fails to consistently anchor Gemini-or-Antigravity framing plus Serena Memory
+- Next owner: `nanoclaw_pd` to merge PR `#14`, then `nanoclaw_engine` for the next scored `ohmg` mutation
+- Stage: `merge`
+- Merge-ready: yes
