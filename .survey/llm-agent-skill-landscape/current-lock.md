@@ -184,3 +184,24 @@ Source links:
 - Blocker: the next highest-value improvement after this PR is no longer `omg` structure; it is the next scored `ohmg` anti-file-leakage mutation
 - Next owner: reviewer / maintainer for this `omg` cleanup slice, then `nanoclaw_engine` for the next measured `ohmg` experiment
 - Stage: `PR-open`
+
+## Run 13 review
+
+### Review result
+
+- Re-reviewed draft PR `#11` on `chore/skill-loop-20260412-r3` against `main` instead of stacking more work onto the older merged branch.
+- No duplicate work was found: the PR still only carries the intended `omg` decomposition slice plus the loop-lock update.
+- No missing standardization gap was found inside the intended scope: `.god-skills/omg/SKILL.md` validates with `0` errors and `0` warnings at `495` lines, and the extracted operator-manual content is present in `references/FLOW.md`, `references/setup-guide.md`, and `references/checkpoint-helpers.md`.
+- `omg` still lacks evals, but that is not a blocker for this merge because the locked scope of PR `#11` is entrypoint decomposition, not prompt optimization.
+
+### Merge decision
+
+- Intended scope is satisfied, so this run should move from draft review to merge handling for PR `#11`.
+- The next improvement lane stays unchanged after merge: resume the measured `ohmg` loop with one scored anti-file-leakage mutation instead of reopening `omg`.
+
+### Run 13 status
+
+- Current state: PR `#11` is review-clean and merge-ready
+- Blocker: no blocker for the `omg` cleanup slice itself; the remaining blocker is the separate `ohmg` optimization lane
+- Next owner: `nanoclaw_pd` to merge PR `#11`, then `nanoclaw_engine` for the next scored `ohmg` experiment
+- Stage: `merge`
