@@ -885,3 +885,41 @@ Source links:
 - Next owner: reviewer / maintainer for draft PR `#15`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
 - Stage: `PR-open`
 - Merge-ready: yes for the intended housekeeping scope
+
+## Run 18 review
+
+### Survey refresh signals
+
+- Agent Skills still favors compact `SKILL.md` entrypoints with optional support directories only when they reduce ambiguity or enable measurement, so no new survey signal justifies reopening `survey`, `omx`, or `omg` during this review run.
+- Claude Code still documents skills, subagents, and hooks as reusable control surfaces, OpenAI Codex still documents AGENTS-aware configuration plus tool-backed coding workflows, and Gemini CLI still documents extension packaging with `contextFileName` or `GEMINI.md` loading.
+- Those signals keep the next substantive lane unchanged: after this housekeeping merge, return to one scored `ohmg` mutation focused on Gemini-or-Antigravity framing plus Serena Memory.
+
+Source links:
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/hooks
+- https://developers.openai.com/codex
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+- https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html
+
+### PR review result
+
+- Re-reviewed draft PR `#15` on `chore/skill-loop-pr-open-20260413-r16` against `main`.
+- No duplicate work was found: the diff is still limited to `.gitignore`, `.survey/llm-agent-skill-landscape/current-lock.md`, and `.survey/llm-agent-skill-landscape/direction.md`.
+- No missing bounded improvement was found inside the intended scope: the PR still records the post-merge handoff state, keeps generated OMX and `ohmg` capture byproducts out of the next review path, and leaves `survey`, `omx`, `ohmg`, and `omg` skill content untouched.
+- Validation remains clean for the workflow-critical skills: `validate_frontmatter.py` still reports `80/80` skills passing.
+- GitHub review state is mergeable: PR `#15` is open, draft, and reports merge state `CLEAN`.
+
+### Merge decision
+
+- Intended scope is satisfied, so this run should advance PR `#15` through the merge path.
+- After the merge lands, the next smallest bounded action is not another housekeeping edit; it is scored `ohmg` experiment `3`.
+
+### Current state
+
+- State: PR `#15` is review-clean and merge-ready for its intended housekeeping scope
+- Blocker: no blocker remains for PR `#15`; the remaining blocker is still the separate `ohmg` optimization lane
+- Next owner: `nanoclaw_pd` to merge PR `#15`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
+- Stage: `merge`
+- Merge-ready: yes
