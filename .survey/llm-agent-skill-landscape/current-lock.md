@@ -26,7 +26,7 @@ Source links:
 
 - Repo-wide validator status on the isolated review branch: `0` errors, `113` warnings across `.god-skills/`
 - Repo-wide counts before this run: `80` skills, `20` missing `## Instructions`, `25` missing `## Examples`, `23` missing `## Best practices`, `12` missing `## References`, `68` missing `evals/evals.json`, `14` skills over `500` lines, `21` descriptions still lacking trigger phrasing
-- Repo-wide counts after this run: `80` skills, `23` missing `## Instructions`, `24` missing `## Examples`, `23` missing `## Best practices`, `11` missing `## References`, `67` missing `evals/evals.json`, `14` skills over `500` lines, `13` eval-backed skills total
+- Repo-wide counts on the current PR branch: `80` skills, `20` missing `## Instructions`, `24` missing `## Examples`, `22` missing `## Best practices`, `11` missing `## References`, `67` missing `evals/evals.json`, `14` skills over `500` lines, `21` descriptions still lacking trigger phrasing, `13` eval-backed skills total
 - Validator spot checks after isolation:
   - `survey`: `0` errors, `0` warnings
   - `omx`: `0` errors, `0` warnings
@@ -34,7 +34,7 @@ Source links:
   - `omg`: `0` errors, `0` warnings
 - Branch review result: closed PR `#13` was not reviewable because it carried unrelated `deepagents` and `langgraph-workflow` history; isolated PR `#14` carried only the intended `omg` compaction slice and merged into `main` on 2026-04-12
 - `ohmg` still has the strongest measured optimization signal: baseline `4/20`, discarded mutation `3/20`, kept mutation `8/20`
-- `skill-autoresearch` is still missing its own eval scaffold, which makes the repo's recurring optimization loop less self-validating than the current survey evidence supports
+- `skill-autoresearch` is now eval-backed on this branch: the PR adds `evals/evals.json` plus compact `Examples`, `Best practices`, and `References` sections without widening into new assets or scripts
 
 ## Target Decisions
 
@@ -44,11 +44,11 @@ Source links:
 | `omx` | Standards-clean and eval-backed | No | No | No | Already present | Later, once a deterministic scoring harness exists | Leave stable |
 | `ohmg` | Standards-clean, eval-backed, and workspace-backed | No new assets needed | Existing capture and scoring scripts are sufficient | Existing baseline note is sufficient | Already present | Yes | Resume with one scored mutation focused on Gemini-or-Antigravity framing plus Serena Memory |
 | `omg` | Standards-clean, compact, and already merged on `main` | No new assets needed | Existing scripts are sufficient | `references/OPERATIONS.md` is sufficient for the extracted operator detail | Not yet justified | No | Leave stable after merged PR `#14` |
-| `skill-autoresearch` | Workflow-critical meta skill with clear inputs but no eval scaffold yet | No | No new scripts needed for this slice | Existing `references/eval-guide.md` is sufficient | Add now | N/A for itself this run | Add evals plus compact reviewability sections before reopening another scored mutation lane |
+| `skill-autoresearch` | Standards-clean and eval-backed on the current PR branch | No | No new scripts needed for this slice | Existing `references/eval-guide.md` is sufficient | Added in PR `#16` | No new mutation loop for itself in this run | Merge this bounded hardening slice, then return to scored `ohmg` experiment `3` |
 
 ## Locked Direction
 
-- Primary lane: on fresh `main`, harden `skill-autoresearch` with its own eval scaffold and compact reviewability sections before reopening another scored mutation lane.
+- Primary lane: re-review and merge draft PR `#16` for the bounded `skill-autoresearch` hardening slice, then resume `ohmg` with one scored mutation at a time from clean `main`.
 - Secondary lane: keep `ohmg` as the next measured optimization target, but do not land an unscored experiment `3`.
 - Secondary lane: keep the recurring branch clean by ignoring generated OMX logs, Python bytecode, and raw capture outputs.
 - Keep `survey`, `omx`, and `omg` stable; do not widen packaging work in this run.
@@ -62,15 +62,15 @@ Source links:
 
 ## Run Action
 
-- Smallest bounded action for this run: open a fresh PR path from clean `main`, add `skill-autoresearch` eval coverage plus minimal reviewability sections, and refresh the loop lock so the next run can resume `ohmg` honestly
+- Smallest bounded action for this run: re-review draft PR `#16`, correct stale lock-state claims inside the PR, and advance it through merge once the intended scope is confirmed clean
 
 ## Status
 
-- Current state: draft PR `#16` is open on `chore/skill-loop-pr-open-20260413-r17` for a bounded `skill-autoresearch` hardening slice
-- Blocker: `ohmg` is still the strongest measured optimization target, but no new capture exists yet for experiment `3`, so this run stays on meta-loop hardening instead of faking a scored mutation
-- Next owner: reviewer / maintainer for the bounded `skill-autoresearch` PR, then `nanoclaw_engine` for either scored `ohmg` experiment `3` or the next eval-backed workflow skill
-- Stage: `PR-open`
-- PR-readiness note: keep this PR scoped to `skill-autoresearch` plus survey-lock refresh only
+- Current state: draft PR `#16` remains limited to `skill-autoresearch` hardening plus survey-lock refresh, and this review run corrected the stale claim that the skill still lacked eval coverage
+- Blocker: no blocker remains for the PR slice itself; after merge, the active blocker returns to `ohmg`, which still needs a fresh scored capture for experiment `3`
+- Next owner: `nanoclaw_pd` to merge PR `#16`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
+- Stage: `merge`
+- PR-readiness note: intended scope is satisfied; merge without widening this PR beyond `skill-autoresearch` hardening and lock repair
 
 ## Run 9 refresh
 
