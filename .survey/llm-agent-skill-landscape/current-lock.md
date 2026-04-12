@@ -205,3 +205,33 @@ Source links:
 - Blocker: no blocker for the `omg` cleanup slice itself; the remaining blocker is the separate `ohmg` optimization lane
 - Next owner: `nanoclaw_pd` to merge PR `#11`, then `nanoclaw_engine` for the next scored `ohmg` experiment
 - Stage: `merge`
+
+## Run 14 refresh
+
+### Survey refresh
+
+- Agent Skills still favors compact `SKILL.md` entrypoints plus optional `scripts/`, `references/`, `assets/`, and `evals/` only when they reduce real ambiguity or enable measurement, so the next high-value move remains measured `ohmg` iteration instead of adding more top-level prose.
+- Claude Code, Codex, and Gemini CLI still all expose reusable skills, agents, hooks, or extension surfaces, which keeps the Gemini-facing `ohmg` orchestration skill worth optimizing as a distinct platform surface.
+- No new official signal justifies reopening `survey`, `omx`, or `omg`; the next bounded lane after the merged `omg` cleanup is still one scored `ohmg` mutation at a time.
+
+Source links:
+
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://developers.openai.com/codex
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+
+### Improvement and packaging decision
+
+- Clean-branch validator result after this run: `.god-skills/ohmg/SKILL.md` validates with `0` errors and `0` warnings, and repo-wide validation remains `0` errors and `113` warnings across `.god-skills/`
+- `ohmg` did not need new assets, scripts, references, or eval files in this slice; the existing support workspace was already sufficient for a measured mutation
+- Bounded mutation for this run: strengthen the setup-verification instruction so explicit verification requests must use `bunx oh-my-ag doctor` and must not fall back to indirect file checks or local maintenance artifacts
+- Experiment result: `ohmg` experiment `2` improved from the `4/20` baseline to `8/20`, so the mutation is a measured keep and should be packaged for review
+- Packaging exclusions remain unchanged: keep raw `captured-runs/` output and the local scoring template out of the PR path
+
+### Run 14 status
+
+- Current state: a new bounded `ohmg` improvement slice is ready on `chore/skill-loop-20260412-r4`, with a kept experiment at `8/20` and the run lock advanced to PR registration
+- Blocker: `ohmg` still does not consistently anchor itself as the Gemini or Antigravity orchestration layer, and it still omits Serena Memory on most configuration answers
+- Next owner: reviewer / maintainer for the next `ohmg` improvement PR, then `nanoclaw_engine` for the next scored mutation focused on Gemini-or-Antigravity framing plus Serena Memory
+- Stage: `PR-open`

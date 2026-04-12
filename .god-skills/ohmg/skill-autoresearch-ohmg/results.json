@@ -20,8 +20,8 @@
     "scoring_recorder": "../scripts/record_skill_autoresearch_experiment.py",
     "mutation_policy": "one_change_at_a_time",
     "keep_policy": "keep_only_strict_score_improvements",
-    "current_blocker": "A prose-only response-contract mutation is not strong enough to overcome the model's tendency to inspect nearby workspace artifacts inside the skill directory.",
-    "next_action": "Keep the baseline skill wording, then test one different mutation that attacks local-file leakage directly, such as a focused anti-pattern example or stronger negative guidance about not reading autoresearch artifacts for explicit ohmg help prompts."
+    "current_blocker": "The skill still lacks a strong enough top-level anchor tying ohmg to the Gemini or Antigravity surface and Serena Memory; setup-only guidance improved but did not generalize.",
+    "next_action": "Keep this mutation, then test one focused mutation that makes Gemini-or-Antigravity framing plus Serena Memory non-optional for explicit ohmg help prompts."
   },
   "experiments": [
     {
@@ -39,6 +39,14 @@
       "pass_rate": 15.0,
       "status": "discard",
       "description": "Add a top-of-skill response contract to anchor ohmg answers to documented surfaces."
+    },
+    {
+      "experiment": 2,
+      "score": 8,
+      "max_score": 20,
+      "pass_rate": 40.0,
+      "status": "keep",
+      "description": "Strengthen setup verification to require doctor and reject indirect checks."
     }
   ]
 }

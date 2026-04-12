@@ -46,3 +46,10 @@ Change: Added one Step 0 instruction block near the top of `SKILL.md` to priorit
 Reasoning: Experiment 0 showed recurring drift toward generic setup advice and local autoresearch files, so the hypothesis was that one explicit response-contract block would pull the model back to the documented ohmg surfaces.
 Result: Experiment 1 scored 3/20, which is worse than the 4/20 baseline. The mutation did not stop local-file exploration drift and did not recover the missing `doctor` verification path.
 Remaining failures: Prompt 1 still never framed ohmg as the Gemini or Antigravity orchestration layer. Prompt 2 still never mentioned `bunx oh-my-ag doctor`. Prompt 3 still invented JSON config files on 3 runs. Prompt 4 still fell back to local autoresearch dashboards on 4 runs.
+## Experiment 2 — keep
+
+Score: 8/20
+Change: Replace the setup verification bullet with explicit `bunx oh-my-ag doctor` guidance and a ban on indirect verification via file checks or maintenance artifacts.
+Reasoning: Experiment 1 showed that a generic response contract was too weak. The next hypothesis was that a narrower verification rule could preserve documented setup surfaces while reducing setup-time file drift.
+Result: Score improved from 4/20 to 8/20. Prompt 2 recovered one full pass and prompt 4 stayed consistently correct, but prompt 1 still rarely frames ohmg as the Gemini or Antigravity orchestration layer and prompt 3 still often omits Serena Memory.
+Remaining failures: Prompt 1 usually coordinates lanes without explicitly anchoring ohmg to Gemini or Antigravity. Prompt 2 still drifts to `--help` or file checks on most runs. Prompt 3 still mentions agent_cli_mapping without Serena Memory on 4/5 runs.
