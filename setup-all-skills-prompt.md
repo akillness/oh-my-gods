@@ -164,7 +164,7 @@ npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill vibe-kanban --skill video-production \
   --skill web-design-guidelines --skill workflow-automation \
   --skill langextract \
-  --skill frouter --skill deepagents
+  --skill frouter --skill deepagents --skill langgraph-workflow
 ```
 
 > Skip condition is only allowed when the user explicitly requests (`core only`, `minimal install`, `quick install`).
@@ -357,6 +357,7 @@ npx skills add -g langchain-ai/langchain-skills --skill '*' --yes
 | `langgraph-fundamentals` | "langgraph", "StateGraph", "graph nodes" | StateGraph, nodes, edges, Send fan-out, streaming |
 | `langgraph-persistence` | "persist state", "checkpointer", "thread_id" | State persistence, PostgresSaver, time travel |
 | `langgraph-human-in-the-loop` | "interrupt", "pause for approval", "HITL langgraph" | `interrupt()`, `Command(resume=...)`, idempotency rules |
+| `langgraph-workflow` | "stateful agent", "agent pipeline", "StateGraph workflow" | Production stateful multi-agent workflows — checkpointing, conditional branching, HITL gates, parallel nodes |
 | `deep-agents-core` | "deep agent", "create_deep_agent" | Core architecture: middleware, SKILL.md format, harness |
 | `deep-agents-memory` | "agent memory", "StoreBackend", "filesystem access" | Memory backends: ephemeral, persistent, filesystem |
 | `deep-agents-orchestration` | "subagent", "todo list", "task delegation" | SubAgentMiddleware, TodoListMiddleware, HITL interrupts |

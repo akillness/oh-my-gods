@@ -1,0 +1,45 @@
+{
+  "skill_name": "omx",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use OMX to plan and execute a medium-sized refactor in Codex CLI with clear verification steps.",
+      "expected_output": "Guidance that routes the user toward an OMX workflow such as $plan or $autopilot, preserves verification, and frames OMX as the Codex-focused orchestration layer.",
+      "assertions": [
+        "Response identifies OMX as a Codex CLI orchestration surface",
+        "Response suggests an OMX workflow or command such as $plan, $autopilot, or omx",
+        "Response includes a verification-oriented step instead of stopping at delegation"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need four parallel agents to audit different parts of this repo and report back through tmux. How should I do that with oh-my-codex?",
+      "expected_output": "A team-mode answer using OMX team orchestration, including a concrete team command and team lifecycle operations.",
+      "assertions": [
+        "Response uses omx team or $team rather than generic parallelism advice",
+        "Response includes a concrete role-shaped worker example such as 4:executor",
+        "Response mentions a team lifecycle action such as status, resume, or shutdown"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "What persistent support surfaces does OMX provide besides prompts and skills?",
+      "expected_output": "A concise explanation of OMX MCP server support covering state, memory, code intelligence, or trace surfaces.",
+      "assertions": [
+        "Response mentions MCP servers or persistent support surfaces",
+        "Response includes at least two of state, memory, code intelligence, or trace",
+        "Response keeps the answer OMX-specific instead of switching to another framework"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "How does OMX pick up project instructions and custom launch configuration when I start Codex in a repo?",
+      "expected_output": "An answer that explains AGENTS.md injection or model instructions handling plus one relevant environment control.",
+      "assertions": [
+        "Response mentions AGENTS.md or model instructions injection",
+        "Response includes a concrete configuration detail such as OMX_MODEL_INSTRUCTIONS_FILE or OMX_BYPASS_DEFAULT_SYSTEM_PROMPT",
+        "Response stays focused on launch/configuration behavior"
+      ]
+    }
+  ]
+}
