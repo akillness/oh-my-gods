@@ -110,11 +110,11 @@ Source links:
 ### Run 10 action
 
 - Bounded change set: normalize `omg` frontmatter trigger phrasing and exact heading names so three standards warnings disappear without widening scope
-- PR path: use a fresh branch from `main` for this slice and open a draft PR once validation is clean enough for review
+- PR path: opened draft PR `#10` for this clean-main slice after validation
 
 ### Run 10 status
 
-- Current state: `omg` is on a bounded cleanup path from a clean `main` branch, and the remaining blocker after this slice should be entrypoint size rather than section naming
+- Current state: draft PR `#10` is open for the bounded `omg` cleanup slice, and the remaining blocker after this slice is entrypoint size rather than section naming
 - Blocker: `omg` still exceeds the 500-line review target, so it remains a decomposition problem before it becomes an eval-first optimization target
 - Next owner: reviewer / maintainer for the bounded cleanup PR, then `nanoclaw_engine` for the next `omg` decomposition slice or the next scored `ohmg` mutation
-- Stage: `improvement`
+- Stage: `PR-open`
