@@ -180,7 +180,7 @@ Source links:
 
 ### Run 12 status
 
-- Current state: bounded cleanup branch `chore/skill-loop-20260412-r3` is ready for draft-PR registration with a standards-clean `omg` entrypoint
+- Current state: draft PR `#11` is open on `chore/skill-loop-20260412-r3` with a standards-clean `omg` entrypoint
 - Blocker: the next highest-value improvement after this PR is no longer `omg` structure; it is the next scored `ohmg` anti-file-leakage mutation
 - Next owner: reviewer / maintainer for this `omg` cleanup slice, then `nanoclaw_engine` for the next measured `ohmg` experiment
 - Stage: `PR-open`
