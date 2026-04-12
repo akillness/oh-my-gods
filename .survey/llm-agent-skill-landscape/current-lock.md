@@ -66,7 +66,7 @@ Source links:
 
 ## Status
 
-- Current state: fresh branch `chore/skill-loop-pr-open-20260413-r17` is registered from clean `main` for a bounded `skill-autoresearch` hardening slice
+- Current state: draft PR `#16` is open on `chore/skill-loop-pr-open-20260413-r17` for a bounded `skill-autoresearch` hardening slice
 - Blocker: `ohmg` is still the strongest measured optimization target, but no new capture exists yet for experiment `3`, so this run stays on meta-loop hardening instead of faking a scored mutation
 - Next owner: reviewer / maintainer for the bounded `skill-autoresearch` PR, then `nanoclaw_engine` for either scored `ohmg` experiment `3` or the next eval-backed workflow skill
 - Stage: `PR-open`
