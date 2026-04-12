@@ -1,13 +1,13 @@
 # Current Lock
 
-Date: 2026-04-12
+Date: 2026-04-13
 
 ## Survey Refresh
 
-- Agent Skills still centers compact `SKILL.md` entrypoints with optional `scripts/`, `references/`, `assets/`, and `evals/` added only when they reduce real ambiguity or enable measurement.
-- Claude Code still treats skills, subagents, and hooks as first-class reusable control surfaces.
-- Codex docs still expose rules, hooks, `AGENTS.md`, skills, subagents, and parallel cloud task execution, which raises the value of evaluation-ready orchestration skills.
-- Gemini CLI still exposes extensions and hierarchical workspace guidance, which keeps Gemini-facing orchestration skills strategically important.
+- Agent Skills still favors compact `SKILL.md` entrypoints with optional `scripts/`, `references/`, `assets/`, and `evals/` only when they reduce ambiguity or enable measurement.
+- Claude Code still exposes skills, subagents, and hook lifecycle events as first-class reusable control surfaces.
+- OpenAI Codex docs still emphasize AGENTS-aware coding workflows and current coding-model surfaces, which keeps evaluation-ready orchestration skills strategically important.
+- Gemini CLI still exposes extensions plus `contextFileName` or fallback `GEMINI.md` loading, which keeps Gemini-facing orchestration skills strategically important.
 
 Source links:
 
@@ -16,49 +16,55 @@ Source links:
 - https://code.claude.com/docs/en/sub-agents
 - https://code.claude.com/docs/en/hooks
 - https://developers.openai.com/codex
+- https://developers.openai.com/api/docs/models/all
 - https://google-gemini.github.io/gemini-cli/docs/extensions/
 - https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html
 
 ## Audit Snapshot
 
-- Validator status: `0` errors, `111` warnings before this run and `110` warnings after this run across `.god-skills/`
-- Repo-wide counts after this run: `72` skills, `19` missing `## Instructions`, `23` missing `## Examples`, `19` missing `## Best practices`, `12` missing `## References`, `65` missing `evals/evals.json`, `17` skills over `500` lines, `18` descriptions still lacking trigger phrasing
-- Standards-clean targets: `survey`, `omx`, `ohmg`
-- Remaining high-value standards gap: `omg`
-- `ohmg` has a recorded skill-autoresearch baseline at `4/20` plus one discarded `3/20` mutation, so optimization is justified there, but only with one stronger anti-local-file-leakage mutation at a time
+- Repo-wide validator status on the isolated review branch: `0` errors, `113` warnings across `.god-skills/`
+- Repo-wide counts after this run: `80` skills, `20` missing `## Instructions`, `25` missing `## Examples`, `23` missing `## Best practices`, `12` missing `## References`, `68` missing `evals/evals.json`, `14` skills over `500` lines, `21` descriptions still lacking trigger phrasing
+- Validator spot checks after isolation:
+  - `survey`: `0` errors, `0` warnings
+  - `omx`: `0` errors, `0` warnings
+  - `ohmg`: `0` errors, `0` warnings
+  - `omg`: `0` errors, `0` warnings
+- Branch review result: closed PR `#13` was not reviewable because it carried unrelated `deepagents` and `langgraph-workflow` history; isolated PR `#14` now contains only the intended `omg` compaction slice
+- `ohmg` still has the strongest measured optimization signal: baseline `4/20`, discarded mutation `3/20`, kept mutation `8/20`
 
 ## Target Decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `survey` | Standards-clean, eval-backed, merge-ready | No | No | No | Already present | No | Leave stable |
-| `omx` | Standards-clean, eval-backed, merge-ready | No | No | No | Already present | Later, once a deterministic scoring harness exists | Leave stable and move toward review |
-| `ohmg` | Standards-clean, eval-backed, support workspace exists | No | Yes, already justified | Yes, already justified | Already present | Yes, because baseline is low and repeatable | Resume with one scored anti-file-leakage mutation in a future run |
-| `omg` | Not merge-ready; still oversized and still missing multiple recommended sections | No new assets needed | Existing scripts already justified | Existing references already justified | Needed later, but not before structural cleanup | No | Remove one warning at a time until compact enough for eval work |
+| `survey` | Standards-clean and eval-backed | No | No | No | Already present | No | Leave stable |
+| `omx` | Standards-clean and eval-backed | No | No | No | Already present | Later, once a deterministic scoring harness exists | Leave stable |
+| `ohmg` | Standards-clean, eval-backed, and workspace-backed | No new assets needed | Existing capture and scoring scripts are sufficient | Existing baseline note is sufficient | Already present | Yes | Resume with one scored mutation focused on Gemini-or-Antigravity framing plus Serena Memory after the current merge lane closes |
+| `omg` | Standards-clean, compact, and isolated for review | No new assets needed | Existing scripts are sufficient | `references/OPERATIONS.md` is now sufficient for the extracted operator detail | Not yet justified | No | Merge the isolated PR, then return to `ohmg` optimization |
 
 ## Locked Direction
 
-- Primary lane: `omg` structural cleanup in the smallest reversible slices.
-- Secondary lane: `ohmg` measured optimization, but only after the next mutation is phrased to stop local maintenance-file drift and is scored through the existing workspace.
-- Keep `survey`, `omx`, and `ohmg` available for PR review; do not expand scope on them in this run.
+- Primary lane: merge the isolated `omg` review branch on PR `#14`.
+- Secondary lane after merge: resume the measured `ohmg` loop with one scored mutation at a time.
+- Keep `survey` and `omx` stable; do not widen packaging work in this run.
 
 ## Cleanup Plan
 
 1. Refresh the survey and standards evidence before changing code.
 2. Do not land an unscored `ohmg` mutation.
-3. Remove exactly one `omg` warning in the smallest reversible way.
+3. Keep the current slice limited to isolating and reopening the `omg` PR path.
 4. Revalidate the touched skill and hand off the next smallest move.
 
 ## Run Action
 
-- Smallest bounded action for this run: rewrite the `omg` frontmatter description to use imperative trigger phrasing so one validator warning disappears without widening scope
+- Smallest bounded action for this run: isolate the intended `omg` compaction slice onto a fresh branch from `origin/main` and reopen the PR path without unrelated history
 
 ## Status
 
-- Current state: `survey`, `omx`, and `ohmg` are merge-ready from a standards perspective; `omg` dropped from `5` warnings to `4` and remains the blocker
-- Blocker: `omg` is still a monolith over `500` lines and still lacks `Examples`, `Best practices`, and `References`, so it is not ready for eval-first optimization; `ohmg` still needs a scored anti-file-leakage mutation rather than another intuition edit
-- Next owner: `nanoclaw_engine`
-- PR-readiness note: move `survey`, `omx`, and `ohmg` toward review as-is; keep `omg` on the cleanup track
+- Current state: draft PR `#14` is open at `https://github.com/akillness/oh-my-gods/pull/14`, its diff against `main` is limited to `.god-skills/omg/SKILL.md` plus `references/OPERATIONS.md`, and GitHub reports merge state `CLEAN`
+- Blocker: no blocker remains for the `omg` review slice itself; after this merge, the active blocker returns to `ohmg`, which still does not consistently anchor Gemini-or-Antigravity framing plus Serena Memory
+- Next owner: `nanoclaw_pd` to merge PR `#14`, then `nanoclaw_engine` for the next scored `ohmg` mutation
+- Stage: `merge`
+- PR-readiness note: `omg` is now isolated and merge-ready; do not reopen `survey` or `omx` in the current slice
 
 ## Run 9 refresh
 
