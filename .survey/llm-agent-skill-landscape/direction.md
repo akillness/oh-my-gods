@@ -808,3 +808,49 @@ Source links:
 - Next owner: `nanoclaw_pd` to merge PR `#14`, then `nanoclaw_engine` for the next scored `ohmg` mutation
 - Stage: `merge`
 - Merge-ready: yes
+
+## Run 16 refresh
+
+### Survey refresh signals
+
+- Agent Skills still favors compact `SKILL.md` entrypoints with optional `scripts/`, `references/`, `assets/`, and `evals/` only when they reduce ambiguity or enable measurement, so the merged `omg` cleanup should stay closed and the next lane should return to measured `ohmg` work.
+- Claude Code still exposes skills, subagents, and hooks as reusable control surfaces, while the OpenAI models docs still position current coding models and tool-backed workflows as the default path for agentic coding tasks.
+- Gemini CLI still documents hierarchical `GEMINI.md` or configured context-file loading plus extension packaging, which keeps Gemini-facing orchestration guidance strategically important and supports the existing `ohmg` framing focus.
+
+Source links:
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/hooks
+- https://developers.openai.com/codex
+- https://developers.openai.com/api/docs/models
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+- https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html
+
+### Audit and packaging decision
+
+- Fresh audit on the post-merge branch: `80` skills, `20` missing `## Instructions`, `25` missing `## Examples`, `23` missing `## Best practices`, `12` missing `## References`, `68` missing `evals/evals.json`, `17` descriptions still lacking trigger phrasing, and `14` skills over `500` lines.
+- Highest-value future standards targets remain compact, under-packaged skills rather than the already-clean workflow quartet. The strongest bounded candidates are:
+  - `bmad-idea`: missing `Instructions`, `Examples`, `Best practices`, `References`, missing evals, and weak trigger phrasing at `123` lines
+  - `bmad`: same packaging gaps plus missing evals at `260` lines
+  - `agentation`: missing `When to use this skill`, `Instructions`, `Examples`, `Best practices`, missing evals, and weak trigger phrasing at `268` lines
+- For the active `ohmg` target, no new assets are justified, no new scripts are justified, no new references are justified, and no new evals are justified. The current blocker is instruction quality, not missing support surfaces.
+- The recurring loop was still producing untracked `.omx/`, `__pycache__/`, and raw `captured-runs/` directories, so this run adds ignore coverage to keep the next branch and PR path bounded.
+
+### Optimization handoff
+
+- `ohmg` keeps the strongest measured signal in the repo:
+  - experiment `0`: `4/20` baseline
+  - experiment `1`: `3/20` discarded
+  - experiment `2`: `8/20` kept
+- The current `ohmg` run contract says the next mutation should make Gemini-or-Antigravity framing plus Serena Memory non-optional for explicit `ohmg` prompts.
+- Local untracked capture state already includes `captured-runs/experiment-3/capture-plan.json`, so the next owner should treat experiment `3` as partially staged capture work rather than starting from an empty workspace.
+
+### Current state
+
+- State: PR `#14` is already merged, the loop has moved back to `improvement`, and this run only repairs the lock state plus generated-file hygiene on a fresh post-merge branch
+- Blocker: `ohmg` still does not reliably anchor Gemini-or-Antigravity framing plus Serena Memory, so the next meaningful change must be one scored mutation instead of another structural cleanup pass
+- Next owner: `nanoclaw_engine`
+- Next bounded action: design and score `ohmg` experiment `3` around non-optional Gemini-or-Antigravity plus Serena Memory framing, while keeping `survey`, `omx`, and `omg` unchanged
+- Stage: `improvement`
+- Merge-ready: not yet; wait for a scored `ohmg` delta or another equally bounded follow-up slice before opening the next PR path
