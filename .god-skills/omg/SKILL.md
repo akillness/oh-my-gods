@@ -1,6 +1,12 @@
 ---
 name: omg
-description: "OMG — Integrated AI agent orchestration skill. Plan with ralph+plannotator, execute with team/bmad, verify browser behavior with agent-browser, apply UI feedback with agentation(annotate), auto-cleanup worktrees after completion. Supports Claude, Codex, Gemini CLI, and OpenCode. Install: ralph, omc, omx, ohmg, bmad, plannotator, agent-browser, agentation."
+description: >
+  Orchestrate a cross-platform AI agent workflow with ralph plus plannotator
+  for planning, team or bmad for execution, agent-browser for browser
+  verification, and agentation for UI feedback before cleanup. Use when the
+  user needs one shared orchestration entrypoint across Claude, Codex,
+  Gemini CLI, or OpenCode instead of choosing `omc`, `omx`, or `ohmg`
+  manually. Triggers on: omg, annotate, UI검토, agentui.
 compatibility: "Requires git, node>=18, bash. Optional: bun, docker."
 allowed-tools: Read Write Bash Grep Glob Task
 metadata:
@@ -1171,7 +1177,7 @@ bash scripts/worktree-cleanup.sh
 
 ---
 
-## 7. Best Practices
+## Best practices
 
 1. **Plan first**: always review the plan with ralph+plannotator before executing (catches wrong approaches early)
 2. **Team first**: omc team mode is most efficient in Claude Code
@@ -1203,7 +1209,7 @@ bash scripts/worktree-cleanup.sh
 
 ---
 
-## 9. References
+## References
 
 - [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) — Claude Code multi-agent
 - [plannotator](https://plannotator.ai) — visual plan/diff review

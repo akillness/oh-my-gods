@@ -81,3 +81,70 @@ Source links:
 - Blocker: `omg` is still the highest-value remaining standards gap, but it is intentionally excluded from this PR because it is not yet review-clean
 - Next owner: reviewer / maintainer for the draft PR, then `nanoclaw_engine` for the next `omg` cleanup slice or the next scored `ohmg` mutation
 - Stage: `PR-open`
+
+## Run 10 refresh
+
+### Survey refresh
+
+- Agent Skills still emphasizes compact `SKILL.md` entrypoints with optional `scripts/`, `references/`, `assets/`, and `evals/`, so the next highest-value work is still reducing entrypoint noise instead of adding more prose.
+- Claude Code still presents skills, subagents, and hooks as first-class control surfaces, which keeps orchestration skills strategically important.
+- Gemini CLI still documents extensions, custom commands, and hierarchical `GEMINI.md` context, so Gemini-facing orchestration guidance remains worth maintaining.
+- OpenAI Codex still documents project control surfaces such as AGENTS-aware behavior in its Codex docs, which reinforces the value of concise trigger phrasing and reviewable orchestration skills.
+
+Source links:
+
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/hooks
+- https://developers.openai.com/codex
+- https://google-gemini.github.io/gemini-cli/docs/cli/
+
+### Audit refresh on clean `main`
+
+- Fresh-branch validator result before edits: `0` errors, `117` warnings across `.god-skills/`
+- `omg` is still the highest-value bounded cleanup target because it is a central orchestration skill with only four standards warnings left on `main`: weak frontmatter trigger phrasing, missing exact `## Best practices`, missing exact `## References`, and `>500` lines
+- `omg` does not need new assets, scripts, or references in this slice because supporting files already exist; it also does not need evals yet because the entrypoint is still too large for meaningful prompt-loop scoring
+- `ohmg` remains the only currently justified skill-autoresearch target because it already has a recorded baseline and support workspace, but the next mutation still needs to be scored, not guessed
+
+### Run 10 action
+
+- Bounded change set: normalize `omg` frontmatter trigger phrasing and exact heading names so three standards warnings disappear without widening scope
+- PR path: opened draft PR `#10` for this clean-main slice after validation
+
+### Run 10 status
+
+- Current state: draft PR `#10` is open for the bounded `omg` cleanup slice, and the remaining blocker after this slice is entrypoint size rather than section naming
+- Blocker: `omg` still exceeds the 500-line review target, so it remains a decomposition problem before it becomes an eval-first optimization target
+- Next owner: reviewer / maintainer for the bounded cleanup PR, then `nanoclaw_engine` for the next `omg` decomposition slice or the next scored `ohmg` mutation
+- Stage: `PR-open`
+
+## Run 11 refresh
+
+### Survey refresh
+
+- Agent Skills still emphasizes compact `SKILL.md` entrypoints with optional support directories added only when they reduce ambiguity or enable measurement, so the current highest-value gap remains `omg` decomposition rather than more top-level prose.
+- Claude Code, Codex, and Gemini CLI still all expose reusable control surfaces for skills, agents, and workflow rules, which keeps a small, reviewable `omg` entrypoint strategically important.
+- No new survey signal justifies reopening `survey`, `omx`, or `ohmg`; the next bounded work after this PR remains either `omg` decomposition or a scored `ohmg` mutation.
+
+Source links:
+
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/sub-agents
+- https://developers.openai.com/codex
+- https://google-gemini.github.io/gemini-cli/docs/cli/
+
+### PR review refresh
+
+- Draft PR `#10` was re-reviewed on `chore/skill-loop-20260412-r2` against `origin/main`.
+- Review result: no duplicate change set, no additional bounded fix needed in the touched files, and `gh pr view` reports merge state `CLEAN`.
+- Validator result on the touched skill is now `0` errors and `1` warning for `.god-skills/omg/SKILL.md`; the only remaining warning is file length over `500` lines, which is intentionally out of scope for this slice.
+- Repo-wide validator summary on the review branch is `0` errors and `114` warnings across `.god-skills/`, down from the `117` warnings recorded on clean `main` before the PR slice.
+
+### Run 11 status
+
+- Current state: PR `#10` is review-clean for its intended scope and should advance through the merge path in this run
+- Blocker: `omg` still exceeds the 500-line review target, so the next follow-up remains decomposition rather than eval-first optimization
+- Next owner: `nanoclaw_engine` for the next `omg` decomposition slice or the next scored `ohmg` mutation after this merge lands
+- Stage: `merge`
