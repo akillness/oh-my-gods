@@ -21,9 +21,9 @@ Source links:
 
 ## Audit Snapshot
 
-- Repo-wide local standards scan on `chore/skill-loop-pr-open-20260413-r20`: `80` skills, `1` missing `## When to use this skill`, `18` missing `## Instructions`, `22` missing `## Examples`, `21` missing `## Best practices`, `10` missing `## References`, `65` missing `evals/evals.json`, `14` skills over `500` lines, `20` descriptions still lacking trigger phrasing, `15` eval-backed skills total
-- Targeted validator result for `.god-skills/playwriter/`: `0` errors, `0` warnings, `291` lines after the update
-- `playwriter` moved from a `2`-warning packaging gap to a standards-clean, eval-backed draft-PR candidate in this run
+- Repo-wide local standards scan on `chore/skill-loop-pr-open-20260413-r20`: `80` skills, `1` missing `## When to use this skill`, `18` missing `## Instructions`, `22` missing `## Examples`, `21` missing `## Best practices`, `10` missing `## References`, `65` missing `evals/evals.json`, `14` skills over `500` lines, and `15` eval-backed skills total; the review pass removes one trigger-phrasing gap from the prior `20`-item snapshot without changing the broader priority order
+- Targeted validator result for `.god-skills/playwriter/`: `0` errors, `0` warnings, `299` lines after the trigger-phrasing review pass
+- `playwriter` remains standards-clean and eval-backed after review, and its description now uses explicit `Use when` plus `Triggers on:` phrasing for better activation quality
 - `ohmg` remains the only measured optimization lane, but it is intentionally untouched on this branch because the blocking problem is runtime isolation, not missing packaging
 - Highest-value remaining packaging gaps after this run are now `agent-browser`, `agent-manager`, `agentation`, `agent-workflow`, and `bmad`
 
@@ -33,7 +33,7 @@ Source links:
 |---|---|---|---|---|---|---|---|
 | `survey` | Standards-clean and eval-backed | No | No | No | Already present | No | Leave stable |
 | `omx` | Standards-clean and eval-backed | No | No | No | Already present | Later, once a deterministic scoring harness exists | Leave stable |
-| `playwriter` | Standards-clean and eval-backed on draft PR `#19` | No new assets needed | No new scripts needed | Existing inline references are sufficient for this slice | Added this run | Not yet; structure and eval readiness came first | Move draft PR `#19` into the next `PR-review` run |
+| `playwriter` | Standards-clean and eval-backed on PR `#19`; review found one trigger-phrasing gap and no broader scope issues | No new assets needed | No new scripts needed | Existing inline references are sufficient for this slice | Already present | Not yet; there is still no repeated runtime-scoring harness | Advance PR `#19` to `merge`, then move the next packaging lane to `agent-browser` |
 | `agent-browser` | Compact but still missing `Instructions`, `Examples`, and evals | No new assets needed | No new scripts needed | Existing `references/` directory is already sufficient | Needed | No; fix structure and add evals first | Make it the next packaging candidate after `playwriter` review |
 | `agent-manager` | High leverage for multi-agent runtime control but still missing `Instructions`, `Examples`, `Best practices`, `References`, and evals | No | Existing scripts are already present | Existing `references/` dir is already present | Needed | No | Leave for a later bounded standards pass |
 | `ohmg` | Standards-clean, eval-backed, and workspace-backed; experiment `3` remains discarded at `1/20`, experiment `2` stays best at `8/20` | No new assets needed | Existing capture and scoring scripts are sufficient, but the next loop needs better isolation | Existing baseline note is sufficient | Already present | Yes, but only after runtime isolation improves | Keep stable until after the `playwriter` PR review |
@@ -41,28 +41,28 @@ Source links:
 
 ## Locked Direction
 
-- Primary lane: review draft PR `#19` on `chore/skill-loop-pr-open-20260413-r20` for the bounded `playwriter` structure-and-evals slice.
+- Primary lane: move PR `#19` on `chore/skill-loop-pr-open-20260413-r20` onto the merge path after the bounded trigger-quality review pass.
 - Secondary lane: keep `ohmg` frozen on this branch; do not reopen the blocked mutation lane while the better next move is packaging another browser-adjacent skill.
-- Secondary lane: if PR `#19` reviews cleanly, the next packaging target should be `agent-browser`, not a return to speculative `ohmg` prompt mutations.
+- Secondary lane: after PR `#19` is ready for merge, the next packaging target should be `agent-browser`, not a return to speculative `ohmg` prompt mutations.
 - Keep the recurring branch clean by excluding runtime experiments, `__pycache__/`, and unrelated docs churn from the `playwriter` PR scope.
 
 ## Cleanup Plan
 
 1. Refresh the survey and standards evidence before changing code.
-2. Standardize `playwriter` with the exact missing sections and add eval coverage without widening scope.
+2. Re-review `playwriter` for missed trigger or standards gaps without widening scope.
 3. Revalidate the touched skill and recompute repo-wide counts.
-4. Open a draft PR for the bounded `playwriter` slice and hand the next run to `PR-review`.
+4. Move PR `#19` out of draft if the review stays clean, then hand the next run to `merge`.
 
 ## Run Action
 
-- Smallest bounded action for this run: make `playwriter` standards-clean, add its first eval scaffold, and open a bounded draft PR for review
+- Smallest bounded action for this run: tighten `playwriter` trigger phrasing if needed, revalidate the bounded PR slice, and advance PR `#19` toward merge
 
 ## Status
 
-- Current state: draft PR `#19` is open on `chore/skill-loop-pr-open-20260413-r20` for the bounded `playwriter` packaging slice, and `playwriter` now validates cleanly with its own eval scaffold
-- Blocker: `playwriter` still lacks any repeated runtime-scoring harness, so `skill-autoresearch` is not justified yet beyond structure and eval readiness
-- Next owner: reviewer / maintainer for draft PR `#19`, then `nanoclaw_engine` for either review-fix follow-up or the next bounded packaging pass on `agent-browser`
-- Stage: `PR-open`
+- Current state: PR `#19` remains bounded to the intended `playwriter` slice, review found no duplicate work, and the only applied follow-up was a frontmatter trigger-phrasing fix before advancing it toward merge
+- Blocker: no blocker on the `playwriter` PR slice itself; the remaining blocker is that `skill-autoresearch` still is not justified for `playwriter` without a repeated runtime-scoring harness
+- Next owner: `nanoclaw_pd` to finish the merge path for PR `#19`, then `nanoclaw_engine` for the next bounded packaging pass on `agent-browser`
+- Stage: `merge`
 - PR-readiness note: keep the PR limited to `.god-skills/playwriter/*` plus the survey lock updates and cleanup plan; do not mix the blocked `ohmg` mutation lane into this branch
 
 ## Run 9 refresh

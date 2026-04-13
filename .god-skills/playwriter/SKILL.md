@@ -1,6 +1,14 @@
 ---
 name: playwriter
-description: Playwright-based browser automation via Chrome extension + MCP/CLI. Connects to your RUNNING browser (existing logins, cookies, extensions preserved). Use for authenticated flows, stateful web automation, and AI agent browser control without re-logging in.
+description: >
+  Control the user's running Chrome browser via the Playwriter extension and
+  MCP/CLI while preserving existing logins, cookies, extensions, and tab
+  state. Use when the task needs authenticated or stateful browser automation,
+  session-aware debugging, or agent control of an already-open browser, even if
+  the user asks for Playwright, browser MCP, or login-dependent verification.
+  Triggers on: playwriter, running browser, existing session, logged-in
+  browser, browser MCP, authenticated flow, saved cookies, stateful browser
+  automation.
 license: MIT
 compatibility: Requires Chrome browser + Playwriter Chrome extension (Web Store) + npm install -g playwriter. MCP integration works with Claude Desktop, Codex CLI, Gemini CLI. localhost:19988 WebSocket relay server.
 metadata:
