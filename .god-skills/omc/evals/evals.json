@@ -1,0 +1,45 @@
+{
+  "skill_name": "omc",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use OMC to coordinate four Claude Code agents for a medium-sized refactor with planning and verification.",
+      "expected_output": "A Claude Code-native orchestration answer that routes to Team mode or `/omc:team`, keeps the staged workflow explicit, and does not collapse into generic multi-agent advice.",
+      "assertions": [
+        "Response identifies OMC as the Claude Code orchestration surface",
+        "Response uses `team` or `/omc:team` for the coordinated multi-agent path",
+        "Response mentions planning, verification, or the staged team pipeline"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "How do I install oh-my-claudecode and get Team mode working in Claude Code?",
+      "expected_output": "Setup guidance that uses the Claude Code plugin flow, includes `/omc:omc-setup`, and mentions the native-teams flag when Team mode is relevant.",
+      "assertions": [
+        "Response includes `/plugin marketplace add https://github.com/Yeachan-Heo/oh-my-claudecode` or `/plugin install oh-my-claudecode`",
+        "Response includes `/omc:omc-setup`",
+        "Response mentions `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` or native teams configuration"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need Claude Code to keep iterating until the task is verified complete. Which OMC mode should I use?",
+      "expected_output": "A mode-selection answer that routes to `ralph`, explains the persistence loop, and stays on OMC terminology.",
+      "assertions": [
+        "Response routes the request to `ralph`",
+        "Response explains persistence or verification loops",
+        "Response stays focused on OMC rather than switching to another orchestration framework"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "What OMC utilities should I use if Claude Code hits rate limits and I also want stop notifications?",
+      "expected_output": "Operational guidance that mentions the rate-limit wait flow and the notification callback commands.",
+      "assertions": [
+        "Response mentions `omc wait`",
+        "Response mentions `omc config-stop-callback` for Telegram or Discord",
+        "Response answers in OMC operational terms rather than generic shell advice"
+      ]
+    }
+  ]
+}

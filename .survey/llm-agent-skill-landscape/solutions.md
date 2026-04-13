@@ -35,7 +35,7 @@ This ranking is an inference from current official docs coverage and product emp
 - Repo-wide eval coverage is extremely low relative to the importance of workflow skills.
 - Realistic benchmark evidence shows skill benefits degrade sharply when retrieval quality and skill quality are weak, so refinement loops need explicit evals instead of intuition-only edits.
 - Central orchestration skills (`omg`, `omx`) are not yet packaged in the same evaluation-ready shape that current ecosystems reward.
-- The next packaging gap is no longer `survey`; it is the remaining pool of workflow-critical skills that still lack eval scaffolds or compact reviewability, with `ohmg`, `bmad-idea`, and `bmad` still representing higher-value follow-up lanes than any new broad skill.
+- The next packaging gap is no longer `survey`; it is the remaining pool of workflow-critical skills that still lack eval scaffolds or compact reviewability, with `omc` now the clearest bounded follow-up lane after `omx`, `ohmg`, and `omg` were cleaned.
 
 ## Contradictions
 
