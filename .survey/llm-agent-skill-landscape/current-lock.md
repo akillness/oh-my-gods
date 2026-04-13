@@ -42,12 +42,12 @@ Source links:
 | `omx` | Standards-clean and eval-backed | No | No | No | Already present | Later, once a deterministic scoring harness exists | Leave stable |
 | `ohmg` | Standards-clean, eval-backed, and workspace-backed | No new assets needed | Existing capture and scoring scripts are sufficient | Existing baseline note is sufficient | Already present | Yes | Resume with one scored mutation focused on Gemini-or-Antigravity framing plus Serena Memory |
 | `omg` | Standards-clean, compact, and already merged on `main` | No new assets needed | Existing scripts are sufficient | `references/OPERATIONS.md` is sufficient for the extracted operator detail | Not yet justified | No | Leave stable after merged PR `#14` |
-| `omc` | Standards-clean and eval-backed on the active branch | No new assets needed | No new scripts needed for this slice | No new `references/` directory is justified; external docs are enough | Added in this run | Not yet; package and baseline it first | Open the bounded `omc` PR path, then review it before returning to scored `ohmg` work |
+| `omc` | Standards-clean and eval-backed on draft PR `#17` | No new assets needed | No new scripts needed for this slice | No new `references/` directory is justified; external docs are enough | Added on the current PR branch | Not yet; package and baseline it first | Merge the bounded `omc` PR, then return to scored `ohmg` work |
 | `skill-autoresearch` | Standards-clean and eval-backed on `main` | No | No new scripts needed right now | Existing `references/eval-guide.md` is sufficient | Already present | No new mutation loop for itself in this run | Leave stable |
 
 ## Locked Direction
 
-- Primary lane: package the bounded `omc` standards-and-evals slice on `chore/skill-loop-pr-open-20260413-r18`, then treat the next run as PR review instead of reopening the branch.
+- Primary lane: advance draft PR `#17` for the bounded `omc` standards-and-evals slice through the merge path instead of reopening packaging work on this branch.
 - Secondary lane: keep `ohmg` as the next measured optimization target, but do not land an unscored experiment `3`.
 - Secondary lane: keep the recurring branch clean by ignoring generated OMX logs, Python bytecode, and raw capture outputs.
 - Keep `survey`, `omx`, `omg`, and `skill-autoresearch` stable; do not widen packaging work in this run.
@@ -57,19 +57,19 @@ Source links:
 1. Refresh the survey and standards evidence before changing code.
 2. Keep the `omc` slice limited to trigger phrasing, missing standards sections, and eval scaffolding.
 3. Do not widen into new `scripts/`, `references/`, or runtime changes for `omc`.
-4. Revalidate the touched skill and open the PR path from the fresh branch.
+4. Revalidate the touched skill, confirm the isolated PR scope is still clean, and move the branch to merge handling.
 
 ## Run Action
 
-- Smallest bounded action for this run: make `omc` standards-clean, add `evals/evals.json`, and register the fresh PR path from `main`
+- Smallest bounded action for this run: re-review draft PR `#17`, correct the stale lifecycle wording in the survey lock, and move the isolated `omc` slice to merge handling
 
 ## Status
 
-- Current state: `omc` is now standards-clean and eval-backed on the fresh branch, with the slice ready for draft-PR registration
-- Blocker: no blocker remains for the `omc` packaging slice itself; after PR registration, the main remaining blocker is still the separate `ohmg` optimization lane needing a fresh scored capture
-- Next owner: reviewer / maintainer for the bounded `omc` PR, then `nanoclaw_engine` for scored `ohmg` experiment `3`
-- Stage: `PR-open`
-- PR-readiness note: keep the PR limited to `.god-skills/omc/*` plus the survey lock updates and cleanup plan
+- Current state: draft PR `#17` is review-clean for the intended `omc` slice, and the lock state now matches the existing PR lifecycle
+- Blocker: no blocker remains for PR `#17`; after merge, the main remaining blocker is the separate `ohmg` optimization lane needing a fresh scored capture for experiment `3`
+- Next owner: `nanoclaw_pd` to merge PR `#17`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
+- Stage: `merge`
+- PR-readiness note: intended scope is satisfied; merge without widening PR `#17` beyond `.god-skills/omc/*` plus the survey lock updates and cleanup plan
 
 ## Run 9 refresh
 

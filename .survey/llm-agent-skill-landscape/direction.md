@@ -1012,3 +1012,42 @@ Source links:
 - Next owner: reviewer / maintainer for the bounded `omc` PR, then `nanoclaw_engine` for scored `ohmg` experiment `3`
 - Stage: `PR-open`
 - Merge-ready: not yet; the next run should review the isolated `omc` PR for duplicate work or missing bounded fixes before merge
+
+## Run 21 review
+
+### Survey refresh signals
+
+- Agent Skills still favors compact `SKILL.md` entrypoints plus optional support directories only when they reduce ambiguity or enable measurement, so there is no new reason to widen the `omc` slice beyond the already packaged entrypoint and eval scaffold.
+- Claude Code still documents skills, subagents, and hooks as first-class reusable control surfaces, while OpenAI Codex and Gemini CLI still expose the matching repo/configuration surfaces that keep workflow-skill quality strategically important.
+- The April 2026 benchmark result still supports the same priority order: merge the review-clean standards package first, then return to the only currently justified measured loop on `ohmg`.
+
+Source links:
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/hooks
+- https://developers.openai.com/codex
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+- https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html
+- https://arxiv.org/abs/2604.04323
+
+### PR review result
+
+- Re-reviewed draft PR `#17` on `chore/skill-loop-pr-open-20260413-r18` against `main`.
+- No duplicate work was found: the diff is still limited to `.god-skills/omc/*` plus the recurring survey state files for this run.
+- No missing standards fix was found inside the intended scope: `.god-skills/omc/SKILL.md` still validates with `0` errors and `0` warnings, and `.god-skills/omc/evals/evals.json` remains valid JSON.
+- One bounded review fix was needed in the reporting layer only: the lock file still said the slice was ready for PR registration even though draft PR `#17` was already open, so this run corrected that state drift without widening the PR.
+- Repo-wide validator status remains `0` errors and `105` warnings across `.god-skills/`, which keeps the branch consistent with the locked audit snapshot.
+
+### Merge decision
+
+- Intended scope is satisfied after the lifecycle-wording fix, so this run should advance PR `#17` through the merge path.
+- After the merge lands, the next smallest bounded action returns to `ohmg`: one scored experiment focused on Gemini-or-Antigravity framing plus Serena Memory.
+
+### Current state
+
+- State: PR `#17` is review-clean and merge-ready for its intended `omc` hardening scope
+- Blocker: no blocker remains for PR `#17`; the remaining blocker is the separate `ohmg` optimization lane needing a fresh scored capture
+- Next owner: `nanoclaw_pd` to merge PR `#17`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
+- Stage: `merge`
+- Merge-ready: yes
