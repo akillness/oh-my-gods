@@ -964,3 +964,51 @@ Source links:
 - Next owner: `nanoclaw_pd` to merge PR `#16`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
 - Stage: `merge`
 - Merge-ready: yes
+
+## Run 20 PR registration
+
+### Survey refresh signals
+
+- Agent Skills still favors compact `SKILL.md` entrypoints with optional support directories only when they reduce ambiguity or enable measurement, so the next high-value packaging lane is still a compact orchestration skill rather than a large monolith.
+- Claude Code still documents skills, subagents, and hooks as reusable control surfaces, which keeps a clean Claude-native orchestration entrypoint strategically important.
+- OpenAI Codex docs still reinforce repo-aware, tool-backed coding workflows, while Gemini CLI still documents extension packaging and shared context loading. That keeps the cross-platform skill landscape stable without reopening `survey`, `omx`, or `omg` in this run.
+- Benchmark evidence still points the same way: packaging and eval coverage need to come before more speculative prompt mutation.
+
+Source links:
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/hooks
+- https://developers.openai.com/codex
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+- https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html
+- https://arxiv.org/abs/2604.04323
+
+### Audit and packaging decision
+
+- Fresh-branch validator result before edits: `0` errors and `108` warnings across `.god-skills/`
+- `omc` is now the highest-value bounded packaging target because it is a core orchestration surface, still compact at `169` lines before this run, and was missing `## Instructions`, `## Examples`, `## Best practices`, `## References`, imperative trigger phrasing, and eval coverage.
+- `omc` does not need new assets, scripts, or a new `references/` directory in this slice; external documentation plus an in-file `## References` section are sufficient.
+- `omc` did need `evals/evals.json` so future baseline work can score installation, Team-mode routing, persistence-mode routing, and operational utilities.
+- `ohmg` remains the only currently justified measured optimization target, but that lane still stays separate from this standards package.
+
+### Run 20 action
+
+- Target skill: `omc`
+- Scope: standards compliance plus eval scaffolding only
+- Change set:
+  - rewrite frontmatter description with trigger-oriented phrasing
+  - add `## Instructions`
+  - add `## Examples`
+  - add `## Best practices`
+  - add `## References`
+  - add `.god-skills/omc/evals/evals.json`
+  - record the cleanup plan at `.survey/llm-agent-skill-landscape/cleanup-plan.md`
+
+### Current state
+
+- State: `omc` is standards-clean and eval-backed on `chore/skill-loop-pr-open-20260413-r18`
+- Blocker: no blocker remains for the `omc` packaging slice itself; after PR registration, the next substantive blocker returns to the separate `ohmg` optimization lane needing a fresh scored capture
+- Next owner: reviewer / maintainer for the bounded `omc` PR, then `nanoclaw_engine` for scored `ohmg` experiment `3`
+- Stage: `PR-open`
+- Merge-ready: not yet; the next run should review the isolated `omc` PR for duplicate work or missing bounded fixes before merge
