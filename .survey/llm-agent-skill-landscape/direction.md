@@ -24,7 +24,7 @@ This order is locked because it balances leverage and boundedness:
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `agent-browser` | High | No | No | No | Existing references and templates are already enough | Yes, in this run | Standardize `SKILL.md`, add evals, then keep stable until real scoring data exists |
+| `agent-browser` | High | No | No | No | Existing references and templates are already enough | No; eval scaffold is already present on PR `#20` | Keep stable and move PR `#20` to merge once review is clean |
 | `agent-manager` | High | No | No | Existing scripts are already enough | Existing references are already enough | Yes | Add evals and the missing recommended sections in a later bounded pass |
 | `agentation` | High | No | No | Existing scripts are already enough | Likely yes | Yes | Add `When to use`, `Instructions`, `Examples`, `Best practices`, and evals before considering optimization |
 | `ohmg` | High | Later | No | Existing capture and scoring scripts are already enough | Existing baseline note is enough | Already present | Keep frozen until the browser-surface packaging backlog is reduced and the next experiment can be measured honestly |
@@ -35,11 +35,11 @@ This order is locked because it balances leverage and boundedness:
 - Assets: no new assets needed
 - Scripts: no new scripts needed
 - References: no new references needed; the existing `references/` directory already covers commands, auth, sessions, and snapshot refs
-- Evals: needed; add `evals/evals.json` now
+- Evals: no new eval work needed in review; `evals/evals.json` is already present on this branch
 
 ## Current state
 
-- State: draft PR `#20` is open for the `agent-browser` improvement lane
-- Blocker: no hard blocker for the packaging slice itself; the only reason not to start `skill-autoresearch` yet is the lack of repeated scored runs for this specific skill
-- Next owner: reviewer or maintainer for draft PR `#20`, then `nanoclaw_engine` for the next review pass
-- Stage: `PR-open`
+- State: PR `#20` is review-clean and merge-ready for the `agent-browser` improvement lane
+- Blocker: no hard blocker remains for the packaging slice itself; the only reason not to start `skill-autoresearch` yet is the lack of repeated scored runs for this specific skill
+- Next owner: `nanoclaw_pd` to merge PR `#20`, then `nanoclaw_engine` for the next bounded `agent-manager` pass
+- Stage: `merge`

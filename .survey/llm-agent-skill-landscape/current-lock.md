@@ -23,42 +23,43 @@ Source links:
 
 ## Audit snapshot
 
-- Repo-wide validator snapshot before edits on `main`: `0` errors, `103` warnings across `.god-skills/`
-- `agent-browser` before edits: `0` errors, `3` warnings (`Instructions`, `Examples`, `Best practices`) and no `evals/evals.json`
-- `agent-browser` already had the right support footprint for a bounded pass: existing `references/` plus `templates/`, but no need for new scripts or assets
+- Repo-wide validator snapshot on the current review branch: `0` errors, `100` warnings across `.god-skills/`
+- `agent-browser` now validates cleanly at `0` errors and `0` warnings, and `.god-skills/agent-browser/evals/evals.json` is present on this branch
+- The branch diff is still bounded to `.god-skills/agent-browser/*` plus `.survey/llm-agent-skill-landscape/{cleanup-plan,current-lock,direction}.md`
+- `agent-browser` already had the right support footprint for a bounded pass: existing `references/` plus `templates/`, with no need for new scripts or assets in review
 - `skill-standardization` and `skill-autoresearch` are already standards-clean and eval-backed, so this run uses them as decision tools rather than edit targets
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `agent-browser` | Best bounded browser-surface gap after `playwriter` merged; missing recommended sections and evals before this run | No new assets needed | No new scripts needed | Existing references and templates are already sufficient | Needed in this run | No; standardize and add evals first | Open a fresh PR for the `agent-browser` packaging slice |
+| `agent-browser` | Standards-clean, eval-backed, and still the smallest browser-surface slice already isolated in PR `#20` | No new assets needed | No new scripts needed | Existing references and templates are already sufficient | No additional eval work needed in review | No; keep stable until a real scoring harness exists | Advance PR `#20` to the merge path |
 | `agent-manager` | High leverage follow-up with existing scripts and references, but broader than `agent-browser` for this cycle | No | Existing scripts are already present | Existing references are already present | Needed | No | Keep for the next bounded standards pass |
 | `agentation` | Still missing more structure and likely needs reference support, so it is not the smallest next move | No | Existing scripts are already present | Likely needs more | Needed | No | Leave for a later slice |
 | `ohmg` | Still the only measured optimization lane, but currently lower priority than the browser packaging backlog | No | Existing capture and scoring scripts are sufficient | Existing baseline note is sufficient | Already present | Later, once a fresh experiment can be captured and scored honestly | Keep stable in this run |
 
 ## Locked direction
 
-- Primary lane: standardize and eval-back `agent-browser` on a fresh branch from `main`
+- Primary lane: keep the `agent-browser` packaging slice frozen and move PR `#20` through the merge path
 - Secondary lane: keep `ohmg` frozen; do not reopen the blocked mutation loop while the better next move is packaging another browser-adjacent skill
-- Secondary lane: after the `agent-browser` PR is opened and reviewed, the next packaging target should be `agent-manager`
+- Secondary lane: after PR `#20` merges, the next packaging target should be `agent-manager`
 - Keep this branch clean by excluding unrelated docs churn, runtime experiments, and older `ohmg` support artifacts
 
 ## Cleanup plan
 
-1. Refresh the survey and standards evidence before changing code.
-2. Make `agent-browser` standards-clean without widening its core behavior.
-3. Add an eval scaffold that covers deterministic refs, diff-based verification, runtime skill refresh, and the `playwriter` boundary.
-4. Revalidate the touched skill, recompute repo-wide counts, and open a bounded draft PR.
+1. Refresh the survey and standards evidence before changing lifecycle state.
+2. Revalidate `agent-browser` and confirm the branch still matches the intended bounded scope.
+3. Apply only review-pass lifecycle updates when the implementation slice is already clean.
+4. Advance the PR to the merge path instead of reopening improvement work.
 
 ## Run action
 
-- Smallest bounded action for this run: make `.god-skills/agent-browser/SKILL.md` standards-clean, add `.god-skills/agent-browser/evals/evals.json`, refresh the survey lock, and register the PR path
+- Smallest bounded action for this run: re-review PR `#20`, confirm no duplicate work or missing standards fixes, and update the loop-state files to the `merge` stage
 
 ## Status
 
-- Current state: draft PR `#20` is open for the bounded `agent-browser` packaging slice on `chore/skill-loop-pr-open-20260413-r21`
-- Blocker: no blocker on the packaging slice itself; the remaining blocker is only that `skill-autoresearch` is not justified yet for `agent-browser` without repeated scored runs
-- Next owner: reviewer or maintainer for draft PR `#20`, then `nanoclaw_engine` for the next bounded review pass
-- Stage: `PR-open`
+- Current state: PR `#20` is review-clean and ready for merge for the bounded `agent-browser` packaging slice on `chore/skill-loop-pr-open-20260413-r21`
+- Blocker: no blocker remains for PR `#20`; `skill-autoresearch` is still deferred separately because `agent-browser` does not yet have repeated scored runs
+- Next owner: `nanoclaw_pd` to merge PR `#20`, then `nanoclaw_engine` for the next bounded `agent-manager` standards pass
+- Stage: `merge`
 - PR-readiness note: keep the PR limited to `.god-skills/agent-browser/*` plus the survey lock updates and cleanup plan; do not mix `ohmg` or `agent-manager` follow-up work into this branch
