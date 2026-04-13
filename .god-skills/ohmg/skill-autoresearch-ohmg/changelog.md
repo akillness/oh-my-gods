@@ -53,3 +53,10 @@ Change: Replace the setup verification bullet with explicit `bunx oh-my-ag docto
 Reasoning: Experiment 1 showed that a generic response contract was too weak. The next hypothesis was that a narrower verification rule could preserve documented setup surfaces while reducing setup-time file drift.
 Result: Score improved from 4/20 to 8/20. Prompt 2 recovered one full pass and prompt 4 stayed consistently correct, but prompt 1 still rarely frames ohmg as the Gemini or Antigravity orchestration layer and prompt 3 still often omits Serena Memory.
 Remaining failures: Prompt 1 usually coordinates lanes without explicitly anchoring ohmg to Gemini or Antigravity. Prompt 2 still drifts to `--help` or file checks on most runs. Prompt 3 still mentions agent_cli_mapping without Serena Memory on 4/5 runs.
+## Experiment 3 — discard
+
+Score: 1/20
+Change: Tightened `### Step 1` so explicit `ohmg` prompts must open on the Gemini-or-Antigravity surface and pair coordination/configuration with Serena Memory plus `.agent/config/user-preferences.yaml` / `agent_cli_mapping`.
+Reasoning: Experiment 2 fixed the doctor path but still missed prompt 1 framing and prompt 3 Serena-memory anchoring. The hypothesis was that a stronger Step 1 routing/config instruction would generalize without touching the verified setup step.
+Result: Experiment 3 scored 1/20, which is far worse than the kept 8/20 experiment 2. Gemini still defaulted to local workspace inspection and generic setup or workflow advice, so the Step 1 anchor did not recover prompt 1, prompt 2, or prompt 4 and only one prompt 3 run fully matched the documented config surface plus Serena Memory.
+Remaining failures: Prompt 1 still never named ohmg as the Gemini CLI or Antigravity orchestration surface. Prompt 2 still replaced `bunx oh-my-ag doctor` with `--help`, `--version`, or task execution. Prompt 4 still preferred local autoresearch dashboards over `.serena/memories/` plus `bunx oh-my-ag dashboard`. Prompt 3 only passed once when the answer used `.agent/config/user-preferences.yaml` plus Serena Memory without inventing alternate config files.

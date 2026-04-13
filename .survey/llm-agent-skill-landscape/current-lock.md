@@ -4,35 +4,34 @@ Date: 2026-04-13
 
 ## Survey Refresh
 
-- Agent Skills still favors compact `SKILL.md` entrypoints with optional `scripts/`, `references/`, `assets/`, and `evals/` only when they reduce ambiguity or enable measurement.
-- Claude Code still exposes skills, subagents, and hook lifecycle events as first-class reusable control surfaces.
-- OpenAI Codex docs still position repository-aware agent workflows and reusable control surfaces as core coding leverage, which keeps evaluation-ready workflow skills strategically important.
-- Gemini CLI still exposes extension packaging and shared context loading, which keeps platform-specific orchestration skills strategically important.
-- New benchmark evidence shows skill gains get fragile in realistic retrieval settings and recover only when refinement is grounded in relevant, high-quality skills.
+- Agent Skills still favors compact `SKILL.md` entrypoints with optional `scripts/`, `references/`, `assets/`, and `evals/` only when they reduce ambiguity or enable measurement, so the next improvements should stay bounded and measurable.
+- Claude Code still exposes reusable skills, subagents, and plugin-hook surfaces, which keeps workflow-critical orchestration skills strategically important.
+- OpenAI's February 2, 2026 Codex app launch keeps reinforcing the same direction: multi-agent work and skills that bundle instructions, resources, and scripts are now first-class operating surfaces.
+- Gemini CLI still keeps extension packaging plus command descriptions and safe shell injection central, which means trigger quality and compact command or skill packaging remain high-leverage for Gemini-facing workflows.
+- The new evidence from this run is local rather than theoretical: headless Gemini capture still drifts into adjacent autoresearch artifacts, so prompt-only mutations are not enough without better isolation.
 
 Source links:
 
 - https://agentskills.io/specification
 - https://code.claude.com/docs/en/skills
 - https://code.claude.com/docs/en/sub-agents
-- https://code.claude.com/docs/en/hooks
-- https://developers.openai.com/codex
+- https://code.claude.com/docs/en/plugins
+- https://openai.com/index/introducing-the-codex-app/
 - https://google-gemini.github.io/gemini-cli/docs/extensions/
-- https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html
-- https://arxiv.org/abs/2604.04323
+- https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
 
 ## Audit Snapshot
 
 - Repo-wide validator status on the fresh PR-path branch: `0` errors, `105` warnings across `.god-skills/`
-- Repo-wide counts before this run: `80` skills, `20` missing `## Instructions`, `24` missing `## Examples`, `22` missing `## Best practices`, `11` missing `## References`, `67` missing `evals/evals.json`, `14` skills over `500` lines, `17` descriptions still lacking trigger phrasing
-- Repo-wide counts on `chore/skill-loop-pr-open-20260413-r18`: `80` skills, `19` missing `## Instructions`, `23` missing `## Examples`, `21` missing `## Best practices`, `10` missing `## References`, `66` missing `evals/evals.json`, `14` skills over `500` lines, `17` descriptions still lacking trigger phrasing, `14` eval-backed skills total
+- Repo-wide counts on `chore/skill-loop-pr-open-20260413-r19`: `80` skills, `19` missing `## Instructions`, `23` missing `## Examples`, `21` missing `## Best practices`, `10` missing `## References`, `66` missing `evals/evals.json`, `14` skills over `500` lines, `17` descriptions still lacking trigger phrasing, `14` eval-backed skills total
 - Validator spot checks on the active workflow surfaces:
   - `survey`: `0` errors, `0` warnings
   - `omx`: `0` errors, `0` warnings
   - `ohmg`: `0` errors, `0` warnings
   - `omg`: `0` errors, `0` warnings
-- `omc`: `0` errors, `0` warnings after the bounded cleanup and eval pass
-- `ohmg` still has the strongest measured optimization signal: baseline `4/20`, discarded mutation `3/20`, kept mutation `8/20`
+- `omc`: `0` errors, `0` warnings on `main` after merged PR `#17`
+- `ohmg` remains the only active measured optimization lane, but experiment `3` regressed to `1/20`, so experiment `2` stays the current best wording at `8/20`
+- Highest-value remaining packaging gaps among workflow-critical skills are now `agentation`, `agent-workflow`, `agent-manager`, `bmad`, `agent-browser`, and `playwriter`
 
 ## Target Decisions
 
@@ -40,36 +39,36 @@ Source links:
 |---|---|---|---|---|---|---|---|
 | `survey` | Standards-clean and eval-backed | No | No | No | Already present | No | Leave stable |
 | `omx` | Standards-clean and eval-backed | No | No | No | Already present | Later, once a deterministic scoring harness exists | Leave stable |
-| `ohmg` | Standards-clean, eval-backed, and workspace-backed | No new assets needed | Existing capture and scoring scripts are sufficient | Existing baseline note is sufficient | Already present | Yes | Resume with one scored mutation focused on Gemini-or-Antigravity framing plus Serena Memory |
+| `ohmg` | Standards-clean, eval-backed, and workspace-backed; experiment `3` discarded at `1/20`, experiment `2` remains best at `8/20` | No new assets needed | Existing capture and scoring scripts are sufficient, but the next loop may need harness isolation | Existing baseline note is sufficient | Already present | Yes, but only with better isolation from adjacent autoresearch artifacts | Register the discard artifacts on a PR branch, then choose between harness isolation and a stronger anti-local-artifact rule before experiment `4` |
 | `omg` | Standards-clean, compact, and already merged on `main` | No new assets needed | Existing scripts are sufficient | `references/OPERATIONS.md` is sufficient for the extracted operator detail | Not yet justified | No | Leave stable after merged PR `#14` |
-| `omc` | Standards-clean and eval-backed on draft PR `#17` | No new assets needed | No new scripts needed for this slice | No new `references/` directory is justified; external docs are enough | Added on the current PR branch | Not yet; package and baseline it first | Merge the bounded `omc` PR, then return to scored `ohmg` work |
+| `omc` | Standards-clean and eval-backed on `main` after merged PR `#17` | No new assets needed | No new scripts needed for this slice | No new `references/` directory is justified; external docs are enough | Already present | Later, once a deterministic baseline lane is worth opening | Leave stable |
 | `skill-autoresearch` | Standards-clean and eval-backed on `main` | No | No new scripts needed right now | Existing `references/eval-guide.md` is sufficient | Already present | No new mutation loop for itself in this run | Leave stable |
 
 ## Locked Direction
 
-- Primary lane: advance draft PR `#17` for the bounded `omc` standards-and-evals slice through the merge path instead of reopening packaging work on this branch.
-- Secondary lane: keep `ohmg` as the next measured optimization target, but do not land an unscored experiment `3`.
-- Secondary lane: keep the recurring branch clean by ignoring generated OMX logs, Python bytecode, and raw capture outputs.
-- Keep `survey`, `omx`, `omg`, and `skill-autoresearch` stable; do not widen packaging work in this run.
+- Primary lane: register the measured `ohmg` experiment `3` discard on `chore/skill-loop-pr-open-20260413-r19` instead of pretending the failed mutation should stay in `SKILL.md`.
+- Secondary lane: keep experiment `2` as the active best `ohmg` wording and do not start experiment `4` until the next run decides whether to isolate headless Gemini from adjacent autoresearch files or add a stronger anti-local-artifact rule near the configuration and observability sections.
+- Secondary lane: keep the recurring branch clean by excluding raw `captured-runs/` outputs, Python bytecode, and unrelated docs churn from the PR scope.
+- Next packaging candidates after the `ohmg` loop remain `agentation`, `agent-workflow`, `agent-manager`, `bmad`, `agent-browser`, and `playwriter`; do not mix them into this measurement branch.
 
 ## Cleanup Plan
 
 1. Refresh the survey and standards evidence before changing code.
-2. Keep the `omc` slice limited to trigger phrasing, missing standards sections, and eval scaffolding.
-3. Do not widen into new `scripts/`, `references/`, or runtime changes for `omc`.
-4. Revalidate the touched skill, confirm the isolated PR scope is still clean, and move the branch to merge handling.
+2. Keep the `ohmg` slice limited to one scored mutation attempt plus loop-state artifacts.
+3. Revert the mutation if it does not beat the kept `8/20` experiment `2` score.
+4. Revalidate the touched skill, confirm the isolated PR scope is still clean, and move the branch to PR registration with the measured discard state.
 
 ## Run Action
 
-- Smallest bounded action for this run: re-review draft PR `#17`, correct the stale lifecycle wording in the survey lock, and move the isolated `omc` slice to merge handling
+- Smallest bounded action for this run: score `ohmg` experiment `3`, revert the failed mutation, and open a bounded PR for the updated autoresearch artifacts plus loop-state refresh
 
 ## Status
 
-- Current state: draft PR `#17` is review-clean for the intended `omc` slice, and the lock state now matches the existing PR lifecycle
-- Blocker: no blocker remains for PR `#17`; after merge, the main remaining blocker is the separate `ohmg` optimization lane needing a fresh scored capture for experiment `3`
-- Next owner: `nanoclaw_pd` to merge PR `#17`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
-- Stage: `merge`
-- PR-readiness note: intended scope is satisfied; merge without widening PR `#17` beyond `.god-skills/omc/*` plus the survey lock updates and cleanup plan
+- Current state: `ohmg` experiment `3` was captured and scored at `1/20`, so the mutation was reverted and only the discard artifacts remain on `chore/skill-loop-pr-open-20260413-r19`
+- Blocker: headless Gemini still inspects nearby autoresearch files and drifts away from the documented `.serena/memories/`, dashboard, and `doctor` surfaces, which makes prompt-only mutations unreliable
+- Next owner: reviewer / maintainer for the bounded discard-artifact PR, then `nanoclaw_engine` for either harness isolation or a stronger anti-local-artifact experiment `4`
+- Stage: `PR-open`
+- PR-readiness note: keep the PR limited to `.god-skills/ohmg/skill-autoresearch-ohmg/*` plus the survey lock updates and cleanup plan
 
 ## Run 9 refresh
 

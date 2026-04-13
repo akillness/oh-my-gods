@@ -1051,3 +1051,46 @@ Source links:
 - Next owner: `nanoclaw_pd` to merge PR `#17`, then `nanoclaw_engine` for scored `ohmg` experiment `3`
 - Stage: `merge`
 - Merge-ready: yes
+
+## Run 22 PR registration
+
+### Survey refresh signals
+
+- Agent Skills still favors compact `SKILL.md` entrypoints with optional support directories only when they reduce ambiguity or enable measurement, so this run stayed on one measured `ohmg` mutation instead of reopening broader packaging work.
+- Claude Code still exposes reusable skills, subagents, and plugin-hook surfaces; OpenAI's February 2, 2026 Codex app launch keeps emphasizing multi-agent work plus skills that bundle instructions, resources, and scripts; Gemini CLI still keeps extension packaging and command descriptions central.
+- The new signal from this run is local but decisive: prompt-only `ohmg` mutations are still too weak when headless Gemini can inspect adjacent autoresearch artifacts, so the next experiment has to change isolation or anti-pattern guidance rather than just top-level phrasing.
+
+Source links:
+- https://agentskills.io/specification
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/plugins
+- https://openai.com/index/introducing-the-codex-app/
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+- https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
+
+### Audit and packaging decision
+
+- Fresh-branch validator result before edits: `0` errors and `105` warnings across `.god-skills/`
+- `ohmg` remained the only currently justified measured optimization lane because it already had evals, a baseline, a kept mutation, and a dedicated capture/scoring workspace.
+- This run explicitly decided that `ohmg` did not need new `assets/`, `scripts/`, `references/`, or `evals/`; the blocker is not missing packaging, it is measurement contamination from nearby workspace artifacts.
+- The next workflow-critical packaging candidates after the `ohmg` lane remain `agentation`, `agent-workflow`, `agent-manager`, `bmad`, `agent-browser`, and `playwriter`, but they stay out of this branch.
+
+### Run 22 action
+
+- Target skill: `ohmg`
+- Scope: one scored experiment only
+- Change set:
+  - updated `.survey/llm-agent-skill-landscape/cleanup-plan.md` for the `ohmg` experiment-3 slice
+  - created `experiment-3.template.json`
+  - captured and scored `ohmg` experiment `3`
+  - reverted the failed Step 1 mutation after it scored `1/20`
+  - updated the autoresearch workspace and loop-lock files with the measured discard state
+
+### Current state
+
+- State: `ohmg` experiment `3` is recorded as a discard at `1/20`, and experiment `2` remains the active best wording at `8/20`
+- Blocker: headless Gemini still inspects adjacent autoresearch artifacts, which makes prompt-only mutations around Gemini-or-Antigravity framing and Serena Memory unreliable
+- Next owner: reviewer / maintainer for the bounded discard-artifact PR, then `nanoclaw_engine` for either harness isolation or a stronger anti-local-artifact experiment `4`
+- Stage: `PR-open`
+- Merge-ready: not yet; the next run should review this discard-artifact branch for duplicate work or missing bounded lock updates before merge

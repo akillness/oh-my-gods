@@ -2,7 +2,7 @@
   "skill": "ohmg",
   "status": "idle",
   "current_state": "experiment_recorded",
-  "last_updated": "2026-04-12",
+  "last_updated": "2026-04-13",
   "baseline": {
     "status": "recorded",
     "runs_per_experiment": 5,
@@ -20,8 +20,8 @@
     "scoring_recorder": "../scripts/record_skill_autoresearch_experiment.py",
     "mutation_policy": "one_change_at_a_time",
     "keep_policy": "keep_only_strict_score_improvements",
-    "current_blocker": "The skill still lacks a strong enough top-level anchor tying ohmg to the Gemini or Antigravity surface and Serena Memory; setup-only guidance improved but did not generalize.",
-    "next_action": "Keep this mutation, then test one focused mutation that makes Gemini-or-Antigravity framing plus Serena Memory non-optional for explicit ohmg help prompts."
+    "current_blocker": "Headless Gemini capture still inspects nearby autoresearch artifacts before answering, and prompt-only Step 1 anchoring is not strong enough to override that behavior.",
+    "next_action": "Keep experiment 2 as the current best wording. The next safe lane is either a stronger anti-local-artifact rule near the observability/config sections or a harness change that isolates the skill from adjacent autoresearch files before scoring again."
   },
   "experiments": [
     {
@@ -47,6 +47,14 @@
       "pass_rate": 40.0,
       "status": "keep",
       "description": "Strengthen setup verification to require doctor and reject indirect checks."
+    },
+    {
+      "experiment": 3,
+      "score": 1,
+      "max_score": 20,
+      "pass_rate": 5.0,
+      "status": "discard",
+      "description": "Make Gemini-or-Antigravity framing plus Serena Memory and the documented YAML mapping non-optional in Step 1."
     }
   ]
 }

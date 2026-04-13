@@ -1,0 +1,138 @@
+{
+  "experiment": 3,
+  "status": "discard",
+  "description": "Make Gemini-or-Antigravity framing plus Serena Memory and the documented YAML mapping non-optional in Step 1.",
+  "change": "Tightened `### Step 1` so explicit `ohmg` prompts must open on the Gemini-or-Antigravity surface and pair coordination/configuration with Serena Memory plus `.agent/config/user-preferences.yaml` / `agent_cli_mapping`.",
+  "reasoning": "Experiment 2 fixed the doctor path but still missed prompt 1 framing and prompt 3 Serena-memory anchoring. The hypothesis was that a stronger Step 1 routing/config instruction would generalize without touching the verified setup step.",
+  "result": "Experiment 3 scored 1/20, which is far worse than the kept 8/20 experiment 2. Gemini still defaulted to local workspace inspection and generic setup or workflow advice, so the Step 1 anchor did not recover prompt 1, prompt 2, or prompt 4 and only one prompt 3 run fully matched the documented config surface plus Serena Memory.",
+  "remaining_failures": "Prompt 1 still never named ohmg as the Gemini CLI or Antigravity orchestration surface. Prompt 2 still replaced `bunx oh-my-ag doctor` with `--help`, `--version`, or task execution. Prompt 4 still preferred local autoresearch dashboards over `.serena/memories/` plus `bunx oh-my-ag dashboard`. Prompt 3 only passed once when the answer used `.agent/config/user-preferences.yaml` plus Serena Memory without inventing alternate config files.",
+  "current_blocker": "Headless Gemini capture still inspects nearby autoresearch artifacts before answering, and prompt-only Step 1 anchoring is not strong enough to override that behavior.",
+  "next_action": "Keep experiment 2 as the current best wording. The next safe lane is either a stronger anti-local-artifact rule near the observability/config sections or a harness change that isolates the skill from adjacent autoresearch files before scoring again.",
+  "runs": [
+    {
+      "run": 1,
+      "scores": [
+        {
+          "prompt_id": 1,
+          "pass": false,
+          "notes": "Names lanes and workflow, but never identifies ohmg as the Gemini CLI or Antigravity orchestration surface."
+        },
+        {
+          "prompt_id": 2,
+          "pass": false,
+          "notes": "Uses `bunx oh-my-ag`, but verification regresses to `--help` instead of `bunx oh-my-ag doctor`."
+        },
+        {
+          "prompt_id": 3,
+          "pass": false,
+          "notes": "Mentions Serena Memory and routing, but invents `ohmg.config.yaml` instead of `.agent/config/user-preferences.yaml` or `agent_cli_mapping`."
+        },
+        {
+          "prompt_id": 4,
+          "pass": false,
+          "notes": "Falls back to `skill-autoresearch-ohmg/dashboard.html`, captured runs, and results files instead of `.serena/memories/` plus the documented dashboard commands."
+        }
+      ]
+    },
+    {
+      "run": 2,
+      "scores": [
+        {
+          "prompt_id": 1,
+          "pass": false,
+          "notes": "Uses `/coordinate` with PM, backend, frontend, and QA lanes, but still never frames ohmg as the Gemini CLI or Antigravity orchestration surface."
+        },
+        {
+          "prompt_id": 2,
+          "pass": false,
+          "notes": "Setup stays on ohmg, but verification drifts to running a sample `/coordinate` task rather than `bunx oh-my-ag doctor`."
+        },
+        {
+          "prompt_id": 3,
+          "pass": false,
+          "notes": "Finds the documented YAML path and `agent_cli_mapping`, but omits Serena Memory and gives only generic routing language."
+        },
+        {
+          "prompt_id": 4,
+          "pass": false,
+          "notes": "Again centers `dashboard.html`, `captured-runs`, and result files instead of `.serena/memories/` and `bunx oh-my-ag dashboard` / `dashboard:web`."
+        }
+      ]
+    },
+    {
+      "run": 3,
+      "scores": [
+        {
+          "prompt_id": 1,
+          "pass": false,
+          "notes": "Provides a staged workflow with PM, backend, frontend, and QA, but still never names ohmg as the Gemini CLI or Antigravity orchestration surface."
+        },
+        {
+          "prompt_id": 2,
+          "pass": false,
+          "notes": "Mentions `bunx oh-my-ag`, but never gives the doctor command and instead trails off after an attempted tool execution."
+        },
+        {
+          "prompt_id": 3,
+          "pass": true,
+          "notes": "Uses Serena Memory, `.agent/config/user-preferences.yaml`, and `agent_cli_mapping`-style role mapping with explicit cross-agent coordination."
+        },
+        {
+          "prompt_id": 4,
+          "pass": false,
+          "notes": "Still describes only the local autoresearch dashboard and result files, not `.serena/memories/` or the documented dashboard commands."
+        }
+      ]
+    },
+    {
+      "run": 4,
+      "scores": [
+        {
+          "prompt_id": 1,
+          "pass": false,
+          "notes": "Keeps the PM, backend, frontend, and QA structure, but still lacks Gemini CLI or Antigravity anchoring for ohmg."
+        },
+        {
+          "prompt_id": 2,
+          "pass": false,
+          "notes": "Verification drifts to `--version` or `--help` instead of the documented `bunx oh-my-ag doctor` path."
+        },
+        {
+          "prompt_id": 3,
+          "pass": false,
+          "notes": "Mentions Serena Memory, but invents `serena.workers.json` rather than using `.agent/config/user-preferences.yaml` / `agent_cli_mapping`."
+        },
+        {
+          "prompt_id": 4,
+          "pass": false,
+          "notes": "Returns to `dashboard.html`, `results.json`, and captured runs without citing `.serena/memories/` or the documented dashboard commands."
+        }
+      ]
+    },
+    {
+      "run": 5,
+      "scores": [
+        {
+          "prompt_id": 1,
+          "pass": false,
+          "notes": "Still starts with a generic `bunx oh-my-ag /coordinate` action and lane list, not the Gemini CLI or Antigravity orchestration surface."
+        },
+        {
+          "prompt_id": 2,
+          "pass": false,
+          "notes": "Mentions `bunx oh-my-ag`, but verification again regresses to `--help` instead of `bunx oh-my-ag doctor`."
+        },
+        {
+          "prompt_id": 3,
+          "pass": false,
+          "notes": "Uses `.agent/config/user-preferences.yaml`, but omits Serena Memory and limits the answer to role mapping only."
+        },
+        {
+          "prompt_id": 4,
+          "pass": false,
+          "notes": "Adds more local file-based observability detail, but still misses `.serena/memories/` and the documented dashboard commands."
+        }
+      ]
+    }
+  ]
+}
