@@ -1,6 +1,13 @@
 ---
 name: agent-browser
-description: "Browser automation CLI for AI agents. Use for website interaction, form automation, screenshots, scraping, and web app verification. Prefer snapshot refs (@e1, @e2) for deterministic actions."
+description: >
+  Control a fresh or session-isolated browser with agent-browser for website
+  interaction, form automation, screenshots, scraping, and deterministic web
+  verification. Use when the task needs headless or disposable browser
+  automation, ref-based interaction (`@e1`, `@e2`), or CI-friendly checks
+  instead of the user's running browser session. Triggers on: agent-browser,
+  headless browser, web verification, fill form, scrape site, screenshot page,
+  diff snapshot, browser session.
 allowed-tools: Read Write Bash Grep Glob
 metadata:
   tags: browser-automation, headless-browser, ai-agent, web-testing, web-scraping, verification
@@ -9,25 +16,45 @@ metadata:
   source: vercel-labs/agent-browser
 ---
 
-
 # agent-browser - Browser Automation for AI Agents
 
 ## When to use this skill
 
 - Open websites and automate UI actions
 - Fill forms, click controls, and verify outcomes
-- Capture screenshots/PDFs or extract content
+- Capture screenshots or PDFs, or extract page content
 - Run deterministic web checks with accessibility refs
 - Execute parallel browser tasks via isolated sessions
+- Prefer this over `playwriter` when you want disposable browser state instead of the user's already-running Chrome session
 
-## Core workflow
+## Instructions
 
-Always use the deterministic ref loop:
+### Step 1: Pick the right browser surface
+
+- Use `agent-browser` when the task should run in a fresh or isolated browser session, when browser state should be disposable, or when the flow needs to be reproducible in CI or automation.
+- Route to `playwriter` instead when the task depends on the user's current Chrome state, saved logins, cookies, extensions, or already-open tabs.
+
+### Step 2: Refresh runtime guidance when version-specific behavior matters
+
+- Use the bundled instructions here for the stable default workflow.
+- If the installed CLI may be newer than this repo copy, refresh the live instructions first:
+
+```bash
+agent-browser skills list
+agent-browser skills get agent-browser --full
+```
+
+- Check specialized runtime skills when the workflow is narrower than general browser automation, such as `dogfood`, `slack`, or `electron`.
+
+### Step 3: Use the deterministic ref loop
+
+Always use the ref-first loop:
 
 1. `agent-browser open <url>`
-2. `agent-browser snapshot -i`
-3. interact with refs (`@e1`, `@e2`, ...)
-4. `agent-browser snapshot -i` again after page/DOM changes
+2. `agent-browser wait --load networkidle` when navigation is still settling
+3. `agent-browser snapshot -i`
+4. Interact with refs (`@e1`, `@e2`, ...)
+5. `agent-browser snapshot -i` or `agent-browser diff snapshot` again after the page or DOM changes
 
 ```bash
 agent-browser open https://example.com/form
@@ -35,10 +62,26 @@ agent-browser wait --load networkidle
 agent-browser snapshot -i
 agent-browser fill @e1 "user@example.com"
 agent-browser click @e2
-agent-browser snapshot -i
+agent-browser diff snapshot
 ```
 
-## Command patterns
+### Step 4: Verify after every meaningful action
+
+Use explicit evidence after actions.
+
+```bash
+# Baseline -> action -> verify structure
+agent-browser snapshot -i
+agent-browser click @e3
+agent-browser diff snapshot
+
+# Visual regression
+agent-browser screenshot baseline.png
+agent-browser click @e5
+agent-browser diff screenshot --baseline baseline.png
+```
+
+### Step 5: Scale safely with sessions, waits, and scoped output
 
 Use `&&` chaining when intermediate output is not needed.
 
@@ -56,31 +99,62 @@ High-value commands:
 - Navigation: `open`, `close`
 - Snapshot: `snapshot -i`, `snapshot -i -C`, `snapshot -s "#selector"`
 - Interaction: `click`, `fill`, `type`, `select`, `check`, `press`
-- Verification: `diff snapshot`, `diff screenshot --baseline <file>`
+- Verification: `diff snapshot`, `diff screenshot --baseline <file>`, `diff url <url1> <url2>`
 - Capture: `screenshot`, `screenshot --annotate`, `pdf`
 - Wait: `wait --load networkidle`, `wait <selector|@ref|ms>`
 
-## Verification patterns
+## Examples
 
-Use explicit evidence after actions.
+### Example 1: Drive a public form in an isolated browser
 
-```bash
-# Baseline -> action -> verify structure
-agent-browser snapshot -i
-agent-browser click @e3
-agent-browser diff snapshot
-
-# Visual regression
-agent-browser screenshot baseline.png
-agent-browser click @e5
-agent-browser diff screenshot --baseline baseline.png
+Input:
+```text
+Use agent-browser to open the contact page, fill the form, submit it, and verify the page changed.
 ```
+
+Output shape:
+- uses `agent-browser`, not `playwriter`
+- follows `open -> snapshot -i -> interact -> diff snapshot`
+- re-snapshots or diffs after the submit action
+
+### Example 2: Compare staging and production without reusing local browser state
+
+Input:
+```text
+Compare the staging and production homepages with agent-browser and show whether the structure or screenshot changed.
+```
+
+Output shape:
+- stays on `agent-browser` as the isolated verification surface
+- uses `diff url`, `diff snapshot`, or `diff screenshot --baseline ...`
+- keeps evidence explicit instead of describing the result from memory
+
+### Example 3: Choose playwriter when the task needs the user's existing login
+
+Input:
+```text
+I need to inspect an authenticated checkout flow that depends on my saved Chrome login and current cart state. Should I use agent-browser or playwriter?
+```
+
+Output shape:
+- routes to `playwriter` for the logged-in running-browser case
+- explains that `agent-browser` is the isolated or disposable alternative
+- preserves the distinction between headless verification and stateful browser control
+
+## Best practices
+
+- Prefer snapshot refs (`@e1`, `@e2`) over fragile CSS selectors whenever possible.
+- Re-run `snapshot -i` after navigation or major DOM changes before acting again.
+- Prefer `wait --load networkidle` or selector/ref waits over fixed sleeps.
+- Use `--session <name>` to isolate parallel work or preserve reusable auth safely.
+- Use `diff snapshot`, `diff screenshot`, or saved baselines instead of assuming the page changed correctly.
+- Refresh CLI-served skills with `agent-browser skills get ...` when you suspect version drift between the repo copy and the installed binary.
+- Apply domain allowlists, content boundaries, and action policies in sensitive or prompt-injection-prone flows.
 
 ## Safety and reliability
 
-- Refs are invalid after navigation or significant DOM updates; re-snapshot before next action.
-- Prefer `wait --load networkidle` or selector/ref waits over fixed sleeps.
-- For multi-step JS, use `eval --stdin` (or base64) to avoid shell escaping breakage.
+- Refs are invalid after navigation or significant DOM updates; re-snapshot before the next action.
+- For multi-step JS, use `eval --stdin` or base64 input to avoid shell escaping breakage.
 - For concurrent tasks, isolate with `--session <name>`.
 - Use output controls in long pages to reduce context flooding.
 - Optional hardening in sensitive flows: domain allowlist and action policies.
@@ -132,13 +206,7 @@ Deep-dive docs in this skill:
 Related resources:
 - https://github.com/vercel-labs/agent-browser
 - https://agent-browser.dev
-
-Ready templates:
-- `./templates/form-automation.sh`
-- `./templates/capture-workflow.sh`
-
-## Metadata
-
-- Version: 1.1.0
-- Last updated: 2026-02-26
-- Scope: deterministic browser automation for agent workflows
+- https://agent-browser.dev/skills
+- https://agent-browser.dev/sessions
+- https://agent-browser.dev/diffing
+- https://agent-browser.dev/selectors

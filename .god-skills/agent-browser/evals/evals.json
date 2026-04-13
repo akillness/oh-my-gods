@@ -1,0 +1,45 @@
+{
+  "skill_name": "agent-browser",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use agent-browser to open a public contact form, fill the fields, submit it, and verify the page changed.",
+      "expected_output": "A browser-automation answer that stays on agent-browser, uses the deterministic ref loop, and verifies the post-submit state explicitly.",
+      "assertions": [
+        "Response chooses `agent-browser` as the execution surface",
+        "Response includes `agent-browser open` followed by `agent-browser snapshot -i` or an equivalent ref-first observation step",
+        "Response includes a verification command such as `agent-browser diff snapshot` or a re-snapshot after the submit action"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Compare staging and production with agent-browser and show whether the structure or screenshots differ.",
+      "expected_output": "Guidance that uses agent-browser diffing primitives to compare environments without relying on the user's live browser session.",
+      "assertions": [
+        "Response mentions `agent-browser diff url`, `agent-browser diff snapshot`, or `agent-browser diff screenshot --baseline`",
+        "Response keeps the answer on isolated browser verification rather than switching to playwriter",
+        "Response treats the result as evidence gathered from diff output rather than a guess"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need to inspect a checkout flow that depends on my saved Chrome login and current cart state. Should I use agent-browser or playwriter?",
+      "expected_output": "A boundary-setting answer that routes the user to playwriter for the running-browser case and explains when agent-browser is the isolated alternative.",
+      "assertions": [
+        "Response chooses `playwriter` for the saved-login or existing-session workflow",
+        "Response distinguishes `agent-browser` as the fresh or isolated browser surface",
+        "Response explains why current cookies, tabs, or login state change the tool choice"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "The installed agent-browser binary might be newer than the repo copy of the skill. How should I refresh the instructions before using it?",
+      "expected_output": "A version-aware answer that uses agent-browser's runtime-served skills to refresh the current instructions before acting.",
+      "assertions": [
+        "Response mentions `agent-browser skills list` or `agent-browser skills get agent-browser --full`",
+        "Response explains that runtime-served instructions help avoid version drift",
+        "Response keeps the advice anchored to agent-browser instead of generic skill-management guidance"
+      ]
+    }
+  ]
+}
