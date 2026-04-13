@@ -57,8 +57,8 @@ Source links:
 
 ## Status
 
-- Current state: `agent-browser` is the active bounded improvement lane on `chore/skill-loop-pr-open-20260413-r21`
+- Current state: draft PR `#20` is open for the bounded `agent-browser` packaging slice on `chore/skill-loop-pr-open-20260413-r21`
 - Blocker: no blocker on the packaging slice itself; the remaining blocker is only that `skill-autoresearch` is not justified yet for `agent-browser` without repeated scored runs
-- Next owner: `nanoclaw_engine` for the next review pass after the PR opens
-- Stage: `improvement`
+- Next owner: reviewer or maintainer for draft PR `#20`, then `nanoclaw_engine` for the next bounded review pass
+- Stage: `PR-open`
 - PR-readiness note: keep the PR limited to `.god-skills/agent-browser/*` plus the survey lock updates and cleanup plan; do not mix `ohmg` or `agent-manager` follow-up work into this branch

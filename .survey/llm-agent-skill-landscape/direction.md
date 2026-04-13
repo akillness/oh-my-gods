@@ -39,7 +39,7 @@ This order is locked because it balances leverage and boundedness:
 
 ## Current state
 
-- State: `agent-browser` is the active bounded improvement lane for this run
+- State: draft PR `#20` is open for the `agent-browser` improvement lane
 - Blocker: no hard blocker for the packaging slice itself; the only reason not to start `skill-autoresearch` yet is the lack of repeated scored runs for this specific skill
-- Next owner: `nanoclaw_engine` for the next review pass after the PR is opened
-- Intended next stage after this run: `PR-open`
+- Next owner: reviewer or maintainer for draft PR `#20`, then `nanoclaw_engine` for the next review pass
+- Stage: `PR-open`
