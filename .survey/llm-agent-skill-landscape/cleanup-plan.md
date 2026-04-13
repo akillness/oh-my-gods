@@ -1,24 +1,25 @@
-# Cleanup Plan: run 22 (`ohmg`)
+# Cleanup Plan: run 23 (`playwriter`)
 
 ## Goal
 
-Run one scored `ohmg` mutation that tries to make Gemini-or-Antigravity framing plus Serena Memory and the documented YAML mapping non-optional for explicit `ohmg` help prompts.
+Standardize the `playwriter` entrypoint and add a minimal eval scaffold so the repo's live-browser verification surface becomes reviewable and future optimization work has a measurable starting point.
 
 ## Behavior lock
 
-- Do not change `ohmg` runtime commands, installation paths, or dashboard surfaces.
-- Preserve the existing `bunx oh-my-ag`, `bunx oh-my-ag doctor`, `.serena/memories/`, and `.agent/config/user-preferences.yaml` contract.
-- Keep the slice limited to one instruction mutation plus experiment artifacts and loop-state updates.
-- Do not add new `assets/`, `scripts/`, `references/`, or `evals/` in this run.
+- Do not change `playwriter`'s core contract around the running Chrome session, preserved cookies and logins, `localhost:19988`, or the `Observe -> Act -> Observe` loop.
+- Keep the slice limited to structure and evaluation readiness: no new runtime scripts, assets, or support references in this run.
+- Preserve the distinction between `playwriter` and `agent-browser`: live authenticated browser control vs isolated headless automation.
+- Do not open a skill-autoresearch mutation loop for `playwriter` in this run; stop after standards cleanup, eval scaffolding, validation, and PR registration.
 
 ## Planned edits
 
-1. Tighten `### Step 1` in `.god-skills/ohmg/SKILL.md` so explicit `ohmg` prompts must open on the Gemini-or-Antigravity orchestration surface and pair cross-agent configuration with Serena Memory plus `.agent/config/user-preferences.yaml` / `agent_cli_mapping`.
-2. Capture and score `ohmg` experiment `3` against the existing four-prompt eval contract.
-3. Keep or discard the mutation strictly by score, then refresh the recurring survey lock files with the measured result and next-stage state.
+1. Add exact `## Instructions` structure to `.god-skills/playwriter/SKILL.md` without widening the operational scope.
+2. Add exact `## Examples` coverage for the highest-value `playwriter` use cases: authenticated browser work, MCP hookup, and session-aware verification.
+3. Add `.god-skills/playwriter/evals/evals.json` with realistic prompts that verify the running-browser contract, session management, MCP wiring, and the `Observe -> Act -> Observe` pattern.
+4. Refresh the recurring survey lock so the next run knows `playwriter` is packaged for PR review rather than still sitting in the generic candidate pool.
 
 ## Verification
 
-- Run the validator on `.god-skills/ohmg/`.
-- Check `results.tsv`, `results.json`, and `changelog.md` after recording experiment `3`.
-- Recompute repo-wide warning counts for the survey lock update.
+- Run the validator on `.god-skills/playwriter/`.
+- Recompute the repo-wide standards counts after the edit.
+- Review the diff to confirm the slice stays bounded to `playwriter` plus loop-state files before opening the PR path.

@@ -25,6 +25,16 @@ Playwriter connects AI agents to your **running Chrome browser** instead of spaw
 
 **vs. agent-browser**: agent-browser spawns a fresh headless browser (isolated, CI-friendly). playwriter connects to your existing Chrome session (authenticated, stateful, with your extensions).
 
+## Instructions
+
+### Step 1: Confirm that playwriter is the right browser surface
+
+- Use `playwriter` when the task depends on the user's current Chrome state: existing logins, cookies, extensions, or open tabs.
+- Prefer `playwriter` over fresh-browser Playwright or headless verification when the workflow is authenticated or stateful.
+- Route to `agent-browser` instead when the task needs an isolated headless session, CI-friendly verification, or disposable browser state.
+
+### Step 2: Install and attach to the running browser
+
 ## Installation
 
 ### Step 1: Install Chrome Extension
@@ -42,6 +52,8 @@ npx playwriter@latest --help
 ```
 
 The extension auto-starts a WebSocket relay server at `localhost:19988`.
+
+### Step 3: Start with a session, then follow Observe -> Act -> Observe
 
 ## Core workflow
 
@@ -61,6 +73,8 @@ playwriter -s 1 -e 'await page.locator("aria-ref=e5").click()'
 # 4. Re-observe after action
 playwriter -s 1 -e 'await snapshot({ page })'
 ```
+
+### Step 4: Use sessions, MCP, and relay mode deliberately
 
 ## Session management
 
@@ -210,6 +224,44 @@ playwriter serve --token my-secret --replace
 # From agent machine:
 playwriter --host <ip-or-hostname> --token my-secret -s 1 -e 'await page.goto("https://example.com")'
 ```
+
+## Examples
+
+### Example 1: Use the logged-in browser instead of re-authenticating
+
+Input:
+```text
+Use playwriter to inspect a GitHub issue in my current Chrome session without logging in again.
+```
+
+Output shape:
+- keeps the answer on `playwriter`, not headless Playwright
+- uses the running Chrome session plus `playwriter session new`
+- follows `snapshot({ page })` before and after an action
+
+### Example 2: Wire playwriter into an MCP-capable agent client
+
+Input:
+```text
+How do I connect playwriter to Codex CLI or Claude Desktop so the agent can drive my existing browser?
+```
+
+Output shape:
+- includes the `npx -y playwriter@latest` MCP command shape
+- mentions the Chrome extension and the local relay on `localhost:19988`
+- keeps the guidance on agent control of the running browser session
+
+### Example 3: Verify an authenticated multi-step flow
+
+Input:
+```text
+I need to verify a checkout flow that depends on my saved login and cart state. Should I use playwriter or agent-browser?
+```
+
+Output shape:
+- chooses `playwriter` because the flow depends on existing browser state
+- explains the `Observe -> Act -> Observe` loop
+- preserves the distinction between stateful browser control and isolated headless checks
 
 ## Best practices
 
