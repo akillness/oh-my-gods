@@ -1,0 +1,45 @@
+{
+  "skill_name": "playwriter",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use playwriter to inspect a logged-in GitHub page in my current Chrome session without asking me to sign in again.",
+      "expected_output": "A playwriter-first answer that treats the running Chrome session as the execution surface, starts with session creation, and preserves existing logins or cookies.",
+      "assertions": [
+        "Response identifies playwriter as the running-browser or existing-session surface",
+        "Response mentions `playwriter session new` or equivalent session management",
+        "Response avoids telling the user to log in again or switch to headless Playwright"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "How do I connect playwriter to an MCP-capable agent client so the agent can control my existing Chrome browser?",
+      "expected_output": "Guidance that covers the Chrome extension, the `npx -y playwriter@latest` MCP command shape, and the local relay connection.",
+      "assertions": [
+        "Response mentions the Playwriter Chrome extension",
+        "Response includes `npx -y playwriter@latest` or an equivalent MCP server command shape",
+        "Response mentions the local relay surface such as `localhost:19988` or the running browser connection"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need to verify a multi-step checkout flow that depends on my saved login and cart state. Should I use playwriter or agent-browser?",
+      "expected_output": "A comparison that chooses playwriter for stateful authenticated work and explains why agent-browser is the isolated headless alternative.",
+      "assertions": [
+        "Response chooses `playwriter` for the authenticated or stateful flow",
+        "Response distinguishes `playwriter` from `agent-browser` or headless browser automation",
+        "Response explains why existing cookies, logins, or tab state matter"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "What interaction loop should I follow with playwriter while debugging an authenticated web app in my real browser?",
+      "expected_output": "A concise workflow that uses session-aware browser control and the Observe -> Act -> Observe pattern with snapshots before and after actions.",
+      "assertions": [
+        "Response mentions the `Observe -> Act -> Observe` pattern or equivalent phrasing",
+        "Response includes `snapshot({ page })` before and after actions",
+        "Response keeps the answer on playwriter's running-browser workflow instead of generic Playwright advice"
+      ]
+    }
+  ]
+}

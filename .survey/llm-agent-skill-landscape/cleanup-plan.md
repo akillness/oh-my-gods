@@ -1,24 +1,24 @@
-# Cleanup Plan: run 22 (`ohmg`)
+# Cleanup Plan: run 24 review (`playwriter`)
 
 ## Goal
 
-Run one scored `ohmg` mutation that tries to make Gemini-or-Antigravity framing plus Serena Memory and the documented YAML mapping non-optional for explicit `ohmg` help prompts.
+Review the bounded `playwriter` PR slice for duplicate work or missed standards gaps, apply only the smallest trigger-quality fix if it is still justified, and then move the branch onto the merge path.
 
 ## Behavior lock
 
-- Do not change `ohmg` runtime commands, installation paths, or dashboard surfaces.
-- Preserve the existing `bunx oh-my-ag`, `bunx oh-my-ag doctor`, `.serena/memories/`, and `.agent/config/user-preferences.yaml` contract.
-- Keep the slice limited to one instruction mutation plus experiment artifacts and loop-state updates.
-- Do not add new `assets/`, `scripts/`, `references/`, or `evals/` in this run.
+- Do not change `playwriter`'s core contract around the running Chrome session, preserved cookies and logins, `localhost:19988`, or the `Observe -> Act -> Observe` loop.
+- Keep the slice limited to review cleanup and lock-state updates: no new runtime scripts, assets, eval prompts, or support references in this run.
+- Preserve the distinction between `playwriter` and `agent-browser`: live authenticated browser control vs isolated headless automation.
+- Do not open a skill-autoresearch mutation loop for `playwriter`; this run only decides whether the PR is clean enough to advance toward merge.
 
 ## Planned edits
 
-1. Tighten `### Step 1` in `.god-skills/ohmg/SKILL.md` so explicit `ohmg` prompts must open on the Gemini-or-Antigravity orchestration surface and pair cross-agent configuration with Serena Memory plus `.agent/config/user-preferences.yaml` / `agent_cli_mapping`.
-2. Capture and score `ohmg` experiment `3` against the existing four-prompt eval contract.
-3. Keep or discard the mutation strictly by score, then refresh the recurring survey lock files with the measured result and next-stage state.
+1. Re-review draft PR `#19` against `main` for duplicate work, missing structure, or weak trigger phrasing.
+2. Tighten only the `playwriter` frontmatter description if the review still finds a trigger-quality gap.
+3. Refresh the recurring survey lock so the next run knows whether `playwriter` is still in review or has advanced to `merge`.
 
 ## Verification
 
-- Run the validator on `.god-skills/ohmg/`.
-- Check `results.tsv`, `results.json`, and `changelog.md` after recording experiment `3`.
-- Recompute repo-wide warning counts for the survey lock update.
+- Run the validator on `.god-skills/playwriter/`.
+- Recompute the repo-wide standards counts after the edit.
+- Review the diff to confirm the slice stays bounded to `playwriter` plus loop-state files before advancing the PR state.
