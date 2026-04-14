@@ -26,8 +26,8 @@ The repo sits in the middle of a fast-moving agent-tooling ecosystem where offic
 
 ## User Voices
 
-- OpenAI positions skills as the bridge from code generation to getting real work done on your computer: https://openai.com/index/introducing-the-codex-app/
-- Anthropic documents skills, subagents, and hooks as first-class Claude Code features: https://code.claude.com/docs/en/skills and https://code.claude.com/docs/en/sub-agents
+- OpenAI documents Codex as a workflow surface with reusable skills and automations: https://developers.openai.com/codex/
+- Anthropic documents slash commands and subagents as first-class Claude Code features: https://code.claude.com/docs/en/slash-commands and https://code.claude.com/docs/en/sub-agents
 - Google frames Gemini CLI extensions and custom commands as the packaging layer for prompts, MCP servers, and commands: https://google-gemini.github.io/gemini-cli/docs/extensions/ and https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
 - Agent Skills describes skills as folders of instructions, scripts, and resources that agents discover and load on demand: https://agentskills.io/home
 - The open `skills` ecosystem keeps broadening the portability target; the current `vercel-labs/skills` README advertises support for Codex plus 40+ other agent surfaces and released `v1.5.0` on 2026-04-12: https://github.com/vercel-labs/skills
