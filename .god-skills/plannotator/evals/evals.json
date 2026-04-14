@@ -1,0 +1,45 @@
+{
+  "skill_name": "plannotator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use plannotator to review my AI agent's implementation plan before it starts coding.",
+      "expected_output": "A response that treats plannotator as the visual plan-review surface, explains that the user can annotate and then approve or request changes, and keeps the review loop structured.",
+      "assertions": [
+        "Response positions `plannotator` as the plan review or annotation surface before coding",
+        "Response mentions approve or request changes as the main outcomes",
+        "Response mentions structured annotations or annotation types such as `delete`, `insert`, `replace`, or `comment`"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Set up plannotator for Codex CLI on this machine and tell me how to invoke it in a session.",
+      "expected_output": "A setup-focused answer that uses the Codex helper script, updates the Codex config surface, and tells the user to invoke the plannotator prompt inside Codex.",
+      "assertions": [
+        "Response mentions `bash scripts/setup-codex-hook.sh`",
+        "Response mentions `~/.codex/config.toml` or `developer_instructions`",
+        "Response mentions `~/.codex/prompts/plannotator.md` or `/prompts:plannotator`"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I ran bash scripts/review.sh and the review UI opened, but Send Feedback did not get back to the active agent session. What should plannotator tell me to do?",
+      "expected_output": "A response that acknowledges the known limitation of manual diff review and routes the user to hook-driven plan review or manual copy/export of annotations instead of pretending the feedback loop is automatic.",
+      "assertions": [
+        "Response states that manual `plannotator review` or `bash scripts/review.sh` does not automatically deliver feedback to the active agent session",
+        "Response recommends hook-driven plan review when a live feedback loop is required",
+        "Response mentions exporting, copying, or pasting annotations back into the agent chat manually"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I want to save a reviewed plan to Obsidian without approving or denying it yet.",
+      "expected_output": "A response that uses the Export to Notes flow, keeps the plan in hook mode, and mentions the saved-notes requirements instead of inventing a new command.",
+      "assertions": [
+        "Response mentions the Export button and the Notes tab",
+        "Response mentions Obsidian or Bear being configured in Settings",
+        "Response mentions hook mode as a requirement for the save-notes path"
+      ]
+    }
+  ]
+}
