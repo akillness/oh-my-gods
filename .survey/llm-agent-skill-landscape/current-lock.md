@@ -61,11 +61,14 @@ Source links:
 - New review lane registered as PR `#27`:
   `https://github.com/akillness/oh-my-gods/pull/27`
 - PR `#27` is open, not a draft, has `mergeStateStatus = CLEAN`, has no review
-  decision or reviews yet, and its diff stays bounded to
-  `.god-skills/backend-testing/*` plus the recurring cleanup-plan file.
+  comments, no review decision, no status checks, and its diff stays bounded to
+  `.god-skills/backend-testing/*` plus the recurring survey lock files.
+- Re-review on this run found no duplicate work, no missing packaging surface,
+  and no new `skill-standardization` gaps, so the loop can advance to merge
+  instead of reopening implementation.
 - `skill-autoresearch` remains a decision gate only; this run found no reason
-  to start scored mutations for `backend-testing` before the new packaging and
-  eval baseline is reviewed on the open PR.
+  to start scored mutations for `backend-testing` before the packaged and
+  eval-backed baseline is merged.
 - `ralph`, `plannotator`, `omg`, and `vibe-kanban` are already merged on
   `origin/main`, so reopening any of those lanes now would be duplicate work.
 
@@ -73,7 +76,7 @@ Source links:
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `backend-testing` | PR `#27` is open; the skill is now standards-clean and eval-backed on `chore/skill-loop-pr-open-20260415-r28` | No | No new scripts needed | Added on this branch because the previous entrypoint was oversized and example-heavy | Added on this branch | No | Re-review PR `#27` on the next run and merge it if it stays clean |
+| `backend-testing` | PR `#27` passed the post-open review gate; the skill is standards-clean and eval-backed on `chore/skill-loop-pr-open-20260415-r28` | No | No new scripts needed | Added on this branch because the previous entrypoint was oversized and example-heavy | Added on this branch | No | Merge PR `#27` in this run |
 | `authentication-setup` | Still a top candidate in the large non-eval backlog after `backend-testing` resolves | No new assets needed | No new scripts needed | Likely needed | Needed | No | Keep behind `backend-testing` |
 | `database-schema-design` | Still a top candidate in the large non-eval backlog after `backend-testing` resolves | No new assets needed | No new scripts needed | Likely needed | Needed | No | Keep behind `backend-testing` |
 | `genkit` | Remains large and unevaluated, but behind the current PR-open lane | No new assets needed | No new scripts needed | Likely needed | Needed | No | Keep behind `backend-testing` |
@@ -81,8 +84,7 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: review PR `#27` for `backend-testing` on the next run; if the
-  review is still clean, merge it instead of reopening implementation.
+- Primary lane: merge PR `#27` for `backend-testing` in this run.
 - Secondary lane: after `backend-testing` resolves, refresh the packaging queue
   among large non-eval skills; current size-heavy candidates are
   `authentication-setup`, `database-schema-design`, and `genkit`.
@@ -93,29 +95,31 @@ Source links:
 
 ## Cleanup plan
 
-1. Re-review PR `#27` for duplicate work, missing improvements, or new
-   standardization gaps.
-2. If the review remains clean, merge PR `#27` instead of reopening
-   `backend-testing`.
-3. Only reopen `backend-testing` implementation if the review finds a concrete
-   standards or packaging defect.
+1. Refresh the survey and standards evidence before changing lifecycle state.
+2. Revalidate `backend-testing` with the repo validator and the
+   `skill-standardization` validator.
+3. Confirm PR `#27` still has no review objections and the branch stays
+   bounded to `backend-testing` plus the survey lock files.
+4. Merge PR `#27` once the review remains clean; leave the next packaging lane
+   to the large non-eval backlog.
 
 ## Run action
 
-- Smallest bounded action for this run: package `backend-testing` for review,
-  open PR `#27`, and leave the next scheduled pass in the `PR-review` lane
+- Smallest bounded action for this run: complete the post-open review for
+  `backend-testing`, confirm no duplicate work is needed, and merge PR `#27`
 
 ## Status
 
-- Current state: PR `#27` is open for the bounded `backend-testing` packaging
-  slice on `chore/skill-loop-pr-open-20260415-r28`
-- Blocker: no hard blocker remains for the packaging slice itself; the next
-  scheduled pass should perform the post-open review gate and check for GitHub
-  review feedback before merging
-- Next owner: `nanoclaw_pd` to run the PR-review gate on the next scheduled
-  pass, then `nanoclaw_engine` only if that review finds a concrete follow-up
-  patch
-- Stage: `PR-open`
-- PR-readiness note: keep the lane limited to `.god-skills/backend-testing/*`
-  plus the recurring survey lock files; do not mix in merged lanes, `ohmg`, or
-  the broader backlog
+- Current state: PR `#27` reviewed cleanly and is ready to merge for the
+  bounded `backend-testing` packaging slice on
+  `chore/skill-loop-pr-open-20260415-r28`
+- Blocker: no hard blocker remains for PR `#27`; runtime or browser validation
+  is intentionally deferred because this slice packaged references and evals
+  rather than changing browser behavior or runtime logic
+- Next owner: `nanoclaw_pd` to merge PR `#27` in this run, then
+  `nanoclaw_engine` for the next bounded packaging pass after merge
+- Stage: `merge`
+- PR-readiness note: keep the merged slice limited to
+  `.god-skills/backend-testing/*` plus the survey lock files; do not mix
+  `authentication-setup`, `database-schema-design`, `genkit`, or unrelated docs
+  churn into this branch

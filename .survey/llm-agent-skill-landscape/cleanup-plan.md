@@ -1,4 +1,4 @@
-# Cleanup Plan: run 35 PR-review gate (`backend-testing`)
+# Cleanup Plan: run 36 merge gate (`backend-testing`)
 
 ## Goal
 
@@ -10,12 +10,12 @@ the next packaging lane to the large non-eval backlog.
 
 - Do not change runtime scripts unless the skill entrypoint is currently
   pointing at the wrong script name or tool surface.
-- Keep the follow-up diff limited to `.god-skills/backend-testing/*` plus the
-  recurring survey state files; do not reopen `ralph`, `plannotator`, `ohmg`,
-  `omg`, `vibe-kanban`, or older merged lanes.
+- Keep the follow-up diff limited to recurring survey state files; do not
+  reopen `backend-testing`, `ralph`, `plannotator`, `ohmg`, `omg`,
+  `vibe-kanban`, or older merged lanes.
 - Do not start a `skill-autoresearch` mutation loop for `backend-testing` in
-  the review pass. First land the standards-clean packaging and eval baseline
-  by merging PR `#27`.
+  this run; first land the standards-clean packaging and eval baseline by
+  merging PR `#27`.
 - Do not add new assets or runtime scripts for `backend-testing` unless the
   review finds a concrete missing support surface.
 

@@ -13,15 +13,15 @@
   standards-clean PR-open slice by shrinking the entrypoint from `845` lines
   to `216`, bundling the missing reference material, and adding eval coverage
   without introducing new runtime scripts or assets.
-- No open PR existed before this run, and PR `#27` now carries the bounded
-  `backend-testing` lane for the next review pass.
+- PR `#27` now carries the bounded `backend-testing` lane, and the post-open
+  review on this run found no follow-up patch worth opening before merge.
 
 ## Locked direction
 
 Improve one workflow-critical or high-leverage skill per run, in priority
 order:
 
-1. `backend-testing` post-open review on PR `#27`
+1. `backend-testing`
 2. packaging refresh across the large non-eval backlog after
    `backend-testing` resolves
 3. `ohmg` follow-up only if a new measured mutation can beat the kept
@@ -45,7 +45,7 @@ This order is locked because:
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `backend-testing` | High | No | No | No | Added on this branch because the old entrypoint was oversized and example-heavy | Added on this branch | Review PR `#27` next run and merge if clean |
+| `backend-testing` | High | No | No | No | Added on this branch because the old entrypoint was oversized and example-heavy | Added on this branch | Merge PR `#27`, then reconsider mutation only if repeated measured failures appear |
 | `authentication-setup` | High | No | No | No | Likely yes | Yes | Keep behind `backend-testing` |
 | `database-schema-design` | High | No | No | No | Likely yes | Yes | Keep behind `backend-testing` |
 | `genkit` | Medium | No | No | No | Likely yes | Yes | Keep behind `backend-testing` |
@@ -62,16 +62,16 @@ This order is locked because:
   coverage
 - Sections: the main skill is now compact and standards-clean, and
   `SKILL.toon` was refreshed to match the new structure
-- Post-open state: PR `#27` is now open and ready for the next scheduled
-  review gate
+- Post-open review result: clean; no follow-up patch is justified before merge
 
 ## Current state
 
-- State: PR `#27` is open for the bounded `backend-testing` packaging slice on
+- State: PR `#27` has passed the post-open review gate and is ready to merge
+  for the bounded `backend-testing` packaging slice on
   `chore/skill-loop-pr-open-20260415-r28`
-- Blocker: no hard blocker remains for the slice itself; the next scheduled
-  pass should perform the PR-review gate and check for GitHub review feedback
-  before merging
-- Next owner: `nanoclaw_pd` to perform the PR-review gate on the next run,
-  then `nanoclaw_engine` only if a concrete follow-up patch is required
-- Stage: `PR-open`
+- Blocker: no hard blocker remains for the packaging slice itself; the only
+  deferred work is `skill-autoresearch`, which still waits on a merged baseline
+  plus repeated measured failures
+- Next owner: `nanoclaw_pd` to merge PR `#27` in this run, then
+  `nanoclaw_engine` for the next bounded packaging pass after merge
+- Stage: `merge`
