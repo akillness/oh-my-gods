@@ -44,7 +44,7 @@ This order is locked because it balances leverage and boundedness:
 
 ## Current state
 
-- State: the previous `agent-manager` slice is already merged; the next bounded `agentation` packaging slice is now in active improvement on `chore/skill-loop-pr-open-20260414-r23`
-- Blocker: no hard blocker remains, but `skill-autoresearch` is still deferred because `agentation` has no eval gate yet
-- Next owner: `nanoclaw_pd` to open the PR path for `agentation`, then `nanoclaw_engine` for the next PR-review pass
-- Stage: `improvement`
+- State: the previous `agent-manager` slice is already merged; PR `#22` now carries the bounded `agentation` packaging slice on `chore/skill-loop-pr-open-20260414-r23`
+- Blocker: no hard blocker remains; `skill-autoresearch` is still deferred until PR `#22` lands and the new eval gate can serve as a stable baseline
+- Next owner: `nanoclaw_engine` for the next PR-review pass on `agentation`
+- Stage: `PR-open`
