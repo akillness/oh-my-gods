@@ -2,11 +2,12 @@
 
 ## Audit snapshot
 
-- Branch baseline: `main` after PR `#20` merged and with no open follow-up PRs
+- Branch baseline: `origin/main` after PR `#21` merged and no open follow-up PRs
 - Repo-wide validator snapshot on this review run: `80/80` skills pass the current frontmatter validator
-- `agent-manager` now passes the `skill-standardization` validator with `0` errors and `0` warnings on top of the repo validator
+- Repo-wide warning snapshot on this review run: `0` validator errors and `96` warnings across `.god-skills/`
+- `agent-manager` remains standards-clean and already landed on `origin/main`
 - Eval coverage on this branch is now `17` of `80` shipped skills with `evals/evals.json`
-- After the `agent-manager` review pass, the next smallest workflow-critical packaging gap is `agentation`: scripts already exist, but the skill still lacks evals and likely needs a reference layer
+- `agentation` is now the smallest workflow-critical packaging gap: the skill has `5` validator warnings, links to a missing `references/setup-guide.md`, and lacks eval coverage even though it already ships scripts
 
 ## Locked direction
 
@@ -26,7 +27,7 @@ This order is locked because it balances leverage and boundedness:
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `agentation` | High | No | No | Existing scripts are already enough | Likely yes | Yes | Add `Instructions`, `Examples`, `References`, and evals before considering optimization |
+| `agentation` | High | No | No | Existing scripts are already enough | Yes | Yes | Add the missing setup reference, evals, and standard reviewability sections before considering optimization |
 | `vibe-kanban` | High | No | No | Existing scripts are already enough | Existing references are already enough | Yes | Add evals and any missing reviewability sections in a later bounded packaging pass |
 | `ohmg` | High | Later | No | Existing capture and scoring scripts are already enough | Existing baseline note is enough | Already present | Keep frozen until a new mutation target or harness improvement is ready |
 | `skill-standardization` | Medium | No | No | Existing validator script is already enough | No | Already present | Use as an audit surface, not an edit target, in this run |
@@ -34,16 +35,16 @@ This order is locked because it balances leverage and boundedness:
 
 ## Packaging decision for this run
 
-- Target skill: `agent-manager`
+- Target skill: `agentation`
 - Assets: no new assets needed
-- Scripts: no new scripts needed; the existing `install.sh` and `setup.sh` already cover the runtime actions
-- References: no new references needed; the existing quick reference was already sufficient for the bounded packaging pass
-- Evals: keep the new `evals/evals.json` and merge it as the measurement gate for any later optimization
-- Sections: keep the new reviewability sections in `SKILL.md`; review found no need to widen the skill with new runtime features
+- Scripts: no new scripts needed; the existing setup and verify helpers already cover the runtime actions
+- References: add the missing setup guide that `SKILL.md` already links to
+- Evals: add `evals/evals.json` as the measurement gate for any later optimization
+- Sections: standardize the entrypoint with explicit trigger phrasing and the missing reviewability headings without widening the runtime surface
 
 ## Current state
 
-- State: PR `#21` is review-clean and ready to merge for the bounded `agent-manager` packaging slice on `chore/skill-loop-pr-open-20260414-r22`
-- Blocker: no hard blocker remains for the packaging slice itself; `skill-autoresearch` is still deferred because `agent-manager` lacks repeated scored runs
-- Next owner: `nanoclaw_pd` to merge PR `#21`, then `nanoclaw_engine` for the next bounded `agentation` packaging pass
-- Stage: `merge`
+- State: the previous `agent-manager` slice is already merged; the next bounded `agentation` packaging slice is now in active improvement on `chore/skill-loop-pr-open-20260414-r23`
+- Blocker: no hard blocker remains, but `skill-autoresearch` is still deferred because `agentation` has no eval gate yet
+- Next owner: `nanoclaw_pd` to open the PR path for `agentation`, then `nanoclaw_engine` for the next PR-review pass
+- Stage: `improvement`

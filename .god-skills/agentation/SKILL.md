@@ -1,6 +1,11 @@
 ---
 name: agentation
-description: Visual UI annotation tool for AI agents. Drop the React toolbar into any app — humans click elements and leave feedback, agents receive structured CSS selectors, bounding boxes, and React component trees to find exact code. Supports MCP watch-loop, platform-specific hooks (Claude Code / Codex / Gemini CLI / OpenCode), webhook delivery, and autonomous self-driving critique with agent-browser.
+description: >
+  Capture human UI feedback as structured annotations that agents can act on
+  through MCP watch loops or pasted payloads. Use when reviewing or iterating on
+  a web UI with precise selectors, bounding boxes, and React component context.
+  Triggers on: agentation, annotate, agentation watch, UI review, visual
+  feedback, fix this element, design critique.
 compatibility: React 18+, Node.js 18+
 allowed-tools: Read Write Bash Grep Glob
 metadata:
@@ -18,7 +23,16 @@ metadata:
 
 ---
 
-## Key Rules
+## When to use this skill
+
+- When a human wants to mark exact UI elements and send structured feedback to an agent
+- When MCP watch mode is available and the agent should stay in a live annotation loop
+- When a copied annotation payload includes `elementPath`, `reactComponents`, or bounding box data
+- When `omg` enters `verify` or `verify_ui` and UI feedback should drive the next fix
+
+## Instructions
+
+### Step 1: Respect phase and lifecycle guardrails
 
 1. **NEVER run agentation outside `verify` or `verify_ui` phase** — when used with omg, check `omg-state.json` phase before starting. Never run during `plan` phase.
 2. **ALWAYS call `agentation_watch_annotations` as the primary entry point** — do not poll REST endpoints or wait for copy-paste when MCP is available.
@@ -28,7 +42,7 @@ metadata:
 
 ---
 
-## Mode Detection
+### Step 2: Choose the operating mode
 
 Choose the operating mode before proceeding:
 
@@ -43,7 +57,7 @@ To check if MCP server is running: `curl -sf http://localhost:4747/health`
 
 ---
 
-## MCP Tools
+### Step 3: Use the correct runtime surface
 
 | Tool | Parameters | Description |
 |------|-----------|-------------|
@@ -59,7 +73,7 @@ To check if MCP server is running: `curl -sf http://localhost:4747/health`
 
 ---
 
-## Primary Pattern: MCP Watch Loop
+### Step 4: Run the MCP watch loop
 
 This is the canonical agent workflow. Use this unless the human explicitly provides copy-pasted markdown.
 
@@ -108,7 +122,7 @@ Continue watching until I say stop, or until timeout.
 
 ---
 
-## Pattern: Copy-Paste (No Server)
+### Step 5: Handle copy-paste fallback
 
 When the human clicks "Copy" in the toolbar and pastes markdown into chat:
 
@@ -127,18 +141,61 @@ No `agentation_acknowledge` / `agentation_resolve` calls are needed in copy-past
 
 ---
 
-## Pattern: Passive Hook Injection
+### Step 6: Handle hook-injected annotations
 
 Platform hooks (UserPromptSubmit on Claude, AfterAgent on Gemini) auto-inject pending annotations into every agent message. No "watch mode" needed — annotations appear in context automatically. Respond to them using the watch loop flow (acknowledge → fix → resolve).
 
 ---
 
-## Pattern: Autonomous Self-Driving Critique
+### Step 7: Support autonomous critique loops
 
 Two-agent setup for fully autonomous UI review:
 
 - **Session 1 (Critic)**: `agent-browser` navigates app, clicks elements via agentation toolbar, adds critique annotations — which flow to MCP server automatically.
 - **Session 2 (Fixer)**: `agentation_watch_annotations` → acknowledge → edit → resolve → loop.
+
+---
+
+## Examples
+
+### Example 1: MCP watch mode during UI verification
+
+Input:
+```text
+Watch agentation annotations for this session and fix anything marked blocking first.
+```
+
+Output shape:
+- checks the health endpoint or otherwise confirms MCP watch mode is available
+- calls `agentation_watch_annotations`
+- acknowledges each annotation before editing
+- uses `elementPath` or `reactComponents` to locate the code
+- resolves or dismisses each annotation with a short summary
+
+### Example 2: Copy-pasted annotation with no server
+
+Input:
+```text
+The user pasted an agentation payload for `body > main > button.cta` and wants the button label fixed.
+```
+
+Output shape:
+- reads the pasted payload directly instead of waiting on MCP
+- searches by `elementPath` or `reactComponents`
+- makes the requested UI change
+- replies with a concise summary without MCP acknowledgment calls
+
+### Example 3: omg phase guard
+
+Input:
+```text
+Run agentation while omg is still in plan phase.
+```
+
+Output shape:
+- refuses to start the watch loop in `plan`
+- points the run back to `plannotator` or the planning surface
+- preserves `agentation` for `verify` or `verify_ui`
 
 ---
 
@@ -236,7 +293,7 @@ Full setup instructions: [`references/setup-guide.md`](./references/setup-guide.
 
 ---
 
-## Best Practices
+## Best practices
 
 1. Gate `<Agentation>` with `NODE_ENV === 'development'` — never ship to production.
 2. Use MCP watch-loop over copy-paste for iterative cycles — eliminates context switching.

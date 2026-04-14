@@ -1,23 +1,37 @@
-# Cleanup Plan: run 24 review (`agent-manager`)
+# Cleanup Plan: run 25 packaging (`agentation`)
 
 ## Goal
 
-Review the bounded `agent-manager` PR slice for duplicate work or missed standards gaps, apply only the smallest loop-state update if needed, and move the branch onto the merge path.
+Open the next bounded post-merge skill slice by making `agentation` standards-clean,
+reviewable, and eval-ready without changing its runtime contract.
 
 ## Behavior lock
 
-- Do not change the core `agent-manager` contract around lightweight local orchestration with `tmux` and Python unless review uncovers a real in-scope defect.
-- Keep the slice limited to `.god-skills/agent-manager/*` plus the recurring survey lock files; do not widen into `agentation`, `vibe-kanban`, or reopen `ohmg`.
-- Do not start a `skill-autoresearch` mutation loop for `agent-manager`; this review pass is only deciding whether the current packaging slice is clean enough to merge.
+- Do not change the core `agentation` contract around UI annotations, MCP watch
+  loops, and copy-paste fallback unless review uncovers a real in-scope gap.
+- Keep the slice limited to `.god-skills/agentation/*` plus the recurring survey
+  lock files; do not widen into `vibe-kanban`, `ohmg`, or older merged slices.
+- Do not start a `skill-autoresearch` mutation loop for `agentation`; this run
+  is only creating the packaging and measurement gate required before any scored
+  optimization work would be justified.
 
 ## Planned edits
 
-1. Reuse the saved survey evidence and re-run the standards validation on the current `agent-manager` branch.
-2. Review the diff against `main` and confirm the slice stays bounded to `agent-manager` plus the loop-state files.
-3. If the review remains clean, update the lock files from `PR-open` to `merge` and merge the existing PR instead of reopening implementation work.
+1. Reuse the saved survey evidence and refresh the lock files now that PR `#21`
+   is already merged on `origin/main`.
+2. Standardize `.god-skills/agentation/SKILL.md` so it has explicit trigger
+   phrasing plus the missing `When to use this skill`, `Instructions`,
+   `Examples`, and exact `Best practices` sections.
+3. Add the missing `references/setup-guide.md` linked from `SKILL.md`.
+4. Add `evals/evals.json` so future `skill-autoresearch` work has a real
+   baseline gate.
+5. Open a fresh PR path for this bounded `agentation` packaging slice.
 
 ## Verification
 
-- Run the repo validator and the `skill-standardization` validator on `.god-skills/agent-manager/`.
-- Review the diff against `main` to confirm the slice stays bounded to `agent-manager` plus the survey lock files.
-- Confirm PR `#21` is still the only open lane for this slice before merging it.
+- Run `skill-standardization` validation on `.god-skills/agentation/` before and
+  after the edits.
+- Review the branch diff to confirm it stays bounded to `agentation` plus the
+  survey lock files.
+- Confirm the new branch is ready for a PR-open handoff rather than a wider
+  implementation pass.
