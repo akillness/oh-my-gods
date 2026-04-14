@@ -3,69 +3,66 @@
 ## Audit snapshot
 
 - Repo-wide validator snapshot on this run: `80/80` shipped skills pass the
-  current frontmatter validator with `0` errors; `.god-skills/__pycache__` is
-  present locally but is not a shipped skill.
-- Eval coverage rises to `21/80` shipped skills after adding
-  `.god-skills/plannotator/evals/evals.json`.
-- `omg` is already merged on `origin/main` via PR `#24`, so that lane stays
-  closed in this run.
-- `vibe-kanban` remains merged on `origin/main` via PR `#23`, so that lane also
-  stays closed.
-- `plannotator` moved from a five-warning packaging backlog item to a
-  standards-clean merge-ready slice by shrinking the entrypoint, bundling the
-  missing references, and passing the post-open review gate.
+  current frontmatter validator with `0` errors; warning count is now `78`.
+- Eval coverage rises to `22/80` shipped skills after adding
+  `.god-skills/ralph/evals/evals.json`.
+- `plannotator` is already merged on `origin/main` via PR `#25`, so that lane
+  stays closed in this run.
+- `ralph` moved from a three-warning packaging backlog item to a
+  standards-clean PR-open slice by adding evals and the missing standard
+  sections while keeping the bundled scripts and references unchanged.
+- No open PR existed before this run, and PR `#26` now carries the bounded
+  `ralph` lane for the next review pass.
 
 ## Locked direction
 
 Improve one workflow-critical skill per run, in priority order:
 
-1. `plannotator`
-2. `ralph`
+1. `ralph` post-open review on PR `#26`
+2. packaging refresh across the large non-eval backlog after `ralph` resolves
 3. `ohmg` follow-up only if a new measured mutation can beat the kept
    experiment state
-4. other script-heavy skills without evals only after the above queue changes
+4. other script-heavy or workflow-critical skills only after the above queue
+   changes
 
 This order is locked because:
 
-- `plannotator` sits directly on the human review gate for shared orchestration
-  workflows and now has a bounded merge-ready branch.
-- `ralph` remains the next highest-leverage packaging target once the
-  `plannotator` branch is either merged or receives one bounded follow-up pass.
-- `ohmg` already has evals and measured mutation artifacts, so it still loses
-  to packaging-first work elsewhere unless a stronger experiment target appears.
+- `ralph` already had packaged references and scripts, so adding eval coverage
+  and standard sections produced a bounded reviewable slice with low scope
+  risk.
+- `skill-autoresearch` is not justified yet for `ralph`; the stronger next move
+  was to land the eval baseline before scoring mutations.
+- The broader long-skill backlog now matters more than re-opening `ohmg`, but
+  that backlog should wait until the active `ralph` review lane is resolved.
 
 ## Skill-autoresearch triage
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `plannotator` | High | No | No | Existing scripts are already enough | Already added on this branch to split deep setup and troubleshooting out of the entrypoint | Already added on this branch | Merge PR `#25` in this run |
-| `ralph` | Medium | No | No | Existing scripts are already enough | Existing references are already enough | Yes | Keep behind `plannotator` unless the review finds the lane clean and merged |
+| `ralph` | High | No | No | Existing scripts are already enough | Existing references are already enough | Added on this branch | Review PR `#26` next run and merge if clean |
 | `ohmg` | High | Later | No | Existing capture and scoring scripts are already enough | Existing baseline note is enough | Already present | Keep frozen until a stronger mutation target or harness change exists |
-| `skill-standardization` | Medium | No | No | Existing validator script is already enough | No | Already present | Keep as an audit surface, not an edit target, in this run |
-| `skill-autoresearch` | Medium | No | No | No | Existing reference guide is already enough | Already present | Keep as the decision gate for whether a scored loop is worth starting |
+| `skill-standardization` | Medium | No | No | Existing validator script is already enough | No | Already present | Keep as an audit surface, not an edit target |
+| `skill-autoresearch` | Medium | No | No | No | Existing reference guide is already enough | Already present | Keep as the decision gate for when a scored loop is worth starting |
 
 ## Packaging decision for this run
 
-- Target skill: `plannotator`
+- Target skill: `ralph`
 - Assets: no new assets needed
 - Scripts: no new runtime scripts needed
-- References: no further references needed in this run; `platform-setup.md` and
-  `notes-and-troubleshooting.md` already cover the deep setup and
-  troubleshooting material
-- Evals: no further eval changes needed in this run; `evals/evals.json` already
-  locks the main response-shape and limitation cases
-- Sections: no further section rewrite needed in this run; the entrypoint is
-  already compact and standards-clean
-- Post-open review result: clean; no follow-up patch is justified before merge
+- References: no further references needed in this run; the existing bundled
+  command and platform guides already cover the deep setup material
+- Evals: added in this run because `ralph` had no packaged eval coverage
+- Sections: added the missing `Instructions`, `Examples`, and `Best practices`
+  sections so the entrypoint now passes the targeted standards check
+- Post-open state: PR `#26` is now open and ready for the next scheduled review
+  gate
 
 ## Current state
 
-- State: PR `#25` has passed the post-open review gate and is ready to merge
-  for the bounded `plannotator` packaging slice on
-  `chore/skill-loop-pr-open-20260414-r26`
-- Blocker: no hard blocker remains for the packaging slice itself; the only
-  deferred work is `skill-autoresearch`, which still waits on a merged baseline
-  plus repeated measured failures
-- Next owner: `nanoclaw_pd` to merge PR `#25` in this run, then
-  `nanoclaw_engine` for the next bounded `ralph` packaging pass after merge
-- Stage: `merge`
+- State: PR `#26` is open for the bounded `ralph` packaging slice on
+  `chore/skill-loop-pr-open-20260414-r27`
+- Blocker: no hard blocker remains for the slice itself; the only deferred work
+  is the next-run PR review pass and any feedback that appears there
+- Next owner: `nanoclaw_pd` to perform the PR-review gate on the next run, then
+  `nanoclaw_engine` only if a concrete follow-up patch is required
+- Stage: `PR-open`
