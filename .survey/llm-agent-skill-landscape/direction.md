@@ -2,9 +2,6 @@
 
 ## Audit snapshot
 
-- The previous `agentation` lane is no longer active: PR `#22` merged on
-  `2026-04-14`, and the branch diff against `origin/main` was empty before this
-  run started the next slice.
 - Repo-wide validator snapshot on this run: `80/80` skills pass the current
   frontmatter validator.
 - `vibe-kanban` now passes the `skill-standardization` validator with `0` errors
@@ -15,6 +12,9 @@
 - Among workflow-critical skills that already ship scripts or references but
   still lack evals, `omg` is now the clearest next bounded packaging gap after
   the current `vibe-kanban` slice.
+- `plannotator` remains a real backlog item because the validator now reports
+  `5` warnings, but it is still a broader cleanup than the next bounded `omg`
+  packaging pass.
 
 ## Locked direction
 
@@ -59,14 +59,16 @@ previous `agentation` slice landed:
 - Evals: add `evals/evals.json`
 - Sections: add explicit `Instructions`, `Examples`, and `Best practices`, then
   keep the main file compact enough to stay standards-clean
+- Post-open review result: clean; no follow-up patch is justified before merge
 
 ## Current state
 
-- State: PR `#23` is open and mergeable for the bounded `vibe-kanban` packaging
-  slice on `chore/skill-loop-pr-open-20260414-r24`
+- State: PR `#23` has passed the post-open review gate and is ready to merge for
+  the bounded `vibe-kanban` packaging slice on
+  `chore/skill-loop-pr-open-20260414-r24`
 - Blocker: no hard blocker remains for the packaging slice itself; the only
   deferred work is `skill-autoresearch`, which still waits on a merged baseline
   plus repeated measured failures
-- Next owner: `nanoclaw_pd` to review PR `#23` on the next run, then
+- Next owner: `nanoclaw_pd` to merge PR `#23` in this run, then
   `nanoclaw_engine` for the next bounded `omg` packaging pass after merge
-- Stage: `PR-open`
+- Stage: `merge`

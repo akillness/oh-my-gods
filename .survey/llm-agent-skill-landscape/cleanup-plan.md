@@ -1,10 +1,10 @@
-# Cleanup Plan: run 27 improvement (`vibe-kanban`)
+# Cleanup Plan: run 28 merge gate (`vibe-kanban`)
 
 ## Goal
 
-Start the next bounded skill-loop slice after `agentation` merged by making
-`.god-skills/vibe-kanban/` more reviewable and measurable, then open a fresh PR
-for that packaging-only change set.
+Finish the bounded `vibe-kanban` packaging slice by re-reviewing PR `#23`,
+confirming no duplicate work or standards gaps remain, then merge it and leave
+the next packaging lane to `omg`.
 
 ## Behavior lock
 
@@ -13,26 +13,23 @@ for that packaging-only change set.
 - Keep the slice limited to `.god-skills/vibe-kanban/*` plus the recurring
   survey lock files; do not reopen `agentation`, `ohmg`, or older merged lanes.
 - Do not start a `skill-autoresearch` mutation loop for `vibe-kanban` in this
-  run; first land a measurable baseline with standards-clean packaging and evals.
+  run; first land the measured baseline by merging the standards-clean packaging
+  and evals slice.
 
 ## Planned edits
 
-1. Refresh the survey lock from live ecosystem and GitHub state so the loop no
-   longer reports the already-merged `agentation` slice as current.
-2. Rewrite the `vibe-kanban` entrypoint into a compact standards-friendly
-   structure: clear trigger description, explicit `Instructions`, `Examples`,
-   and `Best practices`.
-3. Move bulky operational detail into supporting references so the main
-   `SKILL.md` stays under the soft size cap and drifts less often.
-4. Add `evals/evals.json` for `vibe-kanban` and correct any entrypoint mismatches
-   uncovered during the audit.
-5. Open the next PR path for the bounded `vibe-kanban` slice once validation is
-   green.
+1. Refresh the survey lock from live ecosystem and GitHub state so the loop
+   records the post-open review outcome instead of the older `PR-open` state.
+2. Re-run the repo validator and the `skill-standardization` validator for
+   `.god-skills/vibe-kanban/`.
+3. Confirm PR `#23` still has no review comments and the diff stays limited to
+   `vibe-kanban` plus the survey lock files.
+4. Merge PR `#23` if the review remains clean.
 
 ## Verification
 
 - Run the repo validator and the `skill-standardization` validator on
   `.god-skills/vibe-kanban/`.
 - Confirm the branch diff stays bounded to `vibe-kanban` plus the survey lock
-  files before opening the PR.
-- Confirm the opened PR is the only active lane for this new slice.
+  files before merging the PR.
+- Confirm PR `#23` is still mergeable and has no review objections.
