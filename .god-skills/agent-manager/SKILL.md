@@ -28,6 +28,32 @@ Manage multiple AI agents without running a server, wiring HTTP APIs, or pulling
 - Assigning tasks to agents from files or stdin
 - Managing agents defined in `agents/EMP_*.md` YAML frontmatter files
 
+## Instructions
+
+### Step 1: Confirm that agent-manager is the right surface
+
+- Use `agent-manager` when the user wants lightweight local agent orchestration with `tmux` and Python instead of a hosted control plane.
+- Keep the answer centered on lifecycle management: start, stop, status, monitoring, task assignment, schedules, and heartbeats.
+- If the request is only about one in-process subagent run with no persistent sessions, route to the native orchestration surface instead of stretching `agent-manager`.
+
+### Step 2: Install or verify before changing live sessions
+
+- Start with `scripts/install.sh` and `scripts/setup.sh` when the environment is new or unclear.
+- Recommend `$CLI doctor` before the first real run, after moving the repo, or before enabling schedules and heartbeats.
+- Use `schedule sync --dry-run` and `heartbeat sync --dry-run` before writing to crontab.
+
+### Step 3: Model agents through markdown frontmatter
+
+- Keep each agent in `agents/EMP_*.md` with explicit `working_directory`, `launcher`, `skills`, and optional `schedules` or `heartbeat`.
+- Use `enabled: false` to park an agent safely without deleting the config.
+- Prefer a stable `name` and a narrow responsibility per agent so session ownership stays clear.
+
+### Step 4: Operate with explicit runtime evidence
+
+- Use `$CLI list`, `$CLI status`, and `$CLI monitor` to inspect the current state before sending new work.
+- After `start`, `assign`, or schedule changes, verify with `$CLI status NAME` or `$CLI monitor NAME --follow`.
+- Prefer `--task-file` for long assignments so the task stays readable and auditable.
+
 ## Quick Start
 
 ```bash
@@ -212,3 +238,56 @@ agent-manager/
 - Python 3.x
 - tmux
 - Agents defined under `agents/` directory
+
+## Examples
+
+### Example 1: Start a local dev agent and monitor it
+
+Input:
+```text
+Use agent-manager to start my dev agent in tmux, check whether it came up cleanly, and tail the output.
+```
+
+Output shape:
+- uses `agent-manager` as the local orchestration surface
+- includes `list`, `start`, `status`, or `monitor --follow`
+- verifies the running session instead of assuming the start succeeded
+
+### Example 2: Schedule a weekday standup and heartbeat safely
+
+Input:
+```text
+Set up a weekday 9am standup task and a 30-minute heartbeat for my QA agent, but show me the safe sync flow first.
+```
+
+Output shape:
+- includes `schedules` and `heartbeat` frontmatter fields
+- uses `schedule sync --dry-run` or `heartbeat sync --dry-run` before live sync
+- keeps the answer on agent-manager rather than generic cron advice
+
+### Example 3: Assign a longer task from a file
+
+Input:
+```text
+I have a long testing checklist. Should agent-manager assign it from stdin or a file, and how do I send it?
+```
+
+Output shape:
+- recommends `assign --task-file` for longer jobs
+- shows the equivalent stdin path as a shorter-task alternative
+- mentions checking `status` or `monitor` after sending work
+
+## Best practices
+
+- Run `$CLI doctor` before enabling schedules or heartbeats in a new repo.
+- Use `schedule sync --dry-run` and `heartbeat sync --dry-run` before touching crontab.
+- Keep each agent config narrow and stable instead of turning one tmux session into a catch-all worker.
+- Prefer `assign --task-file` for long prompts or recurring jobs so the assignment stays reviewable.
+- Use `enabled: false` for maintenance windows instead of deleting agent definitions.
+
+## References
+
+- [quick-reference](./references/quick-reference.md)
+- [install script](./scripts/install.sh)
+- [setup script](./scripts/setup.sh)
+- https://github.com/fractalmind-ai/agent-manager-skill
