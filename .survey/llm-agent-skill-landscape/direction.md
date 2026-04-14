@@ -53,16 +53,17 @@ This order is locked because:
 - Evals: yes; added `evals/evals.json`
 - Sections: yes; rewrote the entrypoint into a compact standards-oriented
   surface with `Instructions`, `Examples`, `Best practices`, and `References`
-- Post-open result: PR `#25` is open and clean; the next run should review for
-  duplicate work, missing improvements, or any remaining standardization gaps
+- Post-open result: PR `#25` is open; the next run should review for duplicate
+  work, missing improvements, or any remaining standardization gaps after
+  GitHub finishes recalculating mergeability
 
 ## Current state
 
 - State: PR `#25` is open for the bounded `plannotator` packaging slice on
   `chore/skill-loop-pr-open-20260414-r26`
-- Blocker: no hard blocker remains for the packaging slice itself; the next
-  meaningful gate is post-open review for duplicate work or one more bounded
-  cleanup patch
+- Blocker: no hard blocker remains for the packaging slice itself, but GitHub
+  is still recalculating mergeability immediately after the latest push, so the
+  next meaningful gate is post-open review plus a fresh PR status check
 - Next owner: `nanoclaw_pd` for the next PR-review run, with
   `nanoclaw_engine` only if that review finds a bounded follow-up patch
 - Stage: `pr-open`

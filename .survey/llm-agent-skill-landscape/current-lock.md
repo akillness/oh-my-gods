@@ -37,9 +37,10 @@ Source links:
 - `plannotator` now includes the support references it was missing, so the
   entrypoint shrank from `606` lines to `235` lines without losing the critical
   setup or troubleshooting guidance.
-- PR `#25` is open, not a draft, and currently shows a clean merge state with
-  no review decision. That means this run should stop at `pr-open` and hand the
-  next cycle a clear PR-review target.
+- PR `#25` is open, not a draft, and currently has no review decision. GitHub
+  has been recalculating mergeability immediately after the latest push, so
+  this run should stop at `pr-open` and hand the next cycle a clear PR-review
+  target instead of assuming merge readiness.
 - `skill-autoresearch` remains the decision gate only; this run found no reason
   to start scored mutations for `plannotator` before the new packaging baseline
   is reviewed.
@@ -87,8 +88,9 @@ Source links:
 
 - Current state: PR `#25` is open for the bounded `plannotator` packaging
   slice on `chore/skill-loop-pr-open-20260414-r26`
-- Blocker: no hard blocker remains for PR `#25`; the next gate is a post-open
-  review for duplicate work or one more bounded cleanup patch
+- Blocker: no hard blocker remains for PR `#25`, but GitHub mergeability is
+  still settling after the latest push; the next gate is a post-open review for
+  duplicate work or one more bounded cleanup patch
 - Next owner: `nanoclaw_pd` for the next scheduled PR-review run, with
   `nanoclaw_engine` only if that review finds a bounded fix to apply
 - Stage: `pr-open`
