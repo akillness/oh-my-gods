@@ -1,35 +1,38 @@
-# Cleanup Plan: run 28 merge gate (`vibe-kanban`)
+# Cleanup Plan: run 29 (`omg` packaging)
 
 ## Goal
 
-Finish the bounded `vibe-kanban` packaging slice by re-reviewing PR `#23`,
-confirming no duplicate work or standards gaps remain, then merge it and leave
-the next packaging lane to `omg`.
+Advance the recurring loop onto the next bounded workflow-critical target now
+that `vibe-kanban` is merged. Package `omg` for the next PR review by adding
+the missing standards support artifacts without reopening older merged lanes or
+starting a premature mutation loop.
 
 ## Behavior lock
 
-- Do not change runtime scripts unless the skill entrypoint is currently
-  pointing at the wrong script name or tool surface.
-- Keep the slice limited to `.god-skills/vibe-kanban/*` plus the recurring
-  survey lock files; do not reopen `agentation`, `ohmg`, or older merged lanes.
-- Do not start a `skill-autoresearch` mutation loop for `vibe-kanban` in this
-  run; first land the measured baseline by merging the standards-clean packaging
-  and evals slice.
+- Keep the slice limited to `.god-skills/omg/*` plus the recurring survey lock
+  files; do not reopen `vibe-kanban`, `agentation`, `ohmg`, or older merged
+  lanes.
+- Do not change OMG runtime scripts in this run unless a supporting reference is
+  missing or the skill entrypoint points at a nonexistent file.
+- Do not start a `skill-autoresearch` mutation loop for `omg` in this run; add
+  the eval baseline first, then let the next run decide whether a scored loop is
+  justified.
 
 ## Planned edits
 
-1. Refresh the survey lock from live ecosystem and GitHub state so the loop
-   records the post-open review outcome instead of the older `PR-open` state.
-2. Re-run the repo validator and the `skill-standardization` validator for
-   `.god-skills/vibe-kanban/`.
-3. Confirm PR `#23` still has no review comments and the diff stays limited to
-   `vibe-kanban` plus the survey lock files.
-4. Merge PR `#23` if the review remains clean.
+1. Refresh the survey lock from current landscape and GitHub state so the repo
+   records that PR `#23` is merged and `omg` is now the next bounded target.
+2. Add the missing `omg` support artifacts: `evals/evals.json` plus the
+   referenced reliability note for the `exit 32` manual-approval fallback.
+3. Re-run the repo validator and the `skill-standardization` validator for
+   `.god-skills/omg/`.
+4. Open the bounded PR path for this branch once the diff stays limited to
+   `.god-skills/omg/*` and the survey lock files.
 
 ## Verification
 
 - Run the repo validator and the `skill-standardization` validator on
-  `.god-skills/vibe-kanban/`.
-- Confirm the branch diff stays bounded to `vibe-kanban` plus the survey lock
-  files before merging the PR.
-- Confirm PR `#23` is still mergeable and has no review objections.
+  `.god-skills/omg/`.
+- Validate the new `evals/evals.json` as parseable JSON.
+- Confirm the branch diff stays bounded to `.god-skills/omg/*` plus the survey
+  lock files before opening the PR.

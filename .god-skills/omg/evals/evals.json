@@ -1,0 +1,49 @@
+{
+  "skill_name": "omg",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use omg to run a cross-platform agent workflow for this feature from planning through cleanup.",
+      "expected_output": "A response that keeps OMG as the shared entrypoint, makes PLAN approval mandatory, routes execution by platform capability, and includes verification plus cleanup.",
+      "assertions": [
+        "Response keeps `omg` as the entrypoint before routing into `omc`, `omx`, `ohmg`, or BMAD",
+        "Response treats PLAN approval as a hard gate before EXECUTE",
+        "Response includes a VERIFY step and a CLEANUP step",
+        "Response chooses team mode or BMAD based on platform/runtime capability"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "OMG hit exit 32 while running the plan gate in a constrained environment. What should it do next?",
+      "expected_output": "A recovery answer that keeps execution blocked, switches to the manual approval path, and points the user to the reliability guidance instead of silently bypassing the gate.",
+      "assertions": [
+        "Response explains that `exit 32` means the infrastructure blocked the normal PLAN gate",
+        "Response keeps EXECUTE blocked until approval is explicit",
+        "Response mentions manual approval mode or `manual_approved` state",
+        "Response routes deeper detail to the reliability reference instead of inventing a new workflow"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Use omg with annotate so UI review stays inside the same workflow.",
+      "expected_output": "A response that enters VERIFY first, opens VERIFY_UI only after explicit submit, and resolves annotations through the agentation loop before cleanup.",
+      "assertions": [
+        "Response mentions `annotate` or `agentation` as the VERIFY_UI trigger",
+        "Response waits for explicit submit before processing annotations",
+        "Response includes acknowledge, fix, and resolve behavior for submitted annotations",
+        "Response keeps cleanup after the annotation loop rather than before it"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I am using Codex CLI with omg. What exact PLAN gate path should run before execution?",
+      "expected_output": "A setup-aware answer that uses the OMG helper scripts, keeps the plan loop blocking, and records or preserves OMG state instead of treating PLAN as optional.",
+      "assertions": [
+        "Response mentions `bash \"${_OMG_SCRIPTS}/ensure-plannotator.sh\"` or the `ensure-plannotator.sh` helper",
+        "Response mentions `plannotator-plan-loop.sh`",
+        "Response does not recommend backgrounding the PLAN gate with `&`",
+        "Response mentions `.omc/state/omg-state.json` or explicit OMG phase/state updates"
+      ]
+    }
+  ]
+}
