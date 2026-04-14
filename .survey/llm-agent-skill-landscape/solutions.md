@@ -35,8 +35,7 @@ This ranking is an inference from current official docs coverage and product emp
 - Repo-wide eval coverage is extremely low relative to the importance of workflow skills.
 - Workflow skills that repeat operational detail in the entrypoint drift faster than skills that keep the main file compact and push detail into references.
 - Realistic benchmark evidence shows skill benefits degrade sharply when retrieval quality and skill quality are weak, so refinement loops need explicit evals instead of intuition-only edits.
-- After the `agentation` merge, `vibe-kanban` became the cleanest bounded packaging gap because it had scripts plus references but no evals and a standards-noisy entrypoint.
-- After `vibe-kanban`, `omg` is now the next highest-leverage packaging candidate because it remains central to the repo and still lacks eval coverage.
+- After the `vibe-kanban` merge, `omg` is now the highest-leverage bounded packaging gap because it remains central to the repo, already ships scripts plus references, and needed eval coverage plus one missing supporting note.
 
 ## Contradictions
 
@@ -45,4 +44,4 @@ This ranking is an inference from current official docs coverage and product emp
 
 ## Key Insight
 
-The highest-value improvement is not adding another broad skill first. It is upgrading workflow-critical existing skills into evaluation-ready, standards-compliant entrypoints so future iterations can optimize them one bounded mutation at a time. Recent benchmark work reinforces that query-specific refinement helps only when the initial skill is already relevant and measurable, which is why the current lane is `vibe-kanban` packaging rather than a fresh `skill-autoresearch` experiment.
+The highest-value improvement is not adding another broad skill first. It is upgrading workflow-critical existing skills into evaluation-ready, standards-compliant entrypoints so future iterations can optimize them one bounded mutation at a time. Recent benchmark work reinforces that query-specific refinement helps only when the initial skill is already relevant and measurable, which is why the current lane is now bounded `omg` packaging rather than a fresh `skill-autoresearch` experiment.

@@ -4,37 +4,34 @@
 
 - Repo-wide validator snapshot on this run: `80/80` skills pass the current
   frontmatter validator.
-- `vibe-kanban` now passes the `skill-standardization` validator with `0` errors
-  and `0` warnings after shrinking the main entrypoint from `620` lines to
-  `186`.
-- Eval coverage on this branch is now `19` of `80` shipped skills with
-  `evals/evals.json`.
-- Among workflow-critical skills that already ship scripts or references but
-  still lack evals, `omg` is now the clearest next bounded packaging gap after
-  the current `vibe-kanban` slice.
-- `plannotator` remains a real backlog item because the validator now reports
-  `5` warnings, but it is still a broader cleanup than the next bounded `omg`
-  packaging pass.
+- `vibe-kanban` is already merged on `origin/main` via PR `#23`, so the loop
+  should not reopen that lane.
+- Eval coverage rises to `20` of `80` shipped skills after adding
+  `.god-skills/omg/evals/evals.json` on this branch.
+- `omg` now has the bounded packaging artifacts it was missing: eval coverage
+  plus the reliability note already referenced by the entrypoint and operations
+  guide.
+- `plannotator` remains a real backlog item, but it is still a broader cleanup
+  than the current `omg` PR-open slice.
 
 ## Locked direction
 
 Improve one workflow-critical skill per run, in priority order:
 
-1. `vibe-kanban`
-2. `omg`
-3. `plannotator`
+1. `omg`
+2. `plannotator`
+3. `ralph`
 4. `ohmg` follow-up only if a new measured mutation can beat the kept experiment state
 
 This order is locked because it balances leverage and boundedness after the
-previous `agentation` slice landed:
+`vibe-kanban` merge:
 
-- `vibe-kanban` was the cleanest immediate packaging gap because it already
-  shipped scripts plus references, but still lacked eval coverage and had a
-  drift-prone monolithic entrypoint.
-- `omg` is the next highest-leverage packaging target because it remains a core
-  orchestration surface and still lacks eval coverage.
-- `plannotator` remains valuable, but it is less central than `omg` for the
-  repo-wide workflow spine.
+- `omg` is now the highest-leverage packaging target because it sits on the
+  shared orchestration spine and is ready for a bounded PR review.
+- `plannotator` remains valuable, but it still needs a broader cleanup pass than
+  the current `omg` slice.
+- `ralph` and the other script/reference-heavy skills without evals remain
+  candidates, but they are less central to the shared orchestration entrypoint.
 - `ohmg` stays on the later mutation lane because it already has evals and
   support artifacts; the bigger payoff is still packaging-first work elsewhere.
 
@@ -42,33 +39,33 @@ previous `agentation` slice landed:
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `vibe-kanban` | High | Not yet | No | Existing scripts are enough | Yes, to keep the entrypoint compact | Added on this branch | Review PR `#23`, merge the packaging slice, then watch for repeated measured failures before any mutation loop |
-| `omg` | High | No | No | Existing scripts are already enough | Existing references are already enough | Yes | Make `omg` the next packaging candidate after `vibe-kanban` lands |
+| `omg` | High | Not yet | No | Existing scripts are already enough | Added on this branch to close the broken-link gap | Added on this branch | Review PR `#24`, merge the packaging slice, then decide on mutation only if repeated measured failures appear |
 | `plannotator` | Medium | No | No | Existing scripts are already enough | No | Yes | Re-rank after `omg` |
+| `ralph` | Medium | No | No | Existing scripts are already enough | Existing references are already enough | Yes | Keep behind `plannotator` unless the survey lock changes materially |
 | `ohmg` | High | Later | No | Existing capture and scoring scripts are already enough | Existing baseline note is enough | Already present | Keep frozen until a stronger mutation target or harness change exists |
 | `skill-standardization` | Medium | No | No | Existing validator script is already enough | No | Already present | Use as an audit surface, not an edit target, in this run |
 | `skill-autoresearch` | Medium | No | No | No | Existing reference guide is already enough | Already present | Use as the decision gate for whether a scored loop is worth starting |
 
 ## Packaging decision for this run
 
-- Target skill: `vibe-kanban`
+- Target skill: `omg`
 - Assets: no new assets needed
-- Scripts: no new runtime scripts needed; only helper-script comment/path fixes
-- References: add `workspace-playbook.md` and `operations-guide.md`, and refresh
-  the environment variable reference
+- Scripts: no new runtime scripts needed
+- References: add the missing `PLANNOTATOR_RELIABILITY_CONSENSUS_2026-03-06.md`
+  note already referenced by the skill
 - Evals: add `evals/evals.json`
-- Sections: add explicit `Instructions`, `Examples`, and `Best practices`, then
-  keep the main file compact enough to stay standards-clean
-- Post-open review result: clean; no follow-up patch is justified before merge
+- Sections: no SKILL.md section rewrite needed because the entrypoint is already
+  standards-clean and compact
+- Skill-autoresearch decision: still `no` for this run because the new eval
+  baseline needs review and merge before a scored mutation loop is justified
 
 ## Current state
 
-- State: PR `#23` has passed the post-open review gate and is ready to merge for
-  the bounded `vibe-kanban` packaging slice on
-  `chore/skill-loop-pr-open-20260414-r24`
-- Blocker: no hard blocker remains for the packaging slice itself; the only
-  deferred work is `skill-autoresearch`, which still waits on a merged baseline
-  plus repeated measured failures
-- Next owner: `nanoclaw_pd` to merge PR `#23` in this run, then
-  `nanoclaw_engine` for the next bounded `omg` packaging pass after merge
-- Stage: `merge`
+- State: PR `#24` is open for the bounded `omg` packaging slice on
+  `chore/skill-loop-pr-open-20260414-r25`
+- Blocker: no hard blocker remains; the lane is waiting on the next scheduled
+  PR review to confirm no duplicate work, missing artifacts, or new
+  standardization gaps
+- Next owner: `nanoclaw_pd` to review PR `#24` next run and hand off a bounded
+  follow-up only if the review finds a real gap
+- Stage: `pr-open`
