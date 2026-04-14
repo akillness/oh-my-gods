@@ -1,0 +1,45 @@
+{
+  "skill_name": "vibe-kanban",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use vibe-kanban to split a checkout rewrite into frontend, backend, and integration-test workspaces.",
+      "expected_output": "A response that treats Vibe Kanban as a workspace board, keeps each lane reviewable, and routes the user through the board-driven review and PR loop.",
+      "assertions": [
+        "Response recommends more than one workspace or lane",
+        "Response keeps one workspace scoped to one reviewable task or PR-sized slice",
+        "Response mentions review of diffs, logs, preview, or PR handoff"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Connect vibe-kanban to Codex on this machine and tell me which MCP tools should appear.",
+      "expected_output": "A setup-focused answer that uses the local helper script and lists the expected `vk_*` tools without inventing unverified tool names.",
+      "assertions": [
+        "Response mentions `bash scripts/mcp-setup.sh --codex`",
+        "Response lists `vk_list_cards`, `vk_create_card`, and `vk_move_card`",
+        "Response lists `vk_get_logs` instead of `vk_get_diff`"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We are self-hosting Vibe Kanban behind Caddy and the browser is throwing 403 errors.",
+      "expected_output": "An operations answer that points to the reverse-proxy CORS setting and keeps remote deployment advice concrete.",
+      "assertions": [
+        "Response mentions `VK_ALLOWED_ORIGINS`",
+        "Response treats the issue as a reverse-proxy or CORS configuration problem",
+        "Response routes deeper deployment detail to a supporting reference or docs path"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I need to validate the live workspace preview while staying logged in to the app.",
+      "expected_output": "A response that keeps Vibe Kanban as the board surface and pairs browser validation with the authenticated playwriter workflow instead of defaulting to headless browsing.",
+      "assertions": [
+        "Response mentions `playwriter` for authenticated browser validation",
+        "Response does not recommend headless browser automation as the default first step",
+        "Response keeps Vibe Kanban positioned as the planning or review surface"
+      ]
+    }
+  ]
+}

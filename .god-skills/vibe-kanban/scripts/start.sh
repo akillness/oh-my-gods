@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# vibe-kanban-start.sh — Vibe Kanban 서버 시작 래퍼
-# 사용법: bash scripts/vibe-kanban-start.sh [--port 3000] [--remote]
+# start.sh — Vibe Kanban 서버 시작 래퍼
+# 사용법: bash scripts/start.sh [--port 3000] [--remote]
 #
 # 예시:
-#   bash scripts/vibe-kanban-start.sh
-#   bash scripts/vibe-kanban-start.sh --port 3001
-#   bash scripts/vibe-kanban-start.sh --remote
+#   bash scripts/start.sh
+#   bash scripts/start.sh --port 3001
+#   bash scripts/start.sh --remote
 
 set -euo pipefail
 

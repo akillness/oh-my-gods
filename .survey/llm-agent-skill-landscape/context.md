@@ -15,7 +15,7 @@ The repo sits in the middle of a fast-moving agent-tooling ecosystem where offic
 ## Current Workarounds
 
 1. Maintainers manually patch descriptions and sections based on intuition, then rely on sparse real-world usage to discover trigger failures later.
-2. Large orchestration skills stay monolithic even when official docs recommend supporting files and under-500-line entrypoints.
+2. Large workflow skills drift when the entrypoint duplicates operational detail that should live in supporting references or scripts.
 3. Optimization work gets delayed because most skills lack evals, so there is no deterministic baseline for a mutation loop.
 
 ## Adjacent Problems
@@ -30,3 +30,4 @@ The repo sits in the middle of a fast-moving agent-tooling ecosystem where offic
 - Anthropic documents skills, subagents, and hooks as first-class Claude Code features: https://code.claude.com/docs/en/skills and https://code.claude.com/docs/en/sub-agents
 - Google frames Gemini CLI extensions and custom commands as the packaging layer for prompts, MCP servers, and commands: https://google-gemini.github.io/gemini-cli/docs/extensions/ and https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
 - Agent Skills describes skills as folders of instructions, scripts, and resources that agents discover and load on demand: https://agentskills.io/home
+- The open `skills` ecosystem keeps broadening the portability target; the current `vercel-labs/skills` README advertises support for Codex plus 40+ other agent surfaces and released `v1.5.0` on 2026-04-12: https://github.com/vercel-labs/skills

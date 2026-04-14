@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # mcp-setup.sh — Vibe Kanban MCP 서버 설정 스크립트
-# 사용법: bash mcp-setup.sh [--claude|--codex|--all]
+# 사용법: bash scripts/mcp-setup.sh [--claude|--codex|--all]
 #
 # 예시:
-#   bash mcp-setup.sh --claude   # Claude Code 설정만
-#   bash mcp-setup.sh --codex    # Codex CLI 설정만
-#   bash mcp-setup.sh --all      # 모든 에이전트 설정
+#   bash scripts/mcp-setup.sh --claude   # Claude Code 설정만
+#   bash scripts/mcp-setup.sh --codex    # Codex CLI 설정만
+#   bash scripts/mcp-setup.sh --all      # 모든 에이전트 설정
 
 set -euo pipefail
 
