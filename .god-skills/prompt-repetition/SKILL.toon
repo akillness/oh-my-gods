@@ -1,9 +1,19 @@
 N:prompt-repetition
-D:Prompt repetition techniques for improving LLM accuracy. Achieved significant performance improvement in 67% (47/70) of benchmarks. Auto-applied to lightweight models (haiku, flash, mini).
+D:Improve accuracy on lightweight, non-reasoning LLM tasks by repeating prompts safely. Use for haiku, flash, or mini lanes, especially options-first MCQs, long-context lookup, and index/position tasks.
 G:prompt-engineering accuracy optimization lightweight-model attention
-U[7]:
-  **Lightweight models**: claude-haiku, gemini-flash, gpt-4o-mini, etc.
-  **Options-First MCQ**: Multiple choice where options appear before question
-  **Context + Question**: Retrieving specific information from long contexts
-  **Index/Position Tasks**: Position-based queries in inventories/lists
-  **NPC Dialogue**: Maintaining AI character consistency in games
+U[5]:
+  Improve accuracy on lightweight models without changing the model choice
+  Handle options-first multiple choice prompts
+  Improve long-context lookup or index/position tasks
+  Add or review an auto-apply prompt transformation
+  Evaluate whether repetition is worth the token cost
+S[5]{n,action}:
+  1,Triage the workload before applying anything
+  2,Decide whether repetition is justified
+  3,Apply it safely
+  4,Keep the tradeoff explicit
+  5,Pull support files only when needed
+R[3]:
+  references/research-summary.md
+  references/integration-guide.md
+  scripts/prompt_repetition_transformer.py

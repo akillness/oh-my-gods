@@ -1,0 +1,48 @@
+{
+  "skill_name": "prompt-repetition",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We use Gemini Flash for a multiple-choice workflow where the answer options appear before the question. Should we apply prompt repetition?",
+      "expected_output": "A yes-oriented answer that identifies Gemini Flash as a plausible target, recommends 2x repetition for an options-first workload, and names duplicate-application or context-budget safeguards.",
+      "assertions": [
+        "Output identifies a lightweight or non-reasoning model lane as a fit for prompt repetition",
+        "Output recommends 2x repetition for the options-first MCQ workload",
+        "Output includes a safeguard such as a context-budget check or duplicate-application marker",
+        "Output does not describe prompt repetition as universal for all models"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We query item positions in a long inventory prompt on Claude Haiku. How should we use prompt repetition safely?",
+      "expected_output": "A position-task answer that recommends 3x repetition only when it fits the budget, otherwise reducing repetitions to stay within the context limit.",
+      "assertions": [
+        "Output recognizes an index, slot, or position-style task",
+        "Output recommends 3x repetition as the high-water default for position tasks",
+        "Output conditions that recommendation on a context-budget or token-limit check",
+        "Output mentions safe implementation via a reusable transformer or wrapper"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our prompt already says 'think step by step' on a reasoning-heavy task. Should we duplicate it too?",
+      "expected_output": "A no-oriented answer that says prompt repetition is not the default for reasoning or CoT prompts.",
+      "assertions": [
+        "Output says not to auto-apply prompt repetition by default",
+        "Output identifies explicit reasoning or chain-of-thought as the reason to skip it",
+        "Output does not recommend 2x or 3x repetition for this prompt as the default answer"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review this implementation plan: we repeat every prompt on all models, do not mark transformed prompts, and never check the context window.",
+      "expected_output": "A review answer that rejects blanket application, requires duplicate-application prevention, and insists on context-budget checks and a model allowlist.",
+      "assertions": [
+        "Output rejects or narrows the blanket all-models application strategy",
+        "Output recommends a duplicate-application marker or metadata flag",
+        "Output requires a context-budget or context-window check",
+        "Output recommends keeping an explicit model allowlist or narrow targeting rule"
+      ]
+    }
+  ]
+}
