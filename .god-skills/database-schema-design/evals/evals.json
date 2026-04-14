@@ -1,0 +1,48 @@
+{
+  "skill_name": "database-schema-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a PostgreSQL schema for an e-commerce app with users, products, orders, and order items. We expect heavy reads on order history and product pages.",
+      "expected_output": "A relational-first answer with explicit tables, relationships, indexes, and constraints tailored to a PostgreSQL transactional workload.",
+      "assertions": [
+        "Output chooses a relational model such as PostgreSQL tables instead of a document-only design",
+        "Output includes a junction or line-item table for order items",
+        "Output includes indexes for foreign keys or high-frequency read paths",
+        "Output includes constraints such as primary keys, foreign keys, NOT NULL, UNIQUE, or CHECK rules"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review this schema issue: our orders table joins are slow, order_items has no index on order_id, and status dashboards filter by status and created_at all day.",
+      "expected_output": "A review-oriented answer that spots the missing index issue and proposes query-shape-aware indexing rather than generic advice.",
+      "assertions": [
+        "Output flags the missing index on order_items.order_id or equivalent foreign key indexing issue",
+        "Output recommends an index involving status and created_at for the dashboard path",
+        "Output distinguishes hot query paths from blanket indexing of every column"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Model a MongoDB schema for a chat product where conversation reads are very frequent and message history grows without bound.",
+      "expected_output": "A NoSQL answer that separates bounded conversation summaries from unbounded message history and explains embed vs reference tradeoffs.",
+      "assertions": [
+        "Output chooses a document-oriented model such as MongoDB collections",
+        "Output keeps unbounded message history in a separate collection or equivalent reference structure",
+        "Output includes indexes for the conversation lookup and message history path",
+        "Output explains an embed-vs-reference tradeoff"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We need to add a required customer_tier column to a 200M-row users table without a long outage. How should the migration be staged?",
+      "expected_output": "A staged migration plan that adds compatibility first, backfills safely, and tightens constraints only after validation.",
+      "assertions": [
+        "Output recommends a staged rollout rather than a one-step destructive migration",
+        "Output includes a backfill phase",
+        "Output delays the NOT NULL or equivalent hard constraint until after validation",
+        "Output mentions rollback, forward-fix, or operational risk management"
+      ]
+    }
+  ]
+}

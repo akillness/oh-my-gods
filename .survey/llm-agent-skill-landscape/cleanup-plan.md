@@ -1,35 +1,41 @@
-# Cleanup Plan: run 38 PR-review gate (`authentication-setup`)
+# Cleanup Plan: run 40 PR-review gate (`database-schema-design`)
 
 ## Goal
 
-Re-review the bounded `authentication-setup` packaging slice, close any small
-standards or support-surface gap inside the same lane, and merge if the branch
-stays clean.
+Re-review the already-open `database-schema-design` PR for duplicate work,
+missing improvements, or standardization gaps, then merge it if the lane stays
+clean.
 
 ## Behavior lock
 
-- Do not add runtime scripts or assets unless this review finds a concrete
-  missing support surface.
-- Keep the auth lane limited to `.god-skills/authentication-setup/*` plus the
+- Keep this lane limited to `.god-skills/database-schema-design/*` plus the
   recurring survey lock files.
-- Do not reopen `backend-testing`, `ralph`, `plannotator`, `omg`, `vibe-kanban`,
-  or older merged lanes.
-- Do not start a `skill-autoresearch` mutation loop for `authentication-setup`
-  in this run; keep the packaged and eval-backed baseline reviewable and merge
-  it before opening the next packaging lane.
+- Prefer deletion and extraction over adding new abstraction layers or runtime
+  scripts.
+- Do not add assets unless a concrete schema template is required; this pass is
+  expected to need references and evals only.
+- Do not reopen `authentication-setup`, `genkit`, or older merged lanes in this
+  branch.
+- Do not start a `skill-autoresearch` mutation loop for
+  `database-schema-design` in this run; the compact entrypoint and packaged
+  eval baseline already exist, and this pass is only for explicit review plus
+  lifecycle advancement.
 
 ## Planned edits
 
-1. Refresh live GitHub state and re-run the validators before changing stage.
-2. Fix only review-discovered gaps inside `.god-skills/authentication-setup/*`.
-3. Re-run the target validator and repo-wide validator after the review patch.
-4. Push `chore/skill-loop-pr-open-20260415-r29` and merge PR `#28` if it stays
-   bounded and clean.
+1. Refresh GitHub state for PR `#29` and confirm the lane is still merge-clean.
+2. Re-review only `.god-skills/database-schema-design/*` for duplicated work,
+   missing support surfaces, or spec regressions.
+3. Re-run the target validator, JSON parse check, and repo-wide validator.
+4. If the review stays clean, update the survey lock files to record the merge
+   stage and merge the PR without adding fresh skill churn.
 
 ## Verification
 
-- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/authentication-setup`
-- Validate `.god-skills/authentication-setup/evals/evals.json` as parseable JSON
+- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/database-schema-design`
+- Validate `.god-skills/database-schema-design/evals/evals.json` as parseable
+  JSON
 - Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
-- Confirm PR `#28` stays bounded to the auth skill plus the survey lock files
-- Confirm PR `#28` remains clean and mergeable after the review patch
+- Confirm the branch stays bounded to `database-schema-design` plus the survey
+  lock files
+- Record the branch, PR number, blocker, next owner, and stage before merge
