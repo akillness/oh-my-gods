@@ -40,8 +40,9 @@ Source links:
 
 - PR `#29` for `database-schema-design` merged into `main` on
   `2026-04-14T20:05:52Z`, so that lane is closed.
-- PR `#30` for `genkit` is now open from
-  `chore/skill-loop-pr-open-20260415-r31`:
+- PR `#30` for `genkit` stayed open and merge-clean at the start of this run,
+  so this pass performed the explicit review gate on
+  `chore/skill-loop-pr-open-20260415-r31` before advancing the lane to merge:
   https://github.com/akillness/oh-my-gods/pull/30
 
 ## Audit snapshot
@@ -64,7 +65,7 @@ Source links:
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `genkit` | PR `#30` is open and should move to explicit review next | No | No | Added on this branch because the old entrypoint mixed setup, workflow, runtime, and deployment detail into activation | Added on this branch | No | Review PR `#30`, then reconsider mutations only if repeated measured failures appear |
+| `genkit` | Review pass is clean on PR `#30`; advance to merge | No | No | Added on this branch because the old entrypoint mixed setup, workflow, runtime, and deployment detail into activation | Added on this branch | No | Merge PR `#30`, then reopen the queue at `prompt-repetition` |
 | `prompt-repetition` | Remains the next high-warning packaging gap behind the active PR-open lane | No | No | Likely needed | Needed | No | Keep next in queue after `genkit` |
 | `technical-writing` | Remains large and unevaluated behind the current PR-open lane | No | No | Likely needed | Needed | No | Keep behind `prompt-repetition` |
 | `survey` | Remains the research surface, not the packaging target | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
@@ -72,7 +73,8 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: review PR `#30` for `genkit` on the next scheduled run.
+- Primary lane: merge PR `#30` for `genkit` after the clean review pass in
+  this run.
 - Secondary lane: after `genkit` lands, reopen the packaging queue at
   `prompt-repetition`.
 - Do not start a `skill-autoresearch` mutation loop for the large non-eval
@@ -91,14 +93,14 @@ Source links:
 
 ## Run action
 
-- Smallest bounded action for the next run: review PR `#30` for duplicate work,
+- Smallest bounded action for this run: review PR `#30` for duplicate work,
   missing improvements, and standardization gaps, then advance it to merge if
   the lane stays clean.
 
 ## Status
 
-- Current state: the `genkit` packaging lane is open on PR `#30` from
-  `chore/skill-loop-pr-open-20260415-r31`
+- Current state: the explicit PR-review pass for `genkit` is clean; PR `#30`
+  is ready to merge from `chore/skill-loop-pr-open-20260415-r31`
 - Blocker: none
-- Next owner: `nanoclaw_pd` to complete the PR-review gate on the next run
-- Stage: `PR-open`
+- Next owner: `nanoclaw_pd` to complete the merge path in this run
+- Stage: `merge`

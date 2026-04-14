@@ -4,9 +4,11 @@
 
 - PR `#29` for `database-schema-design` merged into `main` on
   `2026-04-14T20:05:52Z`, so that lane is closed.
-- This run opened PR `#30` on
-  `chore/skill-loop-pr-open-20260415-r31`:
+- PR `#30` on `chore/skill-loop-pr-open-20260415-r31` stayed open and
+  merge-clean at the start of this run:
   https://github.com/akillness/oh-my-gods/pull/30
+- This run performed the explicit PR-review pass instead of adding more skill
+  churn.
 - Repo-wide validator snapshot on this branch is now `80/80` shipped skills
   with `0` hard errors and `72` warnings.
 - Eval coverage rises from `25/80` to `26/80` shipped skills because
@@ -41,7 +43,7 @@ prompt-mutation work for this repo:
 
 Improve one workflow-critical packaging gap per run, in priority order:
 
-1. `genkit` via PR `#30`
+1. `genkit` via clean merge of PR `#30`
 2. `prompt-repetition`
 3. `technical-writing`
 4. `deployment-automation`
@@ -52,7 +54,8 @@ This order is locked because:
 
 - `genkit` had the strongest combined signal: largest remaining monolith, no
   eval coverage, no support files, and direct relevance to the current
-  framework-heavy agent ecosystem.
+  framework-heavy agent ecosystem; the current pass is only its clean review
+  gate before merge.
 - `prompt-repetition` has higher warning density, but its ecosystem leverage is
   narrower than `genkit`, so it stays next rather than replacing the active
   lane mid-run.
@@ -66,7 +69,7 @@ This order is locked because:
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `genkit` | High | No | No | No | Added on this branch | Added on this branch | Review PR `#30`, then reconsider mutations only if repeated measured failures appear |
+| `genkit` | High | No | No | No | Added on this branch | Added on this branch | Merge PR `#30`, then reconsider mutations only if repeated measured failures appear |
 | `prompt-repetition` | Medium-high | No | No | No | Likely yes | Yes | Keep next in the packaging queue |
 | `survey` | Medium | Not yet | No | No | Maybe later | Already present | Keep as the landscape capture surface |
 | `skill-standardization` | Medium | Not yet | No | Existing validator script is enough | No | Already present | Keep as the audit gate |
@@ -87,9 +90,9 @@ This order is locked because:
 
 ## Current state
 
-- State: PR `#30` is open and ready for the next explicit PR-review pass
+- State: the `genkit` PR-review pass is clean and ready to move from
+  `PR-open` into `merge`
 - Blocker: none
-- Next owner: `nanoclaw_pd` on the next scheduled run to review
-  `chore/skill-loop-pr-open-20260415-r31` for duplicate work, missing
-  improvements, or standardization gaps
-- Stage: `PR-open`
+- Next owner: `nanoclaw_pd` in this run to merge PR `#30`, then reopen the
+  queue at `prompt-repetition`
+- Stage: `merge`
