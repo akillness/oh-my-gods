@@ -1,6 +1,6 @@
 N:plannotator
-D:[plan] Visually review AI coding agent plans and diffs. Annotate in browser UI (delete/insert/replace/comment) → Approve or Send Feedback. Save instantly to Obsidian/Bear from Export→Notes tab without Approving. Supports Code Review (/plannotator-review), image annotation, and auto-save to Obsidian/Bear. Integrates with Claude Code + OpenCode + Gemini CLI + Codex CLI. For manual Plan submission, use python3 JSON (stdin tool_input format) instead of echo/heredoc.
-G:plan 계획 planno plannotator plan-review diff-review code-review annotate visual-review claude-code opencode gemini codex image-annotation obsidian export notes bear save scripts 계획검토 설계검토
+D:[plan] Review and annotate agent plans or diffs in a visual browser UI, then Approve or Request Changes with structured feedback. Use for hook-driven plan review, diff review, and note export to Obsidian or Bear. Integrates with Claude Code, Gemini CLI, Codex CLI, and OpenCode. For manual plan submission, use python3 JSON input instead of echo/heredoc.
+G:plan 계획 planno plannotator plan-review diff-review code-review annotate plan annotate-plan visual-review claude-code opencode gemini codex notes obsidian bear export review-agent-plan 계획검토 설계검토
 
 U[7]:
   scripts/install.sh — Install plannotator CLI (auto-detects OS, --with-plugin option)
