@@ -1,15 +1,30 @@
 N:backend-testing
-D:Write comprehensive backend tests including unit tests, integration tests, and API tests. Use whe...
-G:testing backend unit-test integration-test API-test
-U[5]:
-  **Developing new features**: Write tests first using Test-Driven Development (TDD)
-  **Adding API endpoints**: Test success/failure cases of REST APIs
-  **Bug fixing**: Add tests to prevent regressions
-  **Before refactoring**: Write tests to ensure existing behavior
-  **CI/CD setup**: Build an automated testing pipeline
-S[5]{n,action}:
-  1,Set up test environment
-  2,Write Unit Tests (business logic)
-  3,Integration Test (API endpoints)
-  4,Authentication/Authorization testing
-  5,Mocking and test isolation
+D:Write backend test plans and implementations for business logic, APIs, database-backed flows, and authentication paths across Node.js or Python services. Use when the user needs unit tests, integration tests, auth tests, coverage hardening, or flaky backend test fixes.
+G:backend-testing testing unit-tests integration-tests api-tests auth-tests pytest jest supertest coverage flaky-backend-test
+U[6]:
+  Developing or refactoring backend logic that needs regression coverage
+  Adding REST, GraphQL, queue, or database-backed endpoints
+  Verifying authentication, authorization, validation, and side effects
+  Fixing flaky backend suites caused by shared state or open handles
+  Choosing the right test layer before writing implementation
+  Hardening coverage before broader prompt or workflow optimization
+S[7]{n,action,details}:
+  1,Triage test surface,Capture runtime, framework, runner, dependencies, auth model, and exact behavior to prove
+  2,Choose layer,Pick unit vs integration vs auth vs regression at the cheapest layer that still proves the contract
+  3,Isolate environment,Use separate test config, resettable DB state, and mocked external boundaries
+  4,Write high-leverage cases,Prioritize business-critical, auth, validation, side-effect, and known bug paths
+  5,Keep assertions observable,Assert status codes, payload shape, DB state, events, and permission boundaries
+  6,Use support files,Load references/framework-recipes.md or references/troubleshooting.md for boilerplate and debugging detail
+  7,Return structured outcome,Report test surface, plan, implementation, run commands, and remaining gaps
+R[6]:
+  Start with the smallest test that proves the user-visible contract
+  Treat auth and validation failures as first-class scenarios
+  Prefer deterministic setup over shared mutable fixtures
+  Flaky tests are correctness bugs, not CI noise
+  Add eval coverage before starting any skill-autoresearch loop on this skill
+  Keep framework-specific boilerplate in references so the main skill stays reviewable
+E[4]{desc,in,out}:
+  "Auth coverage for a Node API","Add backend tests for the login and refresh-token endpoints in this Express API.","Chooses isolated API/auth tests; covers success and failure cases; verifies token or session side effects"
+  "FastAPI validation regression","Our FastAPI order endpoint accepts negative quantities. Add tests before the fix.","Locks the bug at the HTTP boundary with pytest/TestClient-style coverage"
+  "Flaky Jest suite","These Jest API tests pass alone but fail when the full suite runs. What should I do?","Investigates shared state, leaked handles, timer cleanup, and deterministic resets before widening coverage"
+  "Layer selection","Should this repository method get a unit test or an integration test?","Chooses the fastest layer that still proves the important behavior"

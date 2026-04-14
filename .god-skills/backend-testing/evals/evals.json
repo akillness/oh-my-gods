@@ -1,0 +1,45 @@
+{
+  "skill_name": "backend-testing",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add backend tests for the login and refresh-token endpoints in this Express API.",
+      "expected_output": "A response that chooses backend integration or auth tests, keeps the environment isolated, and covers success plus failure cases for the auth flow.",
+      "assertions": [
+        "Response mentions integration tests, auth tests, or API tests rather than browser automation",
+        "Response includes both success and failure or unauthorized cases",
+        "Response mentions isolated test setup such as a test database, fixture reset, or separate test environment"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our FastAPI order endpoint accepts negative quantities. Add tests before the fix.",
+      "expected_output": "A response that locks the regression at the HTTP boundary with pytest-style validation coverage before implementation changes.",
+      "assertions": [
+        "Response mentions a regression test or boundary-focused test first",
+        "Response keeps the assertion at the API or request boundary",
+        "Response mentions pytest, fixtures, or FastAPI TestClient/httpx patterns"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "These Jest API tests pass alone but fail when the full suite runs. What should this skill tell me to do?",
+      "expected_output": "A troubleshooting response that prioritizes isolation fixes such as DB reset, mock cleanup, or leaked-handle checks before suggesting more coverage.",
+      "assertions": [
+        "Response mentions shared state, leaked mocks, open handles, or hanging connections",
+        "Response recommends deterministic reset or cleanup behavior",
+        "Response does not jump straight to adding more tests as the only fix"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should this repository method get a unit test or an integration test?",
+      "expected_output": "A classification response that chooses the smallest test layer that still proves the important behavior and explains the dependency-based tradeoff.",
+      "assertions": [
+        "Response distinguishes between unit and integration tests",
+        "Response ties the choice to dependency shape, side effects, or persistence boundaries",
+        "Response prefers the fastest layer that still proves the contract"
+      ]
+    }
+  ]
+}
