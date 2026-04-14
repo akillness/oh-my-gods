@@ -32,10 +32,10 @@ This ranking is an inference from current official docs coverage and product emp
 
 ## Key Gaps
 
-- Repo-wide eval coverage is extremely low relative to the importance of workflow skills.
-- Workflow skills that repeat operational detail in the entrypoint drift faster than skills that keep the main file compact and push detail into references.
-- Realistic benchmark evidence shows skill benefits degrade sharply when retrieval quality and skill quality are weak, so refinement loops need explicit evals instead of intuition-only edits.
-- After the `vibe-kanban` merge, `omg` is now the highest-leverage bounded packaging gap because it remains central to the repo, already ships scripts plus references, and needed eval coverage plus one missing supporting note.
+- Repo-wide eval coverage is still low relative to the importance of workflow skills.
+- Workflow skills that repeat setup, runtime, and deployment detail in the entrypoint drift faster than skills that keep the main file compact and push detail into references.
+- OpenAI Codex automations, Claude subagents, and Gemini extensions all reward concise reusable workflow packages, so packaging debt now blocks more leverage than adding another broad skill.
+- `genkit` is the strongest active packaging gap because it was the largest remaining monolith, had no eval coverage, and sits directly on a current framework surface for typed flows, tools, RAG, and deployment.
 
 ## Contradictions
 
@@ -44,4 +44,4 @@ This ranking is an inference from current official docs coverage and product emp
 
 ## Key Insight
 
-The highest-value improvement is not adding another broad skill first. It is upgrading workflow-critical existing skills into evaluation-ready, standards-compliant entrypoints so future iterations can optimize them one bounded mutation at a time. Recent benchmark work reinforces that query-specific refinement helps only when the initial skill is already relevant and measurable, which is why the current lane is now bounded `omg` packaging rather than a fresh `skill-autoresearch` experiment.
+The highest-value improvement is still not adding another broad skill first. It is upgrading workflow-critical existing skills into evaluation-ready, standards-compliant entrypoints so future iterations can optimize them one bounded mutation at a time. That is why the active lane is now bounded `genkit` packaging rather than a fresh `skill-autoresearch` experiment or an unrelated new skill.

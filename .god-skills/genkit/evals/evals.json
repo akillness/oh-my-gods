@@ -1,0 +1,50 @@
+{
+  "skill_name": "genkit",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up a minimal Genkit TypeScript flow that uses Gemini, validates structured output, and runs locally with the Dev UI.",
+      "expected_output": "A TypeScript-first setup answer that keeps the main AI path in a typed flow, names a local Dev UI run path, and keeps credentials in environment variables.",
+      "assertions": [
+        "Output confirms or adopts a TypeScript or JavaScript lane",
+        "Output keeps the main AI path inside a Genkit flow rather than only route handlers",
+        "Output includes explicit input/output schema guidance for the structured output path",
+        "Output includes a local Dev UI or equivalent local observability path",
+        "Output keeps API keys or provider credentials in environment variables or secret management"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Design a Genkit RAG workflow that starts locally, then can move to Cloud Run after we validate retrieval quality.",
+      "expected_output": "A retrieval-oriented design that separates indexing, retrieval, and answer generation, includes a local validation path, and names the deployment decisions required for Cloud Run.",
+      "assertions": [
+        "Output separates indexing or ingest from retrieval and answer generation",
+        "Output includes a retrieval-quality or groundedness validation step before production rollout",
+        "Output names Cloud Run or container deployment decisions such as secrets, region, or runtime hosting shape",
+        "Output does not present prompt generation alone as a complete RAG implementation"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Review this Genkit app: it calls generate() directly in route handlers, mixes tool logic into one file, and has no evaluation path.",
+      "expected_output": "A review answer that pushes the AI path into flows, separates tool concerns, and adds an evaluation or smoke-test recommendation.",
+      "assertions": [
+        "Output recommends moving the core AI path into named flows or equivalent reviewable workflow boundaries",
+        "Output calls out the mixed tool logic as a separation-of-concerns problem",
+        "Output recommends an evaluation, smoke path, or local trace path before release",
+        "Output highlights observability or runtime inspection as part of the fix"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should we use Python for a new Genkit feature, or stay in TypeScript? We need to ship quickly and avoid surprises from provider integration drift.",
+      "expected_output": "A decision-oriented answer that compares the lanes cautiously, defaults to the stronger support path when appropriate, and tells the user to verify fast-moving provider details in the official docs.",
+      "assertions": [
+        "Output compares at least two language lanes instead of assuming one",
+        "Output treats provider integration details as something to verify in the current docs",
+        "Output makes a concrete recommendation tied to shipping speed or support depth",
+        "Output does not promise language feature parity without caveat"
+      ]
+    }
+  ]
+}
