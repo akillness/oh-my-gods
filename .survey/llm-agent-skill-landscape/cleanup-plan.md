@@ -1,35 +1,42 @@
-# Cleanup Plan: run 38 PR-review gate (`authentication-setup`)
+# Cleanup Plan: run 39 PR-open gate (`database-schema-design`)
 
 ## Goal
 
-Re-review the bounded `authentication-setup` packaging slice, close any small
-standards or support-surface gap inside the same lane, and merge if the branch
-stays clean.
+Package `database-schema-design` into a compact, standards-clean entrypoint
+with local support files and eval coverage, then open a bounded PR so the next
+scheduled run can own the explicit review pass.
 
 ## Behavior lock
 
-- Do not add runtime scripts or assets unless this review finds a concrete
-  missing support surface.
-- Keep the auth lane limited to `.god-skills/authentication-setup/*` plus the
+- Keep this lane limited to `.god-skills/database-schema-design/*` plus the
   recurring survey lock files.
-- Do not reopen `backend-testing`, `ralph`, `plannotator`, `omg`, `vibe-kanban`,
-  or older merged lanes.
-- Do not start a `skill-autoresearch` mutation loop for `authentication-setup`
-  in this run; keep the packaged and eval-backed baseline reviewable and merge
-  it before opening the next packaging lane.
+- Prefer deletion and extraction over adding new abstraction layers or runtime
+  scripts.
+- Do not add assets unless a concrete schema template is required; this pass is
+  expected to need references and evals only.
+- Do not reopen `authentication-setup`, `genkit`, or older merged lanes in this
+  branch.
+- Do not start a `skill-autoresearch` mutation loop for
+  `database-schema-design` in this run; first land a compact entrypoint and
+  packaged eval baseline.
 
 ## Planned edits
 
-1. Refresh live GitHub state and re-run the validators before changing stage.
-2. Fix only review-discovered gaps inside `.god-skills/authentication-setup/*`.
-3. Re-run the target validator and repo-wide validator after the review patch.
-4. Push `chore/skill-loop-pr-open-20260415-r29` and merge PR `#28` if it stays
-   bounded and clean.
+1. Confirm the prior auth lane is merged and refresh the next-target audit.
+2. Rewrite `.god-skills/database-schema-design/SKILL.md` as a compact
+   activation surface under the spec guidance.
+3. Add focused support files under `references/` for SQL patterns, NoSQL
+   patterns, and migration/review guidance.
+4. Add `evals/evals.json` so the skill has a packaged measurement surface.
+5. Refresh `SKILL.toon`, run validators, open the next PR branch, and update
+   the survey lock files with the new state.
 
 ## Verification
 
-- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/authentication-setup`
-- Validate `.god-skills/authentication-setup/evals/evals.json` as parseable JSON
+- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/database-schema-design`
+- Validate `.god-skills/database-schema-design/evals/evals.json` as parseable
+  JSON
 - Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
-- Confirm PR `#28` stays bounded to the auth skill plus the survey lock files
-- Confirm PR `#28` remains clean and mergeable after the review patch
+- Confirm the branch stays bounded to `database-schema-design` plus the survey
+  lock files
+- Open the PR and record the branch, PR number, blocker, next owner, and stage
