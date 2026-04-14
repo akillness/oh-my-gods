@@ -1,10 +1,10 @@
-# Cleanup Plan: run 39 PR-open gate (`database-schema-design`)
+# Cleanup Plan: run 40 PR-review gate (`database-schema-design`)
 
 ## Goal
 
-Package `database-schema-design` into a compact, standards-clean entrypoint
-with local support files and eval coverage, then open a bounded PR so the next
-scheduled run can own the explicit review pass.
+Re-review the already-open `database-schema-design` PR for duplicate work,
+missing improvements, or standardization gaps, then merge it if the lane stays
+clean.
 
 ## Behavior lock
 
@@ -17,19 +17,18 @@ scheduled run can own the explicit review pass.
 - Do not reopen `authentication-setup`, `genkit`, or older merged lanes in this
   branch.
 - Do not start a `skill-autoresearch` mutation loop for
-  `database-schema-design` in this run; first land a compact entrypoint and
-  packaged eval baseline.
+  `database-schema-design` in this run; the compact entrypoint and packaged
+  eval baseline already exist, and this pass is only for explicit review plus
+  lifecycle advancement.
 
 ## Planned edits
 
-1. Confirm the prior auth lane is merged and refresh the next-target audit.
-2. Rewrite `.god-skills/database-schema-design/SKILL.md` as a compact
-   activation surface under the spec guidance.
-3. Add focused support files under `references/` for SQL patterns, NoSQL
-   patterns, and migration/review guidance.
-4. Add `evals/evals.json` so the skill has a packaged measurement surface.
-5. Refresh `SKILL.toon`, run validators, open the next PR branch, and update
-   the survey lock files with the new state.
+1. Refresh GitHub state for PR `#29` and confirm the lane is still merge-clean.
+2. Re-review only `.god-skills/database-schema-design/*` for duplicated work,
+   missing support surfaces, or spec regressions.
+3. Re-run the target validator, JSON parse check, and repo-wide validator.
+4. If the review stays clean, update the survey lock files to record the merge
+   stage and merge the PR without adding fresh skill churn.
 
 ## Verification
 
@@ -39,4 +38,4 @@ scheduled run can own the explicit review pass.
 - Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
 - Confirm the branch stays bounded to `database-schema-design` plus the survey
   lock files
-- Open the PR and record the branch, PR number, blocker, next owner, and stage
+- Record the branch, PR number, blocker, next owner, and stage before merge

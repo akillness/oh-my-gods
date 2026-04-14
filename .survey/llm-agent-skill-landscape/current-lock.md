@@ -29,8 +29,9 @@ Source links:
 
 - PR `#28` for `authentication-setup` merged into `main` on
   `2026-04-14T17:11:22Z`, so that lane is closed.
-- This run opened PR `#29` for `database-schema-design` on
-  `chore/skill-loop-pr-open-20260415-r30`:
+- PR `#29` for `database-schema-design` stayed open and merge-clean at the
+  start of this run, so this pass performed the explicit review gate on
+  `chore/skill-loop-pr-open-20260415-r30` before advancing the lane to merge:
   https://github.com/akillness/oh-my-gods/pull/29
 
 ## Audit snapshot
@@ -55,7 +56,7 @@ Source links:
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `database-schema-design` | PR `#29` is open on `chore/skill-loop-pr-open-20260415-r30` | No | No | Added on this branch because the old entrypoint mixed detailed SQL, NoSQL, and migration guidance into activation | Added on this branch | No | Review PR `#29` on the next run |
+| `database-schema-design` | Review pass is clean on PR `#29`; advance to merge | No | No | Added on this branch because the old entrypoint mixed detailed SQL, NoSQL, and migration guidance into activation | Added on this branch | No | Merge PR `#29`, then reopen the queue at `genkit` |
 | `genkit` | Remains large and unevaluated behind the current PR-open lane | No | No | Likely needed | Needed | No | Keep behind `database-schema-design` |
 | `survey` | Remains the research surface, not the packaging target | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
 | `skill-standardization` | Remains the repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
@@ -63,7 +64,8 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: review PR `#29` for `database-schema-design` on the next run.
+- Primary lane: merge PR `#29` for `database-schema-design` after the clean
+  review pass in this run.
 - Secondary lane: after `database-schema-design` lands, refresh the packaging
   queue among large non-eval skills; `genkit` remains the leading candidate.
 - Do not start a `skill-autoresearch` mutation loop for the large non-eval
@@ -76,22 +78,22 @@ Source links:
 1. Refresh GitHub and validator state before touching lifecycle stage.
 2. Re-review only `.god-skills/database-schema-design/*` plus the survey lock
    files.
-3. Fix only duplicate work, missing improvements, or standardization gaps that
-   are still bounded to the active lane.
+3. If the review is clean, avoid new skill edits and only move the lifecycle
+   state forward.
 4. Re-run the target validator and repo-wide validator before advancing to
    merge.
 
 ## Run action
 
-- Smallest bounded action for this run: package `database-schema-design`,
-  validate it, and open PR `#29`
+- Smallest bounded action for this run: review PR `#29` for duplicate work,
+  missing improvements, and standardization gaps, then advance it to merge if
+  the lane stays clean
 
 ## Status
 
-- Current state: PR `#29` is open for the bounded
-  `database-schema-design` packaging slice on
+- Current state: the explicit PR-review pass for `database-schema-design` is
+  clean; PR `#29` is ready to merge from
   `chore/skill-loop-pr-open-20260415-r30`
-- Blocker: no hard blocker remains; the next scheduled run should perform the
-  explicit PR-review pass
-- Next owner: `nanoclaw_pd` on the next scheduled run
-- Stage: `PR-open`
+- Blocker: none
+- Next owner: `nanoclaw_pd` to complete the merge path in this run
+- Stage: `merge`

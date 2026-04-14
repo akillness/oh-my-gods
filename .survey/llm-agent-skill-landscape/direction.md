@@ -4,12 +4,13 @@
 
 - `origin/main` now includes PR `#28` for `authentication-setup`; that lane is
   closed as of `2026-04-14T17:11:22Z`.
-- This run opened a fresh bounded review lane on
-  `chore/skill-loop-pr-open-20260415-r30` and registered PR `#29`:
+- PR `#29` on `chore/skill-loop-pr-open-20260415-r30` stayed open and
+  merge-clean at the start of this run:
   https://github.com/akillness/oh-my-gods/pull/29
-- Repo-wide validator snapshot on this branch: `80/80` shipped skills still
-  pass with `0` hard errors, and repo-wide warning count drops from `76` to
-  `75`.
+- This run performed the explicit PR-review pass instead of adding more skill
+  churn.
+- Repo-wide validator snapshot on this branch remains `80/80` shipped skills
+  with `0` hard errors and `75` warnings.
 - Eval coverage rises from `24/80` to `25/80` shipped skills because
   `.god-skills/database-schema-design/evals/evals.json` now exists.
 - `database-schema-design` moved from a `695` line monolith with no support
@@ -87,9 +88,9 @@ This order is locked because:
 
 ## Current state
 
-- State: PR `#29` is open for the bounded `database-schema-design` packaging
-  slice on `chore/skill-loop-pr-open-20260415-r30`
-- Blocker: no hard blocker remains; the next scheduled run should perform the
-  explicit PR-review pass for duplicate work, missing improvements, or standardization gaps
-- Next owner: `nanoclaw_pd` on the next scheduled run
-- Stage: `PR-open`
+- State: the `database-schema-design` PR-review pass is clean and ready to move
+  from `PR-open` into `merge`
+- Blocker: none
+- Next owner: `nanoclaw_pd` in this run to merge PR `#29`, then reopen the
+  queue at `genkit`
+- Stage: `merge`
