@@ -45,6 +45,24 @@ Recommended modules:
 - `auth/routes.ts`
 - `auth/service.ts`
 
+## Python or FastAPI JWT recipe
+
+Use when the product is Python-first and token auth is still the right fit:
+
+1. hash passwords with `argon2` or `bcrypt` via a maintained library
+2. issue short-lived access tokens and persist revocable refresh-token state
+3. keep token verification and role checks in shared dependencies, not inline in every route
+4. centralize token issuance, rotation, and revocation in one service layer
+5. prefer framework-native session auth instead when the app is server-rendered and same-origin
+
+Recommended modules:
+
+- `auth/password.py`
+- `auth/tokens.py`
+- `auth/dependencies.py`
+- `auth/routes.py`
+- `auth/service.py`
+
 ## Session-based recipe
 
 Prefer this for same-origin or server-rendered applications:

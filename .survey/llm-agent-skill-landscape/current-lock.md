@@ -34,10 +34,10 @@ Source links:
 
 - PR `#27` for `backend-testing` merged into `main` on
   `2026-04-14T16:07:06Z`, so that lane is closed.
-- There were no open pull requests in the repo before this run started on
-  `2026-04-15`, so opening the next bounded lane did not duplicate an active
-  review path.
-- This run opened PR `#28` for `authentication-setup`:
+- PR `#28` for `authentication-setup` is still open on
+  `chore/skill-loop-pr-open-20260415-r29`, with merge state `CLEAN`, no review
+  comments, and no status-check blockers as of this review pass.
+- This review pass keeps the lane bounded, then prepares the branch for merge:
   https://github.com/akillness/oh-my-gods/pull/28
 
 ## Audit snapshot
@@ -51,6 +51,10 @@ Source links:
 - `authentication-setup` now includes the support references it was missing, so
   the entrypoint shrank from `667` lines to `213` lines while keeping framework
   recipes and security guidance bundled locally.
+- This review pass found one remaining support-file mismatch: the entrypoint
+  promised Node/Python recipe coverage while the packaged reference only
+  covered Node/session/OAuth. The branch now includes a bounded Python/FastAPI
+  JWT recipe so that the support-file contract matches the entrypoint.
 - No new assets or runtime scripts were needed for `authentication-setup` in
   this run; the skill changes were the entrypoint, `SKILL.toon`, references,
   and eval coverage.
@@ -59,7 +63,7 @@ Source links:
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `authentication-setup` | PR `#28` is open and reviewable on `chore/skill-loop-pr-open-20260415-r29` | No | No | Added on this branch because the old entrypoint was oversized and mixed framework/security detail into activation | Added on this branch | No | Review PR `#28` on the next run |
+| `authentication-setup` | PR `#28` has been re-reviewed and is merge-ready on `chore/skill-loop-pr-open-20260415-r29` | No | No | Added on this branch because the old entrypoint was oversized and mixed framework/security detail into activation | Added on this branch | No | Merge PR `#28`, then reopen the queue |
 | `database-schema-design` | Still a top candidate in the large non-eval backlog | No | No | Likely needed | Needed | No | Keep behind `authentication-setup` |
 | `genkit` | Remains large and unevaluated, but behind the current PR-open lane | No | No | Likely needed | Needed | No | Keep behind `authentication-setup` |
 | `survey` | Remains the research surface, not the packaging target | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
@@ -67,9 +71,10 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: review PR `#28` for `authentication-setup` on the next run.
-- Secondary lane: after `authentication-setup` resolves, refresh the packaging
-  queue among large non-eval skills; current leading candidates are
+- Primary lane: merge PR `#28` for `authentication-setup` now that the review
+  pass is clean after the bounded reference fix.
+- Secondary lane: after `authentication-setup` lands, refresh the packaging
+  queue among large non-eval skills; current leading candidates remain
   `database-schema-design` and `genkit`.
 - Do not start a `skill-autoresearch` mutation loop for the large non-eval
   backlog before the packaging-first queue lands compact entrypoints and evals.
@@ -83,21 +88,21 @@ Source links:
    `.god-skills/authentication-setup/`.
 3. Confirm PR `#28` stays bounded to `.god-skills/authentication-setup/*` plus
    the recurring survey lock files.
-4. Review for duplicate work, missed packaging surface, or standardization
-   regressions before moving to merge.
+4. Merge the lane once the review fix validates cleanly.
 
 ## Run action
 
-- Smallest bounded action for this run: open the `authentication-setup`
-  packaging lane with local references and evals, then register it as PR `#28`
+- Smallest bounded action for this run: close the remaining review mismatch
+  inside `authentication-setup`, then move PR `#28` to merge
 
 ## Status
 
-- Current state: PR `#28` is open and reviewable for the bounded
+- Current state: PR `#28` is reviewed clean and merge-ready for the bounded
   `authentication-setup` packaging slice on
   `chore/skill-loop-pr-open-20260415-r29`
 - Blocker: no hard blocker remains; browser/runtime validation is intentionally
   deferred because this slice repackages docs and evals rather than changing a
   live browser workflow
-- Next owner: `nanoclaw_pd` to run the next `PR-review` pass
-- Stage: `PR-open`
+- Next owner: `nanoclaw_pd` to merge PR `#28`, then open the next packaging
+  lane
+- Stage: `merge`

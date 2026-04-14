@@ -14,6 +14,9 @@
   `.god-skills/authentication-setup/evals/evals.json` now exists.
 - `authentication-setup` moved from `667` lines with no support files to a
   `213` line standards-clean entrypoint backed by local references and evals.
+- The PR-review pass found one bounded follow-up gap in the support surface and
+  fixed it by adding the missing Python/FastAPI recipe to the local auth
+  reference instead of reopening the main entrypoint.
 
 ## Survey refresh
 
@@ -33,6 +36,9 @@ prompt-mutation work for this repo:
 5. Durable execution and review gates keep pushing workflows toward
    `survey -> improvement -> PR-open -> PR-review -> merge` rather than one
    long unreviewed editing pass.
+6. A2A agent cards now make room for skill-level examples and security
+   requirements, which further favors compact activation surfaces with explicit
+   support files over oversized all-in-one prompts.
 
 ## Locked direction
 
@@ -62,7 +68,7 @@ This order is locked because:
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `authentication-setup` | High | No | No | No | Added on this branch | Added on this branch | Review PR `#28`, then reconsider mutations only if repeated measured failures appear |
+| `authentication-setup` | High | No | No | No | Added on this branch | Added on this branch | Merge PR `#28`, then reconsider mutations only if repeated measured failures appear |
 | `database-schema-design` | High | No | No | No | Likely yes | Yes | Keep behind `authentication-setup` |
 | `genkit` | High | No | No | No | Likely yes | Yes | Keep behind `authentication-setup` |
 | `survey` | Medium | Not yet | No | No | Maybe later | Already present | Keep as the landscape capture surface, not the mutation target |
@@ -74,7 +80,8 @@ This order is locked because:
 - Assets: no new assets needed
 - Scripts: no new runtime scripts needed
 - References: added in this run because the old entrypoint mixed framework
-  recipes and security detail directly into the activation surface
+  recipes and security detail directly into the activation surface; the review
+  pass also added the missing Python/FastAPI recipe promised by the entrypoint
 - Evals: added in this run because the skill had no packaged evaluation
   baseline
 - Sections: the main skill is now compact and standards-clean, and
@@ -82,8 +89,8 @@ This order is locked because:
 
 ## Current state
 
-- State: PR `#28` is open for the bounded `authentication-setup` packaging
-  slice on `chore/skill-loop-pr-open-20260415-r29`
+- State: PR `#28` is merge-ready for the bounded `authentication-setup`
+  packaging slice on `chore/skill-loop-pr-open-20260415-r29`
 - Blocker: no hard blocker remains for the packaging slice itself
-- Next owner: `nanoclaw_pd` to re-review PR `#28` on the next scheduled run
-- Stage: `PR-open`
+- Next owner: `nanoclaw_pd` to merge PR `#28`, then open the next queued skill
+- Stage: `merge`
