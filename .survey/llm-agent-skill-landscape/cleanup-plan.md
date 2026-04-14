@@ -1,24 +1,24 @@
-# Cleanup Plan: run 22 review (`agent-browser`)
+# Cleanup Plan: run 23 packaging (`agent-manager`)
 
 ## Goal
 
-Review the bounded `agent-browser` PR slice for duplicate work or missed standards gaps, apply only the smallest lifecycle fix if needed, and move the branch onto the merge path.
+Package the bounded `agent-manager` slice so the next scheduled run can review a small PR instead of rediscovering the same packaging gap from scratch.
 
 ## Behavior lock
 
-- Do not change the core `agent-browser` contract around isolated browser automation, ref-based interaction, or explicit verification unless review uncovers a real in-scope defect.
-- Preserve the distinction between `agent-browser` and `playwriter`: disposable or CI-friendly browser state vs the user's running authenticated Chrome session.
-- Keep the slice limited to `.god-skills/agent-browser/*` plus the recurring survey lock files; do not widen into `agent-manager`, `agentation`, or `ohmg`.
-- Do not start a `skill-autoresearch` mutation loop for `agent-browser`; this review pass only validates the packaging slice and advances its lifecycle state.
+- Do not change the core `agent-manager` contract around lightweight local orchestration with `tmux` and Python.
+- Keep the slice limited to `.god-skills/agent-manager/*` plus the recurring survey lock files; do not widen into `agentation` or reopen `ohmg`.
+- Reuse the existing `scripts/` and `references/` footprint; this run should add reviewability and eval coverage, not new runtime tooling.
+- Do not start a `skill-autoresearch` mutation loop for `agent-manager`; the goal is to make that decision measurable on a later run.
 
 ## Planned edits
 
-1. Reuse the saved survey evidence and re-run the standards validation on the current `agent-browser` branch.
-2. Review the diff against `main` to confirm the slice still stays bounded to `agent-browser` plus loop-state files.
-3. If the review remains clean, update the lock files from `PR-open` to `merge` and ready the existing PR for merge instead of opening duplicate PR work.
+1. Refresh the survey evidence after the `agent-browser` merge and confirm `agent-manager` is now the smallest high-value packaging gap.
+2. Add the missing reviewability sections to `.god-skills/agent-manager/SKILL.md` and create `.god-skills/agent-manager/evals/evals.json`.
+3. Revalidate the repo, confirm the diff is bounded to `agent-manager` plus the survey lock files, then open the PR path.
 
 ## Verification
 
-- Run the validator on `.god-skills/agent-browser/`.
-- Recompute the repo-wide standards counts after the review pass.
-- Review the diff and PR state to confirm the slice stays bounded and no duplicate work is being reopened.
+- Run the repo validator and confirm `.god-skills/agent-manager/evals/evals.json` is valid JSON.
+- Review the diff against `main` to confirm the slice stays bounded to `agent-manager` plus the survey lock files.
+- Open the PR and record the resulting PR-open state for the next scheduled review run.
