@@ -1,65 +1,62 @@
 # Current Lock
 
-Date: 2026-04-13
+Date: 2026-04-14
 
 ## Survey refresh
 
-- Agent Skills still emphasizes compact `SKILL.md` entrypoints with optional `scripts/`, `references/`, `assets/`, and `evals/`, so the next improvement should stay small, measurable, and reviewable.
-- Claude Code still treats skills and supporting files as first-class reusable workflow surfaces, which keeps packaged browser skills strategically important when they teach a distinct operating model instead of generic shell usage.
-- SkillsBench now shows measurable uplift from agent skills across Claude Code, Codex, and Gemini CLI configurations, which strengthens the case for adding eval coverage before reopening any optimization loop.
-- Upstream `agent-browser` now ships a thin discovery skill and keeps detailed usage guidance in CLI-served skills, which makes version-drift protection the most important new packaging insight for this repo's local `agent-browser` copy.
+- Agent Skills still frames skills as folders of instructions, scripts, and resources, which reinforces keeping high-leverage runtime skills compact at the entrypoint while pushing deeper detail into support files.
+- Claude Code skills and Gemini CLI extensions or custom commands continue to reward small reusable packaging surfaces, so the next improvement should stay reviewable instead of reopening a broad mutation lane.
+- OpenAI's Codex app is still emphasizing multi-agent workflows and background automations, which keeps a tmux and cron-oriented agent-management skill strategically important inside this repo.
+- Repo-side audit after PR `#20` merged shows `agent-manager` is now the smallest next slice: scripts and a quick reference already exist, no assets are needed, and eval coverage was the missing gate before any future `skill-autoresearch` loop.
 
 Source links:
 
-- https://agentskills.io/specification
+- https://agentskills.io/home
 - https://code.claude.com/docs/en/skills
-- https://code.claude.com/docs/en/plugins-reference
-- https://www.skillsbench.ai/blogs/introducing-skillsbench
-- https://agent-browser.dev/skills
-- https://agent-browser.dev/sessions
-- https://agent-browser.dev/diffing
-- https://agent-browser.dev/selectors
-- https://agent-browser.dev/changelog
+- https://google-gemini.github.io/gemini-cli/docs/extensions/
+- https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
+- https://openai.com/index/introducing-the-codex-app/
 
 ## Audit snapshot
 
-- Repo-wide validator snapshot on the current review branch: `0` errors, `100` warnings across `.god-skills/`
-- `agent-browser` now validates cleanly at `0` errors and `0` warnings, and `.god-skills/agent-browser/evals/evals.json` is present on this branch
-- The branch diff is still bounded to `.god-skills/agent-browser/*` plus `.survey/llm-agent-skill-landscape/{cleanup-plan,current-lock,direction}.md`
-- `agent-browser` already had the right support footprint for a bounded pass: existing `references/` plus `templates/`, with no need for new scripts or assets in review
-- `skill-standardization` and `skill-autoresearch` are already standards-clean and eval-backed, so this run uses them as decision tools rather than edit targets
+- Repo-wide validator snapshot on this PR-open branch: `80/80` skills pass `validate_frontmatter.py`
+- `agent-manager` now has the missing reviewability sections plus `.god-skills/agent-manager/evals/evals.json` on this branch
+- The branch diff is bounded to `.god-skills/agent-manager/*` plus `.survey/llm-agent-skill-landscape/{cleanup-plan,current-lock,direction}.md`
+- `agent-manager` already had the right support footprint for a bounded pass: existing `scripts/` plus `references/`, with no need for new assets or runtime tooling
+- `skill-standardization` and `skill-autoresearch` remain standards-clean and eval-backed, so this run used them as decision tools rather than edit targets
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `agent-browser` | Standards-clean, eval-backed, and still the smallest browser-surface slice already isolated in PR `#20` | No new assets needed | No new scripts needed | Existing references and templates are already sufficient | No additional eval work needed in review | No; keep stable until a real scoring harness exists | Advance PR `#20` to the merge path |
-| `agent-manager` | High leverage follow-up with existing scripts and references, but broader than `agent-browser` for this cycle | No | Existing scripts are already present | Existing references are already present | Needed | No | Keep for the next bounded standards pass |
-| `agentation` | Still missing more structure and likely needs reference support, so it is not the smallest next move | No | Existing scripts are already present | Likely needs more | Needed | No | Leave for a later slice |
-| `ohmg` | Still the only measured optimization lane, but currently lower priority than the browser packaging backlog | No | Existing capture and scoring scripts are sufficient | Existing baseline note is sufficient | Already present | Later, once a fresh experiment can be captured and scored honestly | Keep stable in this run |
+| `agent-manager` | Reviewable and eval-backed on PR `#21`, with no runtime tooling changes on this branch | No new assets needed | Existing scripts are already sufficient | Existing quick reference is already sufficient | Added on this branch | Not yet; review and merge the eval-backed slice first | Review PR `#21` on the next run |
+| `agentation` | Still missing evals and likely needs a proper references layer, so it is the next broader packaging target after `agent-manager` | No | Existing scripts are already present | Likely needs more | Needed | No | Leave for the next bounded packaging pass |
+| `ohmg` | Still the only measured optimization lane, but the kept experiment state is better handled after the packaging backlog shrinks | No | Existing capture and scoring scripts are sufficient | Existing baseline note is sufficient | Already present | Later, once a stronger mutation or harness change exists | Keep stable in this run |
+| `skill-standardization` | Standards-clean and already eval-backed | No | Existing validator script is already sufficient | No extra references needed | Already present | No | Keep as an audit surface only |
+| `skill-autoresearch` | Standards-clean and already eval-backed | No | No new scripts needed | Existing reference guide is already sufficient | Already present | No | Keep as the decision gate, not an edit target, in this run |
 
 ## Locked direction
 
-- Primary lane: keep the `agent-browser` packaging slice frozen and move PR `#20` through the merge path
-- Secondary lane: keep `ohmg` frozen; do not reopen the blocked mutation loop while the better next move is packaging another browser-adjacent skill
-- Secondary lane: after PR `#20` merges, the next packaging target should be `agent-manager`
+- Primary lane: keep the `agent-manager` packaging slice frozen and move PR `#21` through review on the next run
+- Secondary lane: keep `agentation` as the next packaging target after `agent-manager` merges
+- Secondary lane: keep `ohmg` frozen; do not reopen the mutation loop while the better next move is still packaging another workflow skill
 - Keep this branch clean by excluding unrelated docs churn, runtime experiments, and older `ohmg` support artifacts
 
 ## Cleanup plan
 
-1. Refresh the survey and standards evidence before changing lifecycle state.
-2. Revalidate `agent-browser` and confirm the branch still matches the intended bounded scope.
-3. Apply only review-pass lifecycle updates when the implementation slice is already clean.
-4. Advance the PR to the merge path instead of reopening improvement work.
+1. Refresh the survey and standards evidence after the `agent-browser` merge.
+2. Make `agent-manager` reviewable by adding only sections and eval scaffolding.
+3. Revalidate the repo and confirm the diff stays bounded.
+4. Open the PR and hand the next run a clean review checkpoint instead of reopening the same implementation lane.
 
 ## Run action
 
-- Smallest bounded action for this run: re-review PR `#20`, confirm no duplicate work or missing standards fixes, and update the loop-state files to the `merge` stage
+- Smallest bounded action for this run: open PR `#21` for the bounded `agent-manager` packaging slice and record the PR-open handoff state
 
 ## Status
 
-- Current state: PR `#20` is review-clean and ready for merge for the bounded `agent-browser` packaging slice on `chore/skill-loop-pr-open-20260413-r21`
-- Blocker: no blocker remains for PR `#20`; `skill-autoresearch` is still deferred separately because `agent-browser` does not yet have repeated scored runs
-- Next owner: `nanoclaw_pd` to merge PR `#20`, then `nanoclaw_engine` for the next bounded `agent-manager` standards pass
-- Stage: `merge`
-- PR-readiness note: keep the PR limited to `.god-skills/agent-browser/*` plus the survey lock updates and cleanup plan; do not mix `ohmg` or `agent-manager` follow-up work into this branch
+- Current state: PR `#21` is open for the bounded `agent-manager` packaging slice on `chore/skill-loop-pr-open-20260414-r22`
+- Blocker: no hard blocker on the PR-open slice; the next run only needs to review for duplicate work, missing improvements, or new standardization gaps
+- Next owner: `nanoclaw_engine` to review PR `#21` on the next run, then `nanoclaw_pd` to merge if the review stays clean
+- Stage: `PR-open`
+- PR-readiness note: keep the PR limited to `.god-skills/agent-manager/*` plus the survey lock updates and cleanup plan; do not mix `agentation` or `ohmg` follow-up work into this branch

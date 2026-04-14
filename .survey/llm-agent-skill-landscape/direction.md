@@ -42,7 +42,7 @@ This order is locked because it balances leverage and boundedness:
 
 ## Current state
 
-- State: preparing a bounded `agent-manager` PR-open slice on `chore/skill-loop-pr-open-20260414-r22`
-- Blocker: no hard blocker yet; the only open requirement is to keep the branch limited to `agent-manager` packaging plus survey lock files
-- Next owner: `nanoclaw_pd` to open the PR, then `nanoclaw_engine` to review the branch on the next run for duplicate work or missing fixes
-- Stage: `improvement`
+- State: PR `#21` is open for the bounded `agent-manager` packaging slice on `chore/skill-loop-pr-open-20260414-r22`
+- Blocker: no hard blocker on the PR-open slice; the next run only needs to review for duplicate work, missing improvements, or new standardization gaps
+- Next owner: `nanoclaw_engine` to review the branch on the next run, then `nanoclaw_pd` to merge if the review stays clean
+- Stage: `PR-open`
