@@ -1,0 +1,46 @@
+{
+  "skill_name": "agentation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Watch agentation annotations for this session and fix the blocking issues first.",
+      "expected_output": "Chooses MCP watch mode, uses agentation_watch_annotations, acknowledges each annotation before editing, and resolves or dismisses each item with a summary.",
+      "assertions": [
+        "Uses agentation_watch_annotations as the primary entry point when MCP is available",
+        "Mentions agentation_acknowledge before making code changes",
+        "Mentions agentation_resolve or agentation_dismiss to close the annotation lifecycle",
+        "Processes blocking annotations first or explicitly prioritizes severity"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The user pasted an agentation payload for `body > main > section.hero > button.cta` and wants the CTA copy changed.",
+      "expected_output": "Handles the copied payload without waiting on MCP, searches by elementPath or reactComponents, and summarizes the UI fix.",
+      "assertions": [
+        "Treats the pasted annotation as copy-paste mode",
+        "Uses elementPath or reactComponents as the source-code search target",
+        "Does not require agentation_acknowledge or agentation_resolve in copy-paste mode"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "omg is still in plan phase but I want to run agentation now.",
+      "expected_output": "Refuses to run agentation during plan, points back to plannotator or the planning surface, and preserves agentation for verify or verify_ui.",
+      "assertions": [
+        "States that agentation must not run during plan phase",
+        "Routes the user toward plannotator or the planning surface",
+        "Keeps agentation scoped to verify or verify_ui"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Set up agentation from scratch for a local React app and confirm the watch loop is ready.",
+      "expected_output": "References the setup guide or helper scripts, includes health checks, and explains the development-only toolbar gate before using the watch loop.",
+      "assertions": [
+        "Mentions scripts/setup-agentation-mcp.sh or references/setup-guide.md",
+        "Includes the health endpoint check before using watch mode",
+        "Mentions mounting the toolbar only in development"
+      ]
+    }
+  ]
+}
