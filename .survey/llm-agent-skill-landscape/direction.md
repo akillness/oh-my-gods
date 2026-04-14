@@ -12,7 +12,7 @@
   plus the reliability note already referenced by the entrypoint and operations
   guide.
 - `plannotator` remains a real backlog item, but it is still a broader cleanup
-  than the current `omg` PR-open slice.
+  than the current `omg` merge-ready slice.
 
 ## Locked direction
 
@@ -39,7 +39,7 @@ This order is locked because it balances leverage and boundedness after the
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `omg` | High | Not yet | No | Existing scripts are already enough | Added on this branch to close the broken-link gap | Added on this branch | Review PR `#24`, merge the packaging slice, then decide on mutation only if repeated measured failures appear |
+| `omg` | High | Not yet | No | Existing scripts are already enough | Added on this branch to close the broken-link gap | Added on this branch | Merge PR `#24`, then decide on mutation only if repeated measured failures appear |
 | `plannotator` | Medium | No | No | Existing scripts are already enough | No | Yes | Re-rank after `omg` |
 | `ralph` | Medium | No | No | Existing scripts are already enough | Existing references are already enough | Yes | Keep behind `plannotator` unless the survey lock changes materially |
 | `ohmg` | High | Later | No | Existing capture and scoring scripts are already enough | Existing baseline note is enough | Already present | Keep frozen until a stronger mutation target or harness change exists |
@@ -51,21 +51,21 @@ This order is locked because it balances leverage and boundedness after the
 - Target skill: `omg`
 - Assets: no new assets needed
 - Scripts: no new runtime scripts needed
-- References: add the missing `PLANNOTATOR_RELIABILITY_CONSENSUS_2026-03-06.md`
-  note already referenced by the skill
-- Evals: add `evals/evals.json`
+- References: already added on this branch to close the broken-link gap
+- Evals: already added on this branch
 - Sections: no SKILL.md section rewrite needed because the entrypoint is already
   standards-clean and compact
-- Skill-autoresearch decision: still `no` for this run because the new eval
-  baseline needs review and merge before a scored mutation loop is justified
+- Post-open review result: clean; no follow-up patch is justified before merge
 
 ## Current state
 
-- State: PR `#24` is open for the bounded `omg` packaging slice on
+- State: PR `#24` has passed the post-open review gate and is ready to merge
+  for the bounded `omg` packaging slice on
   `chore/skill-loop-pr-open-20260414-r25`
-- Blocker: no hard blocker remains; the lane is waiting on the next scheduled
-  PR review to confirm no duplicate work, missing artifacts, or new
-  standardization gaps
-- Next owner: `nanoclaw_pd` to review PR `#24` next run and hand off a bounded
-  follow-up only if the review finds a real gap
-- Stage: `pr-open`
+- Blocker: no hard blocker remains for the packaging slice itself; the only
+  deferred work is `skill-autoresearch`, which still waits on a merged baseline
+  plus repeated measured failures
+- Next owner: `nanoclaw_pd` to merge PR `#24` in this run, then
+  `nanoclaw_engine` for the next bounded `plannotator` packaging pass after
+  merge
+- Stage: `merge`
