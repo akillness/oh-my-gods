@@ -1,57 +1,63 @@
-# Vibe Kanban 환경 변수 레퍼런스
+# Vibe Kanban environment variables
 
-## 서버 설정
+Last refreshed: 2026-04-14 from the upstream README plus the local helper scripts.
 
-| 변수 | 기본값 | 설명 |
-|------|--------|------|
-| `PORT` | `3000` | 웹 서버 포트 |
-| `VIBE_KANBAN_PORT` | `3000` | 웹 서버 포트 (별칭) |
-| `VIBE_KANBAN_REMOTE` | `false` | 원격 연결 허용 (`true`/`false`) |
-| `VIBE_KANBAN_DATA_DIR` | `.vibe-kanban` | 데이터 저장 디렉토리 |
+## Runtime variables
 
-## MCP 설정
+| Variable | Default | Notes |
+|---|---|---|
+| `PORT` | Auto-assign in production; local skill examples use `3000` or `3001` | Primary server port |
+| `BACKEND_PORT` | `0` in dev | Overrides `PORT + 1` for the backend in dev mode |
+| `FRONTEND_PORT` | `3000` in dev | Overrides the frontend dev port |
+| `HOST` | `127.0.0.1` | Backend bind host |
+| `MCP_HOST` | Value of `HOST` | Use `127.0.0.1` when `HOST=0.0.0.0` on Windows |
+| `MCP_PORT` | Value of `BACKEND_PORT` | MCP server connection port |
+| `DISABLE_WORKTREE_CLEANUP` | Not set | Disables orphan and expired workspace cleanup |
+| `VK_ALLOWED_ORIGINS` | Not set | Required behind a reverse proxy or custom domain |
+| `VK_SHARED_API_BASE` | Not set | Base URL for remote or shared API access |
+| `VK_SHARED_RELAY_API_BASE` | Not set | Base URL for relay or tunnel mode |
+| `VK_TUNNEL` | Not set | Enables relay tunnel mode when configured |
 
-| 변수 | 기본값 | 설명 |
-|------|--------|------|
-| `MCP_HOST` | `127.0.0.1` | MCP 서버 바인딩 주소 |
-| `MCP_PORT` | `3001` | MCP 서버 포트 |
+## Common agent auth variables
 
-## CORS 설정
+The upstream app manages agent configuration through the UI, but these auth
+variables still matter in many local setups:
 
-| 변수 | 기본값 | 설명 |
-|------|--------|------|
-| `VK_ALLOWED_ORIGINS` | `http://localhost:*` | 허용된 CORS 오리진 (쉼표 구분) |
+| Variable | Typical use |
+|---|---|
+| `ANTHROPIC_API_KEY` | Claude Code lanes |
+| `OPENAI_API_KEY` | Codex or GPT lanes |
+| `GOOGLE_API_KEY` | Gemini lanes |
+| `GITHUB_TOKEN` | PR or GitHub-linked operations when required by the runtime |
 
-## 에이전트 설정
+## Local helper script variables
 
-| 변수 | 기본값 | 설명 |
-|------|--------|------|
-| `ANTHROPIC_API_KEY` | - | Claude 에이전트용 API 키 |
-| `OPENAI_API_KEY` | - | Codex/GPT 에이전트용 API 키 |
-| `GOOGLE_API_KEY` | - | Gemini 에이전트용 API 키 |
+The bundled helper scripts also read:
 
-## Git 설정
+| Variable | Used by | Notes |
+|---|---|---|
+| `VIBE_KANBAN_PORT` | `scripts/start.sh`, `scripts/health-check.sh` | Local wrapper convenience alias |
+| `VIBE_KANBAN_REMOTE` | `scripts/start.sh` | Local wrapper switch for remote mode |
 
-| 변수 | 기본값 | 설명 |
-|------|--------|------|
-| `GITHUB_TOKEN` | - | GitHub PR 자동 생성용 토큰 |
-| `GIT_WORKTREE_BASE` | `.worktrees` | Worktree 저장 디렉토리 |
-
-## 예시: .env 파일
-
-```bash
-PORT=3000
-VIBE_KANBAN_REMOTE=false
-VK_ALLOWED_ORIGINS=http://localhost:3000,https://vk.example.com
-ANTHROPIC_API_KEY=sk-ant-...
-GITHUB_TOKEN=ghp_...
-```
-
-## 예시: Docker 환경
+## Example local launch
 
 ```bash
-docker run -p 3000:3000 \
-  -e VIBE_KANBAN_REMOTE=true \
-  -e VK_ALLOWED_ORIGINS=https://vk.example.com \
-  vibekanban/vibe-kanban
+PORT=3001 \
+VK_ALLOWED_ORIGINS=http://localhost:3001 \
+npx vibe-kanban --port 3001
 ```
+
+## Example remote deployment
+
+```bash
+HOST=0.0.0.0 \
+PORT=3000 \
+VK_ALLOWED_ORIGINS=https://vk.example.com \
+VK_SHARED_API_BASE=https://vk.example.com \
+npx vibe-kanban
+```
+
+## Notes
+
+- Prefer the upstream docs when the exact runtime defaults matter.
+- Keep local skill answers focused on the variables that change the user’s next action.

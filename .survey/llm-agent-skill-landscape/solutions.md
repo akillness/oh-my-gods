@@ -18,7 +18,7 @@
 
 ## What People Actually Use
 
-In practice, teams mix a small set of reusable skill packages with platform-native orchestration controls. They still rely on manual review gates, explicit permissions, and targeted supporting files rather than one giant prompt for everything. That makes monolithic skills without evals the main quality bottleneck in this repo.
+In practice, teams mix a small set of reusable skill packages with platform-native orchestration controls. They still rely on manual review gates, explicit permissions, and targeted supporting files rather than one giant prompt for everything. That makes compact entrypoints plus eval-backed workflow skills the main quality bottleneck in this repo.
 
 ## Frequency Ranking
 
@@ -33,9 +33,10 @@ This ranking is an inference from current official docs coverage and product emp
 ## Key Gaps
 
 - Repo-wide eval coverage is extremely low relative to the importance of workflow skills.
+- Workflow skills that repeat operational detail in the entrypoint drift faster than skills that keep the main file compact and push detail into references.
 - Realistic benchmark evidence shows skill benefits degrade sharply when retrieval quality and skill quality are weak, so refinement loops need explicit evals instead of intuition-only edits.
-- Central orchestration skills (`omg`, `omx`) are not yet packaged in the same evaluation-ready shape that current ecosystems reward.
-- The next packaging gap is no longer `survey`; it is the remaining pool of workflow-critical skills that still lack eval scaffolds or compact reviewability, with `omc` now the clearest bounded follow-up lane after `omx`, `ohmg`, and `omg` were cleaned.
+- After the `agentation` merge, `vibe-kanban` became the cleanest bounded packaging gap because it had scripts plus references but no evals and a standards-noisy entrypoint.
+- After `vibe-kanban`, `omg` is now the next highest-leverage packaging candidate because it remains central to the repo and still lacks eval coverage.
 
 ## Contradictions
 
@@ -44,4 +45,4 @@ This ranking is an inference from current official docs coverage and product emp
 
 ## Key Insight
 
-The highest-value improvement is not adding another broad skill first. It is upgrading workflow-critical existing skills into evaluation-ready, standards-compliant entrypoints so future iterations can optimize them one bounded mutation at a time. Recent benchmark work reinforces that query-specific refinement helps only when the initial skill is already relevant and measurable.
+The highest-value improvement is not adding another broad skill first. It is upgrading workflow-critical existing skills into evaluation-ready, standards-compliant entrypoints so future iterations can optimize them one bounded mutation at a time. Recent benchmark work reinforces that query-specific refinement helps only when the initial skill is already relevant and measurable, which is why the current lane is `vibe-kanban` packaging rather than a fresh `skill-autoresearch` experiment.
