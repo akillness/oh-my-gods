@@ -65,7 +65,9 @@ You cannot design what you haven't understood. The first diamond is a prerequisi
 
 ---
 
-## Commands
+## Instructions
+
+### Commands
 
 | Command | Triggers | What It Does |
 |---------|----------|--------------|
@@ -421,36 +423,49 @@ Run from the skill directory:
 
 ---
 
-## Platform Support Matrix
+## Examples
 
-| Platform | Support | Mechanism | ooo Commands | Auto Loop |
-|----------|---------|-----------|-------------|-----------|
-| **Claude Code** | Full | Skills system + hooks | All `ooo` commands | Via hooks |
-| **Codex CLI** | Adapted | bash loop + `/prompts:ralph-ooo` | Via conversation | Manual state file |
-| **Gemini CLI** | Native | AfterAgent hook | All `ooo` commands | Via hook |
-| **OpenCode** | Native | Skills system | All `ooo` commands | Via loop |
-
----
-
-## Installation
+### Example 1: Turn a vague idea into a bounded spec
 
 ```bash
-# Claude Code (via oh-my-skills)
-npx skills add https://github.com/akillness/oh-my-skills --skill ralph-ooo
-
-# Codex CLI setup
-bash .agent-skills/ralph-ooo/scripts/setup-codex-hook.sh
-
-# Gemini CLI setup
-bash .agent-skills/ralph-ooo/scripts/setup-gemini-hook.sh
-
-# Ouroboros native plugin
-claude plugin marketplace add Q00/ouroboros
-claude plugin install ouroboros@ouroboros
-ooo setup
+ooo interview "I want to build a task management CLI"
+ooo seed
+ooo run
 ```
 
----
+Use this path when the request is still ambiguous and the task should be
+crystallized into an immutable seed before implementation starts.
+
+### Example 2: Run the persistent Ralph loop
+
+```bash
+ooo ralph "fix all failing tests" --max-iterations=10
+ooo evaluate
+```
+
+Use this path when the user wants the agent to keep iterating until verification
+passes instead of stopping after the first attempt.
+
+### Example 3: Break out of a stuck iteration
+
+```bash
+ooo unstuck researcher
+ooo unstuck simplifier
+```
+
+Use `researcher` when evidence is missing and `simplifier` when the current
+scope is too large to converge cleanly.
+
+## Best practices
+
+- Start with `ooo interview` or `ooo seed` before `ooo run` when requirements
+  are vague.
+- Treat the seed as immutable once created; measure drift against it instead of
+  silently rewriting the goal mid-run.
+- Use `ooo unstuck` after repeated failures rather than repeating the same loop
+  without new evidence.
+- Keep setup details in `references/` and scripts in `scripts/`; keep the
+  entrypoint focused on activation, command selection, and operator guidance.
 
 ## References
 

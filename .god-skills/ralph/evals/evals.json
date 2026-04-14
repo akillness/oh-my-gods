@@ -1,0 +1,45 @@
+{
+  "skill_name": "ralph",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use ralph to interview me before any code is written so we can turn a vague app idea into a concrete spec.",
+      "expected_output": "A response that routes the user into the Socratic interview path, explains the ambiguity gate, and frames the seed as the prerequisite for implementation.",
+      "assertions": [
+        "Response mentions `ooo interview` as the first command or first step",
+        "Response mentions an ambiguity threshold such as `Ambiguity ≤ 0.2`",
+        "Response says the seed or immutable specification should be created before implementation"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I want Ralph to keep fixing this repo until the tests pass and verification is complete. What should it do?",
+      "expected_output": "A response that treats `ooo ralph` as the persistent loop surface, explains that verification evidence controls continuation, and mentions iteration or state tracking instead of a one-shot answer.",
+      "assertions": [
+        "Response mentions `ooo ralph` as the persistent loop command",
+        "Response mentions verification steps such as tests, lint, typecheck, or acceptance criteria",
+        "Response mentions iterations, checkpoints, or `.omc/state/ralph-ooo-state.json`"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Ralph has failed three times in a row on the same problem. Which unstuck path should it use?",
+      "expected_output": "A response that uses the `ooo unstuck` surface, picks a suitable persona based on the failure mode, and explains the Nine Minds as targeted interventions rather than generic brainstorming.",
+      "assertions": [
+        "Response mentions `ooo unstuck`",
+        "Response names at least one Ralph persona such as `researcher`, `simplifier`, `contrarian`, `hacker`, or `architect`",
+        "Response connects the persona choice to a concrete failure pattern such as repeated failures, missing evidence, or excessive scope"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Set up ralph for Codex CLI on this machine and tell me how to start using it in a session.",
+      "expected_output": "A response that uses the documented Codex setup path, points to the Codex config and prompt surfaces, and shows how to start the Ralph workflow from a Codex session.",
+      "assertions": [
+        "Response mentions `bash .agent-skills/ralph-ooo/scripts/setup-codex-hook.sh` or `bash scripts/setup-codex-hook.sh`",
+        "Response mentions `~/.codex/config.toml`, `~/.codex/prompts/ralph-ooo.md`, or `/prompts:ralph-ooo`",
+        "Response stays focused on Codex CLI setup instead of switching to Claude Code or Gemini-only instructions"
+      ]
+    }
+  ]
+}
