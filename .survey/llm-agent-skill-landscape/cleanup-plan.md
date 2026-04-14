@@ -1,24 +1,23 @@
-# Cleanup Plan: run 23 packaging (`agent-manager`)
+# Cleanup Plan: run 24 review (`agent-manager`)
 
 ## Goal
 
-Package the bounded `agent-manager` slice so the next scheduled run can review a small PR instead of rediscovering the same packaging gap from scratch.
+Review the bounded `agent-manager` PR slice for duplicate work or missed standards gaps, apply only the smallest loop-state update if needed, and move the branch onto the merge path.
 
 ## Behavior lock
 
-- Do not change the core `agent-manager` contract around lightweight local orchestration with `tmux` and Python.
-- Keep the slice limited to `.god-skills/agent-manager/*` plus the recurring survey lock files; do not widen into `agentation` or reopen `ohmg`.
-- Reuse the existing `scripts/` and `references/` footprint; this run should add reviewability and eval coverage, not new runtime tooling.
-- Do not start a `skill-autoresearch` mutation loop for `agent-manager`; the goal is to make that decision measurable on a later run.
+- Do not change the core `agent-manager` contract around lightweight local orchestration with `tmux` and Python unless review uncovers a real in-scope defect.
+- Keep the slice limited to `.god-skills/agent-manager/*` plus the recurring survey lock files; do not widen into `agentation`, `vibe-kanban`, or reopen `ohmg`.
+- Do not start a `skill-autoresearch` mutation loop for `agent-manager`; this review pass is only deciding whether the current packaging slice is clean enough to merge.
 
 ## Planned edits
 
-1. Refresh the survey evidence after the `agent-browser` merge and confirm `agent-manager` is now the smallest high-value packaging gap.
-2. Add the missing reviewability sections to `.god-skills/agent-manager/SKILL.md` and create `.god-skills/agent-manager/evals/evals.json`.
-3. Revalidate the repo, confirm the diff is bounded to `agent-manager` plus the survey lock files, then open the PR path.
+1. Reuse the saved survey evidence and re-run the standards validation on the current `agent-manager` branch.
+2. Review the diff against `main` and confirm the slice stays bounded to `agent-manager` plus the loop-state files.
+3. If the review remains clean, update the lock files from `PR-open` to `merge` and merge the existing PR instead of reopening implementation work.
 
 ## Verification
 
-- Run the repo validator and confirm `.god-skills/agent-manager/evals/evals.json` is valid JSON.
+- Run the repo validator and the `skill-standardization` validator on `.god-skills/agent-manager/`.
 - Review the diff against `main` to confirm the slice stays bounded to `agent-manager` plus the survey lock files.
-- Open the PR and record the resulting PR-open state for the next scheduled review run.
+- Confirm PR `#21` is still the only open lane for this slice before merging it.
