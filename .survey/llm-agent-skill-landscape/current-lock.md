@@ -59,6 +59,8 @@ Source links:
 - This branch shrinks `state-management` to a compact entrypoint, adds the
   missing support files, and keeps scripts and assets intentionally out of
   scope.
+- PR review on this branch found no duplicate work, no missing support-file
+  category, and no new standardization gap inside the state-management lane.
 - This branch now passes target validation at `0` errors and `0` warnings for
   `state-management`.
 - This branch passes repo-wide validation with `0` hard errors and `64`
@@ -74,8 +76,8 @@ Source links:
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
 | `deployment-automation` | Closed after PR `#33` merge | No | No | Merged | Merged | No | Keep closed unless later defects reopen it |
-| `state-management` | Active PR-open lane on `r35` | No | No in this pass | Added | Added | Not yet | Review PR `#34` and only then decide on merge or fixes |
-| `codebase-search` | Queued behind the active state-management PR | No | Not yet | Likely needed | Needed | Not yet | Re-open as the next bounded packaging lane after `#34` review resolves |
+| `state-management` | Review-clean merge lane on `r35` | No | No in this pass | Added | Added | Not yet | Merge PR `#34` and close the lane |
+| `codebase-search` | Queued behind the merge-ready state-management PR | No | Not yet | Likely needed | Needed | Not yet | Re-open as the next bounded packaging lane after `#34` lands |
 | `ui-component-patterns` | Queued behind `codebase-search` | No | Not yet | Likely needed | Needed | Not yet | Keep queued unless the survey lock changes |
 | `survey` | Research surface only | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
@@ -83,20 +85,21 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: review PR `#34` for `state-management` now that the packaging
-  pass is clean and registered.
-- Secondary lane: reopen the queue at `codebase-search` if the state-management
-  PR merges cleanly.
+- Primary lane: merge PR `#34` for `state-management` now that the review pass
+  is clean.
+- Secondary lane: reopen the queue at `codebase-search` after the
+  state-management PR lands.
 - Do not start a mutation loop for the large non-eval backlog before the
-  current PR-review lane resolves.
+  merge-ready packaging lane resolves.
 
 ## Status
 
-- Current state: `state-management` has moved from improvement into PR-open on
-  PR `#34`, while `deployment-automation` is now closed upstream after merge
+- Current state: `state-management` has passed the next-run review on PR `#34`
+  with no bounded fixes needed, while `deployment-automation` remains closed
+  upstream after merge
 - Blocker: team fanout is unavailable because the NanoClaw bridge wrapper has
-  no underlying `scripts/agent-bridge.py`, but the current PR-review path is
-  not blocked
-- Next owner: `nanoclaw_pd` to run the PR-review pass on `#34` in the next
-  scheduled cycle
-- Stage: `pr-open`
+  no underlying `scripts/agent-bridge.py`, but the merge path itself is not
+  blocked
+- Next owner: `nanoclaw_pd` to reopen the bounded improvement queue at
+  `codebase-search` after PR `#34` lands
+- Stage: `merge`

@@ -48,8 +48,9 @@ emphasis, not a usage telemetry measurement:
 - `state-management` is now the strongest active packaging gap because
   `deployment-automation` already merged on PR `#33` while state-management
   still ships on `main` as a large monolith with no packaged support files or
-  eval coverage; this run packages that gap and opens PR `#34`, which moves
-  `codebase-search` into the top queued slot behind the active PR-review lane.
+  eval coverage; the active PR-review pass found no bounded fixes, so PR `#34`
+  is now merge-ready and `codebase-search` becomes the top queued packaging
+  lane once it lands.
 
 ## Contradictions
 
@@ -63,7 +64,7 @@ emphasis, not a usage telemetry measurement:
 The highest-value improvement is still not adding another broad skill first. It
 is upgrading workflow-critical existing skills into evaluation-ready,
 standards-compliant entrypoints so future iterations can optimize them one
-bounded mutation at a time. That is why this run packages
-`state-management`, opens PR `#34`, and leaves `codebase-search` as the next
-queued packaging target rather than starting a fresh `skill-autoresearch`
-experiment or an unrelated new skill.
+bounded mutation at a time. That is why this run advances
+`state-management` from PR review into merge readiness on `#34` and leaves
+`codebase-search` as the next queued packaging target rather than starting a
+fresh `skill-autoresearch` experiment or an unrelated new skill.

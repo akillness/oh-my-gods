@@ -1,21 +1,20 @@
-# Cleanup Plan: run 48 packaging lane (`state-management`)
+# Cleanup Plan: run 49 review and merge lane (`state-management`)
 
 ## Goal
 
-Close the finished `deployment-automation` merge lane now that PR `#33` is
-merged upstream, then open the next bounded packaging lane on
-`state-management` by compacting the entrypoint and adding only the support
-files that the audit justifies.
+Review the active `state-management` PR now that the packaging pass is already
+registered, keep the branch limited to survey-lock updates unless review finds
+a bounded defect, and merge PR `#34` if the lane remains clean.
 
 ## Behavior lock
 
-- Keep this run limited to `.god-skills/state-management/*` plus the survey
-  lock files under `.survey/llm-agent-skill-landscape/*`.
+- Keep this run limited to the survey lock files under
+  `.survey/llm-agent-skill-landscape/*` unless PR review reveals a bounded
+  defect inside `.god-skills/state-management/*`.
 - Do not reopen the merged `deployment-automation`, `technical-writing`,
   `prompt-repetition`, `genkit`, or `database-schema-design` lanes.
-- Do not start a `skill-autoresearch` mutation loop in this run; first make
-  `state-management` compact and eval-backed so a later run can decide on
-  mutation with a stable baseline.
+- Do not start a `skill-autoresearch` mutation loop in this run; first close
+  the active PR-review lane and reopen the queue on the next packaging target.
 - Do not add scripts or assets unless the packaging work proves a deterministic
   helper or bundled data file is truly reusable.
 
@@ -23,26 +22,23 @@ files that the audit justifies.
 
 - `state-management`
   - Assets: no
-  - Scripts: no for this pass; reference-backed examples and review checklists
-    are enough
-  - References: yes; move long library examples and tool-selection detail out
-    of the entrypoint
-  - Evals: yes; add baseline prompts so future optimization can be measured
+  - Scripts: no further additions in this pass
+  - References: already added and sufficient
+  - Evals: already added and sufficient
 - `skill-autoresearch`
   - Keep as a triage-only surface in this run
-  - Revisit only after the packaged skill has a stable review outcome
+  - Revisit only after the packaged skill has a stable merged outcome
 
 ## Planned edits
 
-1. Refresh the survey lock so the repo no longer treats
-   `deployment-automation` as the active lane.
-2. Rewrite `.god-skills/state-management/SKILL.md` into a compact,
-   triage-first entrypoint.
-3. Add `references/` and `evals/` for the state-management skill, and update
-   `SKILL.toon` to match the packaged structure.
-4. Re-run target validation and repo-wide validation.
-5. Open the next PR path on a fresh branch once the bounded change set is
-   ready.
+1. Refresh the survey lock so the repo treats `state-management` as the active
+   review-to-merge lane instead of an improvement lane.
+2. Re-run target validation and repo-wide validation to confirm no new
+   standardization regressions appeared after PR registration.
+3. Confirm the branch diff still stays bounded to the packaged
+   `state-management` surface plus survey lock files.
+4. Merge PR `#34` if the review pass stays clean and the branch remains
+   scoped.
 
 ## Verification
 
@@ -50,5 +46,6 @@ files that the audit justifies.
 - Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
 - Confirm the diff stays bounded to the state-management skill package plus
   survey lock files
+- Confirm PR `#34` remains clean and has no reported checks blocking merge
 - Record current state, blocker, next owner, and stage for the next scheduled
-  review pass
+  post-merge run

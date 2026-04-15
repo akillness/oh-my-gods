@@ -13,6 +13,8 @@
 - This branch reduces `state-management` to a compact entrypoint, adds
   reference-backed examples plus eval coverage, and keeps scripts and assets
   intentionally out of scope.
+- The PR-review pass found no duplicate work, no missing support-file
+  category, and no new standardization gap in the state-management lane.
 - The repo-wide validator now stays at `0` hard errors and drops from `65` to
   `64` warnings, while `state-management` itself validates at `0` errors and
   `0` warnings.
@@ -60,9 +62,8 @@ This order is locked because:
 
 - `deployment-automation` is already merged, so keeping it active would be
   duplicate work.
-- `state-management` is the largest remaining active monolith and now has a
-  registered PR path, so the next run should review instead of reopening
-  packaging work.
+- `state-management` passed the next-run review with no bounded fix needed, so
+  the only remaining work in this lane is merge.
 - `codebase-search` and `ui-component-patterns` are the next highest-value
   packaging gaps once the current PR leaves the open-review stage.
 - Mutation work remains lower leverage than packaging debt on the remaining
@@ -73,29 +74,28 @@ This order is locked because:
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `deployment-automation` | Closed | Not yet | No | No | Merged | Merged | Keep closed unless review feedback appears later |
-| `state-management` | High | Not yet | No | No in this pass | Added | Added | Review PR `#34` before considering mutation |
-| `codebase-search` | High | Not yet | No | Not yet | Likely needed | Needed | Keep queued behind the active state-management PR |
-| `ui-component-patterns` | High | Not yet | No | Not yet | Likely needed | Needed | Keep queued behind the active state-management PR |
+| `state-management` | High | Not yet | No | No in this pass | Added | Added | Merge PR `#34`; only revisit mutation after post-merge feedback or measured failures |
+| `codebase-search` | High | Not yet | No | Not yet | Likely needed | Needed | Re-open as the next bounded packaging lane after `#34` lands |
+| `ui-component-patterns` | High | Not yet | No | Not yet | Likely needed | Needed | Keep queued behind `codebase-search` |
 | `survey` | Medium | Not yet | No | No | Maybe later | Already present | Keep as the landscape capture surface |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Medium | Only on compact eval-backed skills | No | No | Already present | Already present | Revisit after measured failures or review feedback |
 
 ## Packaging decision for this run
 
-- Target lane: `state-management` improvement-to-PR-open
+- Target lane: `state-management` PR-review-to-merge
 - Assets: no additional assets needed
 - Scripts: no; the skill remains reference-backed rather than script-backed
-- References: yes; added to move long library examples and decision detail out
-  of the entrypoint
-- Evals: yes; added to establish a future optimization baseline
-- Sections: keep the packaged skill surface unchanged unless PR review finds a
-  bounded defect
+- References: already sufficient
+- Evals: already sufficient for future measured optimization
+- Sections: keep the packaged skill surface unchanged because the review pass
+  found no bounded defect to fix
 
 ## Current state
 
-- State: `state-management` is packaged and registered on PR `#34`
+- State: `state-management` is review-clean and ready to merge on PR `#34`
 - Blocker: cross-agent fanout is still degraded by the missing repo-level
-  bridge target, but the current PR-review path is not blocked
-- Next owner: `nanoclaw_pd` to run the PR-review pass on `#34` in the next
-  scheduled cycle
-- Stage: `pr-open`
+  bridge target, but the merge path is not blocked
+- Next owner: `nanoclaw_pd` to reopen the queue at `codebase-search` after
+  PR `#34` lands
+- Stage: `merge`
