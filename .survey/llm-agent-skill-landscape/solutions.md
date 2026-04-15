@@ -45,10 +45,11 @@ emphasis, not a usage telemetry measurement:
 - OpenAI Codex automations, Claude subagents, and Gemini extensions all reward
   concise reusable workflow packages, so packaging debt now blocks more
   leverage than adding another broad skill.
-- `deployment-automation` is the strongest active packaging gap because
-  `technical-writing` has already merged, while deployment automation still
-  ships as a large monolith with no packaged support files or eval coverage on
-  `main`.
+- `deployment-automation` was the strongest active packaging gap because
+  `technical-writing` had already merged while deployment automation still
+  shipped as a large monolith with no packaged support files or eval coverage
+  on `main`; that gap is now packaged and merge-ready on PR `#33`, which moves
+  `state-management` into the top queued slot for the next improvement run.
 
 ## Contradictions
 
@@ -62,7 +63,7 @@ emphasis, not a usage telemetry measurement:
 The highest-value improvement is still not adding another broad skill first. It
 is upgrading workflow-critical existing skills into evaluation-ready,
 standards-compliant entrypoints so future iterations can optimize them one
-bounded mutation at a time. That is why this run closes the already-merged
-`technical-writing` lane and reopens the queue at `deployment-automation`
-rather than starting a fresh `skill-autoresearch` experiment or an unrelated
-new skill.
+bounded mutation at a time. That is why this run advances the already-packaged
+`deployment-automation` lane through merge and leaves `state-management` as the
+next queued packaging target rather than starting a fresh
+`skill-autoresearch` experiment or an unrelated new skill.

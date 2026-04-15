@@ -43,8 +43,8 @@ Source links:
 - PR `#32` for `technical-writing` merged at
   `2026-04-15T02:08:50Z`:
   https://github.com/akillness/oh-my-gods/pull/32
-- PR `#33` for `deployment-automation` is now the active lane on branch
-  `chore/skill-loop-pr-open-20260415-r34`:
+- PR `#33` for `deployment-automation` is open, mergeable, and in the merge
+  stage on branch `chore/skill-loop-pr-open-20260415-r34`:
   https://github.com/akillness/oh-my-gods/pull/33
 
 ## Audit snapshot
@@ -57,6 +57,8 @@ Source links:
 - This branch shrinks `deployment-automation` to a compact entrypoint, adds the
   missing support files, and keeps scripts and assets intentionally out of
   scope.
+- PR review found no duplicate work, no missing support-file category, and no
+  new standardization errors inside the deployment lane.
 - This rebased branch now passes repo-wide validation with `0` hard errors and
   `65` warnings, and `deployment-automation` validates at `0` errors and `0`
   warnings.
@@ -70,27 +72,29 @@ Source links:
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
 | `technical-writing` | Closed after PR `#32` merge | No | No | Merged | Merged | No | Keep closed unless later defects reopen it |
-| `deployment-automation` | Active packaging lane on `r34` | No | No in this pass | Yes | Yes | Not yet | Register this bounded change set as the next PR-open lane |
-| `state-management` | Still queued behind the active lane | No | Not yet | Likely needed | Needed | Not yet | Re-evaluate after `deployment-automation` review |
+| `deployment-automation` | Merge-ready lane on `r34` | No | No in this pass | Yes | Yes | Not yet | Merge PR `#33` and close the lane |
+| `state-management` | Queued behind the merge-ready deployment lane | No | Not yet | Likely needed | Needed | Not yet | Re-open as the next bounded packaging lane after merge |
 | `survey` | Research surface only | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only for compact eval-backed skills | Revisit only after measured failures or a clear baseline target |
 
 ## Locked direction
 
-- Primary lane: package `deployment-automation` into a compact, eval-backed
-  skill package and register the PR path on `r34`.
-- Secondary lane: keep `state-management` as the next packaging candidate once
-  the new deployment lane enters review.
+- Primary lane: merge `deployment-automation` on PR `#33` now that the review
+  pass is clean.
+- Secondary lane: reopen the queue at `state-management` as the next packaging
+  candidate after the current merge lands.
 - Do not start a mutation loop for the large non-eval backlog before the
   packaging pass lands.
 
 ## Status
 
 - Current state: the old `technical-writing` merge lane is closed upstream, and
-  `deployment-automation` is now the active validated PR-open lane on PR `#33`
+  `deployment-automation` has passed validation plus review and is being
+  advanced through the merge stage on PR `#33`
 - Blocker: team fanout is unavailable because the NanoClaw bridge wrapper has
-  no underlying `scripts/agent-bridge.py`, so this run executes locally
-- Next owner: `nanoclaw_pd` to run the PR-review pass on PR `#33` during the
-  next scheduled loop
-- Stage: `PR-open`
+  no underlying `scripts/agent-bridge.py`, but the merge path itself is not
+  blocked
+- Next owner: `nanoclaw_pd` to open the next bounded improvement lane at
+  `state-management` after PR `#33` lands
+- Stage: `merge`
