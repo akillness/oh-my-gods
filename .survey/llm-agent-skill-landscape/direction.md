@@ -7,9 +7,11 @@
 - PR `#30` for `genkit` merged into `main` at commit
   `34482161d18a27f057434e7c3523cc732734d2a1` on
   `2026-04-15T07:07:40+09:00`, so that lane is closed.
-- PR `#31` is now open on `chore/skill-loop-pr-open-20260415-r32` for the new
-  `prompt-repetition` packaging lane:
+- PR `#31` on `chore/skill-loop-pr-open-20260415-r32` stayed open and
+  merge-clean at the start of this run:
   https://github.com/akillness/oh-my-gods/pull/31
+- This run performed the explicit PR-review pass instead of adding more skill
+  churn.
 - Repo-wide validator snapshot on this branch is now `80/80` shipped skills
   with `0` hard errors and `67` warnings.
 - Eval coverage rises from `26/80` to `27/80` shipped skills because
@@ -44,7 +46,7 @@ prompt-mutation work for this repo:
 
 Improve one workflow-critical packaging gap per run, in priority order:
 
-1. `prompt-repetition` via PR `#31`
+1. `prompt-repetition` via clean merge of PR `#31`
 2. `technical-writing`
 3. `deployment-automation`
 4. `skill-autoresearch` mutations only where a compact, eval-backed baseline
@@ -55,7 +57,8 @@ This order is locked because:
 - `prompt-repetition` had the best next bounded signal after `genkit` landed:
   five validator warnings, no packaged support surface, an existing reusable
   helper that justified a `scripts/` folder, and direct fit with the current
-  lightweight-model workflow landscape.
+  lightweight-model workflow landscape; the current pass is only its clean
+  review gate before merge.
 - `technical-writing` and `deployment-automation` remain strong packaging
   targets, but both still have lower immediate warning pressure than the lane
   already opened in PR `#31`.
@@ -67,7 +70,7 @@ This order is locked because:
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `genkit` | High | No | No | No | Added on merged PR `#30` | Added on merged PR `#30` | Closed for now; reconsider mutations only if repeated measured failures appear |
-| `prompt-repetition` | Medium-high | No | No | Added on this branch | Added on this branch | Added on this branch | Review PR `#31`, then merge if the lane stays clean |
+| `prompt-repetition` | Medium-high | No | No | Added on this branch | Added on this branch | Added on this branch | Merge PR `#31`, then reopen the queue at `technical-writing` |
 | `survey` | Medium | Not yet | No | No | Maybe later | Already present | Keep as the landscape capture surface |
 | `skill-standardization` | Medium | Not yet | No | Existing validator script is enough | No | Already present | Keep as the audit gate |
 | `skill-autoresearch` | Medium | Already packaged | No | No | Already present | Already present | Use only on compact skills with stable eval-backed baselines |
@@ -87,9 +90,9 @@ This order is locked because:
 
 ## Current state
 
-- State: the `prompt-repetition` improvement slice is complete and registered
-  as PR `#31`
+- State: the `prompt-repetition` PR-review pass is clean and ready to move from
+  `PR-open` into `merge`
 - Blocker: none
-- Next owner: `nanoclaw_pd` on the next run to perform the explicit PR-review
-  pass on PR `#31`
-- Stage: `PR-open`
+- Next owner: `nanoclaw_pd` in this run to merge PR `#31`, then reopen the
+  queue at `technical-writing`
+- Stage: `merge`

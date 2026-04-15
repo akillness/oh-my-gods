@@ -1,39 +1,32 @@
-# Cleanup Plan: run 43 improvement lane (`prompt-repetition`)
+# Cleanup Plan: run 44 PR-review gate (`prompt-repetition`)
 
 ## Goal
 
-Package `prompt-repetition` into a compact, standards-clean skill with the
-smallest justified support surface, then open the next PR path for review.
+Re-review the already-open `prompt-repetition` PR for duplicate work, missing
+improvements, or standardization gaps, then merge it if the lane stays clean.
 
 ## Behavior lock
 
 - Keep this lane limited to `.god-skills/prompt-repetition/*` plus the
   recurring survey lock files.
 - Prefer extraction and deletion over adding new abstraction layers.
-- Do not add assets unless a concrete reusable template becomes necessary.
-- Preserve the existing transformer behavior while moving it into a canonical
-  support location if scripts are justified.
+- Do not add assets unless a concrete reusable template becomes necessary; this
+  pass should stay at lifecycle advancement only.
 - Do not reopen already-merged lanes such as `genkit` or
   `database-schema-design`.
-- Do not start a `skill-autoresearch` mutation loop in this run; this pass is
-  for packaging, references, eval coverage, and PR registration.
+- Do not start a `skill-autoresearch` mutation loop for `prompt-repetition` in
+  this run; the compact entrypoint and packaged eval baseline already exist,
+  and this pass is only for explicit review plus lifecycle advancement.
 
 ## Planned edits
 
-1. Refresh the survey lock against current GitHub state and confirm
-   `prompt-repetition` is the next bounded target after `genkit` merged.
-2. Rewrite `.god-skills/prompt-repetition/SKILL.md` into a compact entrypoint
-   with explicit trigger language, `Instructions`, `Examples`, and
-   `Best practices`.
-3. Add only the support folders justified by the audit:
-   `references/` for research and integration detail, `scripts/` for the
-   reusable transformer, and `evals/` for baseline trigger/behavior checks.
-4. Remove non-source artifacts from the skill directory, including
-   `__pycache__`, and update `SKILL.toon` so it points at the real support
-   surface.
-5. Re-run target validation, JSON parse checks, Python compile checks, and the
-   repo-wide validator, then register the PR path if the change set stays
-   bounded.
+1. Refresh GitHub state for PR `#31` and confirm the lane is still merge-clean.
+2. Re-review only `.god-skills/prompt-repetition/*` for duplicated work,
+   missing support surfaces, or spec regressions.
+3. Re-run the target validator, JSON parse check, Python compile check, and
+   repo-wide validator.
+4. If the review stays clean, update the survey lock files to record the merge
+   stage and merge the PR without adding fresh skill churn.
 
 ## Verification
 
@@ -43,4 +36,4 @@ smallest justified support surface, then open the next PR path for review.
 - Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
 - Confirm the branch stays bounded to `prompt-repetition` plus the survey lock
   files
-- Record the branch, blocker, next owner, and stage before opening the PR
+- Record the branch, blocker, next owner, and stage before merge

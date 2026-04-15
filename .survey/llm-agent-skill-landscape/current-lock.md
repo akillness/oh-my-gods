@@ -41,8 +41,9 @@ Source links:
   `34482161d18a27f057434e7c3523cc732734d2a1` on
   `2026-04-15T07:07:40+09:00`:
   https://github.com/akillness/oh-my-gods/pull/30
-- PR `#31` is now open for the new `prompt-repetition` lane on
-  `chore/skill-loop-pr-open-20260415-r32`:
+- PR `#31` for `prompt-repetition` stayed open and merge-clean at the start of
+  this run, so this pass performed the explicit PR-review gate on
+  `chore/skill-loop-pr-open-20260415-r32` before advancing the lane to merge:
   https://github.com/akillness/oh-my-gods/pull/31
 
 ## Audit snapshot
@@ -66,15 +67,15 @@ Source links:
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
 | `genkit` | Merged and closed via PR `#30` | No | No | Added on merged PR `#30` | Added on merged PR `#30` | No | Closed unless later measured failures reopen it |
-| `prompt-repetition` | PR `#31` is open with the packaged support surface in place | No | Added on this branch | Added on this branch | Added on this branch | No | Review PR `#31`, then merge if clean |
-| `technical-writing` | Remains large and unevaluated behind the active PR-open lane | No | No | Likely needed | Needed | No | Keep next after `prompt-repetition` review |
+| `prompt-repetition` | Review pass is clean on PR `#31`; advance to merge | No | Added on this branch | Added on this branch | Added on this branch | No | Merge PR `#31`, then reopen the queue at `technical-writing` |
+| `technical-writing` | Remains large and unevaluated behind the active merge lane | No | No | Likely needed | Needed | No | Keep next after `prompt-repetition` lands |
 | `survey` | Remains the research surface, not the packaging target | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
 | `skill-standardization` | Remains the repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 
 ## Locked direction
 
-- Primary lane: perform the explicit PR-review pass on `prompt-repetition`
-  via PR `#31` on the next run.
+- Primary lane: merge PR `#31` for `prompt-repetition` after the clean review
+  pass in this run.
 - Secondary lane: after `prompt-repetition` lands, reopen the packaging queue
   at `technical-writing`.
 - Do not start a `skill-autoresearch` mutation loop for the large non-eval
@@ -93,14 +94,14 @@ Source links:
 
 ## Run action
 
-- Smallest bounded action for this run: package `prompt-repetition`, register
-  the branch as PR `#31`, and hand the lane off in `PR-open` state for the next
-  explicit review pass.
+- Smallest bounded action for this run: review PR `#31` for duplicate work,
+  missing improvements, and standardization gaps, then advance it to merge if
+  the lane stays clean.
 
 ## Status
 
-- Current state: the `prompt-repetition` packaging lane is open as PR `#31`
-  from `chore/skill-loop-pr-open-20260415-r32`
+- Current state: the explicit PR-review pass for `prompt-repetition` is clean;
+  PR `#31` is ready to merge from `chore/skill-loop-pr-open-20260415-r32`
 - Blocker: none
-- Next owner: `nanoclaw_pd` on the next run to complete the PR-review pass
-- Stage: `PR-open`
+- Next owner: `nanoclaw_pd` to complete the merge path in this run
+- Stage: `merge`
