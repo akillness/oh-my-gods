@@ -1,0 +1,45 @@
+{
+  "skill_name": "deployment-automation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up CI/CD for our Node API so pushes to main run tests, build a Docker image, push to GHCR, and deploy to production with rollback guidance.",
+      "expected_output": "Chooses a container-service deployment lane, keeps one immutable artifact, and includes release-safety guidance instead of jumping to unrelated infra.",
+      "assertions": [
+        "Response identifies the workload, artifact, and hosting lane before listing commands",
+        "Response requires immutable tags or versions instead of relying on latest only",
+        "Response mentions health checks or rollback guidance"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We have a Next.js marketing site with preview environments. Should we use Vercel, Cloud Run, or Kubernetes?",
+      "expected_output": "Prefers the smallest viable deployment surface and explains why platform hosting may be better than custom orchestration.",
+      "assertions": [
+        "Response compares deployment surfaces instead of defaulting to Kubernetes",
+        "Response explains why a platform-hosted lane is likely sufficient for this workload",
+        "Response routes direct Vercel shipping requests toward the narrower vercel-deploy skill when appropriate"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Review this deployment workflow: it SSHes into production, stores secrets in workflow YAML, and deploys latest tags only.",
+      "expected_output": "Flags the unsafe parts, proposes a safer promotion path, and keeps the review focused on release risk.",
+      "assertions": [
+        "Response flags secrets in source or workflow YAML as unsafe",
+        "Response rejects mutable-tag-only production deploys",
+        "Response proposes a safer rollout or rollback structure"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Design a zero-downtime rollout for a payments worker that processes long-running jobs during deploys.",
+      "expected_output": "Matches rollout strategy to workload risk and covers shutdown, health, and recovery concerns.",
+      "assertions": [
+        "Response treats graceful shutdown or job-drain behavior as part of the rollout design",
+        "Response chooses rolling, blue-green, or canary based on workload risk instead of by default",
+        "Response includes verification or monitoring steps for the rollout"
+      ]
+    }
+  ]
+}

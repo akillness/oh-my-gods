@@ -4,108 +4,93 @@ Date: 2026-04-15
 
 ## Survey refresh
 
-- Agent Skills still centers the shared ecosystem on `SKILL.md` plus optional
-  support folders such as `references/`, `scripts/`, `assets/`, and `evals`,
-  so packaging-first work remains higher leverage than prompt-only mutation for
-  oversized skills.
-- OpenAI Codex now treats skills and automations as reusable workflow surfaces,
-  and its current skills guidance explicitly favors focused entrypoints plus
-  scripts only when deterministic behavior is needed.
-- Anthropic and Gemini both keep formalizing packaged commands, subagents, and
-  extension surfaces, which rewards concise trigger text and support files over
-  monolithic skill bodies.
-- A2A continues to formalize capability and authentication disclosure through
-  agent cards, which favors explicit contracts and support references instead of
+- Agent Skills still centers reusable skill packages on `SKILL.md` plus
+  optional support directories such as `references/`, `scripts/`, `assets/`,
+  and `evals`, so packaging-first work remains higher leverage than prompt-only
+  mutation for oversized skills.
+- OpenAI's current Codex guidance keeps pushing reusable skills and
+  automations, which reinforces small workflow entrypoints plus explicit
+  follow-on execution surfaces instead of monolithic prompt files.
+- Anthropic and Gemini both continue to formalize packaged subagents,
+  commands, and extensions, which rewards concise trigger text and bundled
+  support references.
+- A2A reached a `1.0` release with signed agent cards and stronger
+  interoperability disclosure, which further favors explicit contracts over
   buried longform instructions.
-- Eval and tracing surfaces are common enough that `skill-autoresearch` should
-  start only after a skill has compact structure and packaged eval coverage.
+- `skill-autoresearch` is still justified only after a skill has compact
+  structure plus baseline eval coverage.
 - Durable execution still works best as
   `survey -> improvement -> PR-open -> PR-review -> merge`.
 
 Source links:
 
 - https://agentskills.io/specification
-- https://developers.openai.com/codex/skills
-- https://developers.openai.com/codex/automations
+- https://agentskills.io/skill-creation/using-scripts
+- https://openai.com/index/introducing-upgrades-to-codex/
 - https://code.claude.com/docs/en/sub-agents
 - https://code.claude.com/docs/en/slash-commands
 - https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
 - https://google-gemini.github.io/gemini-cli/docs/extensions/
-- https://a2a-protocol.org/v0.3.0/specification/
+- https://a2a-protocol.org/blog/a2a-v1.0-release
 
 ## Live GitHub state
 
-- PR `#29` for `database-schema-design` merged into `main` on
-  `2026-04-14T20:05:52Z`, so that lane is closed.
-- PR `#30` for `genkit` merged into `main` at commit
-  `34482161d18a27f057434e7c3523cc732734d2a1` on
-  `2026-04-15T07:07:40+09:00`:
+- PR `#29` for `database-schema-design` remains closed and merged.
+- PR `#30` for `genkit` remains closed and merged:
   https://github.com/akillness/oh-my-gods/pull/30
-- PR `#31` for `prompt-repetition` merged into `main` at
-  `2026-04-15T00:07:59Z`:
+- PR `#31` for `prompt-repetition` remains closed and merged:
   https://github.com/akillness/oh-my-gods/pull/31
-- PR `#32` for `technical-writing` remains the active lane and is currently
-  merge-ready on `chore/skill-loop-pr-open-20260415-r33`:
+- PR `#32` for `technical-writing` merged at
+  `2026-04-15T02:08:50Z`:
   https://github.com/akillness/oh-my-gods/pull/32
+- `technical-writing` is no longer the active lane; this run reopens the queue
+  at `deployment-automation` on branch
+  `chore/skill-loop-pr-open-20260415-r34`.
 
 ## Audit snapshot
 
-- Repo-wide validator snapshot on this branch: `80/80` shipped skills pass with
-  `0` hard errors, and the repo-wide warning count is now `66`.
-- `technical-writing` validates at `0` errors and `0` warnings under the repo's
-  `skill-standardization` validator.
-- Review of the PR diff found no duplicate work inside
-  `.god-skills/technical-writing/*` and no missing support files for the
-  packaged scope.
-- Eval coverage rises to `28/80` shipped skills because
-  `.god-skills/technical-writing/evals/evals.json` now exists.
-- `technical-writing` now includes the support files it was missing, so the
-  entrypoint shrank from `581` lines to `164` lines while keeping reusable
-  templates and review guidance bundled locally.
-- `technical-writing` now has a corrected `SKILL.toon` support summary.
-- Assets and scripts stayed unnecessary for this lane; the justified support
-  changes were the entrypoint, `SKILL.toon`, `references/`, and `evals/`.
+- Latest `origin/main` already includes the `technical-writing` packaging merge
+  and passes repo-wide validation with `0` hard errors.
+- On `origin/main`, `deployment-automation` is still a `557` line monolith with
+  no packaged `references/` or `evals/`, which keeps it as the strongest active
+  packaging gap.
+- This branch shrinks `deployment-automation` to a compact entrypoint, adds the
+  missing support files, and keeps scripts and assets intentionally out of
+  scope.
+- This rebased branch now passes repo-wide validation with `0` hard errors and
+  `65` warnings, and `deployment-automation` validates at `0` errors and `0`
+  warnings.
+- `state-management` remains the next queued monolith behind it at `553` lines.
+- The missing bridge wrapper target
+  (`/Users/jang_jennie/Documents/JYJ/nanoclaw/scripts/agent-bridge.py`) blocks
+  fanout orchestration, but it does not block local repo execution.
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `genkit` | Merged and closed via PR `#30` | No | No | Added on merged PR `#30` | Added on merged PR `#30` | No | Closed unless later measured failures reopen it |
-| `prompt-repetition` | Merged and closed via PR `#31` | No | Added on merged PR `#31` | Added on merged PR `#31` | Added on merged PR `#31` | No | Closed unless new measured failures reopen it |
-| `technical-writing` | Reviewed and merge-ready on PR `#32` | No | No | Already added on PR `#32` | Already added on PR `#32` | No | Merge PR `#32`, then reopen the queue at `deployment-automation` |
-| `deployment-automation` | Still large and unevaluated behind the active PR-open lane | No | Not yet | Likely needed | Needed | No | Keep next after `technical-writing` lands |
-| `survey` | Remains the research surface, not the packaging target | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
-| `skill-standardization` | Remains the repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
+| `technical-writing` | Closed after PR `#32` merge | No | No | Merged | Merged | No | Keep closed unless later defects reopen it |
+| `deployment-automation` | Active packaging lane on `r34` | No | No in this pass | Yes | Yes | Not yet | Register this bounded change set as the next PR-open lane |
+| `state-management` | Still queued behind the active lane | No | Not yet | Likely needed | Needed | Not yet | Re-evaluate after `deployment-automation` review |
+| `survey` | Research surface only | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
+| `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
+| `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only for compact eval-backed skills | Revisit only after measured failures or a clear baseline target |
 
 ## Locked direction
 
-- Primary lane: merge PR `#32` for `technical-writing`.
-- Secondary lane: reopen the packaging queue at `deployment-automation` on the
-  next run after this merge path completes.
-- Do not start a `skill-autoresearch` mutation loop for the large non-eval
-  backlog before compact entrypoints and packaged evals exist.
-- Keep the branch clean by excluding unrelated docs churn, runtime experiments,
-  and unrelated skill slices.
-
-## Cleanup plan
-
-1. Refresh GitHub, validator, and survey state before touching the merge path.
-2. Review only `.god-skills/technical-writing/*` plus the survey lock files.
-3. If the review is clean, avoid new skill edits and move the lifecycle state
-   from `PR-open` to `merge`.
-4. Re-run the target validator and the repo-wide validator before advancing the
-   lane.
-
-## Run action
-
-- Smallest bounded action for this run: refresh the survey lock files, verify PR
-  `#32` remains clean, and merge it if the lane stays clean.
+- Primary lane: package `deployment-automation` into a compact, eval-backed
+  skill package and register the PR path on `r34`.
+- Secondary lane: keep `state-management` as the next packaging candidate once
+  the new deployment lane enters review.
+- Do not start a mutation loop for the large non-eval backlog before the
+  packaging pass lands.
 
 ## Status
 
-- Current state: the `technical-writing` lane has passed the explicit PR-review
-  pass and is ready for merge on PR `#32`
-- Blocker: none
-- Next owner: `nanoclaw_pd` to execute the merge path now, then reopen the queue
-  at `deployment-automation` on the next scheduled run
-- Stage: `merge`
+- Current state: the old `technical-writing` merge lane is closed upstream, and
+  `deployment-automation` is now a validated bounded change set on `r34`
+- Blocker: team fanout is unavailable because the NanoClaw bridge wrapper has
+  no underlying `scripts/agent-bridge.py`, so this run executes locally
+- Next owner: `nanoclaw_pd` to push `r34`, register the PR path, and review the
+  lane on the next scheduled run
+- Stage: `PR-open`
