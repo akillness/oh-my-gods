@@ -79,10 +79,8 @@ This order is locked because:
 
 ## Current state
 
-- State: `deployment-automation` is now a validated PR-open candidate on
-  `chore/skill-loop-pr-open-20260415-r34`
+- State: `deployment-automation` is now the active PR-open lane on PR `#33`
 - Blocker: cross-agent fanout is blocked by the missing repo-level bridge
   target, so execution stays local
-- Next owner: `nanoclaw_pd` to push the branch, register the PR path, and run
-  the next PR-review pass
+- Next owner: `nanoclaw_pd` to run the next PR-review pass on PR `#33`
 - Stage: `PR-open`

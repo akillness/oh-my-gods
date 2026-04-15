@@ -43,9 +43,9 @@ Source links:
 - PR `#32` for `technical-writing` merged at
   `2026-04-15T02:08:50Z`:
   https://github.com/akillness/oh-my-gods/pull/32
-- `technical-writing` is no longer the active lane; this run reopens the queue
-  at `deployment-automation` on branch
-  `chore/skill-loop-pr-open-20260415-r34`.
+- PR `#33` for `deployment-automation` is now the active lane on branch
+  `chore/skill-loop-pr-open-20260415-r34`:
+  https://github.com/akillness/oh-my-gods/pull/33
 
 ## Audit snapshot
 
@@ -88,9 +88,9 @@ Source links:
 ## Status
 
 - Current state: the old `technical-writing` merge lane is closed upstream, and
-  `deployment-automation` is now a validated bounded change set on `r34`
+  `deployment-automation` is now the active validated PR-open lane on PR `#33`
 - Blocker: team fanout is unavailable because the NanoClaw bridge wrapper has
   no underlying `scripts/agent-bridge.py`, so this run executes locally
-- Next owner: `nanoclaw_pd` to push `r34`, register the PR path, and review the
-  lane on the next scheduled run
+- Next owner: `nanoclaw_pd` to run the PR-review pass on PR `#33` during the
+  next scheduled loop
 - Stage: `PR-open`
