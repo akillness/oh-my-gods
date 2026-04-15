@@ -4,111 +4,92 @@ Date: 2026-04-15
 
 ## Survey refresh
 
-- Agent Skills still centers reusable skill packages on `SKILL.md` plus
-  optional support directories such as `references/`, `scripts/`, `assets`,
-  and `evals`.
-- OpenAI Codex guidance still favors reusable skills and automations, which
-  reinforces compact workflow entrypoints and explicit follow-on execution
-  surfaces instead of monolithic prompt files.
-- Claude sub-agents plus Gemini custom commands and extensions still reward
-  concise trigger text and packaged support files rather than buried longform
-  instructions.
-- A2A `1.0` continues to push explicit capability disclosure and clearer
-  interoperability contracts between agent surfaces.
-- Vercel's `skills` CLI and OpenClaw's public skills docs both reinforce
-  packaging, installability, and governance over one-off prompt mutation,
-  which keeps packaging debt as the stronger immediate lever for this repo.
-- `skill-autoresearch` is still justified only after a target skill is compact,
-  eval-backed, and showing measured failures or clear review feedback.
-- Inference for this repo: packaging-first work remains higher leverage than
-  prompt mutation because `git-workflow` was still the active open lane after
-  PR `#36` merged, while `responsive-design` remains queued behind it and
-  already-under-500-line skills are lower urgency.
-- Durable execution still works best as
-  `survey -> improvement -> PR-open -> PR-review -> merge`.
+- Agent Skills best practices still recommend keeping `SKILL.md` under
+  `500` lines and moving detailed guidance into `references/` through
+  progressive disclosure.
+- OpenAI Codex docs still expose `skills`, `rules`, and `hooks` as
+  first-class configuration and workflow surfaces, which reinforces compact,
+  reusable skill entrypoints instead of monolithic prompt files.
+- Claude sub-agents, Gemini custom commands and extensions, and OpenClaw
+  skills all continue to reward shareable packaged instruction surfaces over
+  one-off prompt mutation.
+- A2A `1.0` still increases pressure toward explicit capability disclosure and
+  durable interoperability contracts.
+- Agent Skills eval guidance still recommends starting with a few realistic
+  prompts and bundling scripts only when repeated work keeps showing up, which
+  supports leaving `responsive-design` script-free for now.
+- Inference for this repo: packaging-first remains the right posture, but now
+  that the largest remaining responsive-layout monolith has been packaged and
+  reviewed cleanly, the next highest-leverage gap shifts toward warning-heavy
+  workflow skills with weak trigger phrasing and missing standard sections.
+- `skill-autoresearch` is still justified only after a compact eval-backed
+  skill shows measured failures or attracts review feedback.
 
 Source links:
 
 - https://agentskills.io/specification
-- https://agentskills.io/skill-creation/using-scripts
+- https://agentskills.io/skill-creation/best-practices
 - https://agentskills.io/skill-creation/evaluating-skills
-- https://developers.openai.com/api/docs/guides/tools-skills
 - https://developers.openai.com/codex/noninteractive
 - https://code.claude.com/docs/en/sub-agents
-- https://code.claude.com/docs/en/cli-reference
 - https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
 - https://google-gemini.github.io/gemini-cli/docs/extensions/
 - https://a2a-protocol.org/latest/announcing-1.0/
-- https://github.com/vercel-labs/skills
-- https://docs.openclaw.ai/tools/skills
+- https://docs.openclaw.ai/zh-CN/tools/creating-skills
 
 ## Live GitHub state
 
-- PR `#36` for `ui-component-patterns` merged at
-  `2026-04-15T10:07:04Z`:
-  https://github.com/akillness/oh-my-gods/pull/36
-- PR `#37` for `git-workflow` is open, non-draft, and based on branch
-  `chore/skill-loop-pr-open-20260415-r38`:
+- PR `#37` for `git-workflow` merged at `2026-04-15T12:09:48Z`:
   https://github.com/akillness/oh-my-gods/pull/37
+- PR `#38` for `responsive-design` is open, non-draft, merge-clean, and has no
+  review or comment feedback on branch `chore/skill-loop-pr-open-20260415-r39`:
+  https://github.com/akillness/oh-my-gods/pull/38
 
 ## Audit snapshot
 
-- Latest live GitHub state confirms `ui-component-patterns` is closed upstream
-  after PR `#36` merged and `git-workflow` is the next active lane on PR `#37`.
-- The fresh external survey did not reveal a higher-value leapfrog candidate;
-  packaging-first remains the right posture and `git-workflow` stays ahead of
-  new-skill work.
-- On `main`, `git-workflow` was the largest remaining monolith at `526` lines
-  with no packaged `references/`, `evals/`, `scripts/`, or `assets`.
-- This branch shrinks `git-workflow` to a `177` line entrypoint, adds focused
-  `references/` and `evals/`, and keeps scripts and assets intentionally out
-  of scope.
-- This review run hardened two low-severity gaps before merge: generic
-  remote/base placeholders in sync recipes, and explicit commit verification
-  before wrong-branch hard reset guidance.
-- This run validated `git-workflow`, re-ran repo-wide validation, and
-  confirmed the branch stays bounded to the packaged `git-workflow` lane plus
-  survey-lock files.
+- Fresh repo-wide validation now passes at `0` errors and `60` warnings.
+- On `main`, `responsive-design` was a `514` line monolith with no packaged
+  `references/`, `evals/`, `scripts/`, or `assets`.
+- This branch reduces `responsive-design` to a `194` line entrypoint, adds
+  three focused `references/` files plus `evals/`, and keeps `scripts/` and
+  `assets` intentionally out of scope.
 - Target validation now passes at `0` errors and `0` warnings for
-  `git-workflow`.
-- Repo-wide validation now stays at `0` hard errors and drops from `62` to
-  `61` warnings.
-- `responsive-design` is now the next queued monolith at `515`, while
-  `code-refactoring` is already below the 500-line guidance threshold.
-- The missing bridge wrapper target
-  (`/Users/jang_jennie/Documents/JYJ/nanoclaw/scripts/agent-bridge.py`) blocks
-  fanout orchestration, but it does not block local repo execution.
+  `responsive-design`.
+- Manual review of the packaged entrypoint, references, evals, and diff against
+  `main` found no duplicate work, missing packaging surface, or standardization
+  regression that justifies reopening the skill files in this run.
+- Targeted audit checks show `agent-workflow` still carries `5` warnings and
+  `agent-configuration` still carries `4`, while `code-refactoring` is already
+  standards-clean at `496` lines with `0` warnings.
+- Inference for the next queued lane: after PR `#38` is reviewed and merged,
+  `agent-workflow` should move ahead of clean sub-500 skills because trigger
+  quality and missing progressive-disclosure sections now represent the
+  sharper remaining standards debt.
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `deployment-automation` | Closed after PR `#33` merge | No | No | Merged | Merged | No | Keep closed unless later defects reopen it |
-| `state-management` | Closed after PR `#34` merge | No | No | Merged | Merged | Not yet | Keep closed unless later defects reopen it |
-| `codebase-search` | Closed after PR `#35` merge | No | No in that pass | Added | Added | Not yet | Keep closed unless later review feedback or measured failures reopen it |
-| `ui-component-patterns` | Closed after PR `#36` merge | No | No | Added | Added | Not yet | Keep closed unless later review feedback reopens it |
-| `git-workflow` | Active merge lane on `r38` / PR `#37` | No | No | Added and hardened in this run | Added and extended in this run | Not yet | Merge PR `#37`; only reopen implementation later if measured failures appear |
-| `responsive-design` | Queued behind `git-workflow` | No | Not yet | Likely needed | Needed | Not yet | Re-open after `#37` lands unless review finds a defect in the active lane |
-| `survey` | Research surface only | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
+| `responsive-design` | Active merge-ready lane on `r39` / PR `#38` | No | No | Already added | Already added | Not yet | Merge PR `#38`; reopen only if feedback lands or evals fail |
+| `agent-workflow` | Queued standards lane | No | No | Likely needed | Likely needed | Not yet | Open after `responsive-design` merges |
+| `agent-configuration` | Queued follow-up standards lane | No | No | Likely needed | Maybe later | Not yet | Keep behind `agent-workflow` |
+| `code-refactoring` | Clean, below line-cap guidance | No | No | Not urgent | Not urgent | Not yet | Keep deferred unless a review or usage issue reopens it |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
-| `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only for compact eval-backed skills | Revisit only after measured failures or review feedback |
+| `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only for compact eval-backed skills with measured failures | Revisit after PR review feedback or failing eval runs |
 
 ## Locked direction
 
-- Primary lane: merge PR `#37` for `git-workflow` after the bounded review
-  follow-up and validation pass.
-- Secondary lane: reopen the queue at `responsive-design` only after PR `#37`
-  lands.
-- Do not start a mutation loop for `git-workflow` before post-review feedback
-  or measured failures justify one.
+- Primary lane: merge PR `#38`; the review pass found no bounded corrective
+  update on the `responsive-design` surface.
+- Next queued improvement lane after merge: `agent-workflow`.
+- Do not start a mutation loop for `responsive-design` before review feedback
+  or measured eval failures justify one.
 
 ## Status
 
-- Current state: `git-workflow` is packaged, standards-clean, and ready to
-  merge on PR `#37`
-- Blocker: team fanout is unavailable because the NanoClaw bridge wrapper has
-  no underlying `scripts/agent-bridge.py`, but the merge lane itself is not
-  blocked
-- Next owner: `nanoclaw_pd` to merge PR `#37`, then reopen
-  `responsive-design` on the next scheduled run
+- Current state: `responsive-design` is packaged, reviewed clean, and ready to
+  merge on PR `#38`
+- Blocker: none; only the merge action remains on the active lane
+- Next owner: `nanoclaw_pd` to merge PR `#38`, then reopen the queue at
+  `agent-workflow`
 - Stage: `merge`
