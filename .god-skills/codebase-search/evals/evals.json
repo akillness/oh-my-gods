@@ -1,0 +1,45 @@
+{
+  "skill_name": "codebase-search",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to understand where checkout totals are calculated in a TypeScript repo before I change discounts. How should I search?",
+      "expected_output": "Starts broad, narrows to the calculation path, and includes tests or related callers before recommending edits.",
+      "assertions": [
+        "Response begins with a broad conceptual or file-structure search before exact text matching",
+        "Response narrows to concrete definitions or callsites with ripgrep, symbol, or AST-style search",
+        "Response includes checking tests or adjacent discount logic before concluding the investigation"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The app throws 'Invalid credentials' somewhere in auth. I only know the exact error string. What should I do first?",
+      "expected_output": "Uses exact-text search first, then traces the throw site, surrounding conditions, and related tests.",
+      "assertions": [
+        "Response chooses exact grep or ripgrep for the known error string before broader semantic searching",
+        "Response reads surrounding code at the match site instead of stopping at the first matching line",
+        "Response suggests checking tests, handlers, or upstream callers that trigger the error path"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I'm changing UserService.create and need an impact analysis before refactoring. What search workflow should I follow?",
+      "expected_output": "Finds the definition, callsites, imports, tests, and related contracts so the change scope is explicit.",
+      "assertions": [
+        "Response finds the definition and all callsites before proposing changes",
+        "Response includes tests or contract checks as part of the impact-analysis workflow",
+        "Response recommends documenting or listing affected files rather than making assumptions from one match"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We have a large monorepo and I need to locate where S3 bucket names are configured. I don't know the exact filename.",
+      "expected_output": "Uses file-pattern and environment/config searches to locate likely configuration surfaces before reading the relevant files.",
+      "assertions": [
+        "Response uses glob or file-pattern discovery for config-related files when the filename is unknown",
+        "Response searches environment-variable or constant patterns relevant to configuration",
+        "Response reads the resulting config files or loaders before claiming where the setting lives"
+      ]
+    }
+  ]
+}
