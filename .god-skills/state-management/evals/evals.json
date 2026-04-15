@@ -1,0 +1,45 @@
+{
+  "skill_name": "state-management",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We pass auth, theme, and locale through six component levels. Should we use Context, Zustand, or Redux?",
+      "expected_output": "Separates shared shell state from other state classes and prefers the smallest viable shared-state surface instead of defaulting to Redux.",
+      "assertions": [
+        "Response identifies the request as a shared client-state ownership problem",
+        "Response considers React Context or another lightweight option before recommending Redux Toolkit",
+        "Response explains when Redux Toolkit would only be justified by broader workflow complexity"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our dashboard stores API responses, loading flags, and retries in Redux for every page. Is that still a good idea?",
+      "expected_output": "Recognizes the server-state nature of the problem and recommends clearer separation instead of keeping all fetched data in a client-state store.",
+      "assertions": [
+        "Response identifies fetched API data as server state",
+        "Response recommends TanStack Query or another cache-aware server-state approach when appropriate",
+        "Response warns against copying server data into a client-owned global store without a strong reason"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We have a checkout flow with cart state, shipping form drafts, coupon API calls, and URL-driven steps. How should we structure it?",
+      "expected_output": "Splits the workflow into separate ownership lanes and avoids recommending one mega-store for every concern.",
+      "assertions": [
+        "Response separates client state, form state, server state, and URL state into distinct concerns",
+        "Response avoids recommending a single global store for all checkout concerns",
+        "Response names the smallest viable tool or pattern for at least two of the state classes involved"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review this store design: it persists every toggle to localStorage, stores cartCount next to cartItems, and components subscribe to the full Zustand store.",
+      "expected_output": "Flags the persistence, derived-state, and subscription anti-patterns and proposes bounded corrections.",
+      "assertions": [
+        "Response rejects persisting every ephemeral toggle by default",
+        "Response identifies cartCount as a derivable value rather than required stored state",
+        "Response recommends narrower selectors or subscriptions instead of reading the whole store"
+      ]
+    }
+  ]
+}

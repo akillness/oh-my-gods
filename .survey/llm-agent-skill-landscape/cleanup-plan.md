@@ -1,52 +1,51 @@
-# Cleanup Plan: run 47 packaging lane (`deployment-automation`)
+# Cleanup Plan: run 49 review and merge lane (`state-management`)
 
 ## Goal
 
-Close the stale `technical-writing` merge lane now that PR `#32` is already
-merged upstream, then open the next bounded packaging lane on
-`deployment-automation` by compacting the entrypoint and adding only the
-support files that the audit justifies.
+Review the active `state-management` PR now that the packaging pass is already
+registered, keep the branch limited to survey-lock updates unless review finds
+a bounded defect, and merge PR `#34` if the lane remains clean.
 
 ## Behavior lock
 
-- Keep this run limited to `.god-skills/deployment-automation/*` plus the
-  survey lock files under `.survey/llm-agent-skill-landscape/*`.
-- Do not reopen the merged `technical-writing`, `prompt-repetition`, `genkit`,
-  or `database-schema-design` lanes.
-- Do not start a `skill-autoresearch` mutation loop in this run; first make
-  `deployment-automation` compact and eval-backed so a later run can decide on
-  mutation with a stable baseline.
+- Keep this run limited to the survey lock files under
+  `.survey/llm-agent-skill-landscape/*` unless PR review reveals a bounded
+  defect inside `.god-skills/state-management/*`.
+- Do not reopen the merged `deployment-automation`, `technical-writing`,
+  `prompt-repetition`, `genkit`, or `database-schema-design` lanes.
+- Do not start a `skill-autoresearch` mutation loop in this run; first close
+  the active PR-review lane and reopen the queue on the next packaging target.
 - Do not add scripts or assets unless the packaging work proves a deterministic
   helper or bundled data file is truly reusable.
 
 ## Review decisions
 
-- `deployment-automation`
-  - Assets: no
-  - Scripts: no for this pass; examples and checklists are enough
-  - References: yes; move long deployment examples and rollout guidance out of
-    the entrypoint
-  - Evals: yes; add baseline prompts so future optimization can be measured
 - `state-management`
-  - Keep queued behind `deployment-automation`
-  - Re-evaluate after this PR-open lane is registered
+  - Assets: no
+  - Scripts: no further additions in this pass
+  - References: already added and sufficient
+  - Evals: already added and sufficient
+- `skill-autoresearch`
+  - Keep as a triage-only surface in this run
+  - Revisit only after the packaged skill has a stable merged outcome
 
 ## Planned edits
 
-1. Refresh the survey lock so the repo no longer treats `technical-writing` as
-   the active lane.
-2. Rewrite `.god-skills/deployment-automation/SKILL.md` into a compact,
-   triage-first entrypoint.
-3. Add `references/` and `evals/` for the deployment skill, and update
-   `SKILL.toon` to match the packaged structure.
-4. Re-run target validation and repo-wide validation.
-5. Open the next PR path on a fresh branch once the bounded change set is ready.
+1. Refresh the survey lock so the repo treats `state-management` as the active
+   review-to-merge lane instead of an improvement lane.
+2. Re-run target validation and repo-wide validation to confirm no new
+   standardization regressions appeared after PR registration.
+3. Confirm the branch diff still stays bounded to the packaged
+   `state-management` surface plus survey lock files.
+4. Merge PR `#34` if the review pass stays clean and the branch remains
+   scoped.
 
 ## Verification
 
-- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/deployment-automation`
+- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/state-management`
 - Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
-- Confirm the diff stays bounded to the deployment skill package plus survey
-  lock files
+- Confirm the diff stays bounded to the state-management skill package plus
+  survey lock files
+- Confirm PR `#34` remains clean and has no reported checks blocking merge
 - Record current state, blocker, next owner, and stage for the next scheduled
-  review pass
+  post-merge run
