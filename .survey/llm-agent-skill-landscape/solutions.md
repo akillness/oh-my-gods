@@ -18,11 +18,16 @@
 
 ## What People Actually Use
 
-In practice, teams mix a small set of reusable skill packages with platform-native orchestration controls. They still rely on manual review gates, explicit permissions, and targeted supporting files rather than one giant prompt for everything. That makes compact entrypoints plus eval-backed workflow skills the main quality bottleneck in this repo.
+In practice, teams mix a small set of reusable skill packages with
+platform-native orchestration controls. They still rely on manual review gates,
+explicit permissions, and targeted supporting files rather than one giant
+prompt for everything. That makes compact entrypoints plus eval-backed workflow
+skills the main quality bottleneck in this repo.
 
 ## Frequency Ranking
 
-This ranking is an inference from current official docs coverage and product emphasis, not a usage telemetry measurement:
+This ranking is an inference from current official docs coverage and product
+emphasis, not a usage telemetry measurement:
 
 1. Agent Skills packaging and description quality
 2. Native skills plus subagents in Claude Code
@@ -32,16 +37,33 @@ This ranking is an inference from current official docs coverage and product emp
 
 ## Key Gaps
 
-- Repo-wide eval coverage is still low relative to the importance of workflow skills.
-- Workflow skills that repeat setup, runtime, and deployment detail in the entrypoint drift faster than skills that keep the main file compact and push detail into references.
-- OpenAI Codex automations, Claude subagents, and Gemini extensions all reward concise reusable workflow packages, so packaging debt now blocks more leverage than adding another broad skill.
-- `deployment-automation` is now the strongest next packaging gap because it is the largest remaining monolith, has no packaged support files, and still has no eval coverage after the `technical-writing` PR.
+- Repo-wide eval coverage is still low relative to the importance of workflow
+  skills.
+- Workflow skills that repeat setup, runtime, and deployment detail in the
+  entrypoint drift faster than skills that keep the main file compact and push
+  detail into references.
+- OpenAI Codex automations, Claude subagents, and Gemini extensions all reward
+  concise reusable workflow packages, so packaging debt now blocks more
+  leverage than adding another broad skill.
+- `deployment-automation` was the strongest active packaging gap because
+  `technical-writing` had already merged while deployment automation still
+  shipped as a large monolith with no packaged support files or eval coverage
+  on `main`; that gap is now packaged and merge-ready on PR `#33`, which moves
+  `state-management` into the top queued slot for the next improvement run.
 
 ## Contradictions
 
-- Ecosystem docs emphasize small entrypoints plus supporting files, but some of the repo's highest-leverage skills are still monoliths.
-- Platforms increasingly support deterministic control surfaces, but many repo skills still rely on prose only and have no measurable pass/fail criteria.
+- Ecosystem docs emphasize small entrypoints plus supporting files, but some of
+  the repo's highest-leverage skills are still monoliths.
+- Platforms increasingly support deterministic control surfaces, but many repo
+  skills still rely on prose only and have no measurable pass/fail criteria.
 
 ## Key Insight
 
-The highest-value improvement is still not adding another broad skill first. It is upgrading workflow-critical existing skills into evaluation-ready, standards-compliant entrypoints so future iterations can optimize them one bounded mutation at a time. That is why this run finishes the `technical-writing` merge path and keeps `deployment-automation` as the next bounded packaging lane rather than starting a fresh `skill-autoresearch` experiment or an unrelated new skill.
+The highest-value improvement is still not adding another broad skill first. It
+is upgrading workflow-critical existing skills into evaluation-ready,
+standards-compliant entrypoints so future iterations can optimize them one
+bounded mutation at a time. That is why this run advances the already-packaged
+`deployment-automation` lane through merge and leaves `state-management` as the
+next queued packaging target rather than starting a fresh
+`skill-autoresearch` experiment or an unrelated new skill.

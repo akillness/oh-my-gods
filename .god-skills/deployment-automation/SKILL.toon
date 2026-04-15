@@ -1,21 +1,19 @@
 N:deployment-automation
-D:Automate application deployment to cloud platforms and servers. Use when setting up CI/CD pipelin...
-G:deployment CI/CD Docker Kubernetes AWS
-U[4]:
-  **New Projects**: Set up automated deployment from scratch
-  **Manual Deployment Improvement**: Automate repetitive manual tasks
-  **Multi-Environment**: Separate dev, staging, and production environments
-  **Scaling**: Introduce Kubernetes to handle traffic growth
+D:Build, review, or harden deployment pipelines for applications and services. Use when the user nee...
+G:deployment automation ci-cd docker kubernetes github-actions rollback vercel
+U[5]:
+  Set up a deployment pipeline for a new app, service, or monorepo
+  Replace manual release steps with CI/CD and repeatable promotion paths
+  Choose between platform, container, Kubernetes, or legacy VM deploy lanes
+  Add rollout gates, rollback steps, or zero-downtime strategy
+  Review a brittle deployment workflow for release risk or drift
 S[5]{n,action}:
-  1,Docker Containerization
-  2,GitHub Actions CI/CD
-  3,Kubernetes Deployment
-  4,Vercel/Netlify (Frontend)
-  5,Zero-Downtime Deployment Strategy
-R[6]:
-  uses
-  name
-  name
-  name
-  name
-  name
+  1,Triage the workload, artifact, and release lane
+  2,Choose the smallest deployment surface that fits
+  3,Design CI/CD around one artifact and clear promotion
+  4,Protect rollout and recovery
+  5,Load support files only when they add leverage
+R[3]:
+  references/container-and-pipeline-patterns.md
+  references/platform-rollout-patterns.md
+  references/release-safety-checklist.md
