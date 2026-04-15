@@ -1,526 +1,177 @@
 ---
 name: git-workflow
-description: Manage Git workflows including commits, branches, merges, and collaboration. Use when working with Git repositories, creating commits, managing branches, or resolving conflicts.
+description: >
+  Manage Git workflows for day-to-day delivery: branch creation, syncing with a
+  base branch, commits, pull-request preparation, conflict resolution, and
+  safe recovery from mistakes. Use when working in a Git repository, preparing
+  reviewable commits, rebasing or merging, recovering from wrong-branch or
+  reset mistakes, or deciding how to push shared history safely. Triggers on:
+  git workflow, branch strategy, write commit message, merge conflict, rebase,
+  cherry-pick, recover commit, force-with-lease, sync fork, prepare PR.
 allowed-tools: Bash Read Write Grep Glob
 metadata:
   tags: git, version-control, branching, commits, collaboration
-  platforms: Claude, ChatGPT, Gemini
+  platforms: Claude, ChatGPT, Gemini, Codex
+  version: "2.0.0"
 ---
-
 
 # Git Workflow
 
+Git workflow help is mainly about choosing the safest path for the current repo
+state. Keep the entrypoint focused on triage, workflow selection, and safety
+checks. Load the references only when the user needs exact command recipes or
+recovery playbooks.
+
 ## When to use this skill
-- Creating meaningful commit messages
-- Managing branches
-- Merging code
-- Resolving conflicts
-- Collaborating with team
-- Git best practices
+
+- Start a new feature, fix, docs, or hotfix branch
+- Sync an existing branch with `main` or another base branch before review
+- Stage and commit work with a clear message and reviewable scope
+- Resolve merge or rebase conflicts without losing local work
+- Recover from common Git mistakes like wrong-branch commits or bad resets
+- Decide whether merge, rebase, revert, cherry-pick, or stash is the right
+  move
+
+Prefer a narrower sibling skill when the main job is not Git coordination:
+
+- `git-submodule` for submodule-specific workflows
+- `changelog-maintenance` when the user mainly needs release notes
+- `code-review` when the repo state is already settled and the task is code
+  quality
 
 ## Instructions
 
-### Step 1: Branch management
+### Step 1: Ground the current repo state first
 
-**Create feature branch**:
-```bash
-# Create and switch to new branch
-git checkout -b feature/feature-name
+Before suggesting branch, history, or push actions, confirm:
 
-# Or create from specific commit
-git checkout -b feature/feature-name <commit-hash>
-```
+- current branch
+- clean or dirty working tree
+- ahead/behind status relative to the remote
+- whether the branch is personal, shared, or already under review
 
-**Naming conventions**:
-- `feature/description`: New features
-- `bugfix/description`: Bug fixes
-- `hotfix/description`: Urgent fixes
-- `refactor/description`: Code refactoring
-- `docs/description`: Documentation updates
+Use `git status --short --branch` first. If history shape matters, inspect a
+small log slice such as `git log --oneline --graph -10`.
 
-### Step 2: Making changes
+Do not recommend `rebase`, `reset`, `merge`, or `push --force-with-lease`
+before the current state is known.
 
-**Stage changes**:
-```bash
-# Stage specific files
-git add file1.py file2.js
+### Step 2: Choose the smallest safe workflow lane
 
-# Stage all changes
-git add .
+Map the request to one lane:
 
-# Stage with patch mode (interactive)
-git add -p
-```
+- new work: create a focused branch from the right base
+- sync work: fetch, inspect divergence, then choose merge or rebase
+- commit prep: review diffs, stage intentionally, write a message with why
+- collaboration: push with upstream, open or update the PR, keep shared
+  history safe
+- recovery: protect reachable work first, then use reflog, cherry-pick,
+  revert, or reset as appropriate
 
-**Check status**:
-```bash
-# See what's changed
-git status
+If the user only asked for one move, answer that move plus the immediate safety
+checks before and after it.
 
-# See detailed diff
-git diff
+### Step 3: Protect work before history surgery
 
-# See staged diff
-git diff --staged
-```
+Before risky operations:
 
-### Step 3: Committing
+- preserve uncommitted work with a focused commit or stash when needed
+- create a rescue branch before destructive history edits when recovery risk is
+  non-trivial
+- prefer `--force-with-lease` over `--force`
+- prefer `git revert` over history rewriting on shared branches
+- treat `git reset --hard`, branch deletion, and history rewriting as
+  last-resort recovery moves
 
-**Write good commit messages**:
-```bash
-git commit -m "type(scope): subject
+When the branch is already shared, optimize for recoverability instead of the
+cleanest possible history.
 
-Detailed description of what changed and why.
+### Step 4: Pull the matching reference, not the whole package
 
-- Change 1
-- Change 2
+Load only the reference that matches the user's job:
 
-Fixes #123"
-```
+- `references/branching-and-sync.md` for branch creation, fetching, rebasing,
+  merging, and fork sync
+- `references/commit-and-history-hygiene.md` for staging, commit messages,
+  amend, log inspection, and history cleanup
+- `references/conflicts-recovery-and-collaboration.md` for conflict handling,
+  wrong-branch recovery, revert vs reset, reflog, and shared-branch safety
 
-**Commit types**:
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation
-- `style`: Formatting, no code change
-- `refactor`: Code refactoring
-- `test`: Adding tests
-- `chore`: Maintenance
+### Step 5: Verify the workflow result
 
-**Example**:
-```bash
-git commit -m "feat(auth): add JWT authentication
+After the suggested workflow, verify with the smallest relevant checks:
 
-- Implement JWT token generation
-- Add token validation middleware
-- Update user model with refresh token
+- `git status --short --branch`
+- `git diff --staged` or `git diff <base>...HEAD`
+- `git log --oneline --graph -5`
+- relevant tests or linters if code changed
 
-Closes #42"
-```
-
-### Step 4: Pushing changes
-
-```bash
-# Push to remote
-git push origin feature/feature-name
-
-# Force push (use with caution!)
-git push origin feature/feature-name --force-with-lease
-
-# Set upstream and push
-git push -u origin feature/feature-name
-```
-
-### Step 5: Pulling and updating
-
-```bash
-# Pull latest changes
-git pull origin main
-
-# Pull with rebase (cleaner history)
-git pull --rebase origin main
-
-# Fetch without merging
-git fetch origin
-```
-
-### Step 6: Merging
-
-**Merge feature branch**:
-```bash
-# Switch to main branch
-git checkout main
-
-# Merge feature
-git merge feature/feature-name
-
-# Merge with no fast-forward (creates merge commit)
-git merge --no-ff feature/feature-name
-```
-
-**Rebase instead of merge**:
-```bash
-# On feature branch
-git checkout feature/feature-name
-
-# Rebase onto main
-git rebase main
-
-# Continue after resolving conflicts
-git rebase --continue
-
-# Abort rebase
-git rebase --abort
-```
-
-### Step 7: Resolving conflicts
-
-**When conflicts occur**:
-```bash
-# See conflicted files
-git status
-
-# Open files and resolve conflicts
-# Look for markers:
-<<<<<<< HEAD
-Current branch code
-=======
-Incoming branch code
->>>>>>> feature-branch
-
-# After resolving
-git add <resolved-files>
-git commit  # For merge
-git rebase --continue  # For rebase
-```
-
-### Step 8: Cleaning up
-
-```bash
-# Delete local branch
-git branch -d feature/feature-name
-
-# Force delete
-git branch -D feature/feature-name
-
-# Delete remote branch
-git push origin --delete feature/feature-name
-
-# Clean up stale references
-git fetch --prune
-```
-
-## Advanced workflows
-
-### Interactive rebase
-
-```bash
-# Rebase last 3 commits
-git rebase -i HEAD~3
-
-# Commands in editor:
-# pick: use commit
-# reword: change commit message
-# edit: amend commit
-# squash: combine with previous
-# fixup: like squash, discard message
-# drop: remove commit
-```
-
-### Stashing changes
-
-```bash
-# Stash current changes
-git stash
-
-# Stash with message
-git stash save "Work in progress on feature X"
-
-# List stashes
-git stash list
-
-# Apply most recent stash
-git stash apply
-
-# Apply and remove stash
-git stash pop
-
-# Apply specific stash
-git stash apply stash@{2}
-
-# Drop stash
-git stash drop stash@{0}
-
-# Clear all stashes
-git stash clear
-```
-
-### Cherry-picking
-
-```bash
-# Apply specific commit
-git cherry-pick <commit-hash>
-
-# Cherry-pick multiple commits
-git cherry-pick <hash1> <hash2> <hash3>
-
-# Cherry-pick without committing
-git cherry-pick -n <commit-hash>
-```
-
-### Bisect (finding bugs)
-
-```bash
-# Start bisect
-git bisect start
-
-# Mark current as bad
-git bisect bad
-
-# Mark known good commit
-git bisect good <commit-hash>
-
-# Git will checkout commits to test
-# Test and mark each:
-git bisect good  # if works
-git bisect bad   # if broken
-
-# When found, reset
-git bisect reset
-```
+Do not claim the repo is ready until the post-action state matches the intent.
 
 ## Examples
 
-### Example 1: Feature development workflow
+### Example 1: Sync a feature branch before review
 
-```bash
-# 1. Create feature branch
-git checkout main
-git pull origin main
-git checkout -b feature/user-profile
+Input:
 
-# 2. Make changes
-# ... edit files ...
-
-# 3. Commit changes
-git add src/profile/
-git commit -m "feat(profile): add user profile page
-
-- Create profile component
-- Add profile API endpoints
-- Add profile tests"
-
-# 4. Keep up to date with main
-git fetch origin
-git rebase origin/main
-
-# 5. Push to remote
-git push origin feature/user-profile
-
-# 6. Create Pull Request on GitHub/GitLab
-# ... after review and approval ...
-
-# 7. Merge and cleanup
-git checkout main
-git pull origin main
-git branch -d feature/user-profile
+```text
+My branch is a few commits behind main and I want the cleanest path before I
+open a PR. What Git workflow should I follow?
 ```
 
-### Example 2: Hotfix workflow
+Expected shape:
 
-```bash
-# 1. Create hotfix branch from production
-git checkout main
-git pull origin main
-git checkout -b hotfix/critical-bug
+- checks the current branch and working tree first
+- fetches remote state before choosing rebase or merge
+- includes a post-sync verification step before pushing
 
-# 2. Fix the bug
-# ... make fixes ...
+### Example 2: Recover a wrong-branch commit
 
-# 3. Commit
-git add .
-git commit -m "hotfix: fix critical login bug
+Input:
 
-Fixes authentication bypass vulnerability
-
-Fixes #999"
-
-# 4. Push and merge immediately
-git push origin hotfix/critical-bug
-
-# After merge:
-# 5. Cleanup
-git checkout main
-git pull origin main
-git branch -d hotfix/critical-bug
+```text
+I committed a bugfix on main by mistake and have not pushed yet. How do I move
+it safely?
 ```
 
-### Example 3: Collaborative workflow
+Expected shape:
 
-```bash
-# 1. Update main branch
-git checkout main
-git pull origin main
+- protects the commit before rewriting local branch history
+- uses a recovery workflow such as branch creation plus reset or cherry-pick
+- verifies the commit ends up on the intended branch
 
-# 2. Create feature branch
-git checkout -b feature/new-feature
+### Example 3: Resolve a rebase conflict on a shared branch
 
-# 3. Regular updates from main
-git fetch origin
-git rebase origin/main
+Input:
 
-# 4. Push your work
-git push origin feature/new-feature
-
-# 5. If teammate made changes to your branch
-git pull origin feature/new-feature --rebase
-
-# 6. Resolve any conflicts
-# ... resolve conflicts ...
-git add .
-git rebase --continue
-
-# 7. Force push after rebase
-git push origin feature/new-feature --force-with-lease
+```text
+My branch hit conflicts during rebase and the PR is already under review. What
+should I do without wrecking the branch for teammates?
 ```
+
+Expected shape:
+
+- checks whether the branch is shared before recommending history changes
+- walks through conflict resolution and `rebase --continue` or `--abort`
+- uses `--force-with-lease` only if the rewritten branch still needs to be
+  pushed
 
 ## Best practices
 
-1. **Commit often**: Small, focused commits
-2. **Meaningful messages**: Explain what and why
-3. **Pull before push**: Stay updated
-4. **Review before commit**: Check what you're committing
-5. **Use branches**: Never commit directly to main
-6. **Keep history clean**: Rebase feature branches
-7. **Test before push**: Run tests locally
-8. **Write descriptive branch names**: Easy to understand
-9. **Delete merged branches**: Keep repository clean
-10. **Use .gitignore**: Don't commit generated files
-
-## Common patterns
-
-### Undo last commit (keep changes)
-
-```bash
-git reset --soft HEAD~1
-```
-
-### Undo last commit (discard changes)
-
-```bash
-git reset --hard HEAD~1
-```
-
-### Amend last commit
-
-```bash
-# Change commit message
-git commit --amend -m "New message"
-
-# Add files to last commit
-git add forgotten-file.txt
-git commit --amend --no-edit
-```
-
-### View history
-
-```bash
-# Detailed log
-git log
-
-# One line per commit
-git log --oneline
-
-# With graph
-git log --oneline --graph --all
-
-# Last 5 commits
-git log -5
-
-# Commits by author
-git log --author="John"
-
-# Commits in date range
-git log --since="2 weeks ago"
-```
-
-### Find commits
-
-```bash
-# Search commit messages
-git log --grep="keyword"
-
-# Search code changes
-git log -S "function_name"
-
-# Show file history
-git log --follow -- path/to/file
-```
-
-## Troubleshooting
-
-### Accidentally committed to wrong branch
-
-```bash
-# 1. Create correct branch from current state
-git branch feature/correct-branch
-
-# 2. Reset current branch
-git reset --hard HEAD~1
-
-# 3. Switch to correct branch
-git checkout feature/correct-branch
-```
-
-### Need to undo a merge
-
-```bash
-# If not pushed yet
-git reset --hard HEAD~1
-
-# If already pushed (creates revert commit)
-git revert -m 1 <merge-commit-hash>
-```
-
-### Recover deleted branch
-
-```bash
-# Find lost commit
-git reflog
-
-# Create branch from lost commit
-git checkout -b recovered-branch <commit-hash>
-```
-
-### Sync fork with upstream
-
-```bash
-# Add upstream remote
-git remote add upstream https://github.com/original/repo.git
-
-# Fetch upstream
-git fetch upstream
-
-# Merge upstream main
-git checkout main
-git merge upstream/main
-
-# Push to your fork
-git push origin main
-```
-
-## Git configuration
-
-### User setup
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
-```
-
-### Aliases
-
-```bash
-git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.st status
-git config --global alias.unstage 'reset HEAD --'
-git config --global alias.last 'log -1 HEAD'
-git config --global alias.lg 'log --oneline --graph --all'
-```
-
-### Editor
-
-```bash
-git config --global core.editor "code --wait"  # VS Code
-git config --global core.editor "vim"           # Vim
-```
+1. Inspect `git status` before suggesting history edits
+2. Stage intentionally and review diffs before committing
+3. Prefer small focused branches and reviewable commits
+4. Prefer reversible workflows on shared branches
+5. Use `--force-with-lease`, not blind force pushes
+6. Keep detailed command recipes in references so the entrypoint stays compact
+   and triggerable
+7. Verify the repo state after every non-trivial Git operation
 
 ## References
 
+- `references/branching-and-sync.md`
+- `references/commit-and-history-hygiene.md`
+- `references/conflicts-recovery-and-collaboration.md`
 - [Pro Git Book](https://git-scm.com/book/en/v2)
-- [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
+- [Git Documentation](https://git-scm.com/docs)
 - [Conventional Commits](https://www.conventionalcommits.org/)
-- [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/)
-- [GitHub Flow](https://guides.github.com/introduction/flow/)

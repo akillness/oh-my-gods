@@ -46,10 +46,9 @@ emphasis, not a usage telemetry measurement:
 - OpenAI Codex, Claude subagents, and Gemini extensions all reward concise
   reusable workflow packages, so packaging debt still blocks more leverage than
   prompt mutation on oversized skills in this repo.
-- React-oriented skills also need current review guidance around targeted
-  optimization, not blanket memoization folklore, which made
-  `ui-component-patterns` a stronger next target than another generic
-  refactor-only pass.
+- Workflow skills still need careful review for hidden hard-coded assumptions,
+  such as default remote/base names or destructive recovery shortcuts, even
+  after they are packaged.
 
 ## Contradictions
 
@@ -63,7 +62,8 @@ emphasis, not a usage telemetry measurement:
 The highest-value improvement is still not adding another broad skill first. It
 is upgrading workflow-critical existing skills into evaluation-ready,
 standards-compliant entrypoints so future iterations can optimize them one
-bounded mutation at a time. That is why this run advances
-`ui-component-patterns` from PR review into a merge-ready lane on `#36` and
-leaves `git-workflow` as the next queued packaging target rather than starting
-a fresh `skill-autoresearch` experiment or an unrelated new skill.
+bounded mutation at a time. That is why this run keeps `git-workflow` on the
+active lane, applies one bounded hardening pass during PR review, and moves it
+toward merge while leaving `responsive-design` as the next queued packaging
+target instead of starting a fresh `skill-autoresearch` experiment or an
+unrelated new skill.
