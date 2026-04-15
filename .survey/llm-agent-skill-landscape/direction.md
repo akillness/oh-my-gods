@@ -30,8 +30,7 @@ The current LLM-agent skill landscape still favors packaging-first work over
 prompt-mutation work for this repo:
 
 1. Agent Skills keeps the shared ecosystem centered on compact skill entrypoints
-   plus optional support directories, which means oversized monoliths are still
-   the main leverage bottleneck.
+   plus optional support directories.
 2. OpenAI Codex treats skills and automations as first-class workflow
    surfaces, which reinforces compact, reusable entrypoints plus explicit
    follow-on execution paths.
@@ -46,12 +45,16 @@ prompt-mutation work for this repo:
 6. `skill-autoresearch` still pays off only after the target skill is compact,
    eval-backed, and either failing measured checks or showing review feedback
    worth optimizing against.
+7. Inference for this repo: packaging remains the stronger next move than
+   prompt mutation because the remaining biggest gaps are still oversized skill
+   entrypoints (`git-workflow` at `525` lines and `responsive-design` at `514`)
+   while `ui-component-patterns` is already compact and eval-backed.
 
 ## Locked direction
 
 Advance one workflow-critical packaging gap per run, in priority order:
 
-1. Review PR `#36` for `ui-component-patterns`
+1. Merge PR `#36` for `ui-component-patterns`
 2. `git-workflow`
 3. `responsive-design`
 4. `skill-autoresearch` mutations only where a compact, eval-backed baseline
@@ -61,9 +64,8 @@ This order is locked because:
 
 - `codebase-search` is already merged, so reopening it would be duplicate
   work.
-- `ui-component-patterns` is now packaged and PR-open, so the correct next move
-  is branch review rather than another implementation pass on a different
-  skill.
+- `ui-component-patterns` has now passed the bounded PR review gate, so the
+  correct next move is to merge it instead of reopening implementation work.
 - `git-workflow` and `responsive-design` are the next highest-value packaging
   gaps once the active PR leaves the open-review stage.
 - Mutation work remains lower leverage than packaging debt on the remaining
@@ -84,20 +86,20 @@ This order is locked because:
 
 ## Packaging decision for this run
 
-- Target lane: `ui-component-patterns` improvement-to-PR-open
+- Target lane: `ui-component-patterns` PR-review-to-merge
 - Assets: no additional assets needed
 - Scripts: no; the skill remains reference-backed rather than script-backed
-- References: add focused pattern docs for API design, control patterns, and
-  accessibility/performance review
-- Evals: add before any mutation loop so the skill can later be optimized
-  against measurable prompts
-- Sections: keep the entrypoint compact and push heavy examples out of
-  `SKILL.md`
+- References: already added and sufficient for the packaged lane
+- Evals: already added and sufficient for future measured optimization
+- Sections: keep the packaged skill surface unchanged because the review pass
+  stayed clean
 
 ## Current state
 
-- State: `ui-component-patterns` is packaged, validated, and open on PR `#36`
+- State: `ui-component-patterns` is packaged, reviewed clean, and ready to
+  merge on PR `#36`
 - Blocker: cross-agent fanout is still degraded by the missing repo-level
-  bridge target, but the PR-open path is not blocked
-- Next owner: `nanoclaw_pd` to run the next PR-review pass on `#36`
-- Stage: `PR-open`
+  bridge target, but the merge path is not blocked
+- Next owner: `nanoclaw_pd` to merge PR `#36` and reopen the queue at
+  `git-workflow`
+- Stage: `merge`

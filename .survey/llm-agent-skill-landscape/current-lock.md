@@ -6,8 +6,7 @@ Date: 2026-04-15
 
 - Agent Skills still centers reusable skill packages on `SKILL.md` plus
   optional support directories such as `references/`, `scripts/`, `assets/`,
-  and `evals`, so packaging-first work remains higher leverage than prompt-only
-  mutation for oversized skills.
+  and `evals`.
 - OpenAI's Codex guidance keeps pushing reusable skills and automations, which
   reinforces small workflow entrypoints plus explicit follow-on execution
   surfaces instead of monolithic prompt files.
@@ -23,6 +22,11 @@ Date: 2026-04-15
 - `skill-autoresearch` is still justified only after a skill has compact
   structure plus baseline eval coverage and either measured failures or clear
   review feedback.
+- Inference for this repo: packaging-first work remains higher leverage than
+  prompt-only mutation on the largest remaining skills because `git-workflow`
+  and `responsive-design` still exceed the 500-line guidance threshold while
+  `ui-component-patterns` already has a compact, eval-backed package in active
+  review.
 - Durable execution still works best as
   `survey -> improvement -> PR-open -> PR-review -> merge`.
 
@@ -31,13 +35,14 @@ Source links:
 - https://agentskills.io/specification
 - https://agentskills.io/skill-creation/using-scripts
 - https://agentskills.io/skill-creation/evaluating-skills
-- https://developers.openai.com/codex/
+- https://developers.openai.com/api/docs/guides/tools-skills
+- https://developers.openai.com/codex/noninteractive
 - https://code.claude.com/docs/en/sub-agents
-- https://code.claude.com/docs/en/slash-commands
+- https://code.claude.com/docs/en/cli-reference
 - https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
 - https://google-gemini.github.io/gemini-cli/docs/extensions/
 - https://react.dev/blog/2024/02/15/react-labs-what-we-have-been-working-on-february-2024
-- https://a2a-protocol.org/blog/a2a-v1.0-release
+- https://a2a-protocol.org/latest/announcing-1.0/
 
 ## Live GitHub state
 
@@ -99,19 +104,21 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: review PR `#36` for `ui-component-patterns` on the next
-  scheduled run.
+- Primary lane: advance PR `#36` for `ui-component-patterns` into merge now
+  that the re-review pass stayed clean.
 - Secondary lane: reopen the queue at `git-workflow` only after PR `#36`
-  resolves cleanly.
+  lands.
 - Do not start a mutation loop for the large non-eval backlog before the
   active packaging PR resolves.
 
 ## Status
 
 - Current state: `codebase-search` is closed upstream after merge, and
-  `ui-component-patterns` is now packaged, validated, and open on PR `#36`
+  `ui-component-patterns` is now packaged, re-reviewed clean, and ready to
+  merge on PR `#36`
 - Blocker: team fanout is unavailable because the NanoClaw bridge wrapper has
-  no underlying `scripts/agent-bridge.py`, but the PR-open path itself is not
+  no underlying `scripts/agent-bridge.py`, but the merge path itself is not
   blocked
-- Next owner: `nanoclaw_pd` to run the PR-review pass on `#36`
-- Stage: `PR-open`
+- Next owner: `nanoclaw_pd` to merge PR `#36` and reopen the queue at
+  `git-workflow`
+- Stage: `merge`

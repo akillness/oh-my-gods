@@ -21,8 +21,9 @@
 In practice, teams mix a small set of reusable skill packages with
 platform-native orchestration controls. They still rely on manual review gates,
 explicit permissions, and targeted supporting files rather than one giant
-prompt for everything. That keeps compact entrypoints plus eval-backed
-workflow skills as the main leverage bottleneck in this repo.
+prompt for everything. Inference for this repo: that makes compact entrypoints
+plus eval-backed workflow skills the main leverage bottleneck while the largest
+remaining skills still exceed the 500-line guidance threshold.
 
 ## Frequency Ranking
 
@@ -44,7 +45,7 @@ emphasis, not a usage telemetry measurement:
   detail into references.
 - OpenAI Codex, Claude subagents, and Gemini extensions all reward concise
   reusable workflow packages, so packaging debt still blocks more leverage than
-  prompt mutation on oversized skills.
+  prompt mutation on oversized skills in this repo.
 - React-oriented skills also need current review guidance around targeted
   optimization, not blanket memoization folklore, which made
   `ui-component-patterns` a stronger next target than another generic
@@ -62,8 +63,7 @@ emphasis, not a usage telemetry measurement:
 The highest-value improvement is still not adding another broad skill first. It
 is upgrading workflow-critical existing skills into evaluation-ready,
 standards-compliant entrypoints so future iterations can optimize them one
-bounded mutation at a time. That is why this run moves
-`ui-component-patterns` into the active PR-open lane on `#36` after
-`codebase-search` merged on `#35`, while leaving `git-workflow` as the next
-queued packaging target rather than starting a fresh `skill-autoresearch`
-experiment or an unrelated new skill.
+bounded mutation at a time. That is why this run advances
+`ui-component-patterns` from PR review into a merge-ready lane on `#36` and
+leaves `git-workflow` as the next queued packaging target rather than starting
+a fresh `skill-autoresearch` experiment or an unrelated new skill.
