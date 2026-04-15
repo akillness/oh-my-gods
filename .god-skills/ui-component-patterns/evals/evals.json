@@ -1,0 +1,45 @@
+{
+  "skill_name": "ui-component-patterns",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our Button component has variantPrimary, variantSecondary, outline, ghost, compact, loading, withIcon, and destructive booleans. How should we redesign the API?",
+      "expected_output": "Treats the component as a primitive with API sprawl, collapses booleans into clearer intent-based props, and keeps the public contract smaller than the implementation details.",
+      "assertions": [
+        "Response identifies the request as a component API design problem for a reusable primitive",
+        "Response recommends replacing multiple overlapping booleans with clearer enums, slots, or state props",
+        "Response keeps focus on the public API rather than mixing in unrelated business logic"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We need accessible Tabs and Accordion components for our design system. Should we use compound components, render props, or headless hooks?",
+      "expected_output": "Classifies these as coordinated widgets, compares compound components against headless behavior, and includes accessibility behavior in the decision.",
+      "assertions": [
+        "Response identifies tabs or accordion as coordinated interactive widgets rather than simple primitives",
+        "Response compares at least two of compound components, render props, or headless hooks",
+        "Response includes keyboard, focus, or ARIA behavior as part of the API choice"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our Dialog needs to work both uncontrolled in simple pages and controlled by parent state in a workflow builder. How should we structure that API?",
+      "expected_output": "Explains when a dual controlled/uncontrolled API is justified and keeps ownership explicit instead of letting internal and external state fight each other.",
+      "assertions": [
+        "Response discusses controlled versus uncontrolled ownership explicitly",
+        "Response recommends open/defaultOpen/onOpenChange or an equivalent explicit API pattern when dual mode is justified",
+        "Response warns against ambiguous state ownership or hidden sync logic"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our ProductCard list is wrapped in React.memo everywhere, every prop callback uses useCallback, and we still see sluggish rendering. What should we keep or remove?",
+      "expected_output": "Reviews rendering as a measurement problem, checks state ownership and prop surfaces first, and avoids blanket memoization advice.",
+      "assertions": [
+        "Response treats React.memo, useMemo, or useCallback as targeted optimizations rather than defaults",
+        "Response recommends checking state locality, prop churn, or actual hotspots before keeping blanket memoization",
+        "Response distinguishes real rendering bottlenecks from cargo-cult optimization patterns"
+      ]
+    }
+  ]
+}
