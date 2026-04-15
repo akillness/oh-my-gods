@@ -1,14 +1,14 @@
-# Cleanup Plan: next packaging lane (`git-workflow`)
+# Cleanup Plan: active packaging lane (`git-workflow`)
 
 ## Goal
 
-Keep the next run bounded to survey refresh plus the next `git-workflow`
-packaging surface after `ui-component-patterns` lands, and either open the new
+Keep this run bounded to survey refresh plus the `git-workflow` packaging
+surface after `ui-component-patterns` landed, and either open the new
 packaging PR path or stop if a fresher survey refresh changes the priority.
 
 ## Behavior lock
 
-- Keep the next run limited to
+- Keep this run limited to
   `.survey/llm-agent-skill-landscape/*` plus
   `.god-skills/git-workflow/*`.
 - Do not reopen the merged `codebase-search`, `state-management`,
@@ -26,24 +26,27 @@ packaging PR path or stop if a fresher survey refresh changes the priority.
   - Assets: no unless a reusable template or bundled example becomes necessary
   - Scripts: not by default; add only if the packaging pass proves a
     deterministic helper belongs with the skill
-  - References: likely needed because the entrypoint still exceeds the 500-line
-    guidance threshold
+  - References: needed because the entrypoint exceeds the 500-line guidance
+    threshold and mixes distinct workflow families
   - Evals: needed before any mutation loop
 - `skill-autoresearch`
-  - Keep at triage only in the next run
+  - Keep at triage only in this run
   - Revisit only after `git-workflow` is compact, eval-backed, and either
     review feedback or measured failures justify optimization
 
 ## Planned edits
 
 1. Refresh the survey lock so the repo treats `ui-component-patterns` as closed
-   upstream after PR `#36` lands and `git-workflow` as the next active
+   upstream after PR `#36` landed and `git-workflow` as the next active
    packaging lane.
-2. Write a cleanup plan before modifying `git-workflow`.
+2. Lock the current `git-workflow` behavior with eval coverage before trimming
+   the monolith.
 3. Package `git-workflow` into a compact entrypoint plus only the references
    and evals that the audit proves necessary.
 4. Re-run target validation and repo-wide validation before opening the next
    PR.
+5. Record the resulting PR-open state so the next run starts in review mode
+   instead of redoing implementation work.
 
 ## Verification
 

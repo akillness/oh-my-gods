@@ -1,0 +1,45 @@
+{
+  "skill_name": "git-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My feature branch is behind main and I want the cleanest path before opening a PR. What Git workflow should I follow?",
+      "expected_output": "Checks repo state first, fetches remote changes, chooses merge or rebase deliberately, and verifies the branch before pushing.",
+      "assertions": [
+        "Response starts by checking the current branch and working tree with status before suggesting rebase or merge",
+        "Response fetches or inspects remote divergence before choosing how to sync with the base branch",
+        "Response includes a verification step such as status, diff, or log review before pushing or opening the PR"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I committed a fix on main by mistake and I have not pushed yet. How do I move it safely to a bugfix branch?",
+      "expected_output": "Protects the existing commit, moves it to the correct branch, and avoids losing local work.",
+      "assertions": [
+        "Response protects the commit with a branch, cherry-pick, or equivalent recovery path before resetting local main",
+        "Response avoids recommending destructive cleanup before the mistaken commit is reachable elsewhere",
+        "Response verifies that the commit now lives on the intended branch and main is restored"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "My PR branch hit conflicts during rebase and teammates are already reviewing it. What should I do?",
+      "expected_output": "Treats the branch as shared, explains conflict resolution with continue or abort, and uses force-with-lease only when justified.",
+      "assertions": [
+        "Response checks or acknowledges that the branch is already shared before recommending more history rewriting",
+        "Response walks through resolving conflicts and using rebase continue or abort explicitly",
+        "Response prefers force-with-lease over force if the rewritten shared branch must be pushed"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Help me with a safe Git workflow for a small docs fix from branch creation through commit and push.",
+      "expected_output": "Creates a focused branch, stages intentionally, writes a reviewable commit, pushes with upstream, and verifies the final state.",
+      "assertions": [
+        "Response includes creating a dedicated branch from the correct base for the docs change",
+        "Response reviews staged changes or diffs before committing instead of committing blindly",
+        "Response includes pushing with upstream and checking the resulting branch state"
+      ]
+    }
+  ]
+}
