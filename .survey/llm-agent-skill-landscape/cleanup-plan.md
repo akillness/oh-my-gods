@@ -1,11 +1,10 @@
-# Cleanup Plan: run 52 improvement lane (`ui-component-patterns`)
+# Cleanup Plan: next review lane (`ui-component-patterns`)
 
 ## Goal
 
-Reopen the queue at `ui-component-patterns` after `codebase-search` lands,
-keep the next run bounded to survey refresh plus the `ui-component-patterns`
-packaging surface, and register a new PR only after the next change set is
-compact and standards-clean.
+Keep the next run bounded to survey refresh plus the active
+`ui-component-patterns` PR-review surface, and either apply one bounded fix to
+PR `#36` or advance it to merge if the review stays clean.
 
 ## Behavior lock
 
@@ -17,9 +16,9 @@ compact and standards-clean.
   `technical-writing`, `prompt-repetition`, `genkit`, or
   `database-schema-design` lanes.
 - Do not widen scope into `git-workflow` or another large skill until
-  `ui-component-patterns` is either packaged and opened as its own bounded PR
-  or explicitly deprioritized by a fresh survey refresh.
-- Do not add scripts or assets unless the packaging work proves a reusable
+  `ui-component-patterns` is either reviewed clean and merged or explicitly
+  deprioritized by a fresh survey refresh.
+- Do not add scripts or assets unless the review proves a reusable
   deterministic helper or bundled data file is necessary.
 
 ## Packaging decisions
@@ -28,21 +27,24 @@ compact and standards-clean.
   - Assets: no unless examples or bundled templates become necessary
   - Scripts: no by default; add only if a deterministic reusable helper is
     justified
-  - References: likely needed because the entrypoint is still oversized
-  - Evals: needed before any mutation loop
+  - References: already added and should stay the only support-doc expansion
+    unless review proves a missing pattern
+  - Evals: already added; use them as the gate before any mutation loop
 - `skill-autoresearch`
   - Keep at triage only in the next run
-  - Revisit only after `ui-component-patterns` is compact and eval-backed
+  - Revisit only after `ui-component-patterns` is compact, eval-backed, and
+    either review feedback or measured failures justify optimization
 
 ## Planned edits
 
 1. Refresh the survey lock so the repo treats `codebase-search` as closed and
-   `ui-component-patterns` as the next active packaging lane.
-2. Write a cleanup plan before modifying `ui-component-patterns`.
-3. Package `ui-component-patterns` into a compact entrypoint plus only the
-   references and evals that the audit proves necessary.
-4. Re-run target validation and repo-wide validation before opening the next
-   PR.
+   `ui-component-patterns` as the active PR-open lane on `#36`.
+2. Re-review PR `#36` against `origin/main` for duplicate work, missing
+   references, or trigger-quality gaps.
+3. If review finds a bounded issue, patch only `ui-component-patterns` plus the
+   survey lock files.
+4. Re-run target validation and repo-wide validation before deciding between
+   another PR-review update and merge.
 
 ## Verification
 
@@ -50,6 +52,7 @@ compact and standards-clean.
 - Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
 - Confirm the diff stays bounded to the `ui-component-patterns` skill package
   plus survey lock files
-- Register or open the new PR path only after the packaged lane is ready
+- Check PR `#36` metadata and branch diff before deciding whether a bounded
+  update is still needed
 - Record current state, blocker, next owner, and stage for the next scheduled
   improvement run
