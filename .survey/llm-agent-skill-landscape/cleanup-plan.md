@@ -1,50 +1,52 @@
-# Cleanup Plan: run 45 packaging lane (`technical-writing`)
+# Cleanup Plan: run 46 review lane (`technical-writing`)
 
 ## Goal
 
-Package `technical-writing` into a standards-clean, reviewable skill surface so
-this run can open the next bounded PR and leave the following run to perform
-the explicit PR-review pass.
+Review the already-open `technical-writing` lane, correct the survey lock files
+to match the real lifecycle state, and advance the branch from `PR-open` to
+`merge` without reopening the skill package itself.
 
 ## Behavior lock
 
-- Keep this lane limited to `.god-skills/technical-writing/*` plus the
-  recurring survey lock files.
-- Prefer extraction and deletion over adding new abstraction layers.
-- Add only support files that materially improve trigger quality or keep the
-  entrypoint under control.
+- Keep this run limited to the recurring survey lock files unless verification
+  finds a real defect in `.god-skills/technical-writing/*`.
+- Treat `technical-writing` as review-only: no new references, scripts, assets,
+  or evals unless the validator or PR diff proves something is still missing.
 - Do not reopen already-merged lanes such as `prompt-repetition`, `genkit`, or
   `database-schema-design`.
-- Do not start a `skill-autoresearch` mutation loop for `technical-writing` in
-  this run; first establish a compact entrypoint and packaged eval baseline.
+- Do not start a `skill-autoresearch` mutation loop in this run; the task is to
+  finish the review/merge path and keep the next queue decision explicit.
 
-## Packaging decisions
+## Review decisions
 
-- Assets: no; the skill needs guidance and templates, not binary assets
-- Scripts: no; the lane does not yet justify a deterministic scaffold helper
-- References: yes; move bulky document templates and review guidance out of the
-  activation surface
-- Evals: yes; add representative prompts so future review or mutation work has
-  a baseline
+- `technical-writing`
+  - Assets: no new assets needed
+  - Scripts: no; deterministic generation is still not justified
+  - References: already packaged and sufficient
+  - Evals: already packaged and sufficient for future measured work
+- `deployment-automation` next target
+  - Assets: no initial asset need
+  - Scripts: not yet; decide only if a deterministic scaffold helper becomes
+    clearly reusable
+  - References: yes, likely needed to split inline templates from the entrypoint
+  - Evals: yes, needed before any mutation loop is justified
 
 ## Planned edits
 
-1. Refresh GitHub and validator state after the merged `prompt-repetition`
-   cycle so the lock files match current reality.
-2. Rewrite `.god-skills/technical-writing/SKILL.md` into a compact entrypoint
-   focused on audience, document lane selection, and scope boundaries.
-3. Add only the justified support files:
-   `references/document-templates.md`,
-   `references/review-checklists.md`, and `evals/evals.json`.
-4. Update `SKILL.toon` so the packaged support surface stays discoverable.
-5. Re-run target validation plus repo-wide validation, then record the lane as
-   `PR-open` with the next owner set to the review pass.
+1. Refresh GitHub, validator, and survey state for the active `technical-writing`
+   PR-review lane.
+2. Update only `.survey/llm-agent-skill-landscape/*` so the active lifecycle
+   state, next target, and support-file decisions match the current branch.
+3. Leave `.god-skills/technical-writing/*` unchanged unless verification finds
+   a standards or packaging regression.
+4. Re-run target validation plus repo-wide validation, then advance the lane to
+   `merge` if the review remains clean.
 
 ## Verification
 
 - Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/technical-writing`
-- Validate `.god-skills/technical-writing/evals/evals.json` as parseable JSON
 - Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
 - Confirm the branch stays bounded to `technical-writing` plus the survey lock
   files
-- Record current state, blocker, next owner, and stage before opening the PR
+- Re-check PR `#32` merge status before taking the merge path
+- Record current state, blocker, next owner, and stage as `merge`

@@ -44,8 +44,8 @@ Source links:
 - PR `#31` for `prompt-repetition` merged into `main` at
   `2026-04-15T00:07:59Z`:
   https://github.com/akillness/oh-my-gods/pull/31
-- PR `#32` for `technical-writing` opened at `2026-04-15T01:08:24Z` from
-  `chore/skill-loop-pr-open-20260415-r33`:
+- PR `#32` for `technical-writing` remains the active lane and is currently
+  merge-ready on `chore/skill-loop-pr-open-20260415-r33`:
   https://github.com/akillness/oh-my-gods/pull/32
 
 ## Audit snapshot
@@ -54,6 +54,9 @@ Source links:
   `0` hard errors, and the repo-wide warning count is now `66`.
 - `technical-writing` validates at `0` errors and `0` warnings under the repo's
   `skill-standardization` validator.
+- Review of the PR diff found no duplicate work inside
+  `.god-skills/technical-writing/*` and no missing support files for the
+  packaged scope.
 - Eval coverage rises to `28/80` shipped skills because
   `.god-skills/technical-writing/evals/evals.json` now exists.
 - `technical-writing` now includes the support files it was missing, so the
@@ -69,16 +72,16 @@ Source links:
 |---|---|---|---|---|---|---|---|
 | `genkit` | Merged and closed via PR `#30` | No | No | Added on merged PR `#30` | Added on merged PR `#30` | No | Closed unless later measured failures reopen it |
 | `prompt-repetition` | Merged and closed via PR `#31` | No | Added on merged PR `#31` | Added on merged PR `#31` | Added on merged PR `#31` | No | Closed unless new measured failures reopen it |
-| `technical-writing` | Packaged and opened as PR `#32` | No | No | Added on PR `#32` | Added on PR `#32` | No | Review PR `#32`, then reopen the queue at `deployment-automation` |
+| `technical-writing` | Reviewed and merge-ready on PR `#32` | No | No | Already added on PR `#32` | Already added on PR `#32` | No | Merge PR `#32`, then reopen the queue at `deployment-automation` |
 | `deployment-automation` | Still large and unevaluated behind the active PR-open lane | No | Not yet | Likely needed | Needed | No | Keep next after `technical-writing` lands |
 | `survey` | Remains the research surface, not the packaging target | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
 | `skill-standardization` | Remains the repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 
 ## Locked direction
 
-- Primary lane: review PR `#32` for `technical-writing` on the next run.
-- Secondary lane: after `technical-writing` lands, reopen the packaging queue
-  at `deployment-automation`.
+- Primary lane: merge PR `#32` for `technical-writing`.
+- Secondary lane: reopen the packaging queue at `deployment-automation` on the
+  next run after this merge path completes.
 - Do not start a `skill-autoresearch` mutation loop for the large non-eval
   backlog before compact entrypoints and packaged evals exist.
 - Keep the branch clean by excluding unrelated docs churn, runtime experiments,
@@ -86,24 +89,23 @@ Source links:
 
 ## Cleanup plan
 
-1. Refresh GitHub and validator state before touching the next lifecycle stage.
+1. Refresh GitHub, validator, and survey state before touching the merge path.
 2. Review only `.god-skills/technical-writing/*` plus the survey lock files.
 3. If the review is clean, avoid new skill edits and move the lifecycle state
    from `PR-open` to `merge`.
-4. Re-run the target validator, JSON parse check, and the repo-wide validator
-   before advancing the lane.
+4. Re-run the target validator and the repo-wide validator before advancing the
+   lane.
 
 ## Run action
 
-- Smallest bounded action for the next run: review PR `#32` for duplicate work,
-  missing improvements, and standardization gaps, then advance it to merge if
-  the lane stays clean.
+- Smallest bounded action for this run: refresh the survey lock files, verify PR
+  `#32` remains clean, and merge it if the lane stays clean.
 
 ## Status
 
-- Current state: the `technical-writing` lane is packaged and opened as PR
-  `#32` from `chore/skill-loop-pr-open-20260415-r33`
+- Current state: the `technical-writing` lane has passed the explicit PR-review
+  pass and is ready for merge on PR `#32`
 - Blocker: none
-- Next owner: `nanoclaw_pd` to perform the explicit `PR-review` pass on the
-  next scheduled run
-- Stage: `PR-open`
+- Next owner: `nanoclaw_pd` to execute the merge path now, then reopen the queue
+  at `deployment-automation` on the next scheduled run
+- Stage: `merge`

@@ -35,7 +35,7 @@ This ranking is an inference from current official docs coverage and product emp
 - Repo-wide eval coverage is still low relative to the importance of workflow skills.
 - Workflow skills that repeat setup, runtime, and deployment detail in the entrypoint drift faster than skills that keep the main file compact and push detail into references.
 - OpenAI Codex automations, Claude subagents, and Gemini extensions all reward concise reusable workflow packages, so packaging debt now blocks more leverage than adding another broad skill.
-- `genkit` is the strongest active packaging gap because it was the largest remaining monolith, had no eval coverage, and sits directly on a current framework surface for typed flows, tools, RAG, and deployment.
+- `deployment-automation` is now the strongest next packaging gap because it is the largest remaining monolith, has no packaged support files, and still has no eval coverage after the `technical-writing` PR.
 
 ## Contradictions
 
@@ -44,4 +44,4 @@ This ranking is an inference from current official docs coverage and product emp
 
 ## Key Insight
 
-The highest-value improvement is still not adding another broad skill first. It is upgrading workflow-critical existing skills into evaluation-ready, standards-compliant entrypoints so future iterations can optimize them one bounded mutation at a time. That is why the active lane is now bounded `genkit` packaging rather than a fresh `skill-autoresearch` experiment or an unrelated new skill.
+The highest-value improvement is still not adding another broad skill first. It is upgrading workflow-critical existing skills into evaluation-ready, standards-compliant entrypoints so future iterations can optimize them one bounded mutation at a time. That is why this run finishes the `technical-writing` merge path and keeps `deployment-automation` as the next bounded packaging lane rather than starting a fresh `skill-autoresearch` experiment or an unrelated new skill.

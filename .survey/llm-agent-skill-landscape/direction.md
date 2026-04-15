@@ -10,8 +10,8 @@
 - PR `#31` for `prompt-repetition` merged into `main` at
   `2026-04-15T00:07:59Z`, so that lane is now closed:
   https://github.com/akillness/oh-my-gods/pull/31
-- PR `#32` is now open on `chore/skill-loop-pr-open-20260415-r33` for the new
-  `technical-writing` packaging lane:
+- PR `#32` remains the active `technical-writing` lane and is now in the
+  explicit merge path on `chore/skill-loop-pr-open-20260415-r33`:
   https://github.com/akillness/oh-my-gods/pull/32
 - Repo-wide validator snapshot on this branch is now `80/80` shipped skills
   with `0` hard errors and `66` warnings.
@@ -22,6 +22,9 @@
   references and evals.
 - `technical-writing` now has a corrected support contract in `SKILL.toon`, and
   the package stays script-free because this lane did not justify a generator.
+- The PR-review pass found no duplicate work or missing standardization updates
+  inside the `technical-writing` package itself, so the remaining work is the
+  merge step rather than another packaging edit.
 
 ## Survey refresh
 
@@ -47,21 +50,19 @@ prompt-mutation work for this repo:
 
 Improve one workflow-critical packaging gap per run, in priority order:
 
-1. `technical-writing` via clean PR review of PR `#32`
-2. `deployment-automation`
-3. `state-management`
-4. `skill-autoresearch` mutations only where a compact, eval-backed baseline
+1. `deployment-automation`
+2. `state-management`
+3. `skill-autoresearch` mutations only where a compact, eval-backed baseline
    already exists
 
 This order is locked because:
 
-- `technical-writing` had the best next bounded signal after
-  `prompt-repetition` merged: it was the largest remaining un-evaluated
-  over-500-line skill, it had no packaged support surface at all, and its
-  scope could be tightened without introducing deterministic scripts.
-- `deployment-automation` and `state-management` remain strong packaging
-  targets, but both stay behind the already-open `technical-writing` PR so the
-  recurring loop keeps one active lane at a time.
+- `technical-writing` has now been compacted, validated, and reviewed cleanly,
+  so it no longer competes for the next packaging slot once the merge path
+  completes.
+- `deployment-automation` and `state-management` remain the strongest
+  packaging targets because both are still over `500` lines, have no packaged
+  support files, and have no eval coverage.
 - `skill-autoresearch` is still not justified for the large non-eval backlog
   until those skills have compact structure and packaged evals.
 
@@ -71,7 +72,7 @@ This order is locked because:
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `genkit` | High | No | No | No | Added on merged PR `#30` | Added on merged PR `#30` | Closed for now; reconsider mutations only if repeated measured failures appear |
 | `prompt-repetition` | Medium-high | No | No | Already added on merged PR `#31` | Already added on merged PR `#31` | Already added on merged PR `#31` | Closed unless new measured failures reopen it |
-| `technical-writing` | High | No | No | No | Added on PR `#32` | Added on PR `#32` | Review PR `#32`, then queue `deployment-automation` |
+| `technical-writing` | High | No | No | No | Added on PR `#32` | Added on PR `#32` | Merge PR `#32`, then queue `deployment-automation` |
 | `deployment-automation` | High | Not yet | No | Not yet | Likely needed | Needed | Keep next after `technical-writing` merges |
 | `survey` | Medium | Not yet | No | No | Maybe later | Already present | Keep as the landscape capture surface |
 | `skill-standardization` | Medium | Not yet | No | Existing validator script is enough | No | Already present | Keep as the audit gate |
@@ -91,9 +92,9 @@ This order is locked because:
 
 ## Current state
 
-- State: the `technical-writing` packaging lane is complete and opened as PR
-  `#32`, ready for the next run to perform the explicit `PR-review` pass
+- State: the `technical-writing` packaging lane is complete, has passed the
+  explicit `PR-review` pass, and is ready for merge on PR `#32`
 - Blocker: none
-- Next owner: `nanoclaw_pd` on the next scheduled run to review PR `#32` for
-  duplicate work, missing improvements, or standardization gaps
-- Stage: `PR-open`
+- Next owner: `nanoclaw_pd` to execute the merge path now, then reopen the
+  packaging queue at `deployment-automation`
+- Stage: `merge`
