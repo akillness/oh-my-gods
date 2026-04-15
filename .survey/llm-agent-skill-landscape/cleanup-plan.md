@@ -1,39 +1,50 @@
-# Cleanup Plan: run 44 PR-review gate (`prompt-repetition`)
+# Cleanup Plan: run 45 packaging lane (`technical-writing`)
 
 ## Goal
 
-Re-review the already-open `prompt-repetition` PR for duplicate work, missing
-improvements, or standardization gaps, then merge it if the lane stays clean.
+Package `technical-writing` into a standards-clean, reviewable skill surface so
+this run can open the next bounded PR and leave the following run to perform
+the explicit PR-review pass.
 
 ## Behavior lock
 
-- Keep this lane limited to `.god-skills/prompt-repetition/*` plus the
+- Keep this lane limited to `.god-skills/technical-writing/*` plus the
   recurring survey lock files.
 - Prefer extraction and deletion over adding new abstraction layers.
-- Do not add assets unless a concrete reusable template becomes necessary; this
-  pass should stay at lifecycle advancement only.
-- Do not reopen already-merged lanes such as `genkit` or
+- Add only support files that materially improve trigger quality or keep the
+  entrypoint under control.
+- Do not reopen already-merged lanes such as `prompt-repetition`, `genkit`, or
   `database-schema-design`.
-- Do not start a `skill-autoresearch` mutation loop for `prompt-repetition` in
-  this run; the compact entrypoint and packaged eval baseline already exist,
-  and this pass is only for explicit review plus lifecycle advancement.
+- Do not start a `skill-autoresearch` mutation loop for `technical-writing` in
+  this run; first establish a compact entrypoint and packaged eval baseline.
+
+## Packaging decisions
+
+- Assets: no; the skill needs guidance and templates, not binary assets
+- Scripts: no; the lane does not yet justify a deterministic scaffold helper
+- References: yes; move bulky document templates and review guidance out of the
+  activation surface
+- Evals: yes; add representative prompts so future review or mutation work has
+  a baseline
 
 ## Planned edits
 
-1. Refresh GitHub state for PR `#31` and confirm the lane is still merge-clean.
-2. Re-review only `.god-skills/prompt-repetition/*` for duplicated work,
-   missing support surfaces, or spec regressions.
-3. Re-run the target validator, JSON parse check, Python compile check, and
-   repo-wide validator.
-4. If the review stays clean, update the survey lock files to record the merge
-   stage and merge the PR without adding fresh skill churn.
+1. Refresh GitHub and validator state after the merged `prompt-repetition`
+   cycle so the lock files match current reality.
+2. Rewrite `.god-skills/technical-writing/SKILL.md` into a compact entrypoint
+   focused on audience, document lane selection, and scope boundaries.
+3. Add only the justified support files:
+   `references/document-templates.md`,
+   `references/review-checklists.md`, and `evals/evals.json`.
+4. Update `SKILL.toon` so the packaged support surface stays discoverable.
+5. Re-run target validation plus repo-wide validation, then record the lane as
+   `PR-open` with the next owner set to the review pass.
 
 ## Verification
 
-- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/prompt-repetition`
-- Validate `.god-skills/prompt-repetition/evals/evals.json` as parseable JSON
-- Run `python3 -m py_compile .god-skills/prompt-repetition/scripts/prompt_repetition_transformer.py`
+- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/technical-writing`
+- Validate `.god-skills/technical-writing/evals/evals.json` as parseable JSON
 - Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
-- Confirm the branch stays bounded to `prompt-repetition` plus the survey lock
+- Confirm the branch stays bounded to `technical-writing` plus the survey lock
   files
-- Record the branch, blocker, next owner, and stage before merge
+- Record current state, blocker, next owner, and stage before opening the PR
