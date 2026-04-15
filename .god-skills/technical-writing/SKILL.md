@@ -1,581 +1,164 @@
 ---
 name: technical-writing
-description: Write clear, comprehensive technical documentation. Use when creating specs, architecture docs, runbooks, or API documentation. Handles technical specifications, system design docs, operational guides, and developer documentation with industry best practices.
+description: >
+  Write or review technical specs, architecture docs, runbooks, and other
+  engineering-facing documentation. Use when the user needs internal technical
+  writing, wants help choosing the right documentation shape, or needs a draft
+  reviewed for clarity, completeness, and operational risk. Triggers on:
+  technical spec, architecture doc, runbook, system design doc, engineering
+  documentation, developer documentation, ADR, internal docs.
 allowed-tools: Read Write Edit Glob Grep
 metadata:
-  tags: technical-writing, documentation, specs, architecture, runbooks, API-docs
-  platforms: Claude, ChatGPT, Gemini
+  tags: technical-writing, documentation, specs, architecture, runbooks, adrs
+  platforms: Claude, ChatGPT, Gemini, Codex
+  version: "2.0.0"
 ---
-
 
 # Technical Writing
 
+Technical writing works best when the document is shaped around one reader job.
+Keep the entrypoint focused on audience, document lane, and review risk, then
+load the support files only when a template or checklist materially helps.
+
 ## When to use this skill
-- Writing technical specifications
-- Creating architecture documentation
-- Documenting system designs
-- Writing runbooks and operational guides
-- Creating developer documentation
-- API documentation
-- User manuals and guides
-- Release notes and changelogs
+
+- Draft or review a technical specification for engineers or cross-functional
+  reviewers
+- Write or tighten an architecture document, ADR, or system design narrative
+- Produce a runbook or operational guide for deploy, incident, or maintenance
+  work
+- Improve an engineering-facing document for clarity, structure, and action
+- Decide whether a documentation request should be routed to a more specific
+  sibling skill
+
+Prefer a sibling skill when the request is narrower than general technical
+writing:
+
+- `api-documentation` for OpenAPI, endpoint reference docs, or SDK docs
+- `user-guide-writing` for onboarding, tutorials, FAQ, or screenshot-heavy
+  end-user docs
+- `changelog-maintenance` for release notes or changelog work
 
 ## Instructions
 
-### Step 1: Understand your audience
+### Step 1: Triage the reader and the job
 
-**Developer audience**:
-- Focus on implementation details
-- Include code examples
-- Technical terminology is okay
-- Show how, not just what
+Capture the minimum facts before drafting:
 
-**DevOps/Operations audience**:
-- Focus on deployment and maintenance
-- Include configuration examples
-- Emphasize monitoring and troubleshooting
-- Provide runbooks
+- primary reader: engineer, operator, stakeholder reviewer, or mixed team
+- document job: decision record, implementation guide, operations aid, or
+  review artifact
+- expected action after reading: approve, build, deploy, debug, or hand off
+- risk level: what breaks if the document is vague or wrong
 
-**Manager/Stakeholder audience**:
-- High-level overview
-- Business impact
-- Minimal technical jargon
-- Focus on outcomes
+If the audience or job is unclear, narrow that first instead of filling a
+generic template.
 
-**End user audience**:
-- Simple, clear language
-- Step-by-step instructions
-- Visual aids (screenshots, videos)
-- FAQ section
+### Step 2: Pick the narrowest document lane
 
-### Step 2: Choose the right document type
+Use the smallest shape that fits the request:
 
-**Technical Specification**:
-```markdown
-# [Feature Name] Technical Specification
+- technical spec for goals, constraints, solution design, rollout, and open
+  questions
+- architecture doc or ADR for boundaries, tradeoffs, and component
+  relationships
+- runbook for deploy, rollback, monitoring, troubleshooting, and escalation
+- general technical review when the user already has a draft and wants it
+  tightened
 
-## Overview
-Brief description of what this spec covers
+Do not default to an all-purpose document that mixes architecture, API
+reference, onboarding, and release notes into one answer.
 
-## Problem Statement
-What problem are we solving?
+### Step 3: Write for decisions and action
 
-## Goals and Non-Goals
-### Goals
-- Goal 1
-- Goal 2
+Keep the draft useful to the target reader:
 
-### Non-Goals
-- What we're explicitly not doing
+- state the purpose near the top
+- name assumptions, constraints, and non-goals explicitly
+- use examples, commands, or checklists only when they help the reader act
+- include verification, monitoring, rollback, or escalation paths when the
+  document drives operational work
+- remove sections that do not support the selected lane
 
-## Solution Design
-### High-Level Architecture
-### Data Models
-### API Contracts
-### User Interface
+### Step 4: Pull support files only when they add leverage
 
-## Implementation Plan
-### Phase 1
-### Phase 2
+Load the smallest support file that matches the request:
 
-## Testing Strategy
+- `references/document-templates.md` for spec, architecture, and runbook
+  skeletons plus sibling-skill boundaries
+- `references/review-checklists.md` for clarity, completeness, and maintenance
+  checks when drafting or reviewing
 
-## Security Considerations
+### Step 5: Review the document before handing it off
 
-## Performance Considerations
+Before calling the draft done:
 
-## Monitoring and Alerting
-
-## Rollout Plan
-
-## Rollback Plan
-
-## Open Questions
-
-## References
-```
-
-**Architecture Document**:
-```markdown
-# System Architecture
-
-## Overview
-High-level system description
-
-## Architecture Diagram
-[Insert diagram]
-
-## Components
-### Component 1
-- Responsibility
-- Technology stack
-- Interfaces
-
-### Component 2
-...
-
-## Data Flow
-How data moves through the system
-
-## Key Design Decisions
-### Decision 1
-- Context
-- Options considered
-- Decision made
-- Rationale
-
-## Technology Stack
-- Frontend: React, TypeScript
-- Backend: Python, FastAPI
-- Database: PostgreSQL
-- Infrastructure: AWS, Docker, Kubernetes
-
-## Scalability
-How the system scales
-
-## Security
-Authentication, authorization, data protection
-
-## Monitoring and Observability
-Metrics, logs, tracing
-
-## Disaster Recovery
-Backup and recovery procedures
-
-## Future Considerations
-```
-
-**Runbook**:
-```markdown
-# [Service Name] Runbook
-
-## Service Overview
-What this service does
-
-## Dependencies
-- Service A
-- Service B
-- Database X
-
-## Deployment
-### How to deploy
-```bash
-./deploy.sh production
-```
-
-### Rollback
-```bash
-./rollback.sh
-```
-
-## Monitoring
-### Key Metrics
-- Request rate
-- Error rate
-- Latency
-
-### Dashboards
-- [Production Dashboard](link)
-- [Alerts](link)
-
-## Common Issues
-### Issue 1: High latency
-**Symptoms**: Response time > 1s
-**Diagnosis**: Check database connection pool
-**Resolution**: Restart service or scale up
-
-### Issue 2: Memory leak
-**Symptoms**: Memory usage growing over time
-**Diagnosis**: Check heap dump
-**Resolution**: Restart service, investigate in staging
-
-## Troubleshooting
-### How to check logs
-```bash
-kubectl logs -f deployment/service-name
-```
-
-### How to access metrics
-```bash
-curl https://api/metrics
-```
-
-## Emergency Contacts
-- On-call: [PagerDuty](link)
-- Team Slack: #team-name
-```
-
-**API Documentation**:
-```markdown
-# API Documentation
-
-## Authentication
-All requests require authentication:
-```bash
-curl -H "Authorization: Bearer YOUR_TOKEN" \
-  https://api.example.com/endpoint
-```
-
-## Endpoints
-
-### List Users
-```
-GET /api/v1/users
-```
-
-**Parameters**:
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-| page | integer | No | Page number (default: 1) |
-| limit | integer | No | Items per page (default: 20) |
-
-**Example Request**:
-```bash
-curl -X GET "https://api.example.com/api/v1/users?page=1&limit=20" \
-  -H "Authorization: Bearer YOUR_TOKEN"
-```
-
-**Example Response**:
-```json
-{
-  "data": [
-    {
-      "id": 1,
-      "name": "John Doe",
-      "email": "john@example.com"
-    }
-  ],
-  "pagination": {
-    "page": 1,
-    "limit": 20,
-    "total": 100
-  }
-}
-```
-
-**Error Responses**:
-| Status | Description |
-|--------|-------------|
-| 400 | Bad Request |
-| 401 | Unauthorized |
-| 500 | Server Error |
-```
-
-### Step 3: Writing guidelines
-
-**Clarity**:
-- Use simple, direct language
-- One idea per sentence
-- Short paragraphs (3-5 sentences)
-- Define technical terms
-- Avoid jargon when possible
-
-**Structure**:
-- Use hierarchical headings (H1, H2, H3)
-- Break content into sections
-- Use lists for multiple items
-- Use tables for structured data
-- Add table of contents for long docs
-
-**Examples**:
-- Include code examples
-- Provide diagrams
-- Show before/after comparisons
-- Real-world scenarios
-
-**Completeness**:
-- Cover prerequisites
-- Include error handling
-- Document edge cases
-- Explain why, not just how
-- Link to related docs
-
-**Consistency**:
-- Consistent terminology
-- Consistent formatting
-- Consistent code style
-- Consistent structure
-
-### Step 4: Visual aids
-
-**Architecture diagrams** (Mermaid):
-```mermaid
-graph TB
-    A[Client] -->|HTTP| B[Load Balancer]
-    B --> C[Web Server 1]
-    B --> D[Web Server 2]
-    C --> E[Database]
-    D --> E
-```
-
-**Sequence diagrams**:
-```mermaid
-sequenceDiagram
-    Client->>+Server: Request
-    Server->>+Database: Query
-    Database-->>-Server: Data
-    Server-->>-Client: Response
-```
-
-**Flowcharts**:
-```mermaid
-flowchart TD
-    A[Start] --> B{Is valid?}
-    B -->|Yes| C[Process]
-    B -->|No| D[Error]
-    C --> E[End]
-    D --> E
-```
-
-**Code blocks** with syntax highlighting:
-```python
-def calculate_total(items: List[Item]) -> Decimal:
-    """Calculate total price of items."""
-    return sum(item.price for item in items)
-```
-
-**Screenshots**:
-- Use for UI documentation
-- Annotate important parts
-- Keep up-to-date with UI changes
-
-**Tables**:
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| timeout | int | 30 | Request timeout in seconds |
-| retries | int | 3 | Number of retry attempts |
-
-### Step 5: Review and refine
-
-**Self-review checklist**:
-- [ ] Clear purpose stated upfront
-- [ ] Logical flow of information
-- [ ] All terms defined
-- [ ] Code examples tested
-- [ ] Links work
-- [ ] Diagrams are clear
-- [ ] No typos or grammar errors
-- [ ] Consistent formatting
-- [ ] Table of contents (if needed)
-- [ ] Last updated date
-
-**Get feedback**:
-- Have someone from target audience review
-- Test instructions (can they follow them?)
-- Check for missing information
-- Verify accuracy
-
-**Maintain documentation**:
-- Update with code changes
-- Version your docs
-- Archive outdated docs
-- Regular review cycle
-
-## Document templates
-
-### Technical Spec Template
-```markdown
-# [Feature Name] Technical Spec
-
-**Author**: [Your Name]
-**Date**: [Date]
-**Status**: [Draft/Review/Approved]
-
-## Overview
-[1-2 paragraphs describing what this document covers]
-
-## Background
-[Context and motivation]
-
-## Goals
-- Goal 1
-- Goal 2
-
-## Non-Goals
-- What we're not doing
-
-## Detailed Design
-[Technical details]
-
-## Alternatives Considered
-[Other approaches and why we didn't choose them]
-
-## Timeline
-- Week 1: ...
-- Week 2: ...
-
-## Open Questions
-- Question 1
-- Question 2
-
-## Features
-- Feature 1
-- Feature 2
-
-## Installation
-
-### Prerequisites
-- Node.js >= 14
-- npm >= 6
-
-### Setup
-```bash
-git clone https://github.com/user/project.git
-cd project
-npm install
-```
-
-## Usage
-```bash
-npm start
-```
-
-## Configuration
-Environment variables:
-- `API_KEY`: Your API key
-- `PORT`: Server port (default: 3000)
-
-## Development
-```bash
-npm run dev
-npm test
-```
-
-## Deployment
-[Deployment instructions]
-
-## Contributing
-[Contributing guidelines]
-
-## License
-MIT
-```
-
-### Changelog Template
-```markdown
-# Changelog
-
-## [1.2.0] - 2024-01-15
-
-### Added
-- New feature X
-- Support for Y
-
-### Changed
-- Improved performance of Z
-- Updated dependency A to v2.0
-
-### Fixed
-- Bug where user couldn't login
-- Memory leak in background task
-
-### Deprecated
-- Old API endpoint /v1/users (use /v2/users)
-
-### Removed
-- Legacy authentication method
-
-### Security
-- Fixed XSS vulnerability in comments
-
-## [1.1.0] - 2024-01-01
-...
-```
-
-## Writing tips
-
-### Use active voice
-```
-✅ Good: "The system sends a notification"
-❌ Bad: "A notification is sent by the system"
-```
-
-### Be concise
-```
-✅ Good: "Click Save to save changes"
-❌ Bad: "In order to save your changes, you should click on the Save button"
-```
-
-### Use examples
-```
-✅ Good:
-"Set the timeout in seconds:
-```yaml
-timeout: 30
-```
-
-❌ Bad:
-"Configure the timeout parameter appropriately"
-```
-
-### Break down complexity
-```
-✅ Good:
-"To deploy:
-1. Build the image
-2. Push to registry
-3. Update deployment
-4. Verify rollout"
-
-❌ Bad:
-"Deploy by building and pushing the image to the registry, then update
-the deployment and verify the rollout succeeded"
-```
-
-## Common mistakes to avoid
-
-1. **Assuming knowledge**: Define terms, explain context
-2. **Outdated docs**: Keep in sync with code
-3. **Missing examples**: Always include examples
-4. **No visuals**: Use diagrams for complex concepts
-5. **Poor structure**: Use headings and sections
-6. **Passive voice**: Use active voice
-7. **Too much jargon**: Write for your audience
-8. **No version info**: Date docs, note versions
-9. **Missing error cases**: Document what can go wrong
-10. **No maintenance**: Update regularly
-
-## Best practices
-
-1. **Write for your audience**: Match their knowledge level
-2. **Start with why**: Explain the purpose
-3. **Show, don't just tell**: Use examples
-4. **Be consistent**: Terminology, style, structure
-5. **Test your docs**: Can someone follow them?
-6. **Version your docs**: Track with code versions
-7. **Use templates**: Consistency across docs
-8. **Link related docs**: Help readers find more info
-9. **Update with code**: Docs are part of the code
-10. **Review regularly**: Quarterly doc review
-
-## Tools
-
-**Diagram tools**:
-- Mermaid (markdown-based)
-- Draw.io
-- Lucidchart
-- PlantUML
-
-**Documentation platforms**:
-- GitBook
-- Docusaurus
-- MkDocs
-- Sphinx
-
-**Style checkers**:
-- Grammarly
-- Hemingway Editor
-- Vale
-
-**Screenshot tools**:
-- Snagit
-- CloudApp
-- Loom (for videos)
+- confirm the document matches one reader job
+- check that prerequisites come before procedures
+- make sure commands, examples, and links are accurate when present
+- call out open questions instead of hiding uncertainty
+- note when the document should be maintained alongside changing code or
+  infrastructure
 
 ## Examples
 
-### Example 1: Basic usage
-<!-- Add example content here -->
+### Example 1: Technical spec request
 
-### Example 2: Advanced usage
-<!-- Add advanced example content here -->
+Input:
+
+```text
+Write a technical spec for a feature that syncs customer profiles between
+Salesforce and our internal admin tool.
+```
+
+Expected shape:
+
+- identifies the request as a technical spec
+- includes goals, constraints, design sections, and rollout or rollback notes
+- keeps the audience on engineers or reviewers instead of end users
+
+### Example 2: Runbook request
+
+Input:
+
+```text
+We need a runbook for the payments worker because queue backlog spikes during
+deploys.
+```
+
+Expected shape:
+
+- identifies the request as an operational runbook
+- includes dependencies, monitoring, troubleshooting, and rollback guidance
+- treats the reader as operators or on-call engineers
+
+### Example 3: Specialized lane routing
+
+Input:
+
+```text
+Document our public REST API for external developers and include request and
+response examples.
+```
+
+Expected shape:
+
+- recognizes API reference work as the primary need
+- routes to `api-documentation` or explicitly frames the answer as OpenAPI or
+  endpoint-reference documentation
+- avoids responding with a generic architecture-document template
+
+## Best practices
+
+- Choose the reader and document job before choosing a template
+- Prefer one strong document lane over a bloated hybrid document
+- Use support files for reusable templates and review checklists, not for core
+  triage rules
+- Keep operational documents explicit about verification and rollback
+- Route specialized API, end-user, or changelog requests to sibling skills
+- Treat documentation drift as a maintenance risk and say so when it matters
+
+## References
+
+- `references/document-templates.md`
+- `references/review-checklists.md`

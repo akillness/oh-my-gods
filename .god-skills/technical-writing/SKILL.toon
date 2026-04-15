@@ -1,12 +1,19 @@
 N:technical-writing
-D:Write clear, comprehensive technical documentation. Use when creating specs, architecture docs, r...
+D:Write or review technical specs, architecture docs, and runbooks. Use when the user needs intern...
 G:technical-writing documentation specs architecture runbooks
-U[8]:
-  Writing technical specifications
-  Creating architecture documentation
-  Documenting system designs
-  Writing runbooks and operational guides
-  Creating developer documentation
-S[2]{n,action}:
-  1,Understand your audience
-  2,Choose the right document type
+U[6]:
+  Write a technical specification or design doc for an engineering audience
+  Review or tighten an architecture document
+  Produce a runbook or operational guide
+  Decide whether the request belongs to a sibling documentation skill
+  Add a clear review checklist for a technical draft
+  Keep long templates in references instead of the entrypoint
+S[5]{n,action}:
+  1,Triage the audience and document job
+  2,Pick the narrowest document lane
+  3,Shape the draft around decisions and action
+  4,Use support files only when they add leverage
+  5,Review for clarity, risk, and maintenance
+R[2]:
+  references/document-templates.md
+  references/review-checklists.md

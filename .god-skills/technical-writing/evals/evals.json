@@ -1,0 +1,47 @@
+{
+  "skill_name": "technical-writing",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a technical spec for a new feature that syncs customer profiles between Salesforce and our internal admin tool.",
+      "expected_output": "A technical-spec-oriented response that frames the audience, goals, constraints, design sections, and rollout or rollback considerations.",
+      "assertions": [
+        "Output identifies the request as a technical specification or equivalent design document lane",
+        "Output includes goals or non-goals and at least one constraint or assumption",
+        "Output includes rollout, monitoring, rollback, or another delivery-risk section",
+        "Output does not default to end-user tutorial framing"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We need a runbook for the payments worker because the on-call team keeps seeing queue backlog spikes during deploys.",
+      "expected_output": "A runbook-oriented response that includes dependencies, deploy or rollback steps, monitoring, and troubleshooting guidance.",
+      "assertions": [
+        "Output identifies the document as a runbook or operational guide",
+        "Output includes monitoring, alerts, or troubleshooting content",
+        "Output includes deployment, rollback, or recovery guidance",
+        "Output treats the audience as operators or on-call responders"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Document our public REST API for external developers and include request and response examples.",
+      "expected_output": "A response that recognizes API reference work and routes to API-documentation or explicitly frames the work as OpenAPI or endpoint documentation instead of generic technical writing.",
+      "assertions": [
+        "Output identifies API documentation as a specialized lane",
+        "Output mentions api-documentation, OpenAPI, Swagger, or endpoint reference structure",
+        "Output does not treat the request as a generic architecture doc or runbook"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Create onboarding help docs for new customers who need screenshots and step-by-step instructions.",
+      "expected_output": "A response that recognizes end-user help content and routes to user-guide-writing or equivalent tutorial-focused handling.",
+      "assertions": [
+        "Output identifies the audience as end users or customers",
+        "Output mentions user-guide-writing, onboarding docs, tutorial structure, or FAQ guidance",
+        "Output does not default to an engineering-only document structure"
+      ]
+    }
+  ]
+}

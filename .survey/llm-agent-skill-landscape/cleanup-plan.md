@@ -1,39 +1,52 @@
-# Cleanup Plan: run 44 PR-review gate (`prompt-repetition`)
+# Cleanup Plan: run 46 review lane (`technical-writing`)
 
 ## Goal
 
-Re-review the already-open `prompt-repetition` PR for duplicate work, missing
-improvements, or standardization gaps, then merge it if the lane stays clean.
+Review the already-open `technical-writing` lane, correct the survey lock files
+to match the real lifecycle state, and advance the branch from `PR-open` to
+`merge` without reopening the skill package itself.
 
 ## Behavior lock
 
-- Keep this lane limited to `.god-skills/prompt-repetition/*` plus the
-  recurring survey lock files.
-- Prefer extraction and deletion over adding new abstraction layers.
-- Do not add assets unless a concrete reusable template becomes necessary; this
-  pass should stay at lifecycle advancement only.
-- Do not reopen already-merged lanes such as `genkit` or
+- Keep this run limited to the recurring survey lock files unless verification
+  finds a real defect in `.god-skills/technical-writing/*`.
+- Treat `technical-writing` as review-only: no new references, scripts, assets,
+  or evals unless the validator or PR diff proves something is still missing.
+- Do not reopen already-merged lanes such as `prompt-repetition`, `genkit`, or
   `database-schema-design`.
-- Do not start a `skill-autoresearch` mutation loop for `prompt-repetition` in
-  this run; the compact entrypoint and packaged eval baseline already exist,
-  and this pass is only for explicit review plus lifecycle advancement.
+- Do not start a `skill-autoresearch` mutation loop in this run; the task is to
+  finish the review/merge path and keep the next queue decision explicit.
+
+## Review decisions
+
+- `technical-writing`
+  - Assets: no new assets needed
+  - Scripts: no; deterministic generation is still not justified
+  - References: already packaged and sufficient
+  - Evals: already packaged and sufficient for future measured work
+- `deployment-automation` next target
+  - Assets: no initial asset need
+  - Scripts: not yet; decide only if a deterministic scaffold helper becomes
+    clearly reusable
+  - References: yes, likely needed to split inline templates from the entrypoint
+  - Evals: yes, needed before any mutation loop is justified
 
 ## Planned edits
 
-1. Refresh GitHub state for PR `#31` and confirm the lane is still merge-clean.
-2. Re-review only `.god-skills/prompt-repetition/*` for duplicated work,
-   missing support surfaces, or spec regressions.
-3. Re-run the target validator, JSON parse check, Python compile check, and
-   repo-wide validator.
-4. If the review stays clean, update the survey lock files to record the merge
-   stage and merge the PR without adding fresh skill churn.
+1. Refresh GitHub, validator, and survey state for the active `technical-writing`
+   PR-review lane.
+2. Update only `.survey/llm-agent-skill-landscape/*` so the active lifecycle
+   state, next target, and support-file decisions match the current branch.
+3. Leave `.god-skills/technical-writing/*` unchanged unless verification finds
+   a standards or packaging regression.
+4. Re-run target validation plus repo-wide validation, then advance the lane to
+   `merge` if the review remains clean.
 
 ## Verification
 
-- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/prompt-repetition`
-- Validate `.god-skills/prompt-repetition/evals/evals.json` as parseable JSON
-- Run `python3 -m py_compile .god-skills/prompt-repetition/scripts/prompt_repetition_transformer.py`
+- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/technical-writing`
 - Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
-- Confirm the branch stays bounded to `prompt-repetition` plus the survey lock
+- Confirm the branch stays bounded to `technical-writing` plus the survey lock
   files
-- Record the branch, blocker, next owner, and stage before merge
+- Re-check PR `#32` merge status before taking the merge path
+- Record current state, blocker, next owner, and stage as `merge`
