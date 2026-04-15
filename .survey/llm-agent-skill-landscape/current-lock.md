@@ -41,43 +41,44 @@ Source links:
   `34482161d18a27f057434e7c3523cc732734d2a1` on
   `2026-04-15T07:07:40+09:00`:
   https://github.com/akillness/oh-my-gods/pull/30
-- PR `#31` for `prompt-repetition` stayed open and merge-clean at the start of
-  this run, so this pass performed the explicit PR-review gate on
-  `chore/skill-loop-pr-open-20260415-r32` before advancing the lane to merge:
+- PR `#31` for `prompt-repetition` merged into `main` at
+  `2026-04-15T00:07:59Z`:
   https://github.com/akillness/oh-my-gods/pull/31
+- PR `#32` for `technical-writing` opened at `2026-04-15T01:08:24Z` from
+  `chore/skill-loop-pr-open-20260415-r33`:
+  https://github.com/akillness/oh-my-gods/pull/32
 
 ## Audit snapshot
 
 - Repo-wide validator snapshot on this branch: `80/80` shipped skills pass with
-  `0` hard errors, and the repo-wide warning count is now `67`.
-- `prompt-repetition` validates at `0` errors and `0` warnings under the repo's
+  `0` hard errors, and the repo-wide warning count is now `66`.
+- `technical-writing` validates at `0` errors and `0` warnings under the repo's
   `skill-standardization` validator.
-- Eval coverage rises to `27/80` shipped skills because
-  `.god-skills/prompt-repetition/evals/evals.json` now exists.
-- `prompt-repetition` now includes the support files it was missing, so the
-  entrypoint shrank from `544` lines to `166` lines while keeping research and
-  integration detail bundled locally.
-- `prompt-repetition` now has a corrected `SKILL.toon` support summary.
-- Assets stayed unnecessary for this lane; the justified support changes were
-  the entrypoint, `SKILL.toon`, `references/`, `scripts/`, `evals/`, and
-  removal of the tracked compiled cache file.
+- Eval coverage rises to `28/80` shipped skills because
+  `.god-skills/technical-writing/evals/evals.json` now exists.
+- `technical-writing` now includes the support files it was missing, so the
+  entrypoint shrank from `581` lines to `164` lines while keeping reusable
+  templates and review guidance bundled locally.
+- `technical-writing` now has a corrected `SKILL.toon` support summary.
+- Assets and scripts stayed unnecessary for this lane; the justified support
+  changes were the entrypoint, `SKILL.toon`, `references/`, and `evals/`.
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
 | `genkit` | Merged and closed via PR `#30` | No | No | Added on merged PR `#30` | Added on merged PR `#30` | No | Closed unless later measured failures reopen it |
-| `prompt-repetition` | Review pass is clean on PR `#31`; advance to merge | No | Added on this branch | Added on this branch | Added on this branch | No | Merge PR `#31`, then reopen the queue at `technical-writing` |
-| `technical-writing` | Remains large and unevaluated behind the active merge lane | No | No | Likely needed | Needed | No | Keep next after `prompt-repetition` lands |
+| `prompt-repetition` | Merged and closed via PR `#31` | No | Added on merged PR `#31` | Added on merged PR `#31` | Added on merged PR `#31` | No | Closed unless new measured failures reopen it |
+| `technical-writing` | Packaged and opened as PR `#32` | No | No | Added on PR `#32` | Added on PR `#32` | No | Review PR `#32`, then reopen the queue at `deployment-automation` |
+| `deployment-automation` | Still large and unevaluated behind the active PR-open lane | No | Not yet | Likely needed | Needed | No | Keep next after `technical-writing` lands |
 | `survey` | Remains the research surface, not the packaging target | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
 | `skill-standardization` | Remains the repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 
 ## Locked direction
 
-- Primary lane: merge PR `#31` for `prompt-repetition` after the clean review
-  pass in this run.
-- Secondary lane: after `prompt-repetition` lands, reopen the packaging queue
-  at `technical-writing`.
+- Primary lane: review PR `#32` for `technical-writing` on the next run.
+- Secondary lane: after `technical-writing` lands, reopen the packaging queue
+  at `deployment-automation`.
 - Do not start a `skill-autoresearch` mutation loop for the large non-eval
   backlog before compact entrypoints and packaged evals exist.
 - Keep the branch clean by excluding unrelated docs churn, runtime experiments,
@@ -85,23 +86,24 @@ Source links:
 
 ## Cleanup plan
 
-1. Refresh GitHub and validator state before touching lifecycle stage.
-2. Review only `.god-skills/prompt-repetition/*` plus the survey lock files.
-3. If the review is clean, avoid new skill edits and only move the lifecycle
-   state from `PR-open` to `merge`.
-4. Re-run the target validator, JSON parse check, Python compile check, and the
-   repo-wide validator before advancing to merge.
+1. Refresh GitHub and validator state before touching the next lifecycle stage.
+2. Review only `.god-skills/technical-writing/*` plus the survey lock files.
+3. If the review is clean, avoid new skill edits and move the lifecycle state
+   from `PR-open` to `merge`.
+4. Re-run the target validator, JSON parse check, and the repo-wide validator
+   before advancing the lane.
 
 ## Run action
 
-- Smallest bounded action for this run: review PR `#31` for duplicate work,
+- Smallest bounded action for the next run: review PR `#32` for duplicate work,
   missing improvements, and standardization gaps, then advance it to merge if
   the lane stays clean.
 
 ## Status
 
-- Current state: the explicit PR-review pass for `prompt-repetition` is clean;
-  PR `#31` is ready to merge from `chore/skill-loop-pr-open-20260415-r32`
+- Current state: the `technical-writing` lane is packaged and opened as PR
+  `#32` from `chore/skill-loop-pr-open-20260415-r33`
 - Blocker: none
-- Next owner: `nanoclaw_pd` to complete the merge path in this run
-- Stage: `merge`
+- Next owner: `nanoclaw_pd` to perform the explicit `PR-review` pass on the
+  next scheduled run
+- Stage: `PR-open`
