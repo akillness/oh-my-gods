@@ -2,115 +2,94 @@
 
 ## Audit snapshot
 
-- PR `#36` for `ui-component-patterns` merged at
-  `2026-04-15T10:07:04Z`:
-  https://github.com/akillness/oh-my-gods/pull/36
-- PR `#37` for `git-workflow` remains the active lane and stayed top-priority
-  after the fresh survey refresh; no new external signal justified leapfrogging
-  it with a different skill.
-- `git-workflow` was the largest remaining packaging target on `main` because
-  it still shipped as a `526` line monolith with no packaged `references/`,
-  `evals/`, `scripts/`, or `assets`.
-- The branch already reduced `git-workflow` to a compact `177` line
-  entrypoint, added focused Git workflow references plus eval coverage, and
-  kept scripts and assets intentionally out of scope.
-- This review pass found two bounded follow-ups worth landing before merge:
-  generic `<remote>/<base-branch>` sync recipes instead of hard-coded
-  `origin/main`, and explicit history verification before any wrong-branch
-  `reset --hard`.
-- The follow-up patch also extended eval coverage so future mutation or review
-  work can catch both the non-default-base sync path and the recovery precheck.
-- The target validator now passes at `0` errors and `0` warnings for
-  `git-workflow`.
-- Repo-wide validation stays at `0` hard errors and drops from `62` to
-  `61` warnings.
-- `responsive-design` is now the next queued monolith at `515`.
-- The orchestration wrapper is still degraded because the repo-level bridge
-  target is missing, so this loop continues locally until that path is
-  restored.
-- PR `#37` for `git-workflow` is open, non-draft, and bounded on branch
-  `chore/skill-loop-pr-open-20260415-r38`:
+- PR `#37` for `git-workflow` merged at `2026-04-15T12:09:48Z`:
   https://github.com/akillness/oh-my-gods/pull/37
+- PR `#38` for `responsive-design` is now the active lane on branch
+  `chore/skill-loop-pr-open-20260415-r39`:
+  https://github.com/akillness/oh-my-gods/pull/38
+- `responsive-design` was the largest remaining packaging monolith on `main`
+  at `514` lines with no packaged `references/`, `evals/`, `scripts/`, or
+  `assets`.
+- This run reduced `responsive-design` to a `194` line entrypoint, added three
+  focused `references/` files, and added eval coverage for layout, container
+  query, density, and browser-verification scenarios.
+- No scripts or assets were added because the audit still showed no reusable
+  deterministic helper or bundled template was necessary.
+- Target validation now passes at `0` errors and `0` warnings for
+  `responsive-design`.
+- Repo-wide validation remains at `0` errors and drops from `61` to
+  `60` warnings.
+- `agent-workflow` now looks like the strongest queued standards candidate:
+  it still has `5` warnings across trigger phrasing and missing standard
+  sections, while `code-refactoring` is already clean at `496` lines.
 
 ## Survey refresh
 
-The current LLM-agent skill landscape still favors packaging-first work over
-prompt-mutation work for this repo:
+The current LLM-agent skill landscape still supports compact packaged skills,
+but the repo-level leverage has shifted from giant monoliths toward
+warning-heavy workflow skills:
 
-1. Agent Skills keeps the shared ecosystem centered on compact skill entrypoints
-   plus optional support directories.
-2. OpenAI Codex treats skills and automations as first-class workflow
-   surfaces, which reinforces compact, reusable entrypoints plus explicit
-   follow-on execution paths.
-3. Claude and Gemini continue to formalize packaged subagents, slash commands,
-   extensions, and command surfaces, which reinforces concise trigger text and
-   support-file structure.
-4. Open skill distribution surfaces such as Vercel `skills` and OpenClaw keep
-   reinforcing packaging, governance, and installable skill surfaces over
-   one-off prompt blobs.
-5. A2A `1.0` keeps increasing the pressure toward explicit capability
-   disclosure and durable contracts.
-6. `skill-autoresearch` still pays off only after the target skill is compact,
-   eval-backed, and either failing measured checks or showing review feedback
-   worth optimizing against.
-7. Inference for this repo: packaging remains the stronger next move than
-   prompt mutation because `responsive-design` is still oversized while the
-   newly packaged `git-workflow` now has the structure needed for review-first,
-   not mutation-first, follow-up work.
+1. Agent Skills keeps reinforcing progressive disclosure and compact entrypoint
+   guidance.
+2. OpenAI Codex still frames skills and adjacent workflow surfaces as durable
+   configuration and execution primitives.
+3. Claude, Gemini, and OpenClaw continue to formalize packaged reusable
+   surfaces instead of encouraging long unstructured prompt files.
+4. A2A `1.0` keeps pushing the ecosystem toward explicit capability contracts.
+5. Inference for this repo: `responsive-design` was worth packaging first, but
+   after PR `#38` the next improvement lane should prioritize workflow-skill
+   trigger quality and standard sections before reopening already-clean
+   borderline-length skills.
 
 ## Locked direction
 
-Advance one workflow-critical packaging gap per run, in priority order:
+Advance one bounded lane per run, in this order:
 
-1. Review PR `#37` for `git-workflow`
-2. Merge PR `#37` now that the bounded review follow-up is applied and
-   validation is clean
-3. `responsive-design`
-4. `skill-autoresearch` mutations only where a compact, eval-backed baseline
-   already exists
+1. Review PR `#38` for `responsive-design`
+2. Merge PR `#38` if the review is clean
+3. `agent-workflow`
+4. `agent-configuration`
+5. `skill-autoresearch` only where a compact eval-backed skill shows measured
+   failures or review feedback
 
 This order is locked because:
 
-- `ui-component-patterns` is already merged, so reopening it would be duplicate
-  work.
-- `git-workflow` is now packaged and on an open PR, so the correct next move is
-  review, then merge, rather than reopening a wider implementation lane.
-- `responsive-design` is the next highest-value packaging gap once the active
-  PR leaves the open-review stage.
-- Mutation work remains lower leverage than packaging debt on the remaining
-  large monoliths.
+- `git-workflow` is already merged, so reopening it would be duplicate work.
+- `responsive-design` is packaged and already on an open PR, so the correct
+  next move is review, not a wider second implementation lane.
+- `agent-workflow` now outranks `code-refactoring` because its `5` warnings
+  directly weaken trigger reliability and progressive disclosure, while
+  `code-refactoring` is already standards-clean.
+- Mutation work remains lower leverage than review and standardization on the
+  active and next queued lanes.
 
 ## Skill-autoresearch triage
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `deployment-automation` | Closed | Not yet | No | No | Merged | Merged | Keep closed unless review feedback appears later |
-| `state-management` | Closed | Not yet | No | No | Merged | Merged | Keep closed unless review feedback appears later |
-| `codebase-search` | Closed | Not yet | No | No in that pass | Added | Added | Keep closed unless post-merge review reopens it |
-| `ui-component-patterns` | Closed | Not yet | No | No | Added | Added | Keep closed unless post-merge review reopens it |
-| `git-workflow` | High | Not yet | No | No | Added and hardened in this run | Added and extended in this run | Merge PR `#37`; do not mutate before measured failures or later review feedback |
-| `responsive-design` | High | Not yet | No | Not yet | Likely needed | Needed | Keep queued behind `git-workflow` |
-| `survey` | Medium | Not yet | No | No | Maybe later | Already present | Keep as the landscape capture surface |
-| `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
-| `skill-autoresearch` | Medium | Only on compact eval-backed skills | No | No | Already present | Already present | Revisit after measured failures or review feedback |
+| `responsive-design` | High | Not yet | No | No | Added in this run | Added in this run | Review PR `#38`; do not mutate before review feedback or failing eval runs |
+| `agent-workflow` | High | Not yet | No | No | Likely | Likely | Package standard sections and trigger wording after `responsive-design` closes |
+| `agent-configuration` | Medium | Not yet | No | No | Likely | Maybe later | Keep queued behind `agent-workflow` |
+| `code-refactoring` | Medium | Not yet | No | No | Not urgent | Not urgent | Keep deferred while cleaner trigger-quality gaps remain |
+| `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
+| `skill-autoresearch` | Medium | Only on compact eval-backed skills with measured failures | No | No | Already present | Already present | Revisit after review feedback or failing eval runs |
 
 ## Packaging decision for this run
 
-- Target lane: `git-workflow` PR-review-to-merge
-- Assets: no additional assets needed
-- Scripts: no; the skill remains reference-backed rather than script-backed
-- References: kept and hardened because the review found hard-coded sync and
-  recovery assumptions that should be explicit placeholders and prechecks
-- Evals: extended so future skill-autoresearch can use measured gates for
-  non-default base branches and safer wrong-branch recovery guidance
-- Sections: keep the active lane limited to the packaged `git-workflow` surface
-  and survey locks; do not widen to `responsive-design` in the same run
+- Target lane: `responsive-design` PR-open
+- Assets: no
+- Scripts: no
+- References: yes; added because the old entrypoint exceeded the `500` line
+  guidance and mixed several concerns
+- Evals: yes; added so future optimization or review work can use measured
+  prompts
+- Sections: keep the active lane limited to the packaged
+  `responsive-design` surface and survey-lock files
 
 ## Current state
 
-- State: `git-workflow` is packaged, reviewed, and merge-ready on PR `#37`
-- Blocker: cross-agent fanout is still degraded by the missing repo-level
-  bridge target, but the merge lane is not blocked
-- Next owner: `nanoclaw_pd` to merge PR `#37`, then reopen
-  `responsive-design` on the next scheduled run
-- Stage: `merge`
+- State: `responsive-design` is packaged and open on PR `#38`
+- Blocker: none beyond pending review outcome
+- Next owner: `nanoclaw_pd` to review PR `#38`, then merge or patch on the
+  next scheduled run
+- Stage: `pr-open`
