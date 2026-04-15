@@ -1,0 +1,45 @@
+{
+  "skill_name": "responsive-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our marketing page still uses a 1200px wrapper and the hero breaks on phones. What responsive design approach should we use without building a separate mobile page?",
+      "expected_output": "Treats the issue as a mobile-first layout and media problem, replaces fixed-width assumptions, and keeps one shared markup path.",
+      "assertions": [
+        "Response identifies the request as a responsive layout problem rather than a demand for duplicate mobile markup",
+        "Response recommends mobile-first constraints such as max-width, fluid spacing, or grid and flex decisions instead of fixed desktop widths",
+        "Response includes responsive media checks such as srcset, picture, aspect-ratio, or object-fit"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The same analytics card appears full-width on mobile, in a two-column dashboard on desktop, and inside a narrow admin sidebar. Should I add more viewport breakpoints or use container queries?",
+      "expected_output": "Separates page-shell breakpoints from component-level resizing and prefers container queries when the parent width drives the change.",
+      "assertions": [
+        "Response distinguishes viewport-level layout changes from component-level container changes",
+        "Response recommends container queries when the reusable card changes because of its parent width",
+        "Response keeps global breakpoints limited to true shell or page-structure changes"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "My product grid and filter bar feel cramped on small screens, and the text scale is inconsistent. How should I make the layout responsive?",
+      "expected_output": "Handles layout density and typography together, using wrapping or grid changes plus fluid type and spacing guidance.",
+      "assertions": [
+        "Response addresses dense controls or layout wrapping instead of only talking about typography",
+        "Response includes fluid typography or spacing guidance such as clamp, rem-based sizing, or readable line length",
+        "Response gives a narrow-screen strategy for the grid, filter bar, or form density rather than generic breakpoint advice"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "There is still horizontal scrolling around 390px wide and the mobile nav is awkward to tap in the running app. How should I verify and fix it?",
+      "expected_output": "Starts from browser verification at the failing width, checks common overflow causes, and uses playwriter when live runtime behavior matters.",
+      "assertions": [
+        "Response begins with concrete verification at the failing width instead of only proposing abstract CSS patterns",
+        "Response checks common overflow causes such as fixed widths, min-width constraints, or unshrunk flex or grid children",
+        "Response mentions browser or runtime validation and recommends playwriter when a live app needs verification"
+      ]
+    }
+  ]
+}
