@@ -48,8 +48,9 @@ emphasis, not a usage telemetry measurement:
 - `codebase-search` was the strongest active packaging gap because
   `state-management` already merged on PR `#34` while codebase-search still
   shipped on `main` as a `534` line monolith with no packaged support files or
-  eval coverage; this run packages that lane and opens PR `#35`, leaving
-  `ui-component-patterns` as the top queued packaging target once it lands.
+  eval coverage; the lane is now packaged, reviewed clean on PR `#35`, and
+  ready to land, leaving `ui-component-patterns` as the top queued packaging
+  target once it does.
 
 ## Contradictions
 
@@ -64,7 +65,6 @@ The highest-value improvement is still not adding another broad skill first. It
 is upgrading workflow-critical existing skills into evaluation-ready,
 standards-compliant entrypoints so future iterations can optimize them one
 bounded mutation at a time. That is why this run advances
-`codebase-search` from survey-backed improvement into a live PR-open lane on
-`#35` and leaves `ui-component-patterns` as the next queued packaging target
-rather than starting a fresh `skill-autoresearch` experiment or an unrelated
-new skill.
+`codebase-search` from PR-open review into a merge-ready lane on `#35` and
+leaves `ui-component-patterns` as the next queued packaging target rather than
+starting a fresh `skill-autoresearch` experiment or an unrelated new skill.

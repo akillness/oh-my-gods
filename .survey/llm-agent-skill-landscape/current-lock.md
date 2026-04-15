@@ -48,8 +48,9 @@ Source links:
 - PR `#34` for `state-management` merged at
   `2026-04-15T06:07:47Z`:
   https://github.com/akillness/oh-my-gods/pull/34
-- PR `#35` for `codebase-search` is open, non-draft, and clean on branch
-  `chore/skill-loop-pr-open-20260415-r36`:
+- PR `#35` for `codebase-search` is open, non-draft, clean, and ready to
+  merge on branch `chore/skill-loop-pr-open-20260415-r36` after this run's
+  re-review against `origin/main`:
   https://github.com/akillness/oh-my-gods/pull/35
 
 ## Audit snapshot
@@ -62,6 +63,10 @@ Source links:
 - This branch shrinks `codebase-search` to a `150` line entrypoint, adds the
   missing `references/` and `evals/`, and keeps scripts and assets
   intentionally out of scope.
+- This run re-validated `codebase-search`, re-ran repo-wide validation,
+  checked the live PR metadata, and confirmed the branch stays bounded to the
+  packaged `codebase-search` lane plus survey-lock files when diffed against
+  `origin/main`.
 - Target validation now passes at `0` errors and `0` warnings for
   `codebase-search`.
 - Repo-wide validation now stays at `0` hard errors and drops from `64` to
@@ -78,7 +83,7 @@ Source links:
 |---|---|---|---|---|---|---|---|
 | `deployment-automation` | Closed after PR `#33` merge | No | No | Merged | Merged | No | Keep closed unless later defects reopen it |
 | `state-management` | Closed after PR `#34` merge | No | No | Merged | Merged | Not yet | Keep closed unless later defects reopen it |
-| `codebase-search` | Active PR-open lane on `r36` / PR `#35` | No | No in this pass | Added | Added | Not yet | Review PR `#35` on the next run and only reopen edits if a bounded defect appears |
+| `codebase-search` | Active merge lane on `r36` / PR `#35` | No | No in this pass | Added | Added | Not yet | Merge PR `#35`; only reopen later if measured failures or review feedback appear |
 | `ui-component-patterns` | Queued behind `codebase-search` | No | Not yet | Likely needed | Needed | Not yet | Re-open after `#35` lands unless review finds a defect in the active lane |
 | `survey` | Research surface only | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
@@ -86,8 +91,8 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: review PR `#35` for `codebase-search` on the next run now that
-  the bounded packaging pass is registered and clean.
+- Primary lane: merge PR `#35` for `codebase-search` now that the re-review
+  pass stayed clean.
 - Secondary lane: reopen the queue at `ui-component-patterns` after PR `#35`
   lands.
 - Do not start a mutation loop for the large non-eval backlog before the
@@ -96,10 +101,11 @@ Source links:
 ## Status
 
 - Current state: `state-management` is closed upstream after merge, and
-  `codebase-search` is now packaged and open for review on PR `#35`
+  `codebase-search` is now packaged, re-reviewed, and ready to merge on
+  PR `#35`
 - Blocker: team fanout is unavailable because the NanoClaw bridge wrapper has
-  no underlying `scripts/agent-bridge.py`, but the PR-open review path itself
-  is not blocked
-- Next owner: `nanoclaw_pd` to run the next review pass on PR `#35` and reopen
-  the queue at `ui-component-patterns` if the review stays clean
-- Stage: `pr-open`
+  no underlying `scripts/agent-bridge.py`, but the merge path itself is not
+  blocked
+- Next owner: `nanoclaw_pd` to reopen the queue at `ui-component-patterns`
+  after PR `#35` lands
+- Stage: `merge`
