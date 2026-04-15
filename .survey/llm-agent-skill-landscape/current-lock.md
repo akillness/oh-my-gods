@@ -5,28 +5,22 @@ Date: 2026-04-15
 ## Survey refresh
 
 - Agent Skills still centers reusable skill packages on `SKILL.md` plus
-  optional support directories such as `references/`, `scripts/`, `assets/`,
+  optional support directories such as `references/`, `scripts/`, `assets`,
   and `evals`.
-- OpenAI's Codex guidance keeps pushing reusable skills and automations, which
-  reinforces small workflow entrypoints plus explicit follow-on execution
+- OpenAI Codex guidance still favors reusable skills and automations, which
+  reinforces compact workflow entrypoints and explicit follow-on execution
   surfaces instead of monolithic prompt files.
-- Anthropic and Gemini both continue to formalize packaged subagents,
-  commands, and extensions, which rewards concise trigger text and bundled
-  support references.
-- A2A reached a `1.0` release with stronger interoperability disclosure, which
-  further favors explicit contracts over buried longform instructions.
-- React guidance continues to frame `memo`, `useMemo`, and `useCallback` as
-  targeted tools for manual optimization rather than default component design,
-  which increases the value of a cleaner `ui-component-patterns` API and
-  review surface.
-- `skill-autoresearch` is still justified only after a skill has compact
-  structure plus baseline eval coverage and either measured failures or clear
-  review feedback.
+- Claude sub-agents plus Gemini custom commands and extensions still reward
+  concise trigger text and packaged support files rather than buried longform
+  instructions.
+- A2A `1.0` continues to push explicit capability disclosure and clearer
+  interoperability contracts between agent surfaces.
+- `skill-autoresearch` is still justified only after a target skill is compact,
+  eval-backed, and showing measured failures or clear review feedback.
 - Inference for this repo: packaging-first work remains higher leverage than
-  prompt-only mutation on the largest remaining skills because `git-workflow`
-  and `responsive-design` still exceed the 500-line guidance threshold while
-  `ui-component-patterns` already has a compact, eval-backed package in active
-  review.
+  prompt mutation because `git-workflow` was still the largest remaining
+  monolith after PR `#36` merged, while `responsive-design` remains queued
+  behind it and already-under-500-line skills are lower urgency.
 - Durable execution still works best as
   `survey -> improvement -> PR-open -> PR-review -> merge`.
 
@@ -41,50 +35,35 @@ Source links:
 - https://code.claude.com/docs/en/cli-reference
 - https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
 - https://google-gemini.github.io/gemini-cli/docs/extensions/
-- https://react.dev/blog/2024/02/15/react-labs-what-we-have-been-working-on-february-2024
 - https://a2a-protocol.org/latest/announcing-1.0/
 
 ## Live GitHub state
 
-- PR `#29` for `database-schema-design` remains closed and merged.
-- PR `#30` for `genkit` remains closed and merged:
-  https://github.com/akillness/oh-my-gods/pull/30
-- PR `#31` for `prompt-repetition` remains closed and merged:
-  https://github.com/akillness/oh-my-gods/pull/31
-- PR `#32` for `technical-writing` remains closed and merged:
-  https://github.com/akillness/oh-my-gods/pull/32
-- PR `#33` for `deployment-automation` merged at
-  `2026-04-15T04:06:39Z`:
-  https://github.com/akillness/oh-my-gods/pull/33
-- PR `#34` for `state-management` merged at
-  `2026-04-15T06:07:47Z`:
-  https://github.com/akillness/oh-my-gods/pull/34
-- PR `#35` for `codebase-search` merged at
-  `2026-04-15T08:06:59Z`:
-  https://github.com/akillness/oh-my-gods/pull/35
-- PR `#36` for `ui-component-patterns` is open, non-draft, and based on branch
-  `chore/skill-loop-pr-open-20260415-r37`:
+- PR `#36` for `ui-component-patterns` merged at
+  `2026-04-15T10:07:04Z`:
   https://github.com/akillness/oh-my-gods/pull/36
+- PR `#37` for `git-workflow` is open, non-draft, and based on branch
+  `chore/skill-loop-pr-open-20260415-r38`:
+  https://github.com/akillness/oh-my-gods/pull/37
 
 ## Audit snapshot
 
-- Latest live GitHub state confirms `codebase-search` is closed upstream after
-  PR `#35` merged.
-- On `main`, `ui-component-patterns` was the largest remaining monolith at
-  `530` lines with no packaged `references/`, `evals/`, `scripts/`, or
-  `assets`, which made it the strongest next bounded packaging gap.
-- This branch shrinks `ui-component-patterns` to a `172` line entrypoint, adds
-  the missing `references/` and `evals/`, and keeps scripts and assets
-  intentionally out of scope.
-- This run validated `ui-component-patterns`, re-ran repo-wide validation,
-  opened PR `#36`, and confirmed the branch stays bounded to the packaged
-  `ui-component-patterns` lane plus survey-lock files.
+- Latest live GitHub state confirms `ui-component-patterns` is closed upstream
+  after PR `#36` merged and `git-workflow` is the next active lane on PR `#37`.
+- On `main`, `git-workflow` was the largest remaining monolith at `526` lines
+  with no packaged `references/`, `evals/`, `scripts/`, or `assets`.
+- This branch shrinks `git-workflow` to a `177` line entrypoint, adds focused
+  `references/` and `evals/`, and keeps scripts and assets intentionally out
+  of scope.
+- This run validated `git-workflow`, re-ran repo-wide validation, opened
+  PR `#37`, and confirmed the branch stays bounded to the packaged
+  `git-workflow` lane plus survey-lock files.
 - Target validation now passes at `0` errors and `0` warnings for
-  `ui-component-patterns`.
-- Repo-wide validation now stays at `0` hard errors and drops from `63` to
-  `62` warnings.
-- `git-workflow` is now the next queued monolith at `526`, followed by
-  `responsive-design` at `514`.
+  `git-workflow`.
+- Repo-wide validation now stays at `0` hard errors and drops from `62` to
+  `61` warnings.
+- `responsive-design` is now the next queued monolith at `515`, while
+  `code-refactoring` is already below the 500-line guidance threshold.
 - The missing bridge wrapper target
   (`/Users/jang_jennie/Documents/JYJ/nanoclaw/scripts/agent-bridge.py`) blocks
   fanout orchestration, but it does not block local repo execution.
@@ -96,29 +75,29 @@ Source links:
 | `deployment-automation` | Closed after PR `#33` merge | No | No | Merged | Merged | No | Keep closed unless later defects reopen it |
 | `state-management` | Closed after PR `#34` merge | No | No | Merged | Merged | Not yet | Keep closed unless later defects reopen it |
 | `codebase-search` | Closed after PR `#35` merge | No | No in that pass | Added | Added | Not yet | Keep closed unless later review feedback or measured failures reopen it |
-| `ui-component-patterns` | Active PR-open lane on `r37` / PR `#36` | No | No | Added | Added | Not yet | Review PR `#36` next run; only reopen implementation if that review finds a bounded gap |
-| `git-workflow` | Queued behind `ui-component-patterns` | No | Not yet | Likely needed | Needed | Not yet | Re-open after `#36` lands unless review finds a defect in the active lane |
+| `ui-component-patterns` | Closed after PR `#36` merge | No | No | Added | Added | Not yet | Keep closed unless later review feedback reopens it |
+| `git-workflow` | Active PR-open lane on `r38` / PR `#37` | No | No | Added in this run | Added in this run | Not yet | Review PR `#37` next run; only reopen implementation if that review finds a bounded gap |
+| `responsive-design` | Queued behind `git-workflow` | No | Not yet | Likely needed | Needed | Not yet | Re-open after `#37` lands unless review finds a defect in the active lane |
 | `survey` | Research surface only | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only for compact eval-backed skills | Revisit only after measured failures or review feedback |
 
 ## Locked direction
 
-- Primary lane: advance PR `#36` for `ui-component-patterns` into merge now
-  that the re-review pass stayed clean.
-- Secondary lane: reopen the queue at `git-workflow` only after PR `#36`
+- Primary lane: review PR `#37` for `git-workflow` next run and move it to
+  merge if the review stays clean.
+- Secondary lane: reopen the queue at `responsive-design` only after PR `#37`
   lands.
-- Do not start a mutation loop for the large non-eval backlog before the
-  active packaging PR resolves.
+- Do not start a mutation loop for `git-workflow` before post-review feedback
+  or measured failures justify one.
 
 ## Status
 
-- Current state: `codebase-search` is closed upstream after merge, and
-  `ui-component-patterns` is now packaged, re-reviewed clean, and ready to
-  merge on PR `#36`
+- Current state: `git-workflow` is packaged, standards-clean, and opened on
+  PR `#37`
 - Blocker: team fanout is unavailable because the NanoClaw bridge wrapper has
-  no underlying `scripts/agent-bridge.py`, but the merge path itself is not
+  no underlying `scripts/agent-bridge.py`, but the PR lane itself is not
   blocked
-- Next owner: `nanoclaw_pd` to merge PR `#36` and reopen the queue at
-  `git-workflow`
-- Stage: `merge`
+- Next owner: `nanoclaw_pd` to review PR `#37` on the next scheduled run and
+  either merge it or apply one bounded follow-up
+- Stage: `pr-open`

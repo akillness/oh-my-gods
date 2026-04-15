@@ -1,22 +1,21 @@
-# Cleanup Plan: active packaging lane (`git-workflow`)
+# Cleanup Plan: next review pass (`git-workflow`)
 
 ## Goal
 
-Keep this run bounded to survey refresh plus the `git-workflow` packaging
-surface after `ui-component-patterns` landed, and either open the new
-packaging PR path or stop if a fresher survey refresh changes the priority.
+Keep the next run bounded to survey refresh plus the `git-workflow` PR-review
+surface after PR `#37` opened, and either advance the lane to merge or apply
+one bounded follow-up if review finds a real gap.
 
 ## Behavior lock
 
-- Keep this run limited to
+- Keep the next run limited to
   `.survey/llm-agent-skill-landscape/*` plus
   `.god-skills/git-workflow/*`.
 - Do not reopen the merged `codebase-search`, `state-management`,
-  `deployment-automation`,
-  `technical-writing`, `prompt-repetition`, `genkit`, or
-  `database-schema-design` lanes.
-- Do not widen scope beyond `git-workflow` until its packaging lane is either
-  opened as a bounded PR or explicitly deprioritized by a fresh survey refresh.
+  `deployment-automation`, `technical-writing`, `prompt-repetition`, `genkit`,
+  or `database-schema-design` lanes.
+- Do not widen scope beyond `git-workflow` until PR `#37` is either merged or
+  explicitly deprioritized by a fresh survey refresh.
 - Do not add scripts or assets unless the review proves a reusable
   deterministic helper or bundled data file is necessary.
 
@@ -24,36 +23,36 @@ packaging PR path or stop if a fresher survey refresh changes the priority.
 
 - `git-workflow`
   - Assets: no unless a reusable template or bundled example becomes necessary
-  - Scripts: not by default; add only if the packaging pass proves a
-    deterministic helper belongs with the skill
-  - References: needed because the entrypoint exceeds the 500-line guidance
-    threshold and mixes distinct workflow families
-  - Evals: needed before any mutation loop
+  - Scripts: not by default; add only if the review proves a deterministic
+    helper belongs with the skill
+  - References: already added in the PR-open pass and should be reviewed for
+    coverage rather than expanded speculatively
+  - Evals: already added; review them for blind spots before any mutation loop
 - `skill-autoresearch`
-  - Keep at triage only in this run
-  - Revisit only after `git-workflow` is compact, eval-backed, and either
-    review feedback or measured failures justify optimization
+  - Keep at triage only in the next run
+  - Revisit only after PR review feedback or measured failures justify
+    optimization against the now compact, eval-backed skill
 
 ## Planned edits
 
-1. Refresh the survey lock so the repo treats `ui-component-patterns` as closed
-   upstream after PR `#36` landed and `git-workflow` as the next active
-   packaging lane.
-2. Lock the current `git-workflow` behavior with eval coverage before trimming
-   the monolith.
-3. Package `git-workflow` into a compact entrypoint plus only the references
-   and evals that the audit proves necessary.
-4. Re-run target validation and repo-wide validation before opening the next
-   PR.
-5. Record the resulting PR-open state so the next run starts in review mode
-   instead of redoing implementation work.
+1. Refresh the survey lock so the repo treats `git-workflow` as the active
+   PR-review lane on PR `#37`.
+2. Review PR `#37` for duplicate work, missing references, weak eval coverage,
+   or remaining standardization gaps.
+3. If the review stays clean, move the lane to merge instead of reopening
+   implementation work.
+4. If the review finds a real bounded gap, patch only `.god-skills/git-workflow/*`
+   plus survey-lock files, then re-run validation before updating the PR.
+5. Reopen the queue at `responsive-design` only after `git-workflow` lands.
 
 ## Verification
 
-- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/git-workflow`
-- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
-- Confirm the diff stays bounded to the `git-workflow` skill package
+- Re-check PR `#37` state on GitHub before deciding merge vs follow-up edit
+- If code changes are needed, run
+  `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/git-workflow`
+- If code changes are needed, run
+  `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
+- Confirm any follow-up diff stays bounded to the `git-workflow` skill package
   plus survey lock files
-- Register or open the new PR path only after the packaged lane is ready
 - Record current state, blocker, next owner, and stage for the next scheduled
   improvement run
