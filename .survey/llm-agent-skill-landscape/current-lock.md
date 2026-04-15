@@ -45,28 +45,29 @@ Source links:
 - PR `#33` for `deployment-automation` merged at
   `2026-04-15T04:06:39Z`:
   https://github.com/akillness/oh-my-gods/pull/33
-- PR `#34` for `state-management` is open, non-draft, and clean on branch
-  `chore/skill-loop-pr-open-20260415-r35`:
+- PR `#34` for `state-management` merged at
+  `2026-04-15T06:07:47Z`:
   https://github.com/akillness/oh-my-gods/pull/34
+- PR `#35` for `codebase-search` is open, non-draft, and clean on branch
+  `chore/skill-loop-pr-open-20260415-r36`:
+  https://github.com/akillness/oh-my-gods/pull/35
 
 ## Audit snapshot
 
-- Latest `origin/main` already includes the `deployment-automation` merge and
-  still passes repo-wide validation with `0` hard errors.
-- On `origin/main`, `state-management` is still a `553` line monolith with no
-  packaged `references/` or `evals/`, which makes it the strongest active
-  packaging gap.
-- This branch shrinks `state-management` to a compact entrypoint, adds the
-  missing support files, and keeps scripts and assets intentionally out of
-  scope.
-- PR review on this branch found no duplicate work, no missing support-file
-  category, and no new standardization gap inside the state-management lane.
-- This branch now passes target validation at `0` errors and `0` warnings for
-  `state-management`.
-- This branch passes repo-wide validation with `0` hard errors and `64`
-  warnings, improving the prior `65` warning total by one.
-- `codebase-search` remains the next queued monolith behind it at `534` lines,
-  followed closely by `ui-component-patterns` at `530`.
+- Latest live GitHub state confirms `state-management` is closed upstream after
+  PR `#34` merged.
+- On `main`, `codebase-search` was the largest remaining monolith at `534`
+  lines with no packaged `references/`, `evals/`, `scripts/`, or `assets`,
+  which made it the strongest next bounded packaging gap.
+- This branch shrinks `codebase-search` to a `150` line entrypoint, adds the
+  missing `references/` and `evals/`, and keeps scripts and assets
+  intentionally out of scope.
+- Target validation now passes at `0` errors and `0` warnings for
+  `codebase-search`.
+- Repo-wide validation now stays at `0` hard errors and drops from `64` to
+  `63` warnings.
+- `ui-component-patterns` is now the next queued monolith at `530` lines,
+  followed by `git-workflow` at `526`.
 - The missing bridge wrapper target
   (`/Users/jang_jennie/Documents/JYJ/nanoclaw/scripts/agent-bridge.py`) blocks
   fanout orchestration, but it does not block local repo execution.
@@ -76,30 +77,29 @@ Source links:
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
 | `deployment-automation` | Closed after PR `#33` merge | No | No | Merged | Merged | No | Keep closed unless later defects reopen it |
-| `state-management` | Review-clean merge lane on `r35` | No | No in this pass | Added | Added | Not yet | Merge PR `#34` and close the lane |
-| `codebase-search` | Queued behind the merge-ready state-management PR | No | Not yet | Likely needed | Needed | Not yet | Re-open as the next bounded packaging lane after `#34` lands |
-| `ui-component-patterns` | Queued behind `codebase-search` | No | Not yet | Likely needed | Needed | Not yet | Keep queued unless the survey lock changes |
+| `state-management` | Closed after PR `#34` merge | No | No | Merged | Merged | Not yet | Keep closed unless later defects reopen it |
+| `codebase-search` | Active PR-open lane on `r36` / PR `#35` | No | No in this pass | Added | Added | Not yet | Review PR `#35` on the next run and only reopen edits if a bounded defect appears |
+| `ui-component-patterns` | Queued behind `codebase-search` | No | Not yet | Likely needed | Needed | Not yet | Re-open after `#35` lands unless review finds a defect in the active lane |
 | `survey` | Research surface only | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only for compact eval-backed skills | Revisit only after measured failures or review feedback |
 
 ## Locked direction
 
-- Primary lane: merge PR `#34` for `state-management` now that the review pass
-  is clean.
-- Secondary lane: reopen the queue at `codebase-search` after the
-  state-management PR lands.
+- Primary lane: review PR `#35` for `codebase-search` on the next run now that
+  the bounded packaging pass is registered and clean.
+- Secondary lane: reopen the queue at `ui-component-patterns` after PR `#35`
+  lands.
 - Do not start a mutation loop for the large non-eval backlog before the
-  merge-ready packaging lane resolves.
+  active packaging PR resolves.
 
 ## Status
 
-- Current state: `state-management` has passed the next-run review on PR `#34`
-  with no bounded fixes needed, while `deployment-automation` remains closed
-  upstream after merge
+- Current state: `state-management` is closed upstream after merge, and
+  `codebase-search` is now packaged and open for review on PR `#35`
 - Blocker: team fanout is unavailable because the NanoClaw bridge wrapper has
-  no underlying `scripts/agent-bridge.py`, but the merge path itself is not
-  blocked
-- Next owner: `nanoclaw_pd` to reopen the bounded improvement queue at
-  `codebase-search` after PR `#34` lands
-- Stage: `merge`
+  no underlying `scripts/agent-bridge.py`, but the PR-open review path itself
+  is not blocked
+- Next owner: `nanoclaw_pd` to run the next review pass on PR `#35` and reopen
+  the queue at `ui-component-patterns` if the review stays clean
+- Stage: `pr-open`

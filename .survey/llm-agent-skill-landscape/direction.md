@@ -2,30 +2,28 @@
 
 ## Audit snapshot
 
-- PR `#33` for `deployment-automation` merged at
-  `2026-04-15T04:06:39Z`:
-  https://github.com/akillness/oh-my-gods/pull/33
-- There are no other open PRs besides the newly registered
-  `state-management` lane.
-- `state-management` is now the strongest active packaging target because
-  `origin/main` still ships it as a `553` line monolith with no `references/`
-  and no `evals/`.
-- This branch reduces `state-management` to a compact entrypoint, adds
-  reference-backed examples plus eval coverage, and keeps scripts and assets
-  intentionally out of scope.
-- The PR-review pass found no duplicate work, no missing support-file
-  category, and no new standardization gap in the state-management lane.
-- The repo-wide validator now stays at `0` hard errors and drops from `65` to
-  `64` warnings, while `state-management` itself validates at `0` errors and
+- PR `#34` for `state-management` merged at
+  `2026-04-15T06:07:47Z`:
+  https://github.com/akillness/oh-my-gods/pull/34
+- The only open PR is now the newly registered `codebase-search` lane:
+  https://github.com/akillness/oh-my-gods/pull/35
+- `codebase-search` was the strongest remaining packaging target because
+  `main` still shipped it as a `534` line monolith with no `references/` or
+  `evals/`.
+- This branch reduces `codebase-search` to a compact `150` line entrypoint,
+  adds reference-backed search playbooks plus eval coverage, and keeps scripts
+  and assets intentionally out of scope.
+- The repo-wide validator now stays at `0` hard errors and drops from `64` to
+  `63` warnings, while `codebase-search` itself validates at `0` errors and
   `0` warnings.
-- `codebase-search` is now the next queued monolith at `534` lines, narrowly
-  ahead of `ui-component-patterns` at `530`.
+- `ui-component-patterns` is now the next queued monolith at `530` lines,
+  narrowly ahead of `git-workflow` at `526`.
 - The orchestration wrapper is still degraded because the repo-level bridge
   target is missing, so this loop continues locally until that path is
   restored.
-- PR `#34` for `state-management` is open, non-draft, and clean on branch
-  `chore/skill-loop-pr-open-20260415-r35`:
-  https://github.com/akillness/oh-my-gods/pull/34
+- PR `#35` for `codebase-search` is open, non-draft, and clean on branch
+  `chore/skill-loop-pr-open-20260415-r36`:
+  https://github.com/akillness/oh-my-gods/pull/35
 
 ## Survey refresh
 
@@ -51,20 +49,20 @@ prompt-mutation work for this repo:
 
 Advance one workflow-critical packaging gap per run, in priority order:
 
-1. Review PR `#34` for `state-management`
-2. Merge `state-management` if the review pass stays clean
-3. `codebase-search`
-4. `ui-component-patterns`
+1. Review PR `#35` for `codebase-search`
+2. Merge `codebase-search` if the review pass stays clean
+3. `ui-component-patterns`
+4. `git-workflow`
 5. `skill-autoresearch` mutations only where a compact, eval-backed baseline
    already exists
 
 This order is locked because:
 
-- `deployment-automation` is already merged, so keeping it active would be
+- `state-management` is already merged, so keeping it active would be
   duplicate work.
-- `state-management` passed the next-run review with no bounded fix needed, so
-  the only remaining work in this lane is merge.
-- `codebase-search` and `ui-component-patterns` are the next highest-value
+- `codebase-search` is now the active bounded PR-open lane, so the next run
+  should review it instead of reopening implementation work prematurely.
+- `ui-component-patterns` and `git-workflow` are the next highest-value
   packaging gaps once the current PR leaves the open-review stage.
 - Mutation work remains lower leverage than packaging debt on the remaining
   large monoliths.
@@ -74,28 +72,29 @@ This order is locked because:
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `deployment-automation` | Closed | Not yet | No | No | Merged | Merged | Keep closed unless review feedback appears later |
-| `state-management` | High | Not yet | No | No in this pass | Added | Added | Merge PR `#34`; only revisit mutation after post-merge feedback or measured failures |
-| `codebase-search` | High | Not yet | No | Not yet | Likely needed | Needed | Re-open as the next bounded packaging lane after `#34` lands |
+| `state-management` | Closed | Not yet | No | No | Merged | Merged | Keep closed unless review feedback appears later |
+| `codebase-search` | High | Not yet | No | No in this pass | Added | Added | Review PR `#35`; only revisit mutation after merge or measured failures |
 | `ui-component-patterns` | High | Not yet | No | Not yet | Likely needed | Needed | Keep queued behind `codebase-search` |
+| `git-workflow` | High | Not yet | No | Not yet | Likely needed | Needed | Keep queued behind `ui-component-patterns` |
 | `survey` | Medium | Not yet | No | No | Maybe later | Already present | Keep as the landscape capture surface |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Medium | Only on compact eval-backed skills | No | No | Already present | Already present | Revisit after measured failures or review feedback |
 
 ## Packaging decision for this run
 
-- Target lane: `state-management` PR-review-to-merge
+- Target lane: `codebase-search` improvement-to-PR-open
 - Assets: no additional assets needed
 - Scripts: no; the skill remains reference-backed rather than script-backed
-- References: already sufficient
-- Evals: already sufficient for future measured optimization
-- Sections: keep the packaged skill surface unchanged because the review pass
-  found no bounded defect to fix
+- References: added and sufficient for the first review pass
+- Evals: added and sufficient for future measured optimization
+- Sections: keep the packaged skill surface unchanged until PR review finds a
+  bounded defect worth fixing
 
 ## Current state
 
-- State: `state-management` is review-clean and ready to merge on PR `#34`
+- State: `codebase-search` is packaged and open for review on PR `#35`
 - Blocker: cross-agent fanout is still degraded by the missing repo-level
-  bridge target, but the merge path is not blocked
-- Next owner: `nanoclaw_pd` to reopen the queue at `codebase-search` after
-  PR `#34` lands
-- Stage: `merge`
+  bridge target, but the PR-open review path is not blocked
+- Next owner: `nanoclaw_pd` to review PR `#35` on the next run and reopen the
+  queue at `ui-component-patterns` if it stays clean
+- Stage: `pr-open`

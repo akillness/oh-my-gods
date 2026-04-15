@@ -45,12 +45,11 @@ emphasis, not a usage telemetry measurement:
 - OpenAI Codex automations, Claude subagents, and Gemini extensions all reward
   concise reusable workflow packages, so packaging debt now blocks more
   leverage than adding another broad skill.
-- `state-management` is now the strongest active packaging gap because
-  `deployment-automation` already merged on PR `#33` while state-management
-  still ships on `main` as a large monolith with no packaged support files or
-  eval coverage; the active PR-review pass found no bounded fixes, so PR `#34`
-  is now merge-ready and `codebase-search` becomes the top queued packaging
-  lane once it lands.
+- `codebase-search` was the strongest active packaging gap because
+  `state-management` already merged on PR `#34` while codebase-search still
+  shipped on `main` as a `534` line monolith with no packaged support files or
+  eval coverage; this run packages that lane and opens PR `#35`, leaving
+  `ui-component-patterns` as the top queued packaging target once it lands.
 
 ## Contradictions
 
@@ -65,6 +64,7 @@ The highest-value improvement is still not adding another broad skill first. It
 is upgrading workflow-critical existing skills into evaluation-ready,
 standards-compliant entrypoints so future iterations can optimize them one
 bounded mutation at a time. That is why this run advances
-`state-management` from PR review into merge readiness on `#34` and leaves
-`codebase-search` as the next queued packaging target rather than starting a
-fresh `skill-autoresearch` experiment or an unrelated new skill.
+`codebase-search` from survey-backed improvement into a live PR-open lane on
+`#35` and leaves `ui-component-patterns` as the next queued packaging target
+rather than starting a fresh `skill-autoresearch` experiment or an unrelated
+new skill.
