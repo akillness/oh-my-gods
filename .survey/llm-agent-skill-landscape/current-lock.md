@@ -15,12 +15,15 @@ Date: 2026-04-15
   instructions.
 - A2A `1.0` continues to push explicit capability disclosure and clearer
   interoperability contracts between agent surfaces.
+- Vercel's `skills` CLI and OpenClaw's public skills docs both reinforce
+  packaging, installability, and governance over one-off prompt mutation,
+  which keeps packaging debt as the stronger immediate lever for this repo.
 - `skill-autoresearch` is still justified only after a target skill is compact,
   eval-backed, and showing measured failures or clear review feedback.
 - Inference for this repo: packaging-first work remains higher leverage than
-  prompt mutation because `git-workflow` was still the largest remaining
-  monolith after PR `#36` merged, while `responsive-design` remains queued
-  behind it and already-under-500-line skills are lower urgency.
+  prompt mutation because `git-workflow` was still the active open lane after
+  PR `#36` merged, while `responsive-design` remains queued behind it and
+  already-under-500-line skills are lower urgency.
 - Durable execution still works best as
   `survey -> improvement -> PR-open -> PR-review -> merge`.
 
@@ -36,6 +39,8 @@ Source links:
 - https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
 - https://google-gemini.github.io/gemini-cli/docs/extensions/
 - https://a2a-protocol.org/latest/announcing-1.0/
+- https://github.com/vercel-labs/skills
+- https://docs.openclaw.ai/tools/skills
 
 ## Live GitHub state
 
@@ -50,14 +55,20 @@ Source links:
 
 - Latest live GitHub state confirms `ui-component-patterns` is closed upstream
   after PR `#36` merged and `git-workflow` is the next active lane on PR `#37`.
+- The fresh external survey did not reveal a higher-value leapfrog candidate;
+  packaging-first remains the right posture and `git-workflow` stays ahead of
+  new-skill work.
 - On `main`, `git-workflow` was the largest remaining monolith at `526` lines
   with no packaged `references/`, `evals/`, `scripts/`, or `assets`.
 - This branch shrinks `git-workflow` to a `177` line entrypoint, adds focused
   `references/` and `evals/`, and keeps scripts and assets intentionally out
   of scope.
-- This run validated `git-workflow`, re-ran repo-wide validation, opened
-  PR `#37`, and confirmed the branch stays bounded to the packaged
-  `git-workflow` lane plus survey-lock files.
+- This review run hardened two low-severity gaps before merge: generic
+  remote/base placeholders in sync recipes, and explicit commit verification
+  before wrong-branch hard reset guidance.
+- This run validated `git-workflow`, re-ran repo-wide validation, and
+  confirmed the branch stays bounded to the packaged `git-workflow` lane plus
+  survey-lock files.
 - Target validation now passes at `0` errors and `0` warnings for
   `git-workflow`.
 - Repo-wide validation now stays at `0` hard errors and drops from `62` to
@@ -76,7 +87,7 @@ Source links:
 | `state-management` | Closed after PR `#34` merge | No | No | Merged | Merged | Not yet | Keep closed unless later defects reopen it |
 | `codebase-search` | Closed after PR `#35` merge | No | No in that pass | Added | Added | Not yet | Keep closed unless later review feedback or measured failures reopen it |
 | `ui-component-patterns` | Closed after PR `#36` merge | No | No | Added | Added | Not yet | Keep closed unless later review feedback reopens it |
-| `git-workflow` | Active PR-open lane on `r38` / PR `#37` | No | No | Added in this run | Added in this run | Not yet | Review PR `#37` next run; only reopen implementation if that review finds a bounded gap |
+| `git-workflow` | Active merge lane on `r38` / PR `#37` | No | No | Added and hardened in this run | Added and extended in this run | Not yet | Merge PR `#37`; only reopen implementation later if measured failures appear |
 | `responsive-design` | Queued behind `git-workflow` | No | Not yet | Likely needed | Needed | Not yet | Re-open after `#37` lands unless review finds a defect in the active lane |
 | `survey` | Research surface only | No | No | Maybe later | Already present | Not yet | Keep for landscape refresh only |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
@@ -84,8 +95,8 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: review PR `#37` for `git-workflow` next run and move it to
-  merge if the review stays clean.
+- Primary lane: merge PR `#37` for `git-workflow` after the bounded review
+  follow-up and validation pass.
 - Secondary lane: reopen the queue at `responsive-design` only after PR `#37`
   lands.
 - Do not start a mutation loop for `git-workflow` before post-review feedback
@@ -93,11 +104,11 @@ Source links:
 
 ## Status
 
-- Current state: `git-workflow` is packaged, standards-clean, and opened on
-  PR `#37`
+- Current state: `git-workflow` is packaged, standards-clean, and ready to
+  merge on PR `#37`
 - Blocker: team fanout is unavailable because the NanoClaw bridge wrapper has
-  no underlying `scripts/agent-bridge.py`, but the PR lane itself is not
+  no underlying `scripts/agent-bridge.py`, but the merge lane itself is not
   blocked
-- Next owner: `nanoclaw_pd` to review PR `#37` on the next scheduled run and
-  either merge it or apply one bounded follow-up
-- Stage: `pr-open`
+- Next owner: `nanoclaw_pd` to merge PR `#37`, then reopen
+  `responsive-design` on the next scheduled run
+- Stage: `merge`

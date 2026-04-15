@@ -32,15 +32,18 @@ git commit    # if resolving a merge commit
 If the commit is local and should move elsewhere:
 
 ```bash
+git status --short
+git log --oneline --graph -3
 git branch <correct-branch-name>
 git checkout <correct-branch-name>
 git checkout main
-git reset --hard HEAD~1
+git reset --hard <wrong-commit>^
 ```
 
-This is only safe because the commit remains reachable on the new branch. If
-the user has any doubt, inspect `git log --oneline --graph -5` before and
-after the reset.
+Use this only after confirming the mistaken commit hash and that the working
+tree is clean enough for a hard reset. This is safe because the commit remains
+reachable on the new branch. If the user has any doubt, inspect
+`git log --oneline --graph -5` before and after the reset.
 
 ## Prefer revert on shared history
 

@@ -23,9 +23,13 @@ Use these checks before merging or rebasing:
 
 ```bash
 git status --short --branch
-git fetch origin
-git log --oneline --graph --decorate --max-count=10 HEAD origin/main
+git fetch <remote>
+git log --oneline --graph --decorate --max-count=10 HEAD <remote>/<base-branch>
 ```
+
+Replace `<remote>` and `<base-branch>` with the branch the user is actually
+syncing against. `origin/main` is only one common case, not a universal
+default.
 
 If the branch is private and the user wants linear history, rebase is usually
 fine. If the branch is shared or already under review by multiple people, merge
@@ -36,8 +40,8 @@ or a carefully coordinated rebase is safer.
 Use when the branch is personal or the team explicitly expects rebased history:
 
 ```bash
-git fetch origin
-git rebase origin/main
+git fetch <remote>
+git rebase <remote>/<base-branch>
 ```
 
 If conflicts appear:
@@ -61,8 +65,8 @@ Use when the branch is shared, the team prefers merge commits, or rebasing
 would create unnecessary churn:
 
 ```bash
-git fetch origin
-git merge origin/main
+git fetch <remote>
+git merge <remote>/<base-branch>
 ```
 
 Use `--no-ff` only when the repo convention wants an explicit merge commit.
@@ -84,9 +88,9 @@ git push --force-with-lease origin <branch-name>
 ```bash
 git remote add upstream <original-repo-url>
 git fetch upstream
-git checkout main
-git merge upstream/main
-git push origin main
+git checkout <default-branch>
+git merge upstream/<default-branch>
+git push origin <default-branch>
 ```
 
 Use rebase instead of merge only when the fork owner explicitly prefers it.

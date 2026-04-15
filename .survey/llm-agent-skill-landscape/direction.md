@@ -5,12 +5,21 @@
 - PR `#36` for `ui-component-patterns` merged at
   `2026-04-15T10:07:04Z`:
   https://github.com/akillness/oh-my-gods/pull/36
+- PR `#37` for `git-workflow` remains the active lane and stayed top-priority
+  after the fresh survey refresh; no new external signal justified leapfrogging
+  it with a different skill.
 - `git-workflow` was the largest remaining packaging target on `main` because
   it still shipped as a `526` line monolith with no packaged `references/`,
   `evals/`, `scripts/`, or `assets`.
-- This branch reduces `git-workflow` to a compact `177` line entrypoint, adds
-  focused Git workflow references plus eval coverage, and keeps scripts and
-  assets intentionally out of scope.
+- The branch already reduced `git-workflow` to a compact `177` line
+  entrypoint, added focused Git workflow references plus eval coverage, and
+  kept scripts and assets intentionally out of scope.
+- This review pass found two bounded follow-ups worth landing before merge:
+  generic `<remote>/<base-branch>` sync recipes instead of hard-coded
+  `origin/main`, and explicit history verification before any wrong-branch
+  `reset --hard`.
+- The follow-up patch also extended eval coverage so future mutation or review
+  work can catch both the non-default-base sync path and the recovery precheck.
 - The target validator now passes at `0` errors and `0` warnings for
   `git-workflow`.
 - Repo-wide validation stays at `0` hard errors and drops from `62` to
@@ -36,12 +45,15 @@ prompt-mutation work for this repo:
 3. Claude and Gemini continue to formalize packaged subagents, slash commands,
    extensions, and command surfaces, which reinforces concise trigger text and
    support-file structure.
-4. A2A `1.0` keeps increasing the pressure toward explicit capability
+4. Open skill distribution surfaces such as Vercel `skills` and OpenClaw keep
+   reinforcing packaging, governance, and installable skill surfaces over
+   one-off prompt blobs.
+5. A2A `1.0` keeps increasing the pressure toward explicit capability
    disclosure and durable contracts.
-5. `skill-autoresearch` still pays off only after the target skill is compact,
+6. `skill-autoresearch` still pays off only after the target skill is compact,
    eval-backed, and either failing measured checks or showing review feedback
    worth optimizing against.
-6. Inference for this repo: packaging remains the stronger next move than
+7. Inference for this repo: packaging remains the stronger next move than
    prompt mutation because `responsive-design` is still oversized while the
    newly packaged `git-workflow` now has the structure needed for review-first,
    not mutation-first, follow-up work.
@@ -51,7 +63,8 @@ prompt-mutation work for this repo:
 Advance one workflow-critical packaging gap per run, in priority order:
 
 1. Review PR `#37` for `git-workflow`
-2. Merge PR `#37` if the review is clean
+2. Merge PR `#37` now that the bounded review follow-up is applied and
+   validation is clean
 3. `responsive-design`
 4. `skill-autoresearch` mutations only where a compact, eval-backed baseline
    already exists
@@ -61,7 +74,7 @@ This order is locked because:
 - `ui-component-patterns` is already merged, so reopening it would be duplicate
   work.
 - `git-workflow` is now packaged and on an open PR, so the correct next move is
-  review rather than reopening implementation work in the same run.
+  review, then merge, rather than reopening a wider implementation lane.
 - `responsive-design` is the next highest-value packaging gap once the active
   PR leaves the open-review stage.
 - Mutation work remains lower leverage than packaging debt on the remaining
@@ -75,7 +88,7 @@ This order is locked because:
 | `state-management` | Closed | Not yet | No | No | Merged | Merged | Keep closed unless review feedback appears later |
 | `codebase-search` | Closed | Not yet | No | No in that pass | Added | Added | Keep closed unless post-merge review reopens it |
 | `ui-component-patterns` | Closed | Not yet | No | No | Added | Added | Keep closed unless post-merge review reopens it |
-| `git-workflow` | High | Not yet | No | No | Added in this run | Added in this run | Review PR `#37`; do not mutate before review feedback or measured failures |
+| `git-workflow` | High | Not yet | No | No | Added and hardened in this run | Added and extended in this run | Merge PR `#37`; do not mutate before measured failures or later review feedback |
 | `responsive-design` | High | Not yet | No | Not yet | Likely needed | Needed | Keep queued behind `git-workflow` |
 | `survey` | Medium | Not yet | No | No | Maybe later | Already present | Keep as the landscape capture surface |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
@@ -83,21 +96,21 @@ This order is locked because:
 
 ## Packaging decision for this run
 
-- Target lane: `git-workflow` improvement-to-PR-open
+- Target lane: `git-workflow` PR-review-to-merge
 - Assets: no additional assets needed
 - Scripts: no; the skill remains reference-backed rather than script-backed
-- References: added because the old monolith mixed branch, commit, and recovery
-  workflows into one oversized entrypoint
-- Evals: added so future skill-autoresearch can use measured gates instead of
-  ad hoc rewrites
+- References: kept and hardened because the review found hard-coded sync and
+  recovery assumptions that should be explicit placeholders and prechecks
+- Evals: extended so future skill-autoresearch can use measured gates for
+  non-default base branches and safer wrong-branch recovery guidance
 - Sections: keep the active lane limited to the packaged `git-workflow` surface
   and survey locks; do not widen to `responsive-design` in the same run
 
 ## Current state
 
-- State: `git-workflow` is packaged and opened on PR `#37`
+- State: `git-workflow` is packaged, reviewed, and merge-ready on PR `#37`
 - Blocker: cross-agent fanout is still degraded by the missing repo-level
-  bridge target, but the PR lane is not blocked
-- Next owner: `nanoclaw_pd` to review PR `#37` on the next run and either
-  merge it or apply one bounded follow-up
-- Stage: `pr-open`
+  bridge target, but the merge lane is not blocked
+- Next owner: `nanoclaw_pd` to merge PR `#37`, then reopen
+  `responsive-design` on the next scheduled run
+- Stage: `merge`

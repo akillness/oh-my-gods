@@ -1,58 +1,59 @@
-# Cleanup Plan: next review pass (`git-workflow`)
+# Cleanup Plan: next packaging pass (`responsive-design`)
 
 ## Goal
 
-Keep the next run bounded to survey refresh plus the `git-workflow` PR-review
-surface after PR `#37` opened, and either advance the lane to merge or apply
-one bounded follow-up if review finds a real gap.
+Keep the next run bounded to survey refresh plus the `responsive-design`
+packaging surface after PR `#37` for `git-workflow` lands, and avoid reopening
+the merged lane unless measured failures appear later.
 
 ## Behavior lock
 
 - Keep the next run limited to
   `.survey/llm-agent-skill-landscape/*` plus
-  `.god-skills/git-workflow/*`.
+  `.god-skills/responsive-design/*`.
 - Do not reopen the merged `codebase-search`, `state-management`,
   `deployment-automation`, `technical-writing`, `prompt-repetition`, `genkit`,
   or `database-schema-design` lanes.
-- Do not widen scope beyond `git-workflow` until PR `#37` is either merged or
-  explicitly deprioritized by a fresh survey refresh.
+- Do not reopen `git-workflow` unless post-merge review or measured failures
+  reveal a real defect.
 - Do not add scripts or assets unless the review proves a reusable
   deterministic helper or bundled data file is necessary.
 
 ## Packaging decisions
 
-- `git-workflow`
-  - Assets: no unless a reusable template or bundled example becomes necessary
-  - Scripts: not by default; add only if the review proves a deterministic
-    helper belongs with the skill
-  - References: already added in the PR-open pass and should be reviewed for
-    coverage rather than expanded speculatively
-  - Evals: already added; review them for blind spots before any mutation loop
+- `responsive-design`
+  - Assets: no by default; add only if packaged examples or templates become
+    necessary to keep the entrypoint concise
+  - Scripts: not by default; add only if a deterministic checker or helper is
+    clearly reusable
+  - References: likely needed because the entrypoint is still over the 500-line
+    guidance threshold
+  - Evals: needed so future skill-autoresearch has a measured baseline instead
+    of prose-only edits
 - `skill-autoresearch`
   - Keep at triage only in the next run
-  - Revisit only after PR review feedback or measured failures justify
-    optimization against the now compact, eval-backed skill
+  - Revisit only after `responsive-design` becomes compact and eval-backed
 
 ## Planned edits
 
-1. Refresh the survey lock so the repo treats `git-workflow` as the active
-   PR-review lane on PR `#37`.
-2. Review PR `#37` for duplicate work, missing references, weak eval coverage,
-   or remaining standardization gaps.
-3. If the review stays clean, move the lane to merge instead of reopening
-   implementation work.
-4. If the review finds a real bounded gap, patch only `.god-skills/git-workflow/*`
-   plus survey-lock files, then re-run validation before updating the PR.
-5. Reopen the queue at `responsive-design` only after `git-workflow` lands.
+1. Refresh the survey lock so the repo treats `responsive-design` as the next
+   active packaging lane after `git-workflow` merge.
+2. Write a cleanup plan before editing `responsive-design`.
+3. Package `responsive-design` into a compact entrypoint with focused
+   supporting references.
+4. Add eval coverage for the highest-risk responsive-layout prompts before any
+   mutation loop is considered.
+5. Re-run validation and keep the diff bounded to `.god-skills/responsive-design/*`
+   plus survey-lock files.
 
 ## Verification
 
-- Re-check PR `#37` state on GitHub before deciding merge vs follow-up edit
+- Confirm PR `#37` merged before starting the next packaging lane
 - If code changes are needed, run
-  `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/git-workflow`
+  `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/responsive-design`
 - If code changes are needed, run
   `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
-- Confirm any follow-up diff stays bounded to the `git-workflow` skill package
+- Confirm any follow-up diff stays bounded to the `responsive-design` skill package
   plus survey lock files
 - Record current state, blocker, next owner, and stage for the next scheduled
   improvement run
