@@ -1,9 +1,9 @@
 N:agent-workflow
-D:Practical AI agent workflows and productivity techniques. Provides optimization patterns for daily development tasks including commands, shortcuts, Git integration, MCP utilization, and session management.
-G:agent-workflow productivity git mcp commands
+D:Plan and improve day-to-day AI coding-agent workflow across Claude Code, Codex, Gemini CLI, and MCP-heavy repos. Use when the user needs a practical operating loop for session startup, context recovery, repo delivery, runtime verification, worktrees, or multi-agent handoffs.
+G:agent-workflow productivity session-management mcp worktree multi-agent runtime-verification
 U[6]:
-  Optimize routine AI agent tasks
-  Integrate Git/GitHub workflows
-  Utilize MCP servers
-  Manage and restore sessions
-  Apply productivity enhancement techniques
+  Improve daily AI coding-agent workflow
+  Recover from context overload or stale sessions
+  Choose shell vs MCP vs browser execution surfaces
+  Set up repo delivery loops for edit, test, and PR work
+  Split bounded multi-agent lanes without coordination drift
