@@ -1,65 +1,66 @@
-# Cleanup Plan: review-to-merge pass (`responsive-design`)
+# Cleanup Plan: packaging pass (`agent-workflow`)
 
 ## Goal
 
-Keep this run bounded to a survey refresh plus the review-to-merge checkpoint
-for `responsive-design`, then queue the next packaging lane without reopening
-the packaged skill surface.
+Keep this run bounded to a survey refresh plus one standards-clean packaging
+lane for `agent-workflow`, then open the PR path without widening into a
+repo-wide warning sweep.
 
 ## Behavior lock
 
-- Keep this run limited to `.survey/llm-agent-skill-landscape/*`.
-- Do not reopen the merged `git-workflow`, `codebase-search`,
-  `ui-component-patterns`, `state-management`, `deployment-automation`,
-  `technical-writing`, `prompt-repetition`, `genkit`, or
-  `database-schema-design` lanes.
+- Keep this run focused on:
+  - `.survey/llm-agent-skill-landscape/*`
+  - `.god-skills/agent-workflow/*`
+- Do not reopen the merged `git-workflow` or `responsive-design` lanes.
 - Do not widen this run into a repo-wide warning cleanup pass.
-- Do not reopen `.god-skills/responsive-design/*` unless review evidence shows
-  a real gap.
-- Do not add scripts or assets unless repeated eval or review work proves a
-  reusable deterministic helper or bundled template is required.
+- Do not touch `.god-skills/agent-configuration/*` unless `agent-workflow`
+  validation reveals a shared blocker that cannot stay local.
+- Do not add scripts or assets unless repeated evaluation or review work proves
+  a reusable deterministic helper or bundled template is required.
 
 ## Packaging decisions
 
-- `responsive-design`
-  - Assets: no; review found no bundled template or media artifact the skill
-    needs
-  - Scripts: no; the validator is enough and there is still no repeated helper
-    workflow to bundle
-  - References: already added; keep them as the progressive-disclosure surface
-  - Evals: already added; use them for future mutation triage instead of adding
-    broader prose
 - `agent-workflow`
-  - Assets: no; the likely follow-up gap is structural, not template-driven
-  - Scripts: no; warning cleanup should stay instructional first
-  - References: likely yes; the current body mixes several command families and
-    workflow concerns
-  - Evals: likely yes; trigger wording and workflow coverage should be measured
+  - Assets: no; the current gap is workflow structure, not reusable media or
+    templates
+  - Scripts: no; there is no repeated deterministic helper to bundle yet
+  - References: yes; the current entrypoint mixes commands, shortcuts, Git,
+    MCP, and orchestration detail that should move behind progressive
+    disclosure
+  - Evals: yes; trigger quality and workflow coverage should be measured before
+    any later mutation loop
+- `agent-configuration`
+  - Assets: no
+  - Scripts: no
+  - References: likely yes, but keep deferred behind `agent-workflow`
+  - Evals: maybe later, after its structural cleanup becomes the active lane
 - `skill-autoresearch`
   - Keep at triage only in this run
   - Do not start a mutation loop until a compact eval-backed target shows
-    failing measured checks or attracts review feedback
+    measured failures or attracts review feedback
 
 ## Planned edits
 
-1. Re-check PR `#38` for duplicate work, missing improvements, and remaining
-   standardization gaps.
-2. Refresh the survey lock and direction files to move `responsive-design`
-   from `pr-open` to `merge`.
-3. Keep `agent-workflow` locked as the next packaging candidate once
-   `responsive-design` closes.
-4. Validate the target skill and the full skill inventory.
-5. Leave the repo in explicit `merge` state for the next owner.
+1. Refresh the survey lock and direction files to reflect that PR `#38`
+   merged and `agent-workflow` is now the top queued lane.
+2. Rewrite `.god-skills/agent-workflow/SKILL.md` into a compact standards-clean
+   entrypoint with imperative triggering, sibling routing, instructions,
+   examples, and references.
+3. Add focused `references/` docs and `evals/evals.json` for
+   `agent-workflow`.
+4. Update `SKILL.toon` to match the new trigger surface.
+5. Validate the target and repo, then open the PR path.
+6. Record current state, blocker, next owner, and stage for the next scheduled
+   run.
 
 ## Verification
 
-- Confirm PR `#37` is merged and there is no newer open lane ahead of
-  `responsive-design`
-- Confirm PR `#38` remains open, non-draft, review-clean, and merge-clean
+- Confirm PR `#38` is merged and no other skill-loop PR is currently open
 - Run
-  `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/responsive-design`
+  `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/agent-workflow`
 - Run
   `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
-- Confirm the diff stays bounded to survey lock files only
-- Record current state, blocker, next owner, and stage for the next scheduled
-  improvement run
+- Review the `agent-workflow` diff for duplicate work, missing progressive
+  disclosure, and unnecessary scripts or assets
+- Open the PR from the new branch and record its URL
+- Leave the repo in explicit `pr-open` state for the next owner
