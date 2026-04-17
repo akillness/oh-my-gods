@@ -1,0 +1,55 @@
+{
+  "skill_name": "bmad-idea",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Brainstorm three directions for a habit-tracking app before we commit to specs.",
+      "expected_output": "Treats the request as ideation work, routes it to the brainstorming lane, and avoids pushing the user into structured BMAD delivery too early.",
+      "assertions": [
+        "Response identifies the request as brainstorming or early idea-shaping work",
+        "Response routes to `bmad-cis-brainstorming`, `/cis-brainstorm`, or Carson",
+        "Response avoids prescribing PRD, architecture, or a full BMAD phase path as the immediate next step"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We need empathy mapping and quick prototype directions for our onboarding flow.",
+      "expected_output": "Chooses the design-thinking lane and grounds the answer in user-centered framing rather than generic ideation.",
+      "assertions": [
+        "Response recognizes empathy mapping or prototyping as a design-thinking request",
+        "Response routes to `bmad-cis-design-thinking`, `/cis-design-thinking`, or Maya",
+        "Response keeps the answer focused on one primary lane instead of dumping all five CIS workflows"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Help us find an uncontested market angle for our AI PM assistant.",
+      "expected_output": "Routes the request to innovation strategy, using market-positioning and business-model framing instead of broad brainstorming.",
+      "assertions": [
+        "Response identifies market gap, differentiation, or business-model work as the main job",
+        "Response routes to `bmad-cis-innovation-strategy`, `/cis-innovation-strategy`, or Victor",
+        "Response does not answer as if the main need were storytelling or generic brainstorming"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Players love the core loop but churn after day 2. Diagnose the problem before we write a roadmap.",
+      "expected_output": "Treats the request as problem diagnosis work and routes it to the problem-solving lane before solutioning or roadmap writing.",
+      "assertions": [
+        "Response frames the request as diagnosis, root-cause analysis, or constraint discovery",
+        "Response routes to `bmad-cis-problem-solving`, `/cis-problem-solving`, or Dr. Quinn",
+        "Response avoids jumping straight to roadmap planning as the first answer"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Turn this product concept into a compelling investor story.",
+      "expected_output": "Routes the request to storytelling and frames the next step as narrative packaging rather than innovation strategy or phase routing.",
+      "assertions": [
+        "Response identifies the task as narrative, pitch, or storytelling work",
+        "Response routes to `bmad-cis-storytelling`, `/cis-storytelling`, or Sophia",
+        "Response avoids prescribing the full BMAD development workflow as the immediate action"
+      ]
+    }
+  ]
+}

@@ -21,13 +21,17 @@ Date: 2026-04-18
   value of concise, reusable, non-overlapping skill packaging across agent
   runtimes:
   https://github.blog/changelog/2025-12-18-github-copilot-now-supports-agent-skills/
+- GitHub added `gh skill` on 2026-04-16, which is another signal that compact,
+  portable, discoverable skill packaging matters more than oversized
+  entrypoints:
+  https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
 - Current BMAD docs keep the core routed delivery surface separate from the
   Creative Intelligence Suite, which sharpens `bmad-idea` as the next
   ideation-first sibling lane after the `bmad` merge:
   https://docs.bmad-method.org/explanation/creative-intelligence/
-- `skill-autoresearch` is still not justified for the next lane because the
-  stronger move is to standardize `bmad-idea` first, add evals, then measure
-  any remaining failures after review.
+- `skill-autoresearch` is still not justified immediately after the standards
+  pass because the review cycle only exposed a docs-alignment patch; no
+  measured residual failures justify a mutation loop yet.
 
 Source links:
 
@@ -36,6 +40,7 @@ Source links:
 - https://agentskills.io/skill-creation/optimizing-descriptions
 - https://docs.langchain.com/oss/javascript/deepagents/skills
 - https://github.blog/changelog/2025-12-18-github-copilot-now-supports-agent-skills/
+- https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
 - https://docs.bmad-method.org/explanation/creative-intelligence/
 - https://bmadcodes.com/v6-alpha/
 
@@ -57,24 +62,28 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/43
 - PR `#44` for the `bmad` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/44
+- PR `#45` for the `bmad-idea` standards lane is open as a draft:
+  https://github.com/akillness/oh-my-gods/pull/45
 
 ## Audit snapshot
 
-- Fresh repo-wide validation still passes at `0` errors and `34` warnings.
+- Fresh repo-wide validation still passes at `0` errors and `29` warnings on
+  the active branch after the review follow-up patch.
 - `agent-configuration` is closed; reopening it in the next run would be
   duplicate work.
-- Remaining warning leaders are now `bmad-idea` (`5`), followed by a smaller
-  three-warning cluster: `clawteam` (`3`), `langchain-bmad` (`3`), and
-  `presentation-builder` (`3`).
+- `bmad-idea` now validates cleanly after the standards pass, references move,
+  and eval addition.
+- The remaining warning leaders are now the three-warning cluster:
+  `clawteam` (`3`), `langchain-bmad` (`3`), and `presentation-builder` (`3`).
 - The principles lane is now merged, so reopening it in the next run would be
   duplicate work unless measured failures appear.
 - PR `#43` cleared the `opencontext` warnings with a compact routed entrypoint,
   focused `references/`, and trigger or routing eval coverage.
 - PR `#44` cleared the `bmad` warnings with a compact routed entrypoint,
   focused eval coverage, and fresher discovery links.
-- `bmad-idea` is now the highest-value remaining bounded lane because it is the
-  only five-warning unresolved surface and the BMAD docs keep it clearly
-  separated from the newly standardized `bmad` entrypoint.
+- PR `#45` applies the same packaging pattern to `bmad-idea`: compact routing
+  entrypoint, progressive-disclosure references, trigger-quality eval
+  coverage, and now aligned public docs.
 
 ## Target decisions
 
@@ -86,7 +95,7 @@ Source links:
 | `agent-development-principles` | Merged alias lane via PR `#41` | No | No | No | Added | Not yet | Keep closed as a compatibility alias unless routing failures appear |
 | `opencontext` | Merged standards lane via PR `#43` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `bmad` | Merged standards lane via PR `#44` | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `bmad-idea` | Active survey target | No | No | Likely yes | Yes | Not yet | Start the next bounded standards lane here |
+| `bmad-idea` | Draft PR `#45` open, review pass complete | No | No | Added | Added | Not yet | Move to merge path unless new review evidence appears |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit after review feedback or failing eval runs |
 
@@ -97,24 +106,25 @@ Source links:
   failures or review feedback.
 - `bmad` is now closed on `main`; do not reopen it without measured failures
   or review feedback.
-- The next bounded lane should begin with `bmad-idea`; do not widen that run
-  into the smaller three-warning cluster unless a shared blocker forces it.
+- The next bounded lane is already open as draft PR `#45`; the review pass is
+  now complete, so do not widen the current branch into the smaller
+  three-warning cluster before the merge-path handoff.
 - Explicit support-surface decision for `bmad-idea`:
   - `assets`: no
   - `scripts`: no by default; add only if a reusable deterministic helper is
     missing
-  - `references`: likely yes; package creative-workflow and routing detail
-    behind progressive disclosure
-  - `evals`: yes; add trigger-quality and boundary coverage before any later
-    mutation loop
-- Do not start a mutation loop for `bmad-idea` unless later eval or review
-  evidence exposes measured failures after the standards pass.
+  - `references`: yes; keep creative-workflow and routing detail behind
+    progressive disclosure
+  - `evals`: yes; keep trigger-quality and boundary coverage in place before
+    any later mutation loop
+- Do not start a mutation loop for `bmad-idea` unless post-merge review or
+  later eval evidence exposes measured failures after the standards pass.
 
 ## Status
 
-- Current state: `bmad` standards lane merged on `main` via PR `#44`; the loop
-  now resets to survey for `bmad-idea`
-- PR: https://github.com/akillness/oh-my-gods/pull/44
+- Current state: `bmad-idea` standards lane is packaged, review-clean after a
+  bounded docs-alignment fix, and still registered as draft PR `#45`
+- PR: https://github.com/akillness/oh-my-gods/pull/45
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` survey pass
-- Stage: `survey`
+- Next owner: merge-path owner for PR `#45`
+- Stage: `merge`

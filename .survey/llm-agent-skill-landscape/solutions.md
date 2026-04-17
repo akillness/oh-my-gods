@@ -62,6 +62,7 @@ emphasis, not a usage telemetry measurement:
 The highest-value improvement is still not adding another broad skill first. It
 is upgrading workflow-critical existing skills into evaluation-ready,
 standards-compliant entrypoints so future iterations can optimize them one
-bounded mutation at a time. That is why the queue has now moved from the merged
-`responsive-design` lane to the active `agent-workflow` PR instead of starting
-a fresh `skill-autoresearch` experiment or an unrelated new skill.
+bounded mutation at a time. That is why the queue has now moved to draft PR
+`#45` for `bmad-idea` instead of opening a fresh `skill-autoresearch`
+experiment or widening into the remaining three-warning cluster before this
+ideation lane is reviewed.
