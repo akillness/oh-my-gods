@@ -45,6 +45,9 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/38
 - PR `#39` for `agent-workflow` merged at `2026-04-17T12:04:16Z`:
   https://github.com/akillness/oh-my-gods/pull/39
+- PR `#40` for `agent-configuration` is now open on branch
+  `chore/skill-loop-pr-open-20260417-r41`:
+  https://github.com/akillness/oh-my-gods/pull/40
 
 ## Audit snapshot
 
@@ -62,13 +65,22 @@ Source links:
   `References`.
 - `agent-configuration` also has no packaged `references/` or `evals/`, which
   makes it weaker than the recently standardized workflow skills.
+- PR `#40` rewrites `agent-configuration` into a `180` line entrypoint with
+  imperative triggering, sibling routing, scope-first configuration triage,
+  and packaged references plus evals.
+- Target validation now passes at `0` errors and `0` warnings for
+  `agent-configuration`.
+- Repo-wide validation remains at `0` errors and drops from `55` to
+  `51` warnings.
+- `scripts/` and `assets/` remain intentionally out of scope because this lane
+  still shows no repeated deterministic helper or reusable template need.
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
 | `agent-workflow` | Merged lane | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `agent-configuration` | Active standards lane | No | No | Yes | Yes | Not yet | Package and open the PR path in this run |
+| `agent-configuration` | Active PR-open lane on `r41` / PR `#40` | No | No | Added in this run | Added in this run | Not yet | Review PR `#40` next; merge if no duplicate work or gaps remain |
 | `agent-development-principles` | Queued follow-up lane | No | No | Likely | Maybe later | Not yet | Keep behind `agent-configuration` |
 | `agent-principles` | Queued follow-up lane | No | No | Likely | Maybe later | Not yet | Keep behind `agent-configuration` |
 | `bmad` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
@@ -77,21 +89,21 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: package `agent-configuration` into a standards-clean
-  configuration surface and open a new PR.
+- Primary lane: review PR `#40` for duplicate work, missed standardization
+  gaps, or support-surface mistakes; merge if it stays clean.
 - Explicit support-surface decision:
   - `assets`: no; the lane needs guidance, not reusable media or templates
   - `scripts`: no; no repeated deterministic helper is showing up yet
   - `references`: yes; scope, guardrails, and team-sharing details should move
     behind progressive disclosure
   - `evals`: yes; the next review cycle needs trigger and routing checks
-- Do not start a mutation loop for `agent-configuration` before the packaged
-  version has review feedback or measured eval failures.
+- Do not start a mutation loop for `agent-configuration` before PR review
+  feedback or measured eval failures justify one.
 
 ## Status
 
-- Current state: `agent-configuration` is the active bounded improvement lane
+- Current state: `agent-configuration` is packaged, validated, and PR-open on
+  `#40`
 - Blocker: none
-- Next owner: `nanoclaw_pd` to package `agent-configuration`, open the PR path,
-  then leave the branch for the next scheduled review pass
-- Stage: `improvement`
+- Next owner: next scheduled `nanoclaw_pd` review pass
+- Stage: `pr-open`

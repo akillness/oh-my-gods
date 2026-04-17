@@ -4,7 +4,9 @@
 
 - PR `#39` for `agent-workflow` is merged:
   https://github.com/akillness/oh-my-gods/pull/39
-- Repo-wide validation remains at `0` errors and `55` warnings.
+- PR `#40` for `agent-configuration` is open:
+  https://github.com/akillness/oh-my-gods/pull/40
+- Repo-wide validation remains at `0` errors and `51` warnings.
 - `agent-configuration` is now the highest-leverage bounded next lane:
   `368` lines, `4` warnings, no `references/`, and no `evals/`.
 - The next warning-heavy peers (`agent-development-principles`,
@@ -31,17 +33,16 @@ but the leverage has shifted from workflow guidance to configuration guidance:
 
 Advance one bounded lane per run, in this order:
 
-1. Package `agent-configuration` and open a PR
-2. Review that PR on the next run for duplicate work or missed gaps
-3. Merge if the review stays clean
-4. Only then move to the next queued standards lane
+1. Review PR `#40` on the next run for duplicate work or missed gaps
+2. Merge if the review stays clean
+3. Only then move to the next queued standards lane
 
 This order is locked because:
 
 - `agent-workflow` is already merged, so reopening it now would be duplicate
   work.
-- `agent-configuration` has a narrower and more reviewable fix surface than
-  `bmad`, while still touching a high-value cross-platform need.
+- `agent-configuration` is already packaged and PR-open, so opening another
+  lane now would violate the one-bounded-lane rule.
 - `skill-autoresearch` remains lower priority than packaging and review until
   the target is compact, eval-backed, and showing measured failures.
 
@@ -50,7 +51,7 @@ This order is locked because:
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `agent-workflow` | High | Not yet | No | No | Added | Added | Keep closed unless failures or review feedback reopen it |
-| `agent-configuration` | High | Not yet | No | No | Yes | Yes | Package and open the PR path now |
+| `agent-configuration` | High | Not yet | No | No | Yes | Yes | Review PR `#40`; merge if no gaps remain |
 | `agent-development-principles` | Medium | Not yet | No | No | Likely | Maybe later | Keep queued |
 | `agent-principles` | Medium | Not yet | No | No | Likely | Maybe later | Keep queued |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
@@ -69,8 +70,7 @@ This order is locked because:
 
 ## Current state
 
-- State: `agent-configuration` is the active standards lane
+- State: `agent-configuration` is packaged, validated, and PR-open on `#40`
 - Blocker: none
-- Next owner: `nanoclaw_pd` to package the skill and open the PR path for the
-  next scheduled review pass
-- Stage: `improvement`
+- Next owner: next scheduled `nanoclaw_pd` review pass
+- Stage: `pr-open`
