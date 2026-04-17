@@ -55,10 +55,12 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/39
 - PR `#40` for `agent-configuration` merged at `2026-04-17T14:06:40Z`:
   https://github.com/akillness/oh-my-gods/pull/40
+- PR `#41` for the principles canonicalization lane is open:
+  https://github.com/akillness/oh-my-gods/pull/41
 
 ## Audit snapshot
 
-- Fresh repo-wide validation still passes at `0` errors and `55` warnings.
+- Fresh repo-wide validation still passes at `0` errors and `43` warnings.
 - `agent-configuration` is closed; reopening it in this run would be duplicate
   work.
 - Remaining warning leaders are `bmad` (`5`), `bmad-idea` (`5`),
@@ -107,8 +109,8 @@ Source links:
 
 ## Status
 
-- Current state: bounded principles canonicalization lane selected and ready for
-  PR-open execution
+- Current state: principles canonicalization lane packaged and recorded on open
+  PR `#41`
 - Blocker: none
 - Next owner: next scheduled `nanoclaw_pd` improvement pass
-- Stage: `improvement`
+- Stage: `pr-open`

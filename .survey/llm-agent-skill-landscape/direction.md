@@ -6,7 +6,9 @@
   https://github.com/akillness/oh-my-gods/pull/39
 - PR `#40` for `agent-configuration` is merged:
   https://github.com/akillness/oh-my-gods/pull/40
-- Repo-wide validation remains at `0` errors and `51` warnings.
+- PR `#41` for the principles canonicalization lane is open:
+  https://github.com/akillness/oh-my-gods/pull/41
+- Repo-wide validation remains at `0` errors and `43` warnings.
 - `agent-development-principles` and `agent-principles` are now the
   highest-leverage bounded next lane because they duplicate the same
   collaboration-principles job while both carrying packaging warnings.
@@ -72,7 +74,7 @@ This order is locked because:
 
 ## Current state
 
-- State: bounded principles canonicalization lane selected and in progress
+- State: principles canonicalization lane packaged and waiting in PR `#41`
 - Blocker: none
 - Next owner: next scheduled `nanoclaw_pd` improvement pass
-- Stage: `improvement`
+- Stage: `pr-open`
