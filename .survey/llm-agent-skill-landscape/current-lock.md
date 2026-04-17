@@ -100,9 +100,9 @@ Source links:
 
 ## Status
 
-- Current state: `bmad` standards lane active on branch
+- Current state: `bmad` standards lane open as draft PR `#44` on branch
   `chore/skill-loop-pr-open-20260418-r45`
+- PR: https://github.com/akillness/oh-my-gods/pull/44
 - Blocker: none
-- Next owner: current `nanoclaw_pd` pass to finish PR-open work, then next
-  scheduled `nanoclaw_pd` PR review pass
-- Stage: `improvement`
+- Next owner: next scheduled `nanoclaw_pd` PR review pass
+- Stage: `pr-open`

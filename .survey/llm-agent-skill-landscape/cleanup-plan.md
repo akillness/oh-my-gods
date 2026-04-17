@@ -54,4 +54,5 @@ lanes.
   `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
 - Confirm `opencontext` remains closed and does not need reopening
 - Validate `bmad` specifically for standards compliance and new eval coverage
-- Leave the repo in explicit `pr-open` state for the next owner
+- Leave the repo in explicit `pr-open` state for the next owner after opening
+  the draft PR
