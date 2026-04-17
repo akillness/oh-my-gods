@@ -8,8 +8,8 @@ Date: 2026-04-18
   disclosure through `references/`, and only bundling scripts when the same
   deterministic helper keeps getting reinvented across runs.
 - Agent Skills best practices still warn that oversized or over-comprehensive
-  skills hurt invocation quality and context efficiency, which increases the
-  value of collapsing duplicate principles skills into one canonical entrypoint:
+  skills hurt invocation quality and context efficiency, which keeps
+  standards-clean packaging high leverage:
   https://agentskills.io/skill-creation/best-practices
 - Agent Skills eval guidance still recommends starting with a small realistic
   prompt set and adding objective assertions after the first pass, which
@@ -24,15 +24,14 @@ Date: 2026-04-18
   agent infrastructure, which strengthens the case for compact, well-routed
   reusable instructions instead of duplicated prose-heavy skills:
   https://openai.com/index/the-next-evolution-of-the-agents-sdk
-- GitHub Copilot now exposes custom agents as a named reusable packaging
-  surface, which reinforces the same market direction toward concise,
-  specialized, non-overlapping agent packages:
+- GitHub Copilot exposes custom agents as a named reusable packaging surface,
+  which reinforces the same market direction toward concise, specialized,
+  non-overlapping agent packages:
   https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-custom-agents
-- Inference for this repo: after the `agent-configuration` merge, the
-  highest-value remaining gap is duplicated collaboration-principles guidance
-  split across `agent-development-principles` and `agent-principles`.
+- Inference for this repo: after the principles lane merged, the highest-value
+  remaining bounded gap is `opencontext`, not a broader BMAD pass.
 - `skill-autoresearch` is still not justified for the next lane because the
-  stronger move is to canonicalize the duplicate pair first, then measure any
+  stronger move is to standardize `opencontext` first, then measure any
   remaining failures.
 
 Source links:
@@ -55,31 +54,29 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/39
 - PR `#40` for `agent-configuration` merged at `2026-04-17T14:06:40Z`:
   https://github.com/akillness/oh-my-gods/pull/40
-- PR `#41` for the principles canonicalization lane is open:
+- PR `#41` for the principles canonicalization lane merged at `2026-04-17T16:02:27Z`:
   https://github.com/akillness/oh-my-gods/pull/41
 
 ## Audit snapshot
 
 - Fresh repo-wide validation still passes at `0` errors and `43` warnings.
-- `agent-configuration` is closed; reopening it in this run would be duplicate
-  work.
-- Remaining warning leaders are `bmad` (`5`), `bmad-idea` (`5`),
-  `agent-development-principles` (`4`), `agent-principles` (`4`), and
+- `agent-configuration` is closed; reopening it in the next run would be
+  duplicate work.
+- Remaining warning leaders are `bmad` (`5`), `bmad-idea` (`5`), and
   `opencontext` (`4`).
-- `agent-development-principles` and `agent-principles` are the strongest next
-  bounded lane because they overlap heavily on the same six-principle job while
-  competing as peer defaults.
-- Both principles skills currently have warning-level packaging debt: weak
-  trigger phrasing plus missing `Instructions`, `Examples`, and `Best
+- The principles lane is now merged, so reopening it in the next run would be
+  duplicate work unless measured failures appear.
+- `opencontext` is the strongest next bounded lane because it still has a weak
+  trigger description and is missing `Instructions`, `Examples`, and `Best
   practices`.
-- `agent-development-principles` and `agent-principles` also have no packaged
-  `references/` or `evals/`, which makes them poor candidates for any later
-  optimization loop until they are standardized.
-- The sharper move is not to standardize both as peers. It is to make
-  `agent-principles` the canonical skill and convert
-  `agent-development-principles` into a compatibility alias.
-- `scripts/` and `assets/` remain intentionally out of scope because this lane
-  shows no repeated deterministic helper or reusable template need.
+- `opencontext` also has no packaged `references/` or `evals/`, which makes it
+  a better next standardization target than starting a broader BMAD lane.
+- `bmad` and `bmad-idea` remain larger warning leaders, but they are broader
+  orchestration surfaces and therefore worse fits for the next bounded hourly
+  pass.
+- `scripts/` and `assets/` remain intentionally out of scope for
+  `opencontext` unless repeated validation work proves a deterministic helper
+  or reusable template is actually needed.
 
 ## Target decisions
 
@@ -87,30 +84,35 @@ Source links:
 |---|---|---|---|---|---|---|---|
 | `agent-workflow` | Merged lane | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `agent-configuration` | Merged lane via PR `#40` | No | No | Added in this run | Added in this run, including conflict-set coverage | Not yet | Keep closed unless measured routing failures or review feedback reopen it |
-| `agent-principles` | Active canonicalization lane | No | No | Yes | Yes | Not yet | Package as the canonical collaboration-principles skill |
-| `agent-development-principles` | Active alias lane | No | No | No | Yes | Not yet | Convert into a compatibility alias for `agent-principles` |
+| `agent-principles` | Merged canonical lane via PR `#41` | No | No | Added | Added | Not yet | Keep closed unless measured failures or review feedback reopen it |
+| `agent-development-principles` | Merged alias lane via PR `#41` | No | No | No | Added | Not yet | Keep closed as a compatibility alias unless routing failures appear |
+| `opencontext` | Next bounded standards candidate | No | No by default | Likely | Yes | Not yet | Standardize the main entrypoint, then add support files only if they reduce ambiguity |
 | `bmad` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
+| `bmad-idea` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit after review feedback or failing eval runs |
 
 ## Locked direction
 
-- Primary lane is open for this run: canonicalize the duplicate principles pair
-  without widening into unrelated warning cleanup.
+- The merge lane is complete for this run.
+- The next bounded lane is `opencontext`, without widening into unrelated
+  warning cleanup.
 - Explicit support-surface decision:
-  - `assets`: no; the lane needs guidance, not reusable media or templates
-  - `scripts`: no; no repeated deterministic helper is showing up yet
-  - `references`: yes for `agent-principles`; move the six-principle detail
-    behind progressive disclosure instead of duplicating it in two entrypoints
-  - `evals`: yes for both skills; the next review cycle needs canonical and
-    alias-routing checks
-- Do not start a mutation loop for the principles lane before the canonical
+  - `assets`: no; the next lane needs guidance, not reusable media or templates
+  - `scripts`: no by default; only add one if repeated deterministic helper
+    work appears during the `opencontext` pass
+  - `references`: likely yes for `opencontext`; move detailed setup and
+    provider-specific guidance behind progressive disclosure if the main file
+    remains too broad
+  - `evals`: yes for `opencontext`; add trigger-quality and routing coverage
+    before any mutation loop
+- Do not start a mutation loop for `opencontext` before the standardized
   packaging exists and review feedback or measured eval failures justify one.
 
 ## Status
 
-- Current state: principles canonicalization lane packaged and recorded on open
-  PR `#41`
+- Current state: principles canonicalization lane merged via PR `#41`; next
+  bounded lane locked to `opencontext`
 - Blocker: none
 - Next owner: next scheduled `nanoclaw_pd` improvement pass
-- Stage: `pr-open`
+- Stage: `merge`
