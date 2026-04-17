@@ -14,34 +14,37 @@
   https://github.com/akillness/oh-my-gods/pull/43
 - PR `#44` for the `bmad` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/44
-- PR `#45` for the `bmad-idea` standards lane is open as a draft:
+- PR `#45` for the `bmad-idea` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/45
 - Repo-wide validation on the active branch now sits at `0` errors and `29`
   warnings.
-- `bmad-idea` is no longer in the warning leaderboard after the standards pass;
-  the remaining leaders are the three-warning cluster.
-- Current ecosystem evidence still favors finishing the bounded `bmad-idea`
-  review cycle before touching the lower-leverage cluster because the BMAD
-  routing and ideation boundary is now explicit and only needed one small
-  follow-up docs-alignment patch.
+- `bmad-idea` is no longer in the warning leaderboard after the standards
+  merge; the remaining leaders are the three-warning cluster:
+  `clawteam`, `langchain-bmad`, and `presentation-builder`.
+- Current ecosystem evidence now favors packaging `langchain-bmad` before the
+  other two because it still lacks both progressive-disclosure support files
+  and trigger-quality evals while sitting at the BMAD × LangChain bridge where
+  current docs emphasize reusable skills most strongly.
 
 ## Survey refresh
 
 The landscape still favors compact, packaged, reusable instruction surfaces,
-and the leverage has shifted from packaging `bmad-idea` to reviewing that
-bounded lane before opening the next one:
+and the leverage has shifted from the merged `bmad-idea` lane to the next
+bridge skill that still has packaging debt:
 
 1. Agent Skills still pushes progressive disclosure and eval-backed iteration.
 2. Agent Skills best practices still warn against overly comprehensive
    entrypoints that load too much irrelevant detail.
-3. LangChain Deep Agents and GitHub Copilot both keep rewarding concise
-   reusable skill packaging, which increases the payoff from cleaning up the
-   remaining broad entrypoints.
-4. Current BMAD docs keep CIS as a distinct ideation and facilitation module,
+3. LangChain's skill launch and Deep Agents docs both keep rewarding concise
+   reusable packaging, which raises the payoff from cleaning up bridge skills
+   that still inline everything.
+4. GitHub's new `gh skill` command raises the importance of portable,
+   standards-clean, provenance-friendly skill directories.
+5. Current BMAD docs keep CIS as a distinct ideation and facilitation module,
    not a fallback for phase-routing work.
-5. Inference for this repo: the highest-value bounded move was to review PR
-   `#45` for duplicate work, missing standardization, or packaging drift; that
-   review exposed one small docs-drift fix and otherwise left the lane clean.
+6. Inference for this repo: the highest-value bounded move is packaging
+   `langchain-bmad` into a compact routed surface with references and evals
+   before opening a new PR lane.
 
 ## Locked direction
 
@@ -50,11 +53,13 @@ Advance one bounded lane per run, in this order:
 1. Keep `opencontext` closed unless measured failures or review feedback reopen
    it
 2. Keep `bmad` closed unless measured failures or review feedback reopen it
-3. Finish the `bmad-idea` review lane and move it to merge path
-4. Only after that merge-path handoff, choose whether the remaining
-   three-warning cluster needs its own bounded pass
-5. Revisit `skill-autoresearch` only after `bmad-idea` is review-clean,
-   eval-backed, and still shows measured failures
+3. Keep `bmad-idea` closed unless measured failures or review feedback reopen
+   it
+4. Package `langchain-bmad` into a standards-clean PR-open lane
+5. Only after that PR registration, review the branch for duplicate work,
+   missing improvements, or standardization gaps
+6. Revisit `skill-autoresearch` only after `langchain-bmad` is packaged,
+   eval-backed, review-tested, and still shows measured failures
 
 This order is locked because:
 
@@ -62,14 +67,17 @@ This order is locked because:
   reopening it immediately would be duplicate work.
 - `agent-principles` plus `agent-development-principles` are already merged via
   PR `#41`, so reopening them immediately would be duplicate work.
-- `opencontext` and `bmad` are now merged, so the next safe move is a bounded
-  pass on the remaining highest-warning sibling rather than reopening closed
-  lanes.
-- `bmad-idea` was the right ideation-first sibling to the standardized
-  `bmad`, so PR `#45` needed review instead of another fresh survey lane.
-- The remaining three-warning skills are still lower leverage than completing
-  the `bmad-idea` review cycle because widening now would leave the current
-  branch unresolved.
+- `opencontext`, `bmad`, and `bmad-idea` are now merged, so the next safe move
+  is a bounded pass on the remaining highest-leverage sibling rather than
+  reopening closed lanes.
+- `langchain-bmad` sits at the intersection of BMAD routing and the newly
+  emphasized LangChain skill ecosystem, but still ships as an inline monolith
+  with no support files.
+- `clawteam` already has references, evals, and a setup script, so its next
+  pass is lower leverage than `langchain-bmad`.
+- `presentation-builder` still needs packaging work too, but it is narrower
+  and less central to the repo's current agent-skill landscape than the BMAD ×
+  LangChain bridge.
 - `skill-autoresearch` remains lower priority than standards cleanup and review
   until the target is compact, eval-backed, review-tested, and showing measured
   failures.
@@ -84,29 +92,30 @@ This order is locked because:
 | `agent-development-principles` | High | Not yet | No | No | No | Yes | Keep closed as a compatibility alias unless routing failures appear |
 | `opencontext` | High | Not yet | No | No | Added | Added | Keep closed unless failing evals or review feedback reopen it |
 | `bmad` | High | Not yet | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Keep closed unless failures or review feedback reopen it |
-| `bmad-idea` | High | Not yet | No | No | Added | Added | Merge after the bounded docs-alignment review fix unless new evidence appears |
+| `bmad-idea` | High | Not yet | No | No | Added | Added | Keep closed after merge unless new evidence appears |
+| `langchain-bmad` | High | Not yet | No | No | Yes | Yes | Package it into the next PR-open lane |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review cycle |
 
-## Packaging decision for the reviewed lane
+## Packaging decision for the active lane
 
-- Target lane: `bmad-idea` review-to-merge handoff
+- Target lane: `langchain-bmad`
 - Assets: no
 - Scripts: no new scripts by default; add only if a reusable deterministic
   helper is clearly missing
-- References: added; keep CIS workflow detail and routing guidance behind
+- References: yes; keep BMAD phase maps, setup, and framework routing behind
   progressive disclosure
-- Evals: added; keep trigger-quality and routing coverage before any mutation
-  loop
-- Sections: standardized; only one docs-drift gap was found during review and
-  it is now patched
+- Evals: yes; add trigger-quality, route-selection, and boundary coverage
+  before any mutation loop
+- Sections: standardize the entrypoint around `When to use this skill`,
+  `Instructions`, `Examples`, and `Best practices`
 
 ## Current state
 
-- State: `bmad-idea` is standardized on branch
-  `chore/skill-loop-pr-open-20260418-r47`, the skill package validates cleanly,
-  and the review-found docs drift is patched
-- PR: https://github.com/akillness/oh-my-gods/pull/45
+- State: `langchain-bmad` is the selected next bounded lane after the
+  `bmad-idea` merge and is being standardized on branch
+  `chore/skill-loop-pr-open-20260418-r48`
+- PR: not opened yet
 - Blocker: none
-- Next owner: merge-path owner for PR `#45`
-- Stage: `merge`
+- Next owner: current improvement owner, then PR-review owner after registration
+- Stage: `improvement`

@@ -1,243 +1,192 @@
 ---
 name: langchain-bmad
 description: >
-  Combines LangChain/LangGraph/Deep Agents skills with the BMAD structured
-  development methodology. Install both langchain-ai/langchain-skills and bmad
-  together, then follow the BMAD phase workflow (Analysis → Planning →
-  Solutioning → Implementation) with LangChain framework-aware guidance at
-  each phase gate. Triggers on: langchain bmad, bmad langchain, langchain
-  workflow, langgraph bmad, deep agents bmad, structured agent development,
-  framework-aware bmad.
+  Use when the user needs BMAD-style phased delivery for a LangChain,
+  LangGraph, or Deep Agents project and wants the right framework skill at the
+  right BMAD phase. Triggers on: langchain bmad, bmad langchain, langgraph
+  bmad, deep agents bmad, structured agent development, phase-gated langchain
+  workflow, framework-aware bmad, and BMAD for agent frameworks.
 allowed-tools: Read Write Bash Grep Glob
 metadata:
   tags: langchain, langgraph, deep-agents, bmad, workflow, structured-development, framework-selection
   platforms: Claude, Gemini, Codex, OpenCode
   keyword: langchain-bmad
-  version: 1.0.0
+  version: 1.1.0
   source: akillness/oh-my-gods
 ---
 
-# langchain-bmad — BMAD × LangChain Unified Workflow
+# langchain-bmad
 
-Bridge the BMAD structured development methodology with the official LangChain/LangGraph/Deep Agents skill collection. Each BMAD phase gets framework-aware guidance so the right LangChain primitive is chosen at the right time.
+Use `langchain-bmad` when the job is combining BMAD phase discipline with the
+LangChain ecosystem, not when the user only needs a single framework skill in
+isolation. Keep the entrypoint focused on routing: choose the BMAD phase,
+choose the framework lane, then load the narrowest downstream skill or support
+file that fits.
 
 ## When to use this skill
 
-- Starting a new LangChain/LangGraph/Deep Agents project and wanting structured phase gates
-- Applying BMAD (Analysis → Planning → Solutioning → Implementation) to agent framework development
-- Installing both `langchain-ai/langchain-skills` and `bmad` in one step
-- Mapping BMAD phase deliverables (PRD, Architecture, Sprint Plan) to LangChain architecture decisions
+- Start a new agent project and choose between LangChain, LangGraph, and Deep
+  Agents inside a BMAD workflow
+- Route a BMAD artifact or phase gate for a LangChain ecosystem project
+- Decide which framework-specific skill should be loaded next after a BMAD
+  planning or architecture step
+- Install the BMAD and LangChain skill sets together for one project
+- Keep framework choice, persistence, and HITL decisions aligned with BMAD
+  phase boundaries
 
----
+Use a narrower skill instead when:
 
-## Installation
+- the user already knows the exact framework problem and does not need BMAD
+  phase routing: use `langgraph-workflow`, `deepagents`, or the specific
+  LangChain skill directly
+- the user mainly needs BMAD phase routing without framework-specific guidance:
+  use `bmad`
+- the user is still shaping the idea before structured delivery: use
+  `bmad-idea`
 
-Install both skill sets together:
+## Instructions
 
-```bash
-# 1. Install BMAD from oh-my-gods
-npx skills add https://github.com/akillness/oh-my-gods --skill bmad
+### Step 1: Classify both dimensions before naming commands
 
-# 2. Install all 11 official LangChain skills
-npx skills add langchain-ai/langchain-skills --skill '*' --yes
+Identify:
+
+- BMAD lane: bootstrap, phase-status, artifact-routing, phase-gate, or
+  implementation handoff
+- Framework lane: LangChain, LangGraph, Deep Agents, or framework-selection
+
+Do not dump every BMAD phase and every LangChain skill in one response before
+these two lanes are clear.
+
+### Step 2: Choose the BMAD phase and the next framework decision together
+
+Use `references/phase-map.md` to map the current BMAD phase to the narrowest
+next skill:
+
+- Analysis: `framework-selection`
+- Planning: `langchain-dependencies`
+- Solutioning:
+  - LangChain -> `langchain-fundamentals`
+  - LangGraph -> `langgraph-fundamentals` plus `langgraph-persistence`
+  - Deep Agents -> `deep-agents-core`
+- Implementation:
+  - LangChain -> `langchain-middleware`, optional `langchain-rag`
+  - LangGraph -> `langgraph-human-in-the-loop`, `langgraph-persistence`
+  - Deep Agents -> `deep-agents-memory`, `deep-agents-orchestration`
+
+If the user has not chosen a framework yet, stop at `framework-selection`
+instead of pretending all three lanes should run.
+
+### Step 3: Load only the support file that matches the current gap
+
+Use progressive disclosure:
+
+- `references/phase-map.md` for the BMAD-phase to framework-skill routing table
+- `references/setup-and-handoff.md` for install commands, package bundles, and
+  handoff rules between BMAD and framework skills
+
+Keep the main skill compact instead of leaving the entire phase map, setup
+guide, and implementation catalog inline.
+
+### Step 4: Preserve BMAD gates while delegating framework detail
+
+Use `bmad` to keep artifact progression and review gates honest:
+
+- use BMAD to decide which artifact is next
+- use the framework skill to shape the technical content of that artifact
+- use `plannotator` or the existing BMAD review gate before advancing major
+  phase documents
+
+Do not let framework implementation detail bypass the BMAD artifact gate.
+
+### Step 5: Verify that the route is specific and minimal
+
+Before claiming success, prove that:
+
+- the chosen BMAD phase matches the user's immediate job
+- the chosen framework lane is explicit
+- the response names the next skill or command, not the whole catalog
+- the answer makes clear when to return to `bmad` versus stay inside a
+  framework-specific skill
+
+## Examples
+
+### Example 1: Choose a framework before architecture
+
+Input:
+
+```text
+We want to use BMAD for an AI support agent, but we still need to decide between LangGraph and Deep Agents.
 ```
 
-Or as part of the full oh-my-gods install, add `--skill langchain-bmad` to the existing `npx skills add` command.
+Expected shape:
 
----
+- treats this as BMAD analysis or planning plus framework selection
+- routes first to `framework-selection`
+- avoids listing implementation-only skills before the framework decision is
+  made
 
-## BMAD × LangChain Phase Map
+### Example 2: Route a LangGraph architecture phase
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│              BMAD × LangChain Workflow                              │
-├──────────────┬──────────────────────────────────────────────────────┤
-│  PHASE 1     │  Analysis                                            │
-│              │  → Run: framework-selection                          │
-│              │  → Output: framework choice (LangChain / LangGraph   │
-│              │    / Deep Agents)                                     │
-├──────────────┼──────────────────────────────────────────────────────┤
-│  PHASE 2     │  Planning                                            │
-│              │  → Run: langchain-dependencies                       │
-│              │  → PRD captures: model provider, package versions,   │
-│              │    persistence requirements                           │
-├──────────────┼──────────────────────────────────────────────────────┤
-│  PHASE 3     │  Solutioning                                         │
-│              │  → Run: langgraph-fundamentals OR langchain-          │
-│              │    fundamentals OR deep-agents-core                   │
-│              │  → Architecture doc: StateGraph schema, middleware    │
-│              │    stack, HITL interrupt points                       │
-├──────────────┼──────────────────────────────────────────────────────┤
-│  PHASE 4     │  Implementation                                      │
-│              │  → Run: langgraph-persistence, langchain-middleware,  │
-│              │    deep-agents-memory, langchain-rag (as needed)      │
-│              │  → Deliver: production agent with checkpointer,       │
-│              │    human-in-the-loop, RAG pipeline                   │
-└──────────────┴──────────────────────────────────────────────────────┘
+Input:
+
+```text
+Our PRD is approved. We need the next BMAD step for a LangGraph workflow with durable execution.
 ```
 
----
+Expected shape:
 
-## Phase 1 — Analysis: Choose Your Framework
+- recognizes this as BMAD solutioning after a reviewed PRD
+- routes to architecture work plus `langgraph-fundamentals` and
+  `langgraph-persistence`
+- keeps BMAD phase gating explicit
 
-Run `/workflow-init` (BMAD), then invoke `framework-selection` before writing any agent code:
+### Example 3: Keep ideation out of the framework bridge
 
-| If you need... | Choose |
-|---|---|
-| Multi-step tasks, file management, on-demand skills, persistent memory | **Deep Agents** |
-| Complex control flow — loops, branching, parallel workers, HITL approval | **LangGraph** |
-| Single-purpose agent with tools | **LangChain** `create_agent()` |
-| Pure model call / retrieval pipeline | **LangChain LCEL** |
+Input:
 
-Framework decision goes into your BMAD product brief as a technical constraint.
-
----
-
-## Phase 2 — Planning: Lock Dependencies
-
-Use `langchain-dependencies` to pin package versions in the PRD:
-
-```bash
-# Python (recommended)
-pip install -qU langchain-openai langgraph langchain-core
-
-# TypeScript
-npm install @langchain/core @langchain/openai @langchain/langgraph
+```text
+Brainstorm three agent product ideas before we choose any framework.
 ```
 
-Add to PRD:
-- Model provider (OpenAI / Anthropic / Google)
-- Persistence backend (MemorySaver for dev, PostgresSaver for prod)
-- Memory store (InMemoryStore for dev, external for prod)
+Expected shape:
 
----
+- routes to `bmad-idea`
+- avoids forcing a LangChain ecosystem decision too early
+- returns to `langchain-bmad` only after the idea is ready for structured
+  delivery
 
-## Phase 3 — Solutioning: Architecture Design
+### Example 4: Hand off implementation to the right framework skill
 
-### LangGraph path
+Input:
 
-Use `langgraph-fundamentals` + `langgraph-persistence` to design the StateGraph:
-
-```python
-from typing import Annotated
-from typing_extensions import TypedDict
-from langgraph.graph.message import add_messages
-
-class AgentState(TypedDict):
-    messages: Annotated[list, add_messages]
-    phase: str          # current BMAD phase
-    approved: bool | None
+```text
+The architecture is done. We need HITL approval and persistence in our LangGraph app.
 ```
 
-Document in Architecture doc:
-- Node functions and their phase responsibilities
-- Conditional edges (routing logic)
-- `interrupt_before` points for plannotator phase gate reviews
+Expected shape:
 
-### Deep Agents path
+- treats this as implementation handoff, not fresh BMAD setup
+- routes to `langgraph-human-in-the-loop` and `langgraph-persistence`
+- keeps `bmad` as the artifact-tracking layer rather than repeating all BMAD
+  phase detail
 
-Use `deep-agents-core` to design the middleware stack:
+## Best practices
 
-```python
-from deepagents import create_deep_agent
-from deepagents.middleware import FileMiddleware, TodoListMiddleware
-
-agent = create_deep_agent(
-    middleware=[FileMiddleware(), TodoListMiddleware()],
-    skills=["bmad", "framework-selection"],
-)
-```
-
----
-
-## Phase 4 — Implementation
-
-### Add persistence (LangGraph)
-
-Use `langgraph-persistence` — never use MemorySaver in production:
-
-```python
-from langgraph.checkpoint.memory import MemorySaver   # dev only
-# from langgraph.checkpoint.postgres import PostgresSaver  # production
-
-app = graph.compile(checkpointer=MemorySaver())
-config = {"configurable": {"thread_id": "bmad-session-001"}}
-result = app.invoke(initial_state, config=config, version="v2")
-```
-
-### Add HITL for BMAD phase gates
-
-Use `langgraph-human-in-the-loop` — pause at each phase boundary with `interrupt()`:
-
-```python
-from langgraph.types import Command, interrupt
-
-def phase_gate_node(state: AgentState) -> AgentState:
-    approved = interrupt({
-        "kind": "phase_gate",
-        "phase": state["phase"],
-        "summary": f"Approve transition from {state['phase']}?",
-    })
-    return {"approved": approved}
-
-# Resume after human approval
-second = app.invoke(Command(resume=True), config=config, version="v2")
-```
-
-### Add RAG (optional)
-
-Use `langchain-rag` to ground the agent in project documentation:
-
-```python
-from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAIEmbeddings
-
-vectorstore = FAISS.from_documents(docs, OpenAIEmbeddings())
-retriever = vectorstore.as_retriever()
-```
-
----
-
-## plannotator Phase Gate Integration
-
-After each BMAD phase document is complete, run plannotator review before advancing:
-
-```bash
-# Phase 2 → 3 gate: review PRD
-bash scripts/phase-gate-review.sh docs/prd-*.md "PRD Review"
-
-# Phase 3 → 4 gate: review Architecture
-bash scripts/phase-gate-review.sh docs/architecture-*.md "Architecture Review"
-```
-
-In LangGraph terms, each gate corresponds to an `interrupt_before` node:
-
-```python
-app = graph.compile(
-    checkpointer=checkpointer,
-    interrupt_before=["architecture_gate", "implementation_gate"],
-)
-```
-
----
-
-## Quick Reference
-
-| BMAD Phase | LangChain Skill | Command |
-|---|---|---|
-| Analysis | `framework-selection` | Invoke at start of any project |
-| Planning | `langchain-dependencies` | Lock package versions in PRD |
-| Solutioning (LangGraph) | `langgraph-fundamentals`, `langgraph-persistence` | Design StateGraph + checkpointer |
-| Solutioning (Deep Agents) | `deep-agents-core`, `deep-agents-memory` | Design middleware stack |
-| Implementation | `langchain-middleware`, `langgraph-human-in-the-loop`, `langchain-rag` | Build HITL, persistence, RAG |
-
----
+1. Decide the BMAD lane and framework lane before suggesting commands.
+2. Stop at `framework-selection` when the stack choice is still open.
+3. Keep BMAD responsible for artifact progression and review gates.
+4. Push phase maps and install detail into references instead of bloating the
+   entrypoint.
+5. Prefer one narrow framework skill over a full LangChain catalog dump.
+6. Add evals before considering a mutation loop for this bridge skill.
+7. Return to `bmad` when the question becomes artifact progression rather than
+   framework implementation.
 
 ## References
 
-- [BMAD Method](https://github.com/bmad-dev/BMAD-METHOD)
-- [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills)
-- [LangGraph Docs](https://langchain-ai.github.io/langgraph/)
-- [Deep Agents](https://github.com/langchain-ai/deepagents)
-- See `bmad` skill for full phase gate workflow
-- See `langgraph-workflow` skill for advanced LangGraph patterns
+- `references/phase-map.md`
+- `references/setup-and-handoff.md`
+- [LangChain Skills launch](https://www.langchain.com/blog/langchain-skills)
+- [Deep Agents skills docs](https://docs.langchain.com/oss/javascript/deepagents/skills)
+- [BMAD Method docs](https://docs.bmad-method.org/)
+- [Creative Intelligence docs](https://docs.bmad-method.org/explanation/creative-intelligence/)

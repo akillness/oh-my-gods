@@ -25,13 +25,18 @@ Date: 2026-04-18
   portable, discoverable skill packaging matters more than oversized
   entrypoints:
   https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
+- LangChain's April 2026 skills launch says eval-backed skills improved Claude
+  Code's pass rate from `29%` to `95%`, which raises the leverage of
+  packaging-reliant bridge skills that still have no eval or reference
+  surface:
+  https://www.langchain.com/blog/langchain-skills
 - Current BMAD docs keep the core routed delivery surface separate from the
-  Creative Intelligence Suite, which sharpens `bmad-idea` as the next
-  ideation-first sibling lane after the `bmad` merge:
+  Creative Intelligence Suite, so `bmad-idea` is now a closed sibling lane
+  after PR `#45` merged rather than the next open target:
   https://docs.bmad-method.org/explanation/creative-intelligence/
-- `skill-autoresearch` is still not justified immediately after the standards
-  pass because the review cycle only exposed a docs-alignment patch; no
-  measured residual failures justify a mutation loop yet.
+- `skill-autoresearch` is still not justified immediately for the next lane
+  because `langchain-bmad` first needs a standards-clean entrypoint plus
+  support files before measured mutation is worth the loop.
 
 Source links:
 
@@ -41,6 +46,7 @@ Source links:
 - https://docs.langchain.com/oss/javascript/deepagents/skills
 - https://github.blog/changelog/2025-12-18-github-copilot-now-supports-agent-skills/
 - https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
+- https://www.langchain.com/blog/langchain-skills
 - https://docs.bmad-method.org/explanation/creative-intelligence/
 - https://bmadcodes.com/v6-alpha/
 
@@ -62,17 +68,17 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/43
 - PR `#44` for the `bmad` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/44
-- PR `#45` for the `bmad-idea` standards lane is open as a draft:
+- PR `#45` for the `bmad-idea` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/45
 
 ## Audit snapshot
 
 - Fresh repo-wide validation still passes at `0` errors and `29` warnings on
-  the active branch after the review follow-up patch.
+  `main`.
 - `agent-configuration` is closed; reopening it in the next run would be
   duplicate work.
 - `bmad-idea` now validates cleanly after the standards pass, references move,
-  and eval addition.
+  eval addition, and the PR merge.
 - The remaining warning leaders are now the three-warning cluster:
   `clawteam` (`3`), `langchain-bmad` (`3`), and `presentation-builder` (`3`).
 - The principles lane is now merged, so reopening it in the next run would be
@@ -81,9 +87,13 @@ Source links:
   focused `references/`, and trigger or routing eval coverage.
 - PR `#44` cleared the `bmad` warnings with a compact routed entrypoint,
   focused eval coverage, and fresher discovery links.
-- PR `#45` applies the same packaging pattern to `bmad-idea`: compact routing
+- PR `#45` applied the same packaging pattern to `bmad-idea`: compact routing
   entrypoint, progressive-disclosure references, trigger-quality eval
-  coverage, and now aligned public docs.
+  coverage, and aligned public docs.
+- `langchain-bmad` is now the highest-leverage unresolved sibling in the
+  warning cluster because it still has no `references/` or `evals/`, even
+  though the surrounding LangChain skill ecosystem increasingly rewards
+  compact progressive-disclosure packaging.
 
 ## Target decisions
 
@@ -95,36 +105,38 @@ Source links:
 | `agent-development-principles` | Merged alias lane via PR `#41` | No | No | No | Added | Not yet | Keep closed as a compatibility alias unless routing failures appear |
 | `opencontext` | Merged standards lane via PR `#43` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `bmad` | Merged standards lane via PR `#44` | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `bmad-idea` | Draft PR `#45` open, review pass complete | No | No | Added | Added | Not yet | Move to merge path unless new review evidence appears |
+| `bmad-idea` | Merged via PR `#45` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
+| `langchain-bmad` | Unpackaged warning-cluster lane | No | No | Needed in this run | Needed in this run | Not yet | Standardize it into the next PR-open lane |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit after review feedback or failing eval runs |
 
 ## Locked direction
 
-- The merge lane for PR `#44` is complete.
+- The merge lanes for PR `#44` and PR `#45` are complete.
 - `opencontext` is now closed on `main`; do not reopen it without measured
   failures or review feedback.
 - `bmad` is now closed on `main`; do not reopen it without measured failures
   or review feedback.
-- The next bounded lane is already open as draft PR `#45`; the review pass is
-  now complete, so do not widen the current branch into the smaller
-  three-warning cluster before the merge-path handoff.
-- Explicit support-surface decision for `bmad-idea`:
+- `bmad-idea` is now closed on `main`; do not reopen it without measured
+  failures or review feedback.
+- The next bounded lane is `langchain-bmad`; do not widen the current branch
+  into `clawteam` or `presentation-builder` before the new PR-open handoff.
+- Explicit support-surface decision for `langchain-bmad`:
   - `assets`: no
-  - `scripts`: no by default; add only if a reusable deterministic helper is
-    missing
-  - `references`: yes; keep creative-workflow and routing detail behind
-    progressive disclosure
-  - `evals`: yes; keep trigger-quality and boundary coverage in place before
-    any later mutation loop
-- Do not start a mutation loop for `bmad-idea` unless post-merge review or
+  - `scripts`: no; upstream install and routing commands do not justify a
+    repo-local helper yet
+  - `references`: yes; keep BMAD phase maps and framework-routing detail
+    behind progressive disclosure
+  - `evals`: yes; add trigger-quality and boundary coverage before any later
+    mutation loop
+- Do not start a mutation loop for `langchain-bmad` unless post-review or
   later eval evidence exposes measured failures after the standards pass.
 
 ## Status
 
-- Current state: `bmad-idea` standards lane is packaged, review-clean after a
-  bounded docs-alignment fix, and still registered as draft PR `#45`
-- PR: https://github.com/akillness/oh-my-gods/pull/45
+- Current state: `langchain-bmad` is the selected next bounded lane after the
+  `bmad-idea` merge and is being packaged for PR registration
+- PR: not opened yet for the new lane
 - Blocker: none
-- Next owner: merge-path owner for PR `#45`
-- Stage: `merge`
+- Next owner: improvement owner for `langchain-bmad`, then PR-review owner
+- Stage: `improvement`
