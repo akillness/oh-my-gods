@@ -1,0 +1,55 @@
+{
+  "skill_name": "bmad",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to use BMAD for a medium-sized SaaS feature. What should I do first?",
+      "expected_output": "Classifies the request as bootstrap plus project-level triage, picks the likely level, and starts with `/workflow-init` before the first required artifact.",
+      "assertions": [
+        "Response classifies the request as BMAD setup or phase bootstrap before listing commands",
+        "Response recommends `/workflow-init` as the starting command for a new BMAD workflow",
+        "Response chooses a likely project level or explains why level selection matters before naming the next artifact"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We already finished the PRD. What should come next in BMAD?",
+      "expected_output": "Treats the request as phase-status or artifact-routing work, checks the review gate, and routes Level 2+ work toward architecture before implementation.",
+      "assertions": [
+        "Response recognizes this as a current-phase or next-artifact question rather than fresh setup",
+        "Response checks or mentions the review gate on the completed artifact before advancement",
+        "Response routes medium or larger BMAD work toward architecture instead of jumping directly to code"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need brainstorming and design thinking before I write the spec.",
+      "expected_output": "Recognizes that the user is still in ideation and routes the request to `bmad-idea` instead of forcing the core BMAD path too early.",
+      "assertions": [
+        "Response identifies the request as ideation or fuzzy-front-end work",
+        "Response routes the request to `bmad-idea` or an equivalent creative-front-end surface",
+        "Response avoids prescribing the full BMAD phase path as the immediate answer"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "The PRD is done. Review it before we move to architecture.",
+      "expected_output": "Treats the request as a phase-gate review, uses the plannotator gate command, and preserves the approve-or-revise loop.",
+      "assertions": [
+        "Response classifies the request as a phase-gate review problem",
+        "Response uses or recommends `scripts/phase-gate-review.sh` for the review step",
+        "Response preserves the revise-and-resubmit loop instead of treating review as optional"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "This is just a small bug fix. Should I still do the full BMAD flow?",
+      "expected_output": "Uses project level to shrink the workflow, keeps architecture out unless justified, and avoids turning BMAD into a heavyweight default for tiny changes.",
+      "assertions": [
+        "Response uses project level or scope to narrow the BMAD path",
+        "Response avoids requiring a PRD plus architecture flow for a small bug fix by default",
+        "Response still keeps some structured artifact or story discipline rather than abandoning BMAD entirely"
+      ]
+    }
+  ]
+}
