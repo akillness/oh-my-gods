@@ -317,8 +317,8 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 
 | 스킬 | 설명 |
 |------|------|
-| `agent-development-principles` | 보편적 AI 협업 원칙 (분할정복, 컨텍스트 관리) |
-| `agent-principles` | AI 에이전트 협업 핵심 원칙 |
+| `agent-development-principles` | `agent-principles` 호환성 별칭 |
+| `agent-principles` | 정식 AI 에이전트 협업 원칙 스킬 (컨텍스트, 계획/실행, 검증) |
 | `agent-workflow` | 일상 워크플로우 최적화: 단축키, Git, MCP, 세션 |
 | `agent-configuration` | 에이전트 정책, 보안, 훅/스킬/플러그인 설정 |
 | `agent-evaluation` | 종합 에이전트 평가 시스템 설계 |

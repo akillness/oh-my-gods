@@ -7,48 +7,46 @@
 - PR `#40` for `agent-configuration` is merged:
   https://github.com/akillness/oh-my-gods/pull/40
 - Repo-wide validation remains at `0` errors and `51` warnings.
-- `agent-configuration` is now the highest-leverage bounded next lane:
-  `368` lines, `4` warnings, no `references/`, and no `evals/`.
-- The next warning-heavy peers (`agent-development-principles`,
-  `agent-principles`, `opencontext`) are lower leverage or less central to
-  cross-platform day-to-day setup than `agent-configuration`.
-- Review found and fixed one bounded follow-up gap on PR `#40`: overlap with
-  `agent-workflow` at the discovery layer and missing conflict-set coverage for
-  configuration-vs-workflow prompts.
+- `agent-development-principles` and `agent-principles` are now the
+  highest-leverage bounded next lane because they duplicate the same
+  collaboration-principles job while both carrying packaging warnings.
+- Review is clean on the merged configuration lane, so reopening it would be
+  duplicate work.
 
 ## Survey refresh
 
 The landscape still favors compact, packaged, reusable instruction surfaces,
-but the leverage has shifted from workflow guidance to configuration guidance:
+and the leverage has now shifted from configuration packaging to duplicate-skill
+consolidation:
 
 1. Agent Skills still pushes progressive disclosure and eval-backed iteration.
-2. Claude Code still differentiates reusable instructions from isolated
-   subagent execution.
-3. Gemini CLI extensions still package prompts, MCP servers, and custom
-   commands together.
-4. OpenAI Codex still frames skills and team workflows as reusable learning
-   surfaces.
-5. Inference for this repo: the next improvement should help users choose
-   between always-on project instructions, safety hooks/permissions, packaged
-   skills, and shared team configuration.
+2. Agent Skills best practices still warn against overly comprehensive
+   entrypoints that load too much irrelevant detail.
+3. Claude, Codex, Gemini, and Copilot all continue to reward concise,
+   specialized reusable agent packages rather than overlapping peer defaults.
+4. Inference for this repo: the next improvement should reduce catalog
+   competition by canonicalizing the duplicate principles pair.
 
 ## Locked direction
 
 Advance one bounded lane per run, in this order:
 
-1. Start the next queued standards lane on the next run
+1. Canonicalize `agent-principles` plus `agent-development-principles`
 2. Keep `agent-configuration` closed unless measured failures appear
-3. Revisit `skill-autoresearch` only if measured failures appear
+3. Revisit `skill-autoresearch` only if measured failures appear on the
+   packaged canonical skill
 
 This order is locked because:
 
 - `agent-workflow` is already merged, so reopening it now would be duplicate
   work.
-- `agent-configuration` is already packaged, reviewed cleanly, and merged after
-  one bounded follow-up fix, so reopening it immediately would be duplicate
-  work.
-- `skill-autoresearch` remains lower priority than packaging and review until
-  the target is compact, eval-backed, and showing measured failures.
+- `agent-configuration` is already packaged, reviewed cleanly, and merged, so
+  reopening it immediately would be duplicate work.
+- `agent-development-principles` and `agent-principles` currently compete for
+  the same trigger space, making canonicalization higher leverage than starting
+  a fresh unrelated lane.
+- `skill-autoresearch` remains lower priority than canonicalization and review
+  until the target is compact, eval-backed, and showing measured failures.
 
 ## Skill-autoresearch triage
 
@@ -56,25 +54,25 @@ This order is locked because:
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `agent-workflow` | High | Not yet | No | No | Added | Added | Keep closed unless failures or review feedback reopen it |
 | `agent-configuration` | High | Not yet | No | No | Yes | Yes, including conflict-set coverage | Keep closed unless failures appear |
-| `agent-development-principles` | Medium | Not yet | No | No | Likely | Maybe later | Keep queued |
-| `agent-principles` | Medium | Not yet | No | No | Likely | Maybe later | Keep queued |
+| `agent-principles` | High | Not yet | No | No | Yes | Yes | Make canonical and package references/evals |
+| `agent-development-principles` | High | Not yet | No | No | No | Yes | Convert to compatibility alias |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review cycle |
 
 ## Packaging decision for this run
 
-- Target lane: `agent-configuration`
+- Target lane: `agent-principles` plus `agent-development-principles`
 - Assets: no
 - Scripts: no
-- References: yes; package scope selection, guardrails, and team sharing behind
-  progressive disclosure
-- Evals: yes; add trigger and routing checks for the review pass
-- Sections: rewrite the entrypoint with imperative triggering, missing standard
-  sections, and explicit sibling routing
+- References: yes for the canonical skill; move detailed principles guidance
+  behind progressive disclosure
+- Evals: yes for both skills; add canonical and alias-routing checks
+- Sections: rewrite the canonical entrypoint with imperative triggering and
+  standard sections, then narrow the duplicate into a compatibility alias
 
 ## Current state
 
-- State: `agent-configuration` is packaged, reviewed, and merged on `#40`
+- State: bounded principles canonicalization lane selected and in progress
 - Blocker: none
 - Next owner: next scheduled `nanoclaw_pd` improvement pass
-- Stage: `merge`
+- Stage: `improvement`
