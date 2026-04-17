@@ -20,10 +20,10 @@
   warnings.
 - `bmad-idea` is no longer in the warning leaderboard after the standards pass;
   the remaining leaders are the three-warning cluster.
-- Current ecosystem evidence still favors reviewing the bounded `bmad-idea`
-  branch before touching the lower-leverage cluster because the BMAD routing
-  and ideation boundary is now explicit but still needs one clean PR review
-  pass.
+- Current ecosystem evidence still favors finishing the bounded `bmad-idea`
+  review cycle before touching the lower-leverage cluster because the BMAD
+  routing and ideation boundary is now explicit and only needed one small
+  follow-up docs-alignment patch.
 
 ## Survey refresh
 
@@ -39,9 +39,9 @@ bounded lane before opening the next one:
    remaining broad entrypoints.
 4. Current BMAD docs keep CIS as a distinct ideation and facilitation module,
    not a fallback for phase-routing work.
-5. Inference for this repo: the highest-value bounded move is now to review
-   PR `#45` for duplicate work, missing standardization, or packaging drift
-   before deciding whether the three-warning cluster needs the next lane.
+5. Inference for this repo: the highest-value bounded move was to review PR
+   `#45` for duplicate work, missing standardization, or packaging drift; that
+   review exposed one small docs-drift fix and otherwise left the lane clean.
 
 ## Locked direction
 
@@ -50,10 +50,9 @@ Advance one bounded lane per run, in this order:
 1. Keep `opencontext` closed unless measured failures or review feedback reopen
    it
 2. Keep `bmad` closed unless measured failures or review feedback reopen it
-3. Review draft PR `#45` for `bmad-idea` on the next run before opening the
-   next workflow lane
-4. Only after that review, choose whether the remaining three-warning cluster
-   needs its own bounded pass
+3. Finish the `bmad-idea` review lane and move it to merge path
+4. Only after that merge-path handoff, choose whether the remaining
+   three-warning cluster needs its own bounded pass
 5. Revisit `skill-autoresearch` only after `bmad-idea` is review-clean,
    eval-backed, and still shows measured failures
 
@@ -67,7 +66,7 @@ This order is locked because:
   pass on the remaining highest-warning sibling rather than reopening closed
   lanes.
 - `bmad-idea` was the right ideation-first sibling to the standardized
-  `bmad`, so PR `#45` now needs review instead of another fresh survey lane.
+  `bmad`, so PR `#45` needed review instead of another fresh survey lane.
 - The remaining three-warning skills are still lower leverage than completing
   the `bmad-idea` review cycle because widening now would leave the current
   branch unresolved.
@@ -85,13 +84,13 @@ This order is locked because:
 | `agent-development-principles` | High | Not yet | No | No | No | Yes | Keep closed as a compatibility alias unless routing failures appear |
 | `opencontext` | High | Not yet | No | No | Added | Added | Keep closed unless failing evals or review feedback reopen it |
 | `bmad` | High | Not yet | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Keep closed unless failures or review feedback reopen it |
-| `bmad-idea` | High | Not yet | No | No | Added | Added | Review draft PR `#45` before choosing the next lane |
+| `bmad-idea` | High | Not yet | No | No | Added | Added | Merge after the bounded docs-alignment review fix unless new evidence appears |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review cycle |
 
-## Packaging decision for the next lane
+## Packaging decision for the reviewed lane
 
-- Target lane: PR review for `bmad-idea`
+- Target lane: `bmad-idea` review-to-merge handoff
 - Assets: no
 - Scripts: no new scripts by default; add only if a reusable deterministic
   helper is clearly missing
@@ -99,14 +98,15 @@ This order is locked because:
   progressive disclosure
 - Evals: added; keep trigger-quality and routing coverage before any mutation
   loop
-- Sections: standardized; review for duplicate work or missing gaps before
-  moving on
+- Sections: standardized; only one docs-drift gap was found during review and
+  it is now patched
 
 ## Current state
 
 - State: `bmad-idea` is standardized on branch
-  `chore/skill-loop-pr-open-20260418-r47` and registered as draft PR `#45`
+  `chore/skill-loop-pr-open-20260418-r47`, the skill package validates cleanly,
+  and the review-found docs drift is patched
 - PR: https://github.com/akillness/oh-my-gods/pull/45
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR-review pass
-- Stage: `pr-open`
+- Next owner: merge-path owner for PR `#45`
+- Stage: `merge`

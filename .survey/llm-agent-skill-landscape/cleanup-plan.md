@@ -1,16 +1,17 @@
-# Cleanup Plan: review draft PR `#45` before opening the next bounded lane
+# Cleanup Plan: finish the `bmad-idea` review lane and hand it to merge path
 
 ## Goal
 
-Keep the next run bounded to reviewing draft PR `#45` for `bmad-idea` without
-widening into the smaller three-warning cluster or reopening already-merged
-closed lanes.
+Keep this run bounded to finishing the `bmad-idea` review lane without widening
+into the smaller three-warning cluster or reopening already-merged closed
+lanes.
 
 ## Behavior lock
 
 - Keep this run focused on:
   - `.survey/llm-agent-skill-landscape/*`
   - `.god-skills/bmad-idea/*`
+  - `docs/bmad-idea/README.md`
 - Do not reopen the merged `agent-configuration`, `agent-workflow`,
   `agent-principles`, `agent-development-principles`, `git-workflow`,
   `responsive-design`, `opencontext`, or `bmad` lanes unless measured failures
@@ -30,9 +31,9 @@ closed lanes.
   - References: added; review for duplicate or missing detail, not expansion
   - Evals: added; keep them as the baseline before any mutation loop
 - `skill-autoresearch`
-  - Keep at triage only in the next run
-  - Do not start a mutation loop until PR review or later eval evidence shows
-    that `bmad-idea` still fails in measured ways
+  - Keep at triage only
+  - Do not start a mutation loop until post-merge review or later eval
+    evidence shows that `bmad-idea` still fails in measured ways
 
 ## Planned edits
 
@@ -51,4 +52,4 @@ closed lanes.
 - Confirm `opencontext` and `bmad` remain closed and do not need reopening
 - Review `bmad-idea` for duplicate work, missing standards structure, and
   unjustified scripts or assets
-- Leave the repo in explicit `pr-open` or `merge` state for the next owner
+- Leave the repo in explicit `merge` state for the next owner

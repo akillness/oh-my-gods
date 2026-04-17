@@ -30,9 +30,8 @@ Date: 2026-04-18
   ideation-first sibling lane after the `bmad` merge:
   https://docs.bmad-method.org/explanation/creative-intelligence/
 - `skill-autoresearch` is still not justified immediately after the standards
-  pass because the stronger move is to review the new `bmad-idea` branch,
-  confirm no duplicate or missing work remains, and only then measure any
-  residual failures.
+  pass because the review cycle only exposed a docs-alignment patch; no
+  measured residual failures justify a mutation loop yet.
 
 Source links:
 
@@ -69,7 +68,7 @@ Source links:
 ## Audit snapshot
 
 - Fresh repo-wide validation still passes at `0` errors and `29` warnings on
-  the active branch.
+  the active branch after the review follow-up patch.
 - `agent-configuration` is closed; reopening it in the next run would be
   duplicate work.
 - `bmad-idea` now validates cleanly after the standards pass, references move,
@@ -83,8 +82,8 @@ Source links:
 - PR `#44` cleared the `bmad` warnings with a compact routed entrypoint,
   focused eval coverage, and fresher discovery links.
 - PR `#45` applies the same packaging pattern to `bmad-idea`: compact routing
-  entrypoint, progressive-disclosure references, and trigger-quality eval
-  coverage.
+  entrypoint, progressive-disclosure references, trigger-quality eval
+  coverage, and now aligned public docs.
 
 ## Target decisions
 
@@ -96,7 +95,7 @@ Source links:
 | `agent-development-principles` | Merged alias lane via PR `#41` | No | No | No | Added | Not yet | Keep closed as a compatibility alias unless routing failures appear |
 | `opencontext` | Merged standards lane via PR `#43` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `bmad` | Merged standards lane via PR `#44` | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `bmad-idea` | Draft PR `#45` open | No | No | Added | Added | Not yet | Review PR `#45` for duplicate work, missing cleanup, and any remaining standards gaps |
+| `bmad-idea` | Draft PR `#45` open, review pass complete | No | No | Added | Added | Not yet | Move to merge path unless new review evidence appears |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit after review feedback or failing eval runs |
 
@@ -107,8 +106,9 @@ Source links:
   failures or review feedback.
 - `bmad` is now closed on `main`; do not reopen it without measured failures
   or review feedback.
-- The next bounded lane is already open as draft PR `#45`; do not widen the
-  current branch into the smaller three-warning cluster.
+- The next bounded lane is already open as draft PR `#45`; the review pass is
+  now complete, so do not widen the current branch into the smaller
+  three-warning cluster before the merge-path handoff.
 - Explicit support-surface decision for `bmad-idea`:
   - `assets`: no
   - `scripts`: no by default; add only if a reusable deterministic helper is
@@ -117,14 +117,14 @@ Source links:
     progressive disclosure
   - `evals`: yes; keep trigger-quality and boundary coverage in place before
     any later mutation loop
-- Do not start a mutation loop for `bmad-idea` unless PR review or later eval
-  evidence exposes measured failures after the standards pass.
+- Do not start a mutation loop for `bmad-idea` unless post-merge review or
+  later eval evidence exposes measured failures after the standards pass.
 
 ## Status
 
-- Current state: `bmad-idea` standards lane is packaged and registered as
-  draft PR `#45`
+- Current state: `bmad-idea` standards lane is packaged, review-clean after a
+  bounded docs-alignment fix, and still registered as draft PR `#45`
 - PR: https://github.com/akillness/oh-my-gods/pull/45
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR-review pass
-- Stage: `pr-open`
+- Next owner: merge-path owner for PR `#45`
+- Stage: `merge`

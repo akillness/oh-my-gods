@@ -1,9 +1,10 @@
-# bmad-idea — BMAD Creative Intelligence Suite
+# bmad-idea
 
-> **bmad-idea** is a Creative Intelligence Suite for AI-driven ideation, design thinking, innovation strategy, problem-solving, and storytelling. 5 named specialist agents with distinct methodologies — no setup required, all workflows available immediately.
+> Route fuzzy-front-end ideation into the right Creative Intelligence lane
+> before the team commits to PRDs, architecture, or implementation.
 
-[![Skills](https://img.shields.io/badge/Skills-bmad--idea-brightgreen)](../../.agent-skills/bmad-idea/SKILL.md)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](../../.agent-skills/bmad-idea/SKILL.md)
+[![Skills](https://img.shields.io/badge/Skills-bmad--idea-brightgreen)](../../.god-skills/bmad-idea/SKILL.md)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)](../../.god-skills/bmad-idea/SKILL.md)
 
 ---
 
@@ -21,58 +22,41 @@ bmad-idea 스킬을 설정하고 사용해줘. 기억해.
 
 ---
 
-## When to Use
+## When to use
 
-- Brainstorming ideas using structured creative techniques (36 methods across 7 categories)
-- Running a human-centered design thinking process
-- Identifying market disruption opportunities or designing new business models
-- Diagnosing complex problems using systematic root cause analysis
-- Crafting compelling narratives, product stories, or pitches
-- Any creative front-end work before structured development begins
+- Brainstorm concept directions before narrowing scope
+- Run design thinking when the job centers on users, empathy, workflows, or
+  prototype direction
+- Use innovation strategy for market gaps, differentiation, JTBD framing, or
+  business-model choices
+- Diagnose recurring blockers and root causes before roadmap or solution
+  planning
+- Turn a concept into a narrative, pitch, or product story
 
----
-
-## Creative Workflows
-
-All workflows are available immediately — no sequential phases required.
-
-| Command | Code | Description |
-|---------|------|-------------|
-| `bmad-cis-brainstorming` | BS | Facilitate a brainstorming session using 36 proven techniques across 7 categories |
-| `bmad-cis-design-thinking` | DT | Guide human-centered design through empathy, ideation, and prototyping (5-phase) |
-| `bmad-cis-innovation-strategy` | IS | Identify disruption opportunities and design business model innovation |
-| `bmad-cis-problem-solving` | PS | Systematic problem diagnosis: root cause analysis and solution planning |
-| `bmad-cis-storytelling` | ST | Craft compelling narratives using 25 proven story frameworks |
+Use `bmad` instead when the work has already moved into structured delivery,
+artifact progression, or implementation planning.
 
 ---
 
-## Slash Commands
+## Primary lanes
 
-| Command | Agent | Shorthand |
-|---------|-------|-----------|
-| `/cis-brainstorm` | Carson — Brainstorming Coach | `BS` |
-| `/cis-design-thinking` | Maya — Design Thinking Coach | `DT` |
-| `/cis-innovation-strategy` | Victor — Innovation Strategist | `IS` |
-| `/cis-problem-solving` | Dr. Quinn — Creative Problem Solver | `PS` |
-| `/cis-storytelling` | Sophia — Storyteller | `ST` |
+| Lane | Workflow | Slash command | Lead agent | Typical output |
+|------|----------|---------------|------------|----------------|
+| Brainstorming | `bmad-cis-brainstorming` | `/cis-brainstorm` | Carson | idea set, themes, next experiments |
+| Design thinking | `bmad-cis-design-thinking` | `/cis-design-thinking` | Maya | empathy map, reframed problem, prototype/test plan |
+| Innovation strategy | `bmad-cis-innovation-strategy` | `/cis-innovation-strategy` | Victor | market-gap analysis, JTBD framing, business model options |
+| Problem solving | `bmad-cis-problem-solving` | `/cis-problem-solving` | Dr. Quinn | root-cause analysis, constraints map, solution plan |
+| Storytelling | `bmad-cis-storytelling` | `/cis-storytelling` | Sophia | narrative framework, pitch story, messaging arc |
 
----
-
-## Specialized Agents
-
-| Agent | Persona | Specialty |
-|-------|---------|-----------|
-| **Carson** 🧠 | Brainstorming Coach | "Yes, and!" energy — 36 ideation techniques, psychological safety |
-| **Maya** 🎨 | Design Thinking Coach | Jazz improviser style — empathy mapping, 5-phase facilitation |
-| **Victor** ⚡ | Innovation Strategist | Chess grandmaster mindset — JTBD, Blue Ocean Strategy, Disruptive Innovation, BMC |
-| **Dr. Quinn** 🔬 | Creative Problem Solver | Sherlock meets scientist — TRIZ, Theory of Constraints, Five Whys, Systems Thinking |
-| **Sophia** 📖 | Storyteller | Master bard style — 25 story frameworks, emotional arc crafting |
+Default to one primary lane. Use `creative squad` only when the request
+genuinely needs multiple creative lenses in the same pass.
 
 ---
 
-## Load an Agent Directly
+## Direct specialist conversations
 
-Start a conversation with a specific agent without triggering a full workflow:
+Load one specialist when the user wants an ongoing conversation rather than the
+full workflow wrapper:
 
 | Command | Agent |
 |---------|-------|
@@ -81,36 +65,36 @@ Start a conversation with a specific agent without triggering a full workflow:
 | `/cis-agent-innovation-strategist` | Victor |
 | `/cis-agent-creative-problem-solver` | Dr. Quinn |
 | `/cis-agent-storyteller` | Sophia |
+| `/cis-agent-presentation-master` | Caravaggio |
 
 ---
 
-## Creative Squad (Team Mode)
+## Progressive disclosure
 
-Run a full cross-functional creative session with all agents:
+Keep the entrypoint compact and load deeper detail only when it helps:
 
-```text
-creative squad
-```
+- `references/workflow-map.md` for command mapping, output shapes, and
+  `creative squad` guidance
+- `references/agent-profiles.md` for facilitation style, methods, and visual
+  tool notes
 
-Combines all CIS agents for comprehensive creative development: ideation → design → innovation → problem-solving → narrative.
+Do not dump the whole catalog when one lane is enough.
 
 ---
 
-## Quick Reference
+## Review notes
 
-| Goal | Command |
-|------|---------|
-| Generate ideas | `bmad-cis-brainstorming` or `/cis-brainstorm` |
-| Design for users | `bmad-cis-design-thinking` or `/cis-design-thinking` |
-| Find market gaps | `bmad-cis-innovation-strategy` or `/cis-innovation-strategy` |
-| Solve a hard problem | `bmad-cis-problem-solving` or `/cis-problem-solving` |
-| Tell a compelling story | `bmad-cis-storytelling` or `/cis-storytelling` |
-| Full creative session | `creative squad` |
+- `assets`: not needed for this skill
+- `scripts`: not needed; there is no repeated deterministic helper to package
+- `references`: required and now split behind progressive disclosure
+- `evals`: required and present for lane-routing and trigger-quality coverage
 
 ---
 
 ## Related
 
-- [SKILL.md](../../.agent-skills/bmad-idea/SKILL.md) — full skill specification
-- [bmad docs](../bmad/README.md) — structured BMAD development workflow
-- [bmad-gds docs](../bmad-gds/README.md) — game development with BMAD
+- [SKILL.md](../../.god-skills/bmad-idea/SKILL.md) - standardized skill entrypoint
+- [workflow-map.md](../../.god-skills/bmad-idea/references/workflow-map.md) - command map and output shapes
+- [agent-profiles.md](../../.god-skills/bmad-idea/references/agent-profiles.md) - specialist fit and methods
+- [bmad docs](../bmad/README.md) - structured BMAD delivery workflow
+- [bmad-gds docs](../bmad-gds/README.md) - game development with BMAD
