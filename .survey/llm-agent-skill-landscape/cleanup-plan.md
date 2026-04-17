@@ -1,8 +1,8 @@
-# Cleanup Plan: choose the next bounded standards lane after the `bmad` merge
+# Cleanup Plan: review draft PR `#45` before opening the next bounded lane
 
 ## Goal
 
-Keep the next run bounded to `bmad-idea` survey and standards work without
+Keep the next run bounded to reviewing draft PR `#45` for `bmad-idea` without
 widening into the smaller three-warning cluster or reopening already-merged
 closed lanes.
 
@@ -11,15 +11,13 @@ closed lanes.
 - Keep this run focused on:
   - `.survey/llm-agent-skill-landscape/*`
   - `.god-skills/bmad-idea/*`
-  - `README.md`
-  - `README.ko.md`
 - Do not reopen the merged `agent-configuration`, `agent-workflow`,
   `agent-principles`, `agent-development-principles`, `git-workflow`,
   `responsive-design`, `opencontext`, or `bmad` lanes unless measured failures
   appear.
 - Do not widen this run into a repo-wide warning cleanup pass.
-- Do not touch queued lanes outside `bmad-idea` unless a shared blocker forces
-  it.
+- Do not touch queued lanes outside `bmad-idea` unless the PR review exposes a
+  shared blocker.
 - Do not add scripts or assets unless review evidence proves a reusable
   deterministic helper or bundled template is required.
 
@@ -29,27 +27,22 @@ closed lanes.
   - Assets: no
   - Scripts: no by default; only add them if deterministic helper work is
     clearly repeated
-  - References: likely yes; package detailed CIS workflow and routing material
-    behind progressive disclosure if the entrypoint remains broad
-  - Evals: add before any mutation loop
+  - References: added; review for duplicate or missing detail, not expansion
+  - Evals: added; keep them as the baseline before any mutation loop
 - `skill-autoresearch`
   - Keep at triage only in the next run
-  - Do not start a mutation loop until `bmad-idea` is standardized,
-    eval-backed, and still shows measured failures
+  - Do not start a mutation loop until PR review or later eval evidence shows
+    that `bmad-idea` still fails in measured ways
 
 ## Planned edits
 
-1. Refresh the survey lock with the `bmad-idea` versus three-warning-cluster
-   decision.
-2. Re-run the repo-wide validator and confirm `bmad-idea` remains the top
-   unresolved warning leader.
-3. Standardize the `bmad-idea` entrypoint: trigger description, instructions,
-   examples, best practices, and references section.
-4. Add `bmad-idea` evals and sync any discovery surface that materially
-   changes.
-5. Refresh README discovery links only if the standardized positioning changes.
-6. Open the PR path and record current state, blocker, next owner, and stage
-   for the next scheduled run.
+1. Review draft PR `#45` for duplicate work, missing improvements, or stale
+   packaging assumptions.
+2. Re-run the repo-wide validator and confirm the warning count still sits at
+   `29` with `bmad-idea` off the warning leaderboard.
+3. Apply one bounded follow-up patch only if the PR review exposes a real gap.
+4. If the review is clean, move the loop to merge path instead of reopening
+   survey for the same lane.
 
 ## Verification
 
@@ -58,4 +51,4 @@ closed lanes.
 - Confirm `opencontext` and `bmad` remain closed and do not need reopening
 - Review `bmad-idea` for duplicate work, missing standards structure, and
   unjustified scripts or assets
-- Leave the repo in explicit `survey` or `pr-open` state for the next owner
+- Leave the repo in explicit `pr-open` or `merge` state for the next owner
