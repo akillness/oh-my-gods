@@ -56,6 +56,10 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/40
 - PR `#41` for the principles canonicalization lane merged at `2026-04-17T16:02:27Z`:
   https://github.com/akillness/oh-my-gods/pull/41
+- PR `#42` for the merge-checkpoint lane merged at `2026-04-17T17:02:29Z`:
+  https://github.com/akillness/oh-my-gods/pull/42
+- PR `#43` for the `opencontext` standards lane is open:
+  https://github.com/akillness/oh-my-gods/pull/43
 
 ## Audit snapshot
 
@@ -63,20 +67,20 @@ Source links:
 - `agent-configuration` is closed; reopening it in the next run would be
   duplicate work.
 - Remaining warning leaders are `bmad` (`5`), `bmad-idea` (`5`), and
-  `opencontext` (`4`).
+  `opencontext` (`4`) on `main`.
 - The principles lane is now merged, so reopening it in the next run would be
   duplicate work unless measured failures appear.
-- `opencontext` is the strongest next bounded lane because it still has a weak
-  trigger description and is missing `Instructions`, `Examples`, and `Best
-  practices`.
-- `opencontext` also has no packaged `references/` or `evals/`, which makes it
-  a better next standardization target than starting a broader BMAD lane.
+- `opencontext` was the strongest next bounded lane because it had a weak
+  trigger description, missing standards sections, and no packaged
+  `references/` or `evals/`.
+- Branch `chore/skill-loop-pr-open-20260418-r44` now rewrites `opencontext`
+  into a compact routed entrypoint, adds focused `references/`, and adds
+  trigger/routing eval coverage.
 - `bmad` and `bmad-idea` remain larger warning leaders, but they are broader
   orchestration surfaces and therefore worse fits for the next bounded hourly
   pass.
 - `scripts/` and `assets/` remain intentionally out of scope for
-  `opencontext` unless repeated validation work proves a deterministic helper
-  or reusable template is actually needed.
+  `opencontext`; the current lane did not need either one.
 
 ## Target decisions
 
@@ -86,7 +90,7 @@ Source links:
 | `agent-configuration` | Merged lane via PR `#40` | No | No | Added in this run | Added in this run, including conflict-set coverage | Not yet | Keep closed unless measured routing failures or review feedback reopen it |
 | `agent-principles` | Merged canonical lane via PR `#41` | No | No | Added | Added | Not yet | Keep closed unless measured failures or review feedback reopen it |
 | `agent-development-principles` | Merged alias lane via PR `#41` | No | No | No | Added | Not yet | Keep closed as a compatibility alias unless routing failures appear |
-| `opencontext` | Next bounded standards candidate | No | No by default | Likely | Yes | Not yet | Standardize the main entrypoint, then add support files only if they reduce ambiguity |
+| `opencontext` | Standards lane open in PR `#43` | No | No | Added | Added | Not yet | Review the branch for duplicate work, then merge if clean |
 | `bmad` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
 | `bmad-idea` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
@@ -94,25 +98,22 @@ Source links:
 
 ## Locked direction
 
-- The merge lane is complete for this run.
-- The next bounded lane is `opencontext`, without widening into unrelated
-  warning cleanup.
+- The merge lane for PR `#42` is complete.
+- The current bounded lane is `opencontext` in PR `#43`, without widening into
+  unrelated warning cleanup.
 - Explicit support-surface decision:
-  - `assets`: no; the next lane needs guidance, not reusable media or templates
-  - `scripts`: no by default; only add one if repeated deterministic helper
-    work appears during the `opencontext` pass
-  - `references`: likely yes for `opencontext`; move detailed setup and
-    provider-specific guidance behind progressive disclosure if the main file
-    remains too broad
-  - `evals`: yes for `opencontext`; add trigger-quality and routing coverage
-    before any mutation loop
-- Do not start a mutation loop for `opencontext` before the standardized
-  packaging exists and review feedback or measured eval failures justify one.
+  - `assets`: no; the lane needed guidance, not reusable media or templates
+  - `scripts`: no; repeated deterministic helper work still did not appear
+  - `references`: yes; added to move setup, retrieval, and persistence detail
+    behind progressive disclosure
+  - `evals`: yes; added trigger-quality and routing coverage before any later
+    mutation loop
+- Do not start a mutation loop for `opencontext` unless PR review or later eval
+  results expose measured failures after this packaging pass.
 
 ## Status
 
-- Current state: principles canonicalization lane merged via PR `#41`; next
-  bounded lane locked to `opencontext`
+- Current state: `opencontext` standards lane packaged and opened in PR `#43`
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` improvement pass
-- Stage: `merge`
+- Next owner: next scheduled `nanoclaw_pd` PR-review pass
+- Stage: `pr-open`
