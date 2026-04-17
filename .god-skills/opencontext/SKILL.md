@@ -1,376 +1,194 @@
 ---
 name: opencontext
-description: Persistent memory and context management for AI agents using OpenContext. Keep context across sessions/repos/dates, store conclusions, and provide document search workflows.
+description: >
+  Use OpenContext as a persistent memory layer for coding agents: initialize
+  the CLI, load prior context, search docs, create notes, and persist
+  conclusions across Claude Code, Codex, Cursor, and similar agent setups.
+  Use when the user wants cross-session memory, shared project context,
+  manifests, or `oc` workflows, even if they ask in shorthand like project
+  memory, context search, `oc init`, `oc search`, or persistent agent notes.
 allowed-tools: Read Write Bash Grep Glob
 metadata:
   tags: opencontext, context-management, memory, knowledge-base, multi-agent
   platforms: Claude, Gemini, ChatGPT, Codex, Cursor
-  version: 1.0.0
-  source: OpenContext Multi-Agent Workflow Guide
+  version: 2.0.0
+  source: OpenContext docs
 ---
 
+# OpenContext
 
-# OpenContext Context Management (Persistent Memory)
-
-> Give your AI assistant persistent memory.
-> Stop repeating explanations, and build smarter.
+Use `opencontext` when the job is operating an existing OpenContext memory
+layer, not inventing a new one. Keep the entrypoint focused on setup triage,
+search/load/store workflows, and verification. Push detailed commands,
+embedding notes, and workflow recipes into `references/`.
 
 ## When to use this skill
 
-- When you need to keep context across sessions
-- When you need to record project background/decisions
-- When you need to search prior conclusions/lessons
-- When you need knowledge sharing in a Multi-Agent workflow
-- When you want to reduce repetitive background explanations
+- Set up OpenContext for Claude Code, Codex, Cursor, or another MCP-compatible
+  coding agent
+- Load reusable project context before a task or search prior conclusions while
+  working
+- Capture decisions, pitfalls, acceptance criteria, or version notes so future
+  agent runs can reuse them
+- Decide between desktop, CLI, slash-command, skill, MCP, or Web UI surfaces
+  for OpenContext work
+- Troubleshoot missing search results, storage paths, or embeddings setup for
+  OpenContext itself
 
----
+Prefer a narrower sibling skill when the main job is more specific:
 
-## 1. Core concepts
+- `agent-workflow` for the broader inspect-edit-verify loop around daily agent
+  work
+- `agent-configuration` for repo instruction files, permissions, plugin
+  packaging, or shared agent configuration outside OpenContext
+- `database-schema-design`, `langgraph-workflow`, or a product-memory skill
+  when the user is building a memory system, not operating OpenContext as a
+  tool
 
-### Problem
-When working with an AI assistant, context gets lost (across sessions, repos, and dates). You end up repeating background, re-explaining decisions, and sometimes the assistant continues with incorrect assumptions.
+## Instructions
 
-### Solution
-**OpenContext** is a lightweight personal context/knowledge store for AI assistants.
+### Step 1: Classify the OpenContext request before suggesting commands
 
-```
-[Load context] → [Do work] → [Store conclusions]
-```
+Sort the request into one or two lanes:
 
-### Default paths
-| Item | Path |
-|------|------|
-| **Contexts** | `~/.opencontext/contexts` |
-| **Database** | `~/.opencontext/opencontext.db` |
+- setup-and-surface: install, `oc init`, supported agent surfaces, user-level
+  config, default paths
+- retrieve-and-load: search, manifest generation, loading prior context before
+  work
+- persist-and-curate: create docs, store conclusions, structure folders, keep
+  high-value notes
+- search-troubleshooting: missing results, embeddings, index state, storage
+  overrides
 
----
+Do not dump the entire OpenContext command catalog before the lane is clear.
 
-## 2. Install and initialize
+### Step 2: Choose the lightest OpenContext surface that fits
 
-### Install CLI
-```bash
-npm install -g @aicontextlab/cli
-# Or use npx
-npx @aicontextlab/cli <command>
-```
+Use these defaults unless the environment proves otherwise:
 
-### Initialize (run inside the repo)
-```bash
-cd your-project
-oc init
-```
+- desktop or `oc ui` for manual browsing, editing, and citation
+- slash commands or packaged skills for the common agent loop: load, search,
+  create, iterate
+- CLI for direct folder/doc management and deterministic troubleshooting
+- MCP when the agent must search or read context autonomously
 
-**What `oc init` does:**
-- Prepare the global context store (on first run)
-- Generate user-level commands/skills + mcp.json for the selected tool
-- Update the repo's AGENTS.md
+Keep the user on the smallest surface that solves the job cleanly.
 
----
+### Step 3: Load only the matching reference
 
-## 3. Slash Commands
+Pull the reference that matches the lane:
 
-### Beginner-friendly commands
+- `references/setup-and-tool-surfaces.md` for install, `oc init`, default
+  paths, tool surfaces, and platform wiring
+- `references/search-and-manifest-workflows.md` for `oc search`, manifests,
+  search modes, embeddings, and verification
+- `references/persistence-and-capture-patterns.md` for what to store, how to
+  structure notes, and the before/during/after work loop
 
-| Command | Purpose |
-|---------|------|
-| `/opencontext-help` | When you don't know where to start |
-| `/opencontext-context` | **(Recommended default)** Load background before work |
-| `/opencontext-search` | Search existing documents |
-| `/opencontext-create` | Create a new document/idea |
-| `/opencontext-iterate` | Store conclusions and citations |
+Do not re-expand all setup and embeddings details in the main entrypoint.
 
-### Install locations
-```
-# Slash Commands
-Cursor:      ~/.cursor/commands
-Claude Code: ~/.claude/commands
+### Step 4: Keep retrieval safe and cost-aware
 
-# Skills
-Cursor:      ~/.cursor/skills/opencontext-*/SKILL.md
-Claude Code: ~/.claude/skills/opencontext-*/SKILL.md
-Codex:       ~/.codex/skills/opencontext-*/SKILL.md
+Before recommending heavier retrieval steps:
 
-# MCP Config
-Cursor:      ~/.cursor/mcp.json
-Claude Code: ~/.claude/mcp.json
-```
+- start with keyword search or manifest generation
+- treat vector or hybrid search as opt-in until embeddings are configured
+- do not auto-run `oc index build` by default when the environment may incur
+  paid API usage
+- prefer diagnosing storage path, agent wiring, and search mode before blaming
+  the content itself
 
----
+### Step 5: Verify the OpenContext path actually works
 
-## 4. Core CLI commands
+Before claiming success, confirm the relevant post-action state:
 
-### Folder/document management
-```bash
-# List folders
-oc folder ls --all
+- setup: `oc init` completed and the intended tool surface was refreshed
+- retrieval: keyword search or manifest returns the expected context
+- persistence: the new doc or iteration artifact exists in the expected folder
+- troubleshooting: the fix is proven by a working search, citation, or stored
+  note rather than by configuration guesses alone
 
-# Create folder
-oc folder create project-a -d "My project"
+## Examples
 
-# Create document
-oc doc create project-a design.md -d "Design doc"
+### Example 1: Enable OpenContext for a coding agent
 
-# List documents
-oc doc ls project-a
+Input:
+
+```text
+How do I set up OpenContext so Codex or Claude Code can search my project notes
+before editing anything?
 ```
 
-### Search & manifest
-```bash
-# Search (keyword/hybrid/vector)
-oc search "your query" --mode keyword --format json
+Expected shape:
 
-# Generate a manifest (list of files the AI should read)
-oc context manifest project-a --limit 10
+- classifies this as setup-and-surface first
+- uses `oc init` and the correct user-level integration surface
+- confirms where contexts and config live before claiming setup is complete
+
+### Example 2: Load prior context before implementation
+
+Input:
+
+```text
+I already have OpenContext data. What is the right workflow for loading the
+relevant docs before I start a new task?
 ```
 
-### Search modes
-| Mode | Description | Requirements |
-|------|------|----------|
-| `--mode keyword` | Keyword-based search | No embeddings required |
-| `--mode vector` | Vector search | Embeddings + index required |
-| `--mode hybrid` | Hybrid (default) | Embeddings + index required |
+Expected shape:
 
-### Embedding configuration (for semantic search)
-```bash
-# Set API key
-oc config set EMBEDDING_API_KEY "<<your_key>>"
+- treats this as retrieve-and-load, not a fresh setup request
+- starts with manifest or keyword search before heavier retrieval
+- keeps the answer focused on the smallest useful load path
 
-# (Optional) Set base URL
-oc config set EMBEDDING_API_BASE "https://api.openai.com/v1"
+### Example 3: Persist what the agent learned
 
-# (Optional) Set model
-oc config set EMBEDDING_MODEL "text-embedding-3-small"
+Input:
 
-# Build index
-oc index build
+```text
+We just finished debugging a nasty issue. How should I store the fix,
+acceptance criteria, and pitfalls in OpenContext for future runs?
 ```
 
-### LM Studio (Local Embeddings — no API key required)
+Expected shape:
 
-LM Studio exposes an OpenAI-compatible `/v1/embeddings` endpoint, so OpenContext can use it as a local embedding provider.
+- treats this as persist-and-curate work
+- recommends a durable note or iteration step rather than a transient chat
+  recap
+- names the highest-value content to capture for future agents
 
-**Step 1 — Load an embedding model in LM Studio**
+### Example 4: Diagnose missing hybrid search
 
-In the LM Studio app, go to **Discover** and download an embedding model:
+Input:
 
-| Model | Size | Notes |
-|-------|------|-------|
-| `nomic-ai/nomic-embed-text-v1.5-GGUF` | ~90 MB | General purpose, recommended |
-| `CompendiumLabs/bge-large-en-v1.5-gguf` | ~330 MB | Higher accuracy |
-| `second-state/All-MiniLM-L6-v2-Embedding-GGUF` | ~23 MB | Lightweight |
-
-**Step 2 — Start the LM Studio server**
-
-```bash
-lms server start
-# Verify the embeddings endpoint is available
-curl http://localhost:1234/v1/models
+```text
+OpenContext keyword search works, but hybrid search does not. What should I
+check first?
 ```
 
-**Step 3 — Configure OpenContext**
+Expected shape:
 
-```bash
-# Point to LM Studio's local server
-oc config set EMBEDDING_API_BASE "http://localhost:1234/v1"
+- recognizes this as search troubleshooting
+- checks embeddings config and index state before broader speculation
+- preserves keyword search as the safe fallback while fixing richer retrieval
 
-# LM Studio requires any non-empty value for the key field
-oc config set EMBEDDING_API_KEY "lm-studio"
+## Best practices
 
-# Set the embedding model ID (must match what is loaded in LM Studio)
-oc config set EMBEDDING_MODEL "nomic-ai/nomic-embed-text-v1.5-GGUF"
-
-# Build the index
-oc index build
-```
-
-**Verify**
-
-```bash
-# Quick curl test
-curl -s http://localhost:1234/v1/embeddings \
-  -H "Content-Type: application/json" \
-  -d '{"model":"nomic-ai/nomic-embed-text-v1.5-GGUF","input":"hello"}' \
-  | jq '.data[0].embedding | length'
-# → should print a non-zero dimension (e.g. 768)
-
-# Then test OpenContext search
-oc search "your query" --mode vector
-```
-
-> **Note**: LM Studio must be running whenever you run `oc index build` or use `--mode vector` / `--mode hybrid` search. `--mode keyword` works without a running server.
-
----
-
-## 5. MCP Tools
-
-### OpenContext MCP Tools
-```bash
-oc_list_folders    # List folders
-oc_list_docs       # List documents
-oc_manifest        # Generate manifest
-oc_search          # Search documents
-oc_create_doc      # Create document
-oc_get_link        # Generate stable link
-```
-
-### Multi-Agent integration
-```bash
-# Gemini: large-scale analysis
-ask-gemini "Analyze the structure of the entire codebase"
-
-# Codex: run commands
-shell "docker-compose up -d"
-
-# OpenContext: store results
-oc doc create project-a conclusions.md -d "Analysis conclusions"
-```
-
----
-
-## 6. Multi-Agent workflow integration
-
-### Orchestration Pattern
-```
-[Claude] Plan
-    ↓
-[Gemini] Analysis/research + OpenContext search
-    ↓
-[Claude] Write code
-    ↓
-[Codex] Run/test
-    ↓
-[Claude] Synthesize results + store in OpenContext
-```
-
-### Practical example: API design + implementation + testing
-```bash
-# 1. [Claude] Design API spec using the skill
-/opencontext-context   # Load project background
-
-# 2. [Gemini] Analyze a large codebase
-ask-gemini "@src/ Analyze existing API patterns"
-
-# 3. [Claude] Implement code based on the analysis
-# (Use context loaded from OpenContext)
-
-# 4. [Codex] Test and build
-shell "npm test && npm run build"
-
-# 5. [Claude] Create final report + store conclusions
-/opencontext-iterate   # Store decisions and lessons learned
-```
-
----
-
-## 7. Recommended daily workflow
-
-### Before work (1 min)
-```bash
-/opencontext-context
-```
-- Load project background + known pitfalls
-
-### During work
-```bash
-/opencontext-search
-```
-- Search existing conclusions when unsure
-
-### After work (2 min)
-```bash
-/opencontext-iterate
-```
-- Record decisions, pitfalls, and next steps
-
-### High-ROI document types
-- **Acceptance Criteria** - acceptance criteria
-- **Common Pitfalls** - common pitfalls
-- **API Contracts** - API contracts
-- **Dependency Versions** - dependency versions
-
----
-
-## 8. Stable links (Stable Links)
-
-Keep links stable across renames/moves by referencing document IDs:
-
-```markdown
-[label](oc://doc/<stable_id>)
-```
-
-### Generate a link via CLI
-```bash
-oc doc link <doc_path>
-```
-
-### Generate a link via MCP
-```bash
-oc_get_link doc_path="Product/api-spec"
-```
-
----
-
-## 9. Desktop App & Web UI
-
-### Desktop App (recommended)
-- Manage/search/edit context with a native UI
-- Use without the CLI
-- Automatic index builds (in the background)
-
-**Citation features:**
-| Action | How | Result |
-|------|------|------|
-| Cite text snippet | Select text → right-click → "Copy Citation" | Agent reads the snippet + source |
-| Cite document | Click the citation icon next to the document title | Agent reads the full document + obtains stable_id |
-| Cite folder | Right-click folder → "Copy Folder Citation" | Agent bulk-reads all docs in the folder |
-
-### Web UI
-```bash
-oc ui
-# Default URL: http://127.0.0.1:4321
-```
-
----
-
-## Quick Reference
-
-### Essential workflow
-```
-Before: /opencontext-context (load background)
-During: /opencontext-search (search)
-After: /opencontext-iterate (store)
-```
-
-### Core CLI commands
-```bash
-oc init              # Initialize project
-oc folder ls --all   # List folders
-oc doc ls <folder>   # List documents
-oc search "query"    # Search
-oc doc create ...    # Create document
-```
-
-### MCP Tools
-```
-oc_list_folders  list folders
-oc_list_docs     list documents
-oc_search        search
-oc_manifest      manifest
-oc_create_doc    create document
-oc_get_link      generate link
-```
-
-### Paths
-```
-~/.opencontext/contexts      context store
-~/.opencontext/opencontext.db  database
-```
-
----
+1. Keep the main skill short and move operational detail into references
+2. Start with keyword search or manifests before opt-in embeddings work
+3. Treat contexts as reusable project memory, not as a dumping ground for every
+   chat transcript
+4. Persist conclusions, acceptance criteria, pitfalls, and version-sensitive
+   notes because they have the highest reuse value
+5. Verify the actual storage, search, or citation path instead of assuming the
+   setup worked
+6. Route broader workflow or repo-configuration questions to sibling skills
+   instead of turning OpenContext into a catch-all
 
 ## References
 
-- [OpenContext Website](https://0xranx.github.io/OpenContext/en/)
-- [Usage Guide](https://0xranx.github.io/OpenContext/en/usage/)
-- [Download Desktop](https://github.com/0xranx/OpenContext/releases)
-- [GitHub Repository](https://github.com/0xranx/OpenContext)
+- `references/setup-and-tool-surfaces.md`
+- `references/search-and-manifest-workflows.md`
+- `references/persistence-and-capture-patterns.md`
+- [OpenContext home](https://0xranx.github.io/OpenContext/en/)
+- [OpenContext usage guide](https://0xranx.github.io/OpenContext/en/usage/)
+- [OpenContext repository](https://github.com/0xranx/OpenContext)

@@ -1,9 +1,10 @@
 N:opencontext
-D:AI agent persistent memory and context management using OpenContext. Provides workflows for maintaining context across sessions/repos/dates, storing conclusions, and searching documents.
-G:opencontext context-management memory knowledge-base multi-agent
+D:Operate OpenContext as a persistent memory layer for coding agents: set up the CLI, load prior context, search docs, create notes, and persist conclusions across Claude Code, Codex, Cursor, and similar agent surfaces.
+G:opencontext context-management memory knowledge-base multi-agent persistent-memory
 U[6]:
-  When context needs to be maintained across sessions
-  When project background/decisions need to be recorded
-  When previous conclusions/lessons need to be searched
-  When knowledge sharing is required in multi-agent workflows
-  When repetitive background explanations should be reduced
+  Set up OpenContext for Claude Code, Codex, Cursor, or another agent surface
+  Load reusable project context before a task
+  Search prior conclusions or generate manifests while working
+  Persist decisions, pitfalls, acceptance criteria, or version notes
+  Troubleshoot missing search results, embeddings, or storage paths
+  Choose between desktop, CLI, slash-command, skill, MCP, or Web UI surfaces

@@ -1,10 +1,10 @@
-# Cleanup Plan: standardize the next bounded skill lane after the principles merge
+# Cleanup Plan: review and merge the opencontext standards lane after PR open
 
 ## Goal
 
-Keep the next run bounded to a survey refresh plus one standards-clean lane for
-`opencontext`, without widening into a repo-wide warning sweep or reopening the
-already-merged principles or configuration lanes.
+Keep the next run bounded to review and merge PR `#43` for `opencontext`
+without widening into a repo-wide warning sweep or reopening the already-merged
+principles or configuration lanes.
 
 ## Behavior lock
 
@@ -19,49 +19,41 @@ already-merged principles or configuration lanes.
 - Do not widen this run into a repo-wide warning cleanup pass.
 - Do not touch `bmad`, `bmad-idea`, or other queued lanes unless a shared
   blocker forces it.
-- Do not add scripts or assets unless repeated evaluation or review work proves
-  a reusable deterministic helper or bundled template is required.
+- Do not add scripts or assets unless review evidence proves a reusable
+  deterministic helper or bundled template is required.
 
 ## Packaging decisions
 
 - `opencontext`
-  - Assets: no; this lane needs reusable guidance, not bundled media
-  - Scripts: no by default; only add one if repeated deterministic helper work
-    appears during validation
-  - References: likely yes; detailed setup and provider-specific guidance
-    should move behind progressive disclosure if the main entrypoint stays too
-    broad
-  - Evals: yes; trigger quality, routing, and scope discipline should be
-    measured before any later mutation loop
+  - Assets: no; the lane needed reusable guidance, not bundled media
+  - Scripts: no; the packaged lane still does not justify a helper
+  - References: yes; added to keep setup, retrieval, and persistence details
+    behind progressive disclosure
+  - Evals: yes; added to measure trigger quality, routing, and scope
+    discipline before any later mutation loop
 - `skill-autoresearch`
-  - Keep at triage only in this run
-  - Do not start a mutation loop until the standardized lane exists and shows
-    measured failures or review feedback
+  - Keep at triage only in the next run
+  - Do not start a mutation loop until PR review or later eval results show
+    measured failures
 
 ## Planned edits
 
-1. Refresh the survey lock and direction files to reflect that PR `#41` is
-   merged and the next bounded lane is `opencontext`.
-2. Rewrite `.god-skills/opencontext/SKILL.md` into a compact standards-clean
-   entrypoint with imperative triggering, instructions, examples, best
-   practices, and clearer routing boundaries.
-3. Add focused `references/` docs and `evals/evals.json` for `opencontext` if
-   they reduce ambiguity and keep the main file compact.
-4. Update `SKILL.toon` and any README catalog copy that should reflect the
-   refined `opencontext` positioning.
-5. Validate the target and repo, then open the next PR path.
-6. Record current state, blocker, next owner, and stage for the next scheduled
+1. Review PR `#43` for duplicate work, missing improvements, and unjustified
+   packaging.
+2. Re-run the `opencontext` validator and repo-wide validator.
+3. Apply only a bounded follow-up if review evidence exposes a real gap.
+4. If review is clean and the intended scope is satisfied, merge PR `#43`.
+5. Record current state, blocker, next owner, and stage for the next scheduled
    run.
 
 ## Verification
 
-- Confirm PR `#41` is merged and there is no still-open skill-loop PR for the
-  same lane
+- Confirm PR `#43` still matches the intended bounded scope
 - Run
   `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/opencontext`
 - Run
   `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
 - Review the `opencontext` diff for duplicate work, missing progressive
   disclosure, and unjustified scripts or assets
-- Open the PR from the new branch and record its URL
-- Leave the repo in explicit `pr-open` state for the next owner
+- If clean, merge the PR and record the merged state
+- Leave the repo in explicit `pr-review` or `merge` state for the next owner

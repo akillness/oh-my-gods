@@ -1,0 +1,55 @@
+{
+  "skill_name": "opencontext",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I set up OpenContext so Codex or Claude Code can search my project notes before editing anything?",
+      "expected_output": "Classifies the request as setup-and-surface work, uses `oc init` and the correct user-level integration surface, and verifies where contexts and config live.",
+      "assertions": [
+        "Response identifies `oc init` as the repo-side setup step for OpenContext integration",
+        "Response mentions that the integration writes or refreshes user-level commands, skills, or MCP configuration rather than treating setup as repo-local only",
+        "Response verifies default storage or integration state before claiming setup is complete"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I already have OpenContext data. What is the right workflow for loading relevant docs before I start a new coding task?",
+      "expected_output": "Treats the request as retrieve-and-load work, starts with manifest or keyword search, and keeps the retrieval path lightweight.",
+      "assertions": [
+        "Response classifies the request as retrieval or loading rather than fresh installation",
+        "Response recommends keyword search or manifest generation before heavier retrieval steps",
+        "Response avoids defaulting immediately to embeddings setup or index rebuilds"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We just finished debugging a nasty issue. How should I store the fix, acceptance criteria, and pitfalls in OpenContext for future runs?",
+      "expected_output": "Treats the request as persist-and-curate work and recommends storing durable notes that future agents can search and reuse.",
+      "assertions": [
+        "Response recommends capturing durable material such as the fix summary, pitfalls, acceptance criteria, or version notes",
+        "Response treats the output as a note or iteration artifact rather than a transient chat recap",
+        "Response includes a check that the saved note is discoverable later"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "OpenContext keyword search works, but hybrid search does not. What should I check first?",
+      "expected_output": "Recognizes this as search troubleshooting, checks embeddings and index state after confirming the cheap path, and preserves keyword search as the fallback.",
+      "assertions": [
+        "Response notes that vector or hybrid search requires embeddings configuration and an index build",
+        "Response keeps keyword search or manifest generation as a working fallback while troubleshooting",
+        "Response avoids recommending `oc index build` blindly without confirming that richer retrieval is actually desired"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "I keep mixing AGENTS.md edits, team permissions, and OpenContext notes. Which part belongs to OpenContext and which part belongs somewhere else?",
+      "expected_output": "Keeps OpenContext scoped to persistent memory and routes broader repo-instruction or permission questions to sibling skills.",
+      "assertions": [
+        "Response identifies OpenContext as the memory or reusable context layer rather than the general configuration surface",
+        "Response routes repo instruction files, permissions, or shared configuration concerns to `agent-configuration` or an equivalent sibling surface",
+        "Response avoids turning OpenContext into a catch-all answer for every agent setup question"
+      ]
+    }
+  ]
+}
