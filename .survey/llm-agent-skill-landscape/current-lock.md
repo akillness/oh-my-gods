@@ -24,14 +24,15 @@ Date: 2026-04-18
   agent infrastructure, which strengthens the case for compact, well-routed
   reusable instructions instead of duplicated prose-heavy skills:
   https://openai.com/index/the-next-evolution-of-the-agents-sdk
-- GitHub Copilot exposes custom agents as a named reusable packaging surface,
-  which reinforces the same market direction toward concise, specialized,
-  non-overlapping agent packages:
-  https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-custom-agents
-- Inference for this repo: after the principles lane merged, the highest-value
-  remaining bounded gap is `opencontext`, not a broader BMAD pass.
+- GitHub Copilot now documents custom agents and sub-agent orchestration as an
+  explicit reusable packaging surface, which reinforces the same market
+  direction toward concise, specialized, non-overlapping agent packages:
+  https://docs.github.com/en/copilot/how-tos/copilot-sdk/use-copilot-sdk/custom-agents
+- Inference for this repo: after the `opencontext` lane merged, the highest-
+  value remaining bounded question is which broader orchestration lane to
+  narrow next between `bmad` and `bmad-idea`.
 - `skill-autoresearch` is still not justified for the next lane because the
-  stronger move is to standardize `opencontext` first, then measure any
+  stronger move is to standardize the next target first, then measure any
   remaining failures.
 
 Source links:
@@ -42,7 +43,7 @@ Source links:
 - https://code.claude.com/docs/en/sub-agents
 - https://google-gemini.github.io/gemini-cli/docs/extensions/
 - https://openai.com/index/the-next-evolution-of-the-agents-sdk
-- https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-custom-agents
+- https://docs.github.com/en/copilot/how-tos/copilot-sdk/use-copilot-sdk/custom-agents
 
 ## Live GitHub state
 
@@ -58,24 +59,23 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/41
 - PR `#42` for the merge-checkpoint lane merged at `2026-04-17T17:02:29Z`:
   https://github.com/akillness/oh-my-gods/pull/42
-- PR `#43` for the `opencontext` standards lane is open:
+- PR `#43` for the `opencontext` standards lane merged at `2026-04-17T18:02:46Z`:
   https://github.com/akillness/oh-my-gods/pull/43
 
 ## Audit snapshot
 
-- Fresh repo-wide validation still passes at `0` errors and `43` warnings.
+- Fresh repo-wide validation still passes at `0` errors and `39` warnings.
 - `agent-configuration` is closed; reopening it in the next run would be
   duplicate work.
-- Remaining warning leaders are `bmad` (`5`), `bmad-idea` (`5`), and
-  `opencontext` (`4`) on `main`.
+- Remaining warning leaders are `bmad` (`5`) and `bmad-idea` (`5`) on `main`,
+  followed by a smaller three-warning cluster.
 - The principles lane is now merged, so reopening it in the next run would be
   duplicate work unless measured failures appear.
 - `opencontext` was the strongest next bounded lane because it had a weak
   trigger description, missing standards sections, and no packaged
   `references/` or `evals/`.
-- Branch `chore/skill-loop-pr-open-20260418-r44` now rewrites `opencontext`
-  into a compact routed entrypoint, adds focused `references/`, and adds
-  trigger/routing eval coverage.
+- PR `#43` cleared the `opencontext` warnings with a compact routed entrypoint,
+  focused `references/`, and trigger/routing eval coverage.
 - `bmad` and `bmad-idea` remain larger warning leaders, but they are broader
   orchestration surfaces and therefore worse fits for the next bounded hourly
   pass.
@@ -90,7 +90,7 @@ Source links:
 | `agent-configuration` | Merged lane via PR `#40` | No | No | Added in this run | Added in this run, including conflict-set coverage | Not yet | Keep closed unless measured routing failures or review feedback reopen it |
 | `agent-principles` | Merged canonical lane via PR `#41` | No | No | Added | Added | Not yet | Keep closed unless measured failures or review feedback reopen it |
 | `agent-development-principles` | Merged alias lane via PR `#41` | No | No | No | Added | Not yet | Keep closed as a compatibility alias unless routing failures appear |
-| `opencontext` | Standards lane open in PR `#43` | No | No | Added | Added | Not yet | Review the branch for duplicate work, then merge if clean |
+| `opencontext` | Merged standards lane via PR `#43` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `bmad` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
 | `bmad-idea` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
@@ -98,9 +98,11 @@ Source links:
 
 ## Locked direction
 
-- The merge lane for PR `#42` is complete.
-- The current bounded lane is `opencontext` in PR `#43`, without widening into
-  unrelated warning cleanup.
+- The merge lane for PR `#43` is complete.
+- `opencontext` is now closed on `main`; do not reopen it without measured
+  failures or review feedback.
+- The next bounded lane should begin with a fresh survey decision between
+  `bmad` and `bmad-idea`, without widening into unrelated warning cleanup.
 - Explicit support-surface decision:
   - `assets`: no; the lane needed guidance, not reusable media or templates
   - `scripts`: no; repeated deterministic helper work still did not appear
@@ -108,12 +110,12 @@ Source links:
     behind progressive disclosure
   - `evals`: yes; added trigger-quality and routing coverage before any later
     mutation loop
-- Do not start a mutation loop for `opencontext` unless PR review or later eval
-  results expose measured failures after this packaging pass.
+- Do not start a mutation loop for `opencontext` unless later eval or review
+  evidence exposes measured failures after the merged packaging pass.
 
 ## Status
 
-- Current state: `opencontext` standards lane packaged and opened in PR `#43`
+- Current state: `opencontext` standards lane merged on `main` via PR `#43`
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR-review pass
-- Stage: `pr-open`
+- Next owner: next scheduled `nanoclaw_pd` survey pass
+- Stage: `merge`
