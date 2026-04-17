@@ -1,6 +1,11 @@
 ---
 name: bmad-idea
-description: Creative Intelligence Suite for AI-driven ideation, design thinking, innovation strategy, problem-solving, and storytelling. 5 named specialist agents with distinct methodologies — no setup required, all workflows available immediately.
+description: >
+  Use when the user needs fuzzy-front-end ideation, design thinking,
+  innovation framing, problem diagnosis, or storytelling before structured
+  delivery. Triggers on: bmad-idea, brainstorm this, shape this idea, design
+  thinking, innovation strategy, product story, pitch this, root-cause this,
+  and creative facilitation across Claude, Codex, Gemini, or OpenCode.
 allowed-tools: Read Write Bash Grep Glob
 metadata:
   tags: bmad, cis, creative, ideation, brainstorming, design-thinking, innovation, problem-solving, storytelling, multi-agent
@@ -11,112 +16,173 @@ metadata:
 ---
 
 
-# bmad-idea - BMAD Creative Intelligence Suite
+# bmad-idea
+
+Use `bmad-idea` when the job is shaping an idea before the team commits to
+PRDs, architecture, or implementation. Keep the entrypoint focused on choosing
+the right creative lane and the next command. Push command catalogs, persona
+detail, and method inventories into supporting references.
 
 ## When to use this skill
 
-- Brainstorming ideas using structured creative techniques (36 methods across 7 categories)
-- Running a human-centered design thinking process
-- Identifying market disruption opportunities or designing new business models
-- Diagnosing complex problems using systematic root cause analysis
-- Crafting compelling narratives, product stories, or pitches
-- Any creative front-end work before structured development begins
+- Brainstorm new concepts, variations, or option sets before narrowing scope
+- Run design thinking for user-centered reframing, empathy work, or prototype
+  direction
+- Explore innovation strategy, differentiation, JTBD framing, or business-model
+  options
+- Diagnose a messy problem before roadmap or implementation planning
+- Turn a concept into a narrative, pitch, or product story
+- Combine multiple creative lanes only when the user truly needs a broader
+  "creative squad" pass
 
----
+Use a different skill instead when:
 
-## Installation
+- the user already needs phased delivery, artifact progression, or BMAD status:
+  use `bmad`
+- the user wants a specific doc, backlog, or implementation plan more than
+  ideation: use a narrower planning or writing skill
+- the user is already executing work across agents: use an execution workflow
+  such as `omg`, `omc`, `omx`, or `team`
 
-```bash
-npx skills add https://github.com/supercent-io/skills-template --skill bmad-idea
-```
+## Instructions
 
----
+### Step 1: Classify the creative job before naming commands
 
-## Creative Workflows
+Sort the request into one primary lane:
 
-All workflows are available immediately — no sequential phases required.
+- brainstorming: widen the option space, generate directions, remix concepts
+- design-thinking: center users, workflows, empathy, prototypes, or testing
+- innovation-strategy: identify market gaps, moats, positioning, or business
+  models
+- problem-solving: diagnose root causes, system constraints, or repeated
+  blockers
+- storytelling: package the idea into a pitch, narrative, or messaging arc
+- multi-lane: use only when the request clearly needs several of the above in
+  one pass
 
-| Command | Code | Description |
-|---------|------|-------------|
-| `bmad-cis-brainstorming` | BS | Facilitate a brainstorming session using 36 proven techniques across 7 categories |
-| `bmad-cis-design-thinking` | DT | Guide human-centered design through empathy, ideation, and prototyping (5-phase) |
-| `bmad-cis-innovation-strategy` | IS | Identify disruption opportunities and design business model innovation |
-| `bmad-cis-problem-solving` | PS | Systematic problem diagnosis: root cause analysis and solution planning |
-| `bmad-cis-storytelling` | ST | Craft compelling narratives using 25 proven story frameworks |
+Do not dump all CIS workflows before the main lane is clear.
 
----
+### Step 2: Choose the lightest workflow that fits
 
-## Slash Commands
+Route directly:
 
-| Command | Agent | Shorthand |
-|---------|-------|-----------|
-| `/cis-brainstorm` | Carson — Brainstorming Coach | `BS` |
-| `/cis-design-thinking` | Maya — Design Thinking Coach | `DT` |
-| `/cis-innovation-strategy` | Victor — Innovation Strategist | `IS` |
-| `/cis-problem-solving` | Dr. Quinn — Creative Problem Solver | `PS` |
-| `/cis-storytelling` | Sophia — Storyteller | `ST` |
+- brainstorming -> `bmad-cis-brainstorming` or `/cis-brainstorm`
+- design-thinking -> `bmad-cis-design-thinking` or `/cis-design-thinking`
+- innovation-strategy -> `bmad-cis-innovation-strategy` or
+  `/cis-innovation-strategy`
+- problem-solving -> `bmad-cis-problem-solving` or `/cis-problem-solving`
+- storytelling -> `bmad-cis-storytelling` or `/cis-storytelling`
+- multi-lane -> `creative squad`
 
----
+If the user wants to keep talking to one specialist rather than run the whole
+workflow, load the matching `/cis-agent-*` surface from
+`references/workflow-map.md`.
 
-## Specialized Agents
+### Step 3: Load only the supporting detail you need
 
-| Agent | Persona | Specialty |
-|-------|---------|-----------|
-| **Carson** 🧠 | Brainstorming Coach | "Yes, and!" energy — 36 ideation techniques, psychological safety |
-| **Maya** 🎨 | Design Thinking Coach | Jazz improviser style — empathy mapping, 5-phase facilitation |
-| **Victor** ⚡ | Innovation Strategist | Chess grandmaster mindset — JTBD, Blue Ocean Strategy, Disruptive Innovation, BMC |
-| **Dr. Quinn** 🔬 | Creative Problem Solver | Sherlock meets scientist — TRIZ, Theory of Constraints, Five Whys, Systems Thinking |
-| **Sophia** 📖 | Storyteller *(sidecar memory)* | Master bard style — 25 story frameworks, emotional arc crafting |
-| **Caravaggio** 🎨 | Presentation Master | *(in development)* — slide decks, pitch decks, visual hierarchy |
+Use progressive disclosure:
 
----
+- `references/workflow-map.md` for commands, direct agent loading, output
+  shapes, and when to use `creative squad`
+- `references/agent-profiles.md` for persona fit, methods, and visual-tool
+  notes when those details actually matter to the response
 
-## Load an Agent Directly
+Keep the main skill compact instead of re-expanding every workflow catalog
+inline.
 
-Start a conversation with a specific agent without triggering a full workflow:
+### Step 4: Preserve the boundary between ideation and delivery
 
-| Command | Agent |
-|---------|-------|
-| `/cis-agent-brainstorming-coach` | Carson |
-| `/cis-agent-design-thinking-coach` | Maya |
-| `/cis-agent-innovation-strategist` | Victor |
-| `/cis-agent-creative-problem-solver` | Dr. Quinn |
-| `/cis-agent-storyteller` | Sophia |
-| `/cis-agent-presentation-master` | Caravaggio |
+Use `bmad-idea` to shape what should happen next, not to force structured
+delivery too early:
 
----
+- if the user is still forming the concept, stay here
+- if the user now needs PRDs, architecture, sprint planning, or workflow
+  status, route back to `bmad`
+- if the user needs implementation execution, hand off to the appropriate
+  execution workflow rather than keeping everything in CIS
 
-## Creative Squad (Team Mode)
+### Step 5: Verify the creative lane actually fits
 
-Run a full cross-functional creative session with all agents:
+Before claiming success, prove that:
+
+- the chosen lane matches the user's immediate job
+- the response names the relevant command or specialist instead of the whole
+  suite
+- the expected output shape is clear enough for the next step
+- the answer did not accidentally collapse back into generic BMAD phase routing
+
+## Examples
+
+### Example 1: Brainstorm before specs
+
+Input:
 
 ```text
-creative squad
+Brainstorm three directions for a habit-tracking app before we commit to specs.
 ```
 
-Combines all CIS agents for comprehensive creative development: ideation → design → innovation → problem-solving → narrative.
+Expected shape:
 
----
+- treats this as ideation rather than structured delivery
+- routes to brainstorming instead of the full BMAD phase path
+- names Carson or the brainstorming command as the next move
 
-## Visual Tools
+### Example 2: Use design thinking for a user flow
 
-Configure image generation preferences on setup:
+Input:
 
-| Tool | Description |
-|------|-------------|
-| **Mermaid** | Diagrams in markdown-standard format |
-| **Excalidraw** | Editable diagrams and flowcharts |
-| **Gemini Nano** | AI image generation via Google Nano |
+```text
+We need empathy mapping and quick prototype directions for our onboarding flow.
+```
 
----
+Expected shape:
 
-## Quick Reference
+- identifies this as design-thinking work
+- routes to Maya or the design-thinking command
+- stays focused on user framing instead of dumping the whole CIS catalog
 
-| Goal | Command |
-|------|---------|
-| Generate ideas | `bmad-cis-brainstorming` or `/cis-brainstorm` |
-| Design for users | `bmad-cis-design-thinking` or `/cis-design-thinking` |
-| Find market gaps | `bmad-cis-innovation-strategy` or `/cis-innovation-strategy` |
-| Solve a hard problem | `bmad-cis-problem-solving` or `/cis-problem-solving` |
-| Tell a compelling story | `bmad-cis-storytelling` or `/cis-storytelling` |
-| Full creative session | `creative squad` |
+### Example 3: Diagnose before roadmapping
+
+Input:
+
+```text
+Players love the core loop but churn after day 2. Diagnose the problem before we write a roadmap.
+```
+
+Expected shape:
+
+- treats the request as diagnosis and constraint discovery
+- routes to Dr. Quinn or the problem-solving workflow
+- avoids jumping straight to solutioning or roadmap planning
+
+### Example 4: Hand off once ideation is done
+
+Input:
+
+```text
+We already shaped the idea. Which BMAD phase should come next?
+```
+
+Expected shape:
+
+- recognizes that the job has moved from ideation into structured delivery
+- routes the request back to `bmad`
+- avoids keeping the user inside the creative suite unnecessarily
+
+## Best practices
+
+1. Pick one primary creative lane before listing commands
+2. Default to the narrowest useful workflow, not `creative squad`
+3. Keep ideation work distinct from BMAD phase routing and implementation
+4. Load agent profiles or command maps only when the extra detail is needed
+5. Prefer user-facing outcomes over method-dump answers
+6. Route back to `bmad` once the idea is ready for structured delivery
+7. Keep the entrypoint compact and move catalog detail into references
+
+## References
+
+- `references/workflow-map.md`
+- `references/agent-profiles.md`
+- [BMAD Creative Intelligence docs](https://docs.bmad-method.org/explanation/creative-intelligence/)
+- [BMAD v6 Alpha overview](https://bmadcodes.com/v6-alpha/)
+- [Creative Intelligence upstream module](https://github.com/bmad-code-org/bmad-module-creative-intelligence-suite)
