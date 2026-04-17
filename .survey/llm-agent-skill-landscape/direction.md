@@ -16,8 +16,10 @@
   https://github.com/akillness/oh-my-gods/pull/44
 - PR `#45` for the `bmad-idea` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/45
-- Repo-wide validation on the active branch now sits at `0` errors and `29`
-  warnings.
+- PR `#46` for the `langchain-bmad` standards lane is open as a draft:
+  https://github.com/akillness/oh-my-gods/pull/46
+- Repo-wide validation on `main` sits at `0` errors and `29` warnings, while
+  the active PR branch reduces that to `0` errors and `26` warnings.
 - `bmad-idea` is no longer in the warning leaderboard after the standards
   merge; the remaining leaders are the three-warning cluster:
   `clawteam`, `langchain-bmad`, and `presentation-builder`.
@@ -55,10 +57,11 @@ Advance one bounded lane per run, in this order:
 2. Keep `bmad` closed unless measured failures or review feedback reopen it
 3. Keep `bmad-idea` closed unless measured failures or review feedback reopen
    it
-4. Package `langchain-bmad` into a standards-clean PR-open lane
-5. Only after that PR registration, review the branch for duplicate work,
-   missing improvements, or standardization gaps
-6. Revisit `skill-autoresearch` only after `langchain-bmad` is packaged,
+4. Review draft PR `#46` for duplicate work, missing improvements, or
+   standardization gaps
+5. If the review is clean, move PR `#46` to merge path instead of widening
+   into another warning-cluster lane
+6. Revisit `skill-autoresearch` only after `langchain-bmad` is review-clean,
    eval-backed, review-tested, and still shows measured failures
 
 This order is locked because:
@@ -93,7 +96,7 @@ This order is locked because:
 | `opencontext` | High | Not yet | No | No | Added | Added | Keep closed unless failing evals or review feedback reopen it |
 | `bmad` | High | Not yet | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Keep closed unless failures or review feedback reopen it |
 | `bmad-idea` | High | Not yet | No | No | Added | Added | Keep closed after merge unless new evidence appears |
-| `langchain-bmad` | High | Not yet | No | No | Yes | Yes | Package it into the next PR-open lane |
+| `langchain-bmad` | High | Not yet | No | No | Yes | Yes | Review PR `#46`, then merge if the lane stays clean |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review cycle |
 
@@ -113,9 +116,9 @@ This order is locked because:
 ## Current state
 
 - State: `langchain-bmad` is the selected next bounded lane after the
-  `bmad-idea` merge and is being standardized on branch
+  `bmad-idea` merge and is standardized on branch
   `chore/skill-loop-pr-open-20260418-r48`
-- PR: not opened yet
+- PR: https://github.com/akillness/oh-my-gods/pull/46
 - Blocker: none
-- Next owner: current improvement owner, then PR-review owner after registration
-- Stage: `improvement`
+- Next owner: PR-review owner for `langchain-bmad`
+- Stage: `pr-open`

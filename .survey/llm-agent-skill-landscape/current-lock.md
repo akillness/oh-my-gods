@@ -70,6 +70,8 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/44
 - PR `#45` for the `bmad-idea` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/45
+- PR `#46` for the `langchain-bmad` standards lane is open as a draft:
+  https://github.com/akillness/oh-my-gods/pull/46
 
 ## Audit snapshot
 
@@ -94,6 +96,8 @@ Source links:
   warning cluster because it still has no `references/` or `evals/`, even
   though the surrounding LangChain skill ecosystem increasingly rewards
   compact progressive-disclosure packaging.
+- The active `langchain-bmad` branch reduces the repo-wide warning total from
+  `29` to `26` by clearing that lane's three missing-section warnings.
 
 ## Target decisions
 
@@ -134,9 +138,8 @@ Source links:
 
 ## Status
 
-- Current state: `langchain-bmad` is the selected next bounded lane after the
-  `bmad-idea` merge and is being packaged for PR registration
-- PR: not opened yet for the new lane
+- Current state: `langchain-bmad` is packaged and registered as draft PR `#46`
+- PR: https://github.com/akillness/oh-my-gods/pull/46
 - Blocker: none
-- Next owner: improvement owner for `langchain-bmad`, then PR-review owner
-- Stage: `improvement`
+- Next owner: PR-review owner for `langchain-bmad`
+- Stage: `pr-open`
