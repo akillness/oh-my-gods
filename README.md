@@ -313,8 +313,8 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 
 | Skill | Description |
 |-------|-------------|
-| `agent-development-principles` | Universal AI collaboration principles (divide-and-conquer, context management) |
-| `agent-principles` | Core principles for AI agent collaboration |
+| `agent-development-principles` | Compatibility alias for `agent-principles` |
+| `agent-principles` | Canonical AI-agent collaboration principles (context, plan/execute, verification) |
 | `agent-workflow` | Daily workflow optimization: shortcuts, Git, MCP, sessions |
 | `agent-configuration` | Agent policy, security, hooks/skills/plugins setup |
 | `agent-evaluation` | Comprehensive agent evaluation system design |
@@ -512,7 +512,7 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | `clawteam` | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) | MIT |
 | `pm-skills` | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) | MIT |
 | `ai-research-skills` | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | MIT |
-| `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
+| `agent-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | `strix` | [usestrix/strix](https://github.com/usestrix/strix) | Apache-2.0 |
 | `obsidian-cli` | [obsidian.md/help/cli](https://obsidian.md/help/cli) | Proprietary |
