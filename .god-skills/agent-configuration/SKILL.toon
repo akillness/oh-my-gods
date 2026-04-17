@@ -1,9 +1,15 @@
 N:agent-configuration
-D:AI agent configuration policies and security guide. Covers project description file creation, Hooks/Skills/Plugins setup, security policies, and team-shared workflow definitions.
-G:agent-configuration security hooks skills plugins
+D:Configure how AI coding agents are instructed, constrained, and shared across a project: instruction files, settings scope, hooks, permissions, skills, plugins, tool-server setup, and team defaults. Use when choosing where configuration should live or how to make it safe and reusable. Not for daily agent workflow or runtime-verification questions.
+G:agent-configuration hooks permissions skills plugins shared-config team-settings instruction-files
 U[6]:
-  Set up AI agent environment for new projects
-  Create and optimize project description files
-  Configure Hooks/Skills/Plugins
-  Establish security policies
-  Share team configuration settings
+  Set up agent configuration for a new repo or team
+  Decide whether guidance belongs in AGENTS.md, CLAUDE.md, settings, hooks, or skills
+  Configure hooks and permission guardrails with least privilege
+  Choose between skills, plugins, extensions, and MCP
+  Share team defaults without leaking secrets or local preferences
+  Keep always-on instructions concise and move detail into references
+  Route daily workflow or runtime-verification questions to agent-workflow or playwriter
+R[3]:
+  references/instruction-files-and-scope.md
+  references/guardrails-and-permissions.md
+  references/skills-plugins-and-team-sharing.md
