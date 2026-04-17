@@ -45,8 +45,8 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/38
 - PR `#39` for `agent-workflow` merged at `2026-04-17T12:04:16Z`:
   https://github.com/akillness/oh-my-gods/pull/39
-- PR `#40` for `agent-configuration` is now open on branch
-  `chore/skill-loop-pr-open-20260417-r41`:
+- PR `#40` for `agent-configuration` remains open on branch
+  `chore/skill-loop-pr-open-20260417-r41` and is mergeable after review:
   https://github.com/akillness/oh-my-gods/pull/40
 
 ## Audit snapshot
@@ -72,6 +72,13 @@ Source links:
   `agent-configuration`.
 - Repo-wide validation remains at `0` errors and drops from `55` to
   `51` warnings.
+- Review found one bounded discovery gap: `agent-configuration` still overlapped
+  too much with `agent-workflow` around shorthand such as shared config, daily
+  flow, and MCP usage.
+- This run tightened the `agent-configuration` description, synced
+  `SKILL.toon` with the sibling boundary and least-privilege framing, and added
+  a conflict-set eval that separates configuration scope from day-to-day
+  workflow questions.
 - `scripts/` and `assets/` remain intentionally out of scope because this lane
   still shows no repeated deterministic helper or reusable template need.
 
@@ -80,7 +87,7 @@ Source links:
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
 | `agent-workflow` | Merged lane | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `agent-configuration` | Active PR-open lane on `r41` / PR `#40` | No | No | Added in this run | Added in this run | Not yet | Review PR `#40` next; merge if no duplicate work or gaps remain |
+| `agent-configuration` | Reviewed merge-ready lane on `r41` / PR `#40` | No | No | Added in this run | Added in this run, including conflict-set coverage | Not yet | Merge PR `#40`, then move to the next queued standards lane |
 | `agent-development-principles` | Queued follow-up lane | No | No | Likely | Maybe later | Not yet | Keep behind `agent-configuration` |
 | `agent-principles` | Queued follow-up lane | No | No | Likely | Maybe later | Not yet | Keep behind `agent-configuration` |
 | `bmad` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
@@ -89,8 +96,8 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: review PR `#40` for duplicate work, missed standardization
-  gaps, or support-surface mistakes; merge if it stays clean.
+- Primary lane: merge PR `#40`; the review pass found and fixed the only
+  bounded overlap gap without widening scope.
 - Explicit support-surface decision:
   - `assets`: no; the lane needs guidance, not reusable media or templates
   - `scripts`: no; no repeated deterministic helper is showing up yet
@@ -98,12 +105,13 @@ Source links:
     behind progressive disclosure
   - `evals`: yes; the next review cycle needs trigger and routing checks
 - Do not start a mutation loop for `agent-configuration` before PR review
-  feedback or measured eval failures justify one.
+  feedback or measured eval failures justify one. The new overlap eval makes
+  that future decision easier if the skill still misroutes.
 
 ## Status
 
-- Current state: `agent-configuration` is packaged, validated, and PR-open on
-  `#40`
+- Current state: `agent-configuration` is packaged, reviewed, and merge-ready
+  on `#40`
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` review pass
-- Stage: `pr-open`
+- Next owner: current `nanoclaw_pd` merge pass
+- Stage: `merge`

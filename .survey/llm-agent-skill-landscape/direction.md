@@ -12,6 +12,9 @@
 - The next warning-heavy peers (`agent-development-principles`,
   `agent-principles`, `opencontext`) are lower leverage or less central to
   cross-platform day-to-day setup than `agent-configuration`.
+- Review found and fixed one bounded follow-up gap on PR `#40`: overlap with
+  `agent-workflow` at the discovery layer and missing conflict-set coverage for
+  configuration-vs-workflow prompts.
 
 ## Survey refresh
 
@@ -33,16 +36,17 @@ but the leverage has shifted from workflow guidance to configuration guidance:
 
 Advance one bounded lane per run, in this order:
 
-1. Review PR `#40` on the next run for duplicate work or missed gaps
-2. Merge if the review stays clean
-3. Only then move to the next queued standards lane
+1. Merge PR `#40`
+2. Start the next queued standards lane on the next run
+3. Revisit `skill-autoresearch` only if measured failures appear
 
 This order is locked because:
 
 - `agent-workflow` is already merged, so reopening it now would be duplicate
   work.
-- `agent-configuration` is already packaged and PR-open, so opening another
-  lane now would violate the one-bounded-lane rule.
+- `agent-configuration` is already packaged and now reviewed cleanly after one
+  bounded follow-up fix, so the correct next step is merge rather than opening
+  another lane from this branch.
 - `skill-autoresearch` remains lower priority than packaging and review until
   the target is compact, eval-backed, and showing measured failures.
 
@@ -51,7 +55,7 @@ This order is locked because:
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `agent-workflow` | High | Not yet | No | No | Added | Added | Keep closed unless failures or review feedback reopen it |
-| `agent-configuration` | High | Not yet | No | No | Yes | Yes | Review PR `#40`; merge if no gaps remain |
+| `agent-configuration` | High | Not yet | No | No | Yes | Yes, including conflict-set coverage | Merge PR `#40` |
 | `agent-development-principles` | Medium | Not yet | No | No | Likely | Maybe later | Keep queued |
 | `agent-principles` | Medium | Not yet | No | No | Likely | Maybe later | Keep queued |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
@@ -70,7 +74,7 @@ This order is locked because:
 
 ## Current state
 
-- State: `agent-configuration` is packaged, validated, and PR-open on `#40`
+- State: `agent-configuration` is packaged, reviewed, and merge-ready on `#40`
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` review pass
-- Stage: `pr-open`
+- Next owner: current `nanoclaw_pd` merge pass
+- Stage: `merge`

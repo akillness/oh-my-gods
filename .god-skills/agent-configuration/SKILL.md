@@ -3,10 +3,12 @@ name: agent-configuration
 description: >
   Configure how AI coding agents are instructed, constrained, and shared across
   a project: instruction files, settings scope, hooks or permission guardrails,
-  skills, plugins, MCP, and team defaults. Use when the user needs to decide
-  where configuration should live or how to make it safe and reusable, even if
-  they ask in shorthand like CLAUDE.md, AGENTS.md, hooks, permissions, MCP,
-  team settings, or agent setup.
+  skills, plugins, tool-server setup, and team defaults. Use when the user
+  needs to decide where configuration should live or how to make it safe and
+  reusable, even if they ask in shorthand like CLAUDE.md, AGENTS.md, hooks,
+  permissions, plugin setup, shared config, or team settings. Do not use this
+  skill for day-to-day execution flow, runtime verification, or general MCP
+  usage questions.
 allowed-tools: Read Write Bash Grep Glob
 metadata:
   tags: agent-configuration, superwork, spw, security, hooks, skills, plugins, multi-agent
