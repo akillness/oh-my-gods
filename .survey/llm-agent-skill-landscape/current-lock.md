@@ -43,7 +43,7 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/37
 - PR `#38` for `responsive-design` merged at `2026-04-15T15:03:25Z`:
   https://github.com/akillness/oh-my-gods/pull/38
-- PR `#39` for `agent-workflow` is now the active open lane on branch
+- PR `#39` for `agent-workflow` is now the active merge-ready lane on branch
   `chore/skill-loop-pr-open-20260417-r40`:
   https://github.com/akillness/oh-my-gods/pull/39
 
@@ -73,7 +73,7 @@ Source links:
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
 | `responsive-design` | Merged lane | No | No | Already added | Already added | Not yet | Keep closed unless review feedback or future failures reopen it |
-| `agent-workflow` | Active PR-open lane on `r40` / PR `#39` | No | No | Added in this run | Added in this run | Not yet | Review PR `#39` for duplicate work, missing improvements, or standardization gaps |
+| `agent-workflow` | Active merge-ready lane on `r40` / PR `#39` | No | No | Added in this run | Added in this run | Not yet | Merge PR `#39`; reopen only if review feedback or failing evals appear |
 | `agent-configuration` | Queued follow-up standards lane | No | No | Likely needed | Maybe later | Not yet | Keep behind `agent-workflow` |
 | `code-refactoring` | Clean, below line-cap guidance | No | No | Not urgent | Not urgent | Not yet | Keep deferred unless a review or usage issue reopens it |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
@@ -81,17 +81,18 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: review PR `#39`; the packaging pass is complete and the next run
-  should check for duplicate work, missing improvements, or remaining
-  standardization gaps before any merge action.
+- Primary lane: merge PR `#39`; the review pass found no duplicate work,
+  missing improvements, or remaining standards gaps that justify another
+  bounded update in this lane.
 - Next queued improvement lane after `agent-workflow`: `agent-configuration`.
 - Do not start a mutation loop for `agent-workflow` before review feedback or
   measured eval failures justify one.
 
 ## Status
 
-- Current state: `agent-workflow` is packaged, validated, and open on PR `#39`
-- Blocker: none; the active task is now PR review rather than more packaging
-- Next owner: `nanoclaw_pd` to review PR `#39`, then either apply one bounded
-  follow-up update or move the lane to merge
-- Stage: `pr-open`
+- Current state: `agent-workflow` is packaged, validated, review-clean, and in
+  the merge lane on PR `#39`
+- Blocker: none; the active task is merge execution rather than more packaging
+- Next owner: `nanoclaw_pd` to merge PR `#39`, then start the next bounded
+  standards lane on `agent-configuration`
+- Stage: `merge`

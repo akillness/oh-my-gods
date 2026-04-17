@@ -6,7 +6,7 @@
   https://github.com/akillness/oh-my-gods/pull/37
 - PR `#38` for `responsive-design` merged at `2026-04-15T15:03:25Z`:
   https://github.com/akillness/oh-my-gods/pull/38
-- PR `#39` for `agent-workflow` is now the active lane on branch
+- PR `#39` for `agent-workflow` is now the active merge-ready lane on branch
   `chore/skill-loop-pr-open-20260417-r40`:
   https://github.com/akillness/oh-my-gods/pull/39
 - `agent-workflow` was the strongest remaining warning-heavy workflow skill on
@@ -43,18 +43,17 @@ warning-heavy workflow skills:
    bundled scripts only when repeated work appears, which keeps the current
    no-script decision intact for `responsive-design`.
 6. Inference for this repo: `agent-workflow` was the correct next packaging
-   lane after `responsive-design` merged, and once PR `#39` is reviewed the
-   next improvement lane should prioritize `agent-configuration` before
+   lane after `responsive-design` merged, and now that PR `#39` reviews clean
+   the next improvement lane should prioritize `agent-configuration` before
    reopening already-clean borderline-length skills.
 
 ## Locked direction
 
 Advance one bounded lane per run, in this order:
 
-1. Review PR `#39` for `agent-workflow`
-2. Merge PR `#39`
-3. `agent-configuration`
-4. `skill-autoresearch` only where a compact eval-backed skill shows measured
+1. Merge PR `#39`
+2. `agent-configuration`
+3. `skill-autoresearch` only where a compact eval-backed skill shows measured
    failures or review feedback
 
 This order is locked because:
@@ -62,8 +61,8 @@ This order is locked because:
 - `git-workflow` is already merged, so reopening it would be duplicate work.
 - `responsive-design` is already merged, so reopening it now would be duplicate
   work.
-- `agent-workflow` is now packaged and open on PR `#39`, so the correct next
-  move is review, not a second packaging lane in the same run.
+- `agent-workflow` is now packaged and review-clean on PR `#39`, so the
+  correct next move is merge, not a second packaging lane in the same run.
 - `agent-configuration` now outranks `code-refactoring` because its `4`
   warnings still weaken trigger reliability and standard sections, while
   `code-refactoring` is already standards-clean.
@@ -75,7 +74,7 @@ This order is locked because:
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `responsive-design` | High | Not yet | No | No | Added previously | Added previously | Keep closed unless review feedback or failures reopen it |
-| `agent-workflow` | High | Not yet | No | No | Added in this run | Added in this run | Review PR `#39`; do not mutate before review feedback or failing eval runs |
+| `agent-workflow` | High | Not yet | No | No | Added in this run | Added in this run | Merge PR `#39`; do not mutate before review feedback or failing eval runs |
 | `agent-configuration` | Medium | Not yet | No | No | Likely | Maybe later | Keep queued behind `agent-workflow` |
 | `code-refactoring` | Medium | Not yet | No | No | Not urgent | Not urgent | Keep deferred while cleaner trigger-quality gaps remain |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
@@ -83,7 +82,7 @@ This order is locked because:
 
 ## Packaging decision for this run
 
-- Target lane: `agent-workflow` PR-open
+- Target lane: `agent-workflow` merge
 - Assets: no
 - Scripts: no
 - References: yes; add a progressive-disclosure surface for session/context,
@@ -94,9 +93,10 @@ This order is locked because:
 
 ## Current state
 
-- State: `agent-workflow` is packaged, validated, and open on PR `#39`
-- Blocker: none; the next run should review the open lane instead of widening
-  packaging scope
-- Next owner: `nanoclaw_pd` to review PR `#39`, then either make one bounded
-  follow-up change or move the lane to merge
-- Stage: `pr-open`
+- State: `agent-workflow` is packaged, validated, review-clean, and ready to
+  merge on PR `#39`
+- Blocker: none; the next run should execute merge and then open the next
+  bounded lane instead of widening `agent-workflow`
+- Next owner: `nanoclaw_pd` to merge PR `#39`, then start
+  `agent-configuration`
+- Stage: `merge`
