@@ -45,8 +45,7 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/38
 - PR `#39` for `agent-workflow` merged at `2026-04-17T12:04:16Z`:
   https://github.com/akillness/oh-my-gods/pull/39
-- PR `#40` for `agent-configuration` remains open on branch
-  `chore/skill-loop-pr-open-20260417-r41` and is mergeable after review:
+- PR `#40` for `agent-configuration` merged at `2026-04-17T14:06:40Z`:
   https://github.com/akillness/oh-my-gods/pull/40
 
 ## Audit snapshot
@@ -87,7 +86,7 @@ Source links:
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
 | `agent-workflow` | Merged lane | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `agent-configuration` | Reviewed merge-ready lane on `r41` / PR `#40` | No | No | Added in this run | Added in this run, including conflict-set coverage | Not yet | Merge PR `#40`, then move to the next queued standards lane |
+| `agent-configuration` | Merged lane via PR `#40` | No | No | Added in this run | Added in this run, including conflict-set coverage | Not yet | Keep closed unless measured routing failures or review feedback reopen it |
 | `agent-development-principles` | Queued follow-up lane | No | No | Likely | Maybe later | Not yet | Keep behind `agent-configuration` |
 | `agent-principles` | Queued follow-up lane | No | No | Likely | Maybe later | Not yet | Keep behind `agent-configuration` |
 | `bmad` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
@@ -96,7 +95,7 @@ Source links:
 
 ## Locked direction
 
-- Primary lane: merge PR `#40`; the review pass found and fixed the only
+- Primary lane is closed: PR `#40` merged after the review pass fixed the only
   bounded overlap gap without widening scope.
 - Explicit support-surface decision:
   - `assets`: no; the lane needs guidance, not reusable media or templates
@@ -110,8 +109,8 @@ Source links:
 
 ## Status
 
-- Current state: `agent-configuration` is packaged, reviewed, and merge-ready
-  on `#40`
+- Current state: `agent-configuration` is packaged, reviewed, and merged on
+  `#40`
 - Blocker: none
-- Next owner: current `nanoclaw_pd` merge pass
+- Next owner: next scheduled `nanoclaw_pd` improvement pass
 - Stage: `merge`
