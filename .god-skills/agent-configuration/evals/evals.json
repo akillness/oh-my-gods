@@ -1,0 +1,55 @@
+{
+  "skill_name": "agent-configuration",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Should this repo guidance live in AGENTS.md, a reusable skill, or local settings?",
+      "expected_output": "Distinguishes always-on repo rules from on-demand reusable guidance and user-local preferences before recommending a surface.",
+      "assertions": [
+        "Response distinguishes always-on project instructions from on-demand skill guidance",
+        "Response identifies local settings as the right home for user-specific preferences or machine-specific values",
+        "Response avoids recommending a new skill as the default for every repeated note"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I want the agent to run tests automatically but never approve dangerous shell commands. How should I configure that?",
+      "expected_output": "Uses least-privilege approval guidance, separates safe test automation from risky commands, and recommends explicit blocks or warnings for destructive patterns.",
+      "assertions": [
+        "Response recommends narrow allowlists or scoped approvals rather than blanket trust",
+        "Response explicitly calls out destructive or high-risk commands as deny or human-review paths",
+        "Response keeps safe test automation separate from risky command approval"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We need reusable prompts, browser access, and a database tool connection across the team. Should this be a skill, plugin, extension, or MCP setup?",
+      "expected_output": "Routes reusable guidance to skills and external integrations to plugin, extension, or MCP surfaces without collapsing them into one package type.",
+      "assertions": [
+        "Response routes reusable instruction or routing logic to a skill-like surface",
+        "Response routes external service or tool connectivity to plugin, extension, or MCP",
+        "Response avoids treating every capability as a single monolithic configuration file"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "How should we share our AI agent configuration in the repo without leaking local machine preferences or secrets?",
+      "expected_output": "Defines repo-shared versus local-only boundaries and keeps secrets or machine-specific values out of team-shared configuration.",
+      "assertions": [
+        "Response identifies a repo-shared boundary for stable team defaults",
+        "Response explicitly keeps secrets, tokens, or machine-specific values local",
+        "Response includes a verification step or review check for accidental secret or local-path leakage"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "My configuration docs are sprawling across README notes, local settings, and random prompt files. What cleanup direction should I take first?",
+      "expected_output": "Starts by classifying scope and de-duplicating surfaces, then recommends a smaller shared configuration layout rather than more files.",
+      "assertions": [
+        "Response starts by classifying what must be always-on, on-demand, or local",
+        "Response recommends de-duplicating overlapping guidance across multiple surfaces",
+        "Response avoids widening the cleanup into unnecessary new package surfaces"
+      ]
+    }
+  ]
+}

@@ -4,95 +4,94 @@ Date: 2026-04-17
 
 ## Survey refresh
 
-- Agent Skills best practices still recommend keeping `SKILL.md` under
-  `500` lines and moving detailed guidance into `references/` through
-  progressive disclosure.
-- OpenAI Codex docs still expose `skills`, `rules`, and `hooks` as
-  first-class configuration and workflow surfaces, which reinforces compact,
-  reusable skill entrypoints instead of monolithic prompt files.
-- Claude sub-agents, Gemini custom commands and extensions, and OpenClaw
-  skills all continue to reward shareable packaged instruction surfaces over
-  one-off prompt mutation.
-- A2A `1.0` still increases pressure toward explicit capability disclosure and
-  durable interoperability contracts.
-- Agent Skills eval guidance still recommends starting with a few realistic
-  prompts and bundling scripts only when repeated work keeps showing up, which
-  supports leaving `responsive-design` script-free for now.
-- Inference for this repo: packaging-first remains the right posture, but now
-  that the largest remaining responsive-layout monolith has been packaged and
-  reviewed cleanly, the next highest-leverage gap shifts toward warning-heavy
-  workflow skills with weak trigger phrasing and missing standard sections.
-- `skill-autoresearch` is still justified only after a compact eval-backed
-  skill shows measured failures or attracts review feedback.
+- Agent Skills still recommends compact `SKILL.md` entrypoints, progressive
+  disclosure through `references/`, and only bundling scripts when the same
+  deterministic helper keeps getting reinvented across runs.
+- Agent Skills eval guidance still recommends starting with a small realistic
+  prompt set and adding objective assertions after the first pass, which
+  supports adding evals to the next standards lane before any mutation loop.
+- Claude Code still separates reusable instructions from isolated subagent
+  execution, which reinforces explicit routing between always-on project rules,
+  packaged skills, and delegated agents.
+- Gemini CLI extensions still package prompts, MCP servers, and custom
+  commands together, which raises the value of a configuration skill that helps
+  users choose the right packaging surface instead of treating every request as
+  a monolithic prompt-file edit.
+- OpenAI Codex docs still position skills and agent-team workflows as durable
+  learning surfaces, which keeps configuration hygiene and scope selection high
+  leverage for this repo.
+- Inference for this repo: after the `agent-workflow` merge, the highest-value
+  remaining gap is no longer workflow packaging. It is configuration guidance
+  that still lacks strong trigger phrasing, standard sections, and packaged
+  support files for scope, guardrails, and team sharing.
+- `skill-autoresearch` is still not justified for the next lane until the
+  compact packaged version exists and either eval evidence or review feedback
+  shows measured failures.
 
 Source links:
 
 - https://agentskills.io/specification
 - https://agentskills.io/skill-creation/best-practices
 - https://agentskills.io/skill-creation/evaluating-skills
-- https://developers.openai.com/codex/noninteractive
+- https://developers.openai.com/codex
 - https://code.claude.com/docs/en/sub-agents
-- https://google-gemini.github.io/gemini-cli/docs/cli/custom-commands.html
 - https://google-gemini.github.io/gemini-cli/docs/extensions/
-- https://a2a-protocol.org/latest/announcing-1.0/
-- https://docs.openclaw.ai/zh-CN/tools/creating-skills
 
 ## Live GitHub state
 
-- PR `#37` for `git-workflow` merged at `2026-04-15T12:09:48Z`:
+- PR `#37` for `git-workflow` merged at `2026-04-15T11:09:19Z`:
   https://github.com/akillness/oh-my-gods/pull/37
-- PR `#38` for `responsive-design` merged at `2026-04-15T15:03:25Z`:
+- PR `#38` for `responsive-design` merged at `2026-04-15T13:09:48Z`:
   https://github.com/akillness/oh-my-gods/pull/38
-- PR `#39` for `agent-workflow` is now the active merge-ready lane on branch
-  `chore/skill-loop-pr-open-20260417-r40`:
+- PR `#39` for `agent-workflow` merged at `2026-04-17T12:04:16Z`:
   https://github.com/akillness/oh-my-gods/pull/39
 
 ## Audit snapshot
 
-- Fresh repo-wide validation now passes at `0` errors and `55` warnings.
-- `responsive-design` no longer blocks the queue because PR `#38` is merged.
-- On `main`, `agent-workflow` was a `289` line command catalog with `5`
-  warnings, weak trigger phrasing, and no packaged `references/`, `evals/`,
-  `scripts/`, or `assets`.
-- PR `#39` rewrites `agent-workflow` into a `194` line entrypoint with
-  imperative triggering, sibling routing, workflow-triage instructions,
-  examples, and a bounded references surface.
-- This branch adds three focused `references/` files plus `evals/` for
-  session/context hygiene, repo-delivery loops, and MCP plus multi-agent
-  patterns.
-- Target validation now passes at `0` errors and `0` warnings for
-  `agent-workflow`.
-- `scripts/` and `assets/` remain intentionally out of scope because the audit
-  still shows no repeated deterministic helper or bundled template need.
-- Targeted audit checks still show `agent-configuration` at `4` warnings, which
-  makes it the next queued standards lane unless PR review or eval evidence
-  reopens `agent-workflow`.
+- Fresh repo-wide validation still passes at `0` errors and `55` warnings.
+- `agent-workflow` is now closed; reopening it in this run would be duplicate
+  work.
+- Remaining warning leaders are `bmad` (`5`), `bmad-idea` (`5`),
+  `agent-configuration` (`4`), `agent-development-principles` (`4`),
+  `agent-principles` (`4`), and `opencontext` (`4`).
+- `agent-configuration` is the strongest next bounded lane because it sits in a
+  high-leverage cross-platform surface: instruction files, hooks/permissions,
+  skills/plugins/extensions, and team sharing.
+- On `main`, `agent-configuration` is a `368` line guide with `4` warnings:
+  weak trigger phrasing plus missing `Examples`, `Best practices`, and
+  `References`.
+- `agent-configuration` also has no packaged `references/` or `evals/`, which
+  makes it weaker than the recently standardized workflow skills.
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `responsive-design` | Merged lane | No | No | Already added | Already added | Not yet | Keep closed unless review feedback or future failures reopen it |
-| `agent-workflow` | Active merge-ready lane on `r40` / PR `#39` | No | No | Added in this run | Added in this run | Not yet | Merge PR `#39`; reopen only if review feedback or failing evals appear |
-| `agent-configuration` | Queued follow-up standards lane | No | No | Likely needed | Maybe later | Not yet | Keep behind `agent-workflow` |
-| `code-refactoring` | Clean, below line-cap guidance | No | No | Not urgent | Not urgent | Not yet | Keep deferred unless a review or usage issue reopens it |
+| `agent-workflow` | Merged lane | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
+| `agent-configuration` | Active standards lane | No | No | Yes | Yes | Not yet | Package and open the PR path in this run |
+| `agent-development-principles` | Queued follow-up lane | No | No | Likely | Maybe later | Not yet | Keep behind `agent-configuration` |
+| `agent-principles` | Queued follow-up lane | No | No | Likely | Maybe later | Not yet | Keep behind `agent-configuration` |
+| `bmad` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
-| `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only for compact eval-backed skills with measured failures | Revisit after PR review feedback or failing eval runs |
+| `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit after review feedback or failing eval runs |
 
 ## Locked direction
 
-- Primary lane: merge PR `#39`; the review pass found no duplicate work,
-  missing improvements, or remaining standards gaps that justify another
-  bounded update in this lane.
-- Next queued improvement lane after `agent-workflow`: `agent-configuration`.
-- Do not start a mutation loop for `agent-workflow` before review feedback or
-  measured eval failures justify one.
+- Primary lane: package `agent-configuration` into a standards-clean
+  configuration surface and open a new PR.
+- Explicit support-surface decision:
+  - `assets`: no; the lane needs guidance, not reusable media or templates
+  - `scripts`: no; no repeated deterministic helper is showing up yet
+  - `references`: yes; scope, guardrails, and team-sharing details should move
+    behind progressive disclosure
+  - `evals`: yes; the next review cycle needs trigger and routing checks
+- Do not start a mutation loop for `agent-configuration` before the packaged
+  version has review feedback or measured eval failures.
 
 ## Status
 
-- Current state: `agent-workflow` is packaged, validated, review-clean, and in
-  the merge lane on PR `#39`
-- Blocker: none; the active task is merge execution rather than more packaging
-- Next owner: `nanoclaw_pd` to merge PR `#39`, then start the next bounded
-  standards lane on `agent-configuration`
-- Stage: `merge`
+- Current state: `agent-configuration` is the active bounded improvement lane
+- Blocker: none
+- Next owner: `nanoclaw_pd` to package `agent-configuration`, open the PR path,
+  then leave the branch for the next scheduled review pass
+- Stage: `improvement`

@@ -2,101 +2,75 @@
 
 ## Audit snapshot
 
-- PR `#37` for `git-workflow` merged at `2026-04-15T12:09:48Z`:
-  https://github.com/akillness/oh-my-gods/pull/37
-- PR `#38` for `responsive-design` merged at `2026-04-15T15:03:25Z`:
-  https://github.com/akillness/oh-my-gods/pull/38
-- PR `#39` for `agent-workflow` is now the active merge-ready lane on branch
-  `chore/skill-loop-pr-open-20260417-r40`:
+- PR `#39` for `agent-workflow` is merged:
   https://github.com/akillness/oh-my-gods/pull/39
-- `agent-workflow` was the strongest remaining warning-heavy workflow skill on
-  `main`: `289` lines, `5` warnings, weak trigger phrasing, and no packaged
-  `references/`, `evals/`, `scripts/`, or `assets`.
-- This run reduced `agent-workflow` to a `194` line entrypoint, added three
-  focused `references/` files, and added eval coverage for session recovery,
-  repo-delivery loops, tool-surface choice, multi-agent coordination, and
-  runtime-verification routing.
-- No scripts or assets were added because the audit still showed no reusable
-  deterministic helper or bundled template was necessary.
-- Target validation now passes at `0` errors and `0` warnings for
-  `agent-workflow`.
-- Repo-wide validation remains at `0` errors and drops from `60` to
-  `55` warnings.
-- `agent-configuration` now looks like the strongest queued standards
-  candidate: it still has `4` warnings across trigger phrasing and missing
-  standard sections.
+- Repo-wide validation remains at `0` errors and `55` warnings.
+- `agent-configuration` is now the highest-leverage bounded next lane:
+  `368` lines, `4` warnings, no `references/`, and no `evals/`.
+- The next warning-heavy peers (`agent-development-principles`,
+  `agent-principles`, `opencontext`) are lower leverage or less central to
+  cross-platform day-to-day setup than `agent-configuration`.
 
 ## Survey refresh
 
-The current LLM-agent skill landscape still supports compact packaged skills,
-but the repo-level leverage has shifted from giant monoliths toward
-warning-heavy workflow skills:
+The landscape still favors compact, packaged, reusable instruction surfaces,
+but the leverage has shifted from workflow guidance to configuration guidance:
 
-1. Agent Skills keeps reinforcing progressive disclosure and compact entrypoint
-   guidance.
-2. OpenAI Codex still frames skills and adjacent workflow surfaces as durable
-   configuration and execution primitives.
-3. Claude, Gemini, and OpenClaw continue to formalize packaged reusable
-   surfaces instead of encouraging long unstructured prompt files.
-4. A2A `1.0` keeps pushing the ecosystem toward explicit capability contracts.
-5. Agent Skills evaluation guidance still supports small realistic eval sets and
-   bundled scripts only when repeated work appears, which keeps the current
-   no-script decision intact for `responsive-design`.
-6. Inference for this repo: `agent-workflow` was the correct next packaging
-   lane after `responsive-design` merged, and now that PR `#39` reviews clean
-   the next improvement lane should prioritize `agent-configuration` before
-   reopening already-clean borderline-length skills.
+1. Agent Skills still pushes progressive disclosure and eval-backed iteration.
+2. Claude Code still differentiates reusable instructions from isolated
+   subagent execution.
+3. Gemini CLI extensions still package prompts, MCP servers, and custom
+   commands together.
+4. OpenAI Codex still frames skills and team workflows as reusable learning
+   surfaces.
+5. Inference for this repo: the next improvement should help users choose
+   between always-on project instructions, safety hooks/permissions, packaged
+   skills, and shared team configuration.
 
 ## Locked direction
 
 Advance one bounded lane per run, in this order:
 
-1. Merge PR `#39`
-2. `agent-configuration`
-3. `skill-autoresearch` only where a compact eval-backed skill shows measured
-   failures or review feedback
+1. Package `agent-configuration` and open a PR
+2. Review that PR on the next run for duplicate work or missed gaps
+3. Merge if the review stays clean
+4. Only then move to the next queued standards lane
 
 This order is locked because:
 
-- `git-workflow` is already merged, so reopening it would be duplicate work.
-- `responsive-design` is already merged, so reopening it now would be duplicate
+- `agent-workflow` is already merged, so reopening it now would be duplicate
   work.
-- `agent-workflow` is now packaged and review-clean on PR `#39`, so the
-  correct next move is merge, not a second packaging lane in the same run.
-- `agent-configuration` now outranks `code-refactoring` because its `4`
-  warnings still weaken trigger reliability and standard sections, while
-  `code-refactoring` is already standards-clean.
-- Mutation work remains lower leverage than review and standardization on the
-  active and next queued lanes.
+- `agent-configuration` has a narrower and more reviewable fix surface than
+  `bmad`, while still touching a high-value cross-platform need.
+- `skill-autoresearch` remains lower priority than packaging and review until
+  the target is compact, eval-backed, and showing measured failures.
 
 ## Skill-autoresearch triage
 
 | Skill | Leverage | Ready for mutation loop now? | Needs assets | Needs scripts | Needs references | Needs evals | Next bounded action |
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
-| `responsive-design` | High | Not yet | No | No | Added previously | Added previously | Keep closed unless review feedback or failures reopen it |
-| `agent-workflow` | High | Not yet | No | No | Added in this run | Added in this run | Merge PR `#39`; do not mutate before review feedback or failing eval runs |
-| `agent-configuration` | Medium | Not yet | No | No | Likely | Maybe later | Keep queued behind `agent-workflow` |
-| `code-refactoring` | Medium | Not yet | No | No | Not urgent | Not urgent | Keep deferred while cleaner trigger-quality gaps remain |
+| `agent-workflow` | High | Not yet | No | No | Added | Added | Keep closed unless failures or review feedback reopen it |
+| `agent-configuration` | High | Not yet | No | No | Yes | Yes | Package and open the PR path now |
+| `agent-development-principles` | Medium | Not yet | No | No | Likely | Maybe later | Keep queued |
+| `agent-principles` | Medium | Not yet | No | No | Likely | Maybe later | Keep queued |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
-| `skill-autoresearch` | Medium | Only on compact eval-backed skills with measured failures | No | No | Already present | Already present | Revisit after review feedback or failing eval runs |
+| `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review cycle |
 
 ## Packaging decision for this run
 
-- Target lane: `agent-workflow` merge
+- Target lane: `agent-configuration`
 - Assets: no
 - Scripts: no
-- References: yes; add a progressive-disclosure surface for session/context,
-  repo-delivery, and MCP plus multi-agent patterns
-- Evals: yes; use them as the mutation gate for later runs
-- Sections: package the entrypoint with imperative trigger wording plus missing
-  standard sections
+- References: yes; package scope selection, guardrails, and team sharing behind
+  progressive disclosure
+- Evals: yes; add trigger and routing checks for the review pass
+- Sections: rewrite the entrypoint with imperative triggering, missing standard
+  sections, and explicit sibling routing
 
 ## Current state
 
-- State: `agent-workflow` is packaged, validated, review-clean, and ready to
-  merge on PR `#39`
-- Blocker: none; the next run should execute merge and then open the next
-  bounded lane instead of widening `agent-workflow`
-- Next owner: `nanoclaw_pd` to merge PR `#39`, then start
-  `agent-configuration`
-- Stage: `merge`
+- State: `agent-configuration` is the active standards lane
+- Blocker: none
+- Next owner: `nanoclaw_pd` to package the skill and open the PR path for the
+  next scheduled review pass
+- Stage: `improvement`
