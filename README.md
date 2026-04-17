@@ -195,8 +195,8 @@ stateDiagram-v2
 | `omc` | `omc`, `autopilot` | 32 specialized Claude Code agents with smart model routing, persistent loops, real-time HUD | [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) |
 | `omx` | `omx` | 40+ workflow skills, team orchestration in tmux for OpenAI Codex CLI | Internal |
 | `ohmg` | `ohmg` | Google Antigravity/Gemini multi-agent framework with 6 specialist agents | Internal |
-| `bmad` | `bmad`, `/workflow-init` | Analysis → Planning → Solutioning → Implementation structured phases | [BMAD Method](https://github.com/bmad-dev/BMAD-METHOD) |
-| `bmad-idea` | `bmad-idea` | 5 creative specialist agents — design thinking, innovation, storytelling | Internal |
+| `bmad` | `bmad`, `/workflow-init` | Analysis → Planning → Solutioning → Implementation structured phases | [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD) |
+| `bmad-idea` | `bmad-idea` | 5 creative specialist agents — design thinking, innovation, storytelling | [Creative Intelligence Suite](https://docs.bmad-method.org/explanation/creative-intelligence/) |
 | `survey` | `survey` | Cross-platform landscape scan before planning; saves artifacts to `.survey/` | Internal |
 | `autoresearch` | `autoresearch`, `val_bpb` | Karpathy-style autonomous GPU overnight experiments with git ratchet | Karpathy methodology |
 | `skill-autoresearch` | `skill-autoresearch`, `optimize this skill` | Eval-driven loop for improving an existing SKILL.md with binary checks and mutation tracking | olelehmann100kMRR/autoresearch-skill |
@@ -501,7 +501,7 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | `omc` | [Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) | MIT |
 | `ralph` | [Q00/ouroboros](https://github.com/Q00/ouroboros) | MIT |
 | `plannotator` | [backnotprop/plannotator](https://plannotator.ai) | MIT |
-| `bmad` | [bmad-dev/BMAD-METHOD](https://github.com/bmad-dev/BMAD-METHOD) | MIT |
+| `bmad` | [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | MIT |
 | `agentation` | [benjitaylor/agentation](https://github.com/benjitaylor/agentation) | MIT |
 | `fabric` | [danielmiessler/fabric](https://github.com/danielmiessler/fabric) | MIT |
 | `autoresearch` | Andrej Karpathy methodology | — |

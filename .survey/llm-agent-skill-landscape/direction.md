@@ -12,28 +12,29 @@
   https://github.com/akillness/oh-my-gods/pull/42
 - PR `#43` for the `opencontext` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/43
-- Repo-wide validation on `main` remains at `0` errors and `39` warnings.
-- The principles pair is now closed; reopening it would be duplicate work.
-- `opencontext` was the strongest bounded next lane because it carried four
-  packaging warnings while covering a high-leverage persistent-memory workflow
-  shared across Claude, Codex, Gemini, and Cursor.
-- The merged lane clears the `opencontext` warnings with a standards-clean
-  entrypoint plus progressive-disclosure references and evals.
+- Fresh validation on `main` still sits at `0` errors and `39` warnings.
+- The `bmad` and `bmad-idea` pair remains the highest-warning unresolved lane.
+- Current ecosystem evidence now favors a bounded `bmad` standards pass before
+  touching `bmad-idea` because `bmad` is the repo’s core structured-delivery
+  surface and still carries stale trigger wording and outdated discovery links.
 
 ## Survey refresh
 
 The landscape still favors compact, packaged, reusable instruction surfaces,
-and the leverage has now shifted from the persistent-memory lane back to
-bounded orchestration-skill triage:
+and the leverage has now shifted from the persistent-memory lane to the core
+BMAD routing surface:
 
 1. Agent Skills still pushes progressive disclosure and eval-backed iteration.
 2. Agent Skills best practices still warn against overly comprehensive
    entrypoints that load too much irrelevant detail.
-3. Claude, Codex, Gemini, and Copilot continue to reward concise, specialized
-   reusable agent packages rather than overlapping peer defaults.
-4. Inference for this repo: after the `opencontext` merge, the next bounded
-   improvement should start with a fresh survey between `bmad` and
-   `bmad-idea` before touching either broader surface.
+3. Current BMAD docs split core phase-routing from the Creative Intelligence
+   Suite module, which makes the repo’s `bmad` versus `bmad-idea` boundary
+   sharper than before.
+4. BMAD v6 messaging now emphasizes deterministic plan-build-verify flow,
+   reusable agent artifacts, and clearer workflow gates.
+5. Inference for this repo: the highest-value bounded move is to standardize
+   `bmad` first, keep `bmad-idea` as the ideation-first sibling, and add eval
+   coverage before any mutation loop.
 
 ## Locked direction
 
@@ -41,10 +42,11 @@ Advance one bounded lane per run, in this order:
 
 1. Keep `opencontext` closed unless measured failures or review feedback reopen
    it
-2. Run a bounded survey pass on `bmad` versus `bmad-idea` before editing
-3. Prefer standards cleanup and trigger-quality repair over mutation loops
-4. Revisit `skill-autoresearch` only after the next target is standardized,
-   eval-backed, and still shows measured failures
+2. Standardize `bmad` as the next workflow lane
+3. Review the resulting PR on the next run before deciding whether `bmad-idea`
+   needs its own pass
+4. Revisit `skill-autoresearch` only after `bmad` is standardized, eval-backed,
+   and still shows measured failures
 
 This order is locked because:
 
@@ -52,10 +54,12 @@ This order is locked because:
   reopening it immediately would be duplicate work.
 - `agent-principles` plus `agent-development-principles` are already merged via
   PR `#41`, so reopening them immediately would be duplicate work.
-- `opencontext` is now merged, so the next safe move is to survey the remaining
-  broad warning leaders instead of reopening a closed lane.
-- `bmad` and `bmad-idea` remain broad enough that the next run should choose
-  one before editing, not touch both.
+- `opencontext` is now merged, so the next safe move is a bounded pass on the
+  remaining core workflow leader instead of reopening a closed lane.
+- `bmad` is more central than `bmad-idea` to the repo’s structured delivery
+  story and is easier to standardize without widening scope.
+- `bmad-idea` remains the right sibling for ideation-first work, so touching
+  both in one run would blur the boundary the survey just clarified.
 - `skill-autoresearch` remains lower priority than standards cleanup and review
   until the target is compact, eval-backed, review-tested, and showing measured
   failures.
@@ -69,23 +73,28 @@ This order is locked because:
 | `agent-principles` | High | Not yet | No | No | Yes | Yes | Keep closed unless measured failures or review feedback reopen it |
 | `agent-development-principles` | High | Not yet | No | No | No | Yes | Keep closed as a compatibility alias unless routing failures appear |
 | `opencontext` | High | Not yet | No | No | Added | Added | Keep closed unless failing evals or review feedback reopen it |
+| `bmad` | High | Not yet | No | Existing scripts are enough | Existing setup/reference files are enough | Add now | Standardize the entrypoint, sync discovery links, and add evals |
+| `bmad-idea` | Medium | Not yet | No | No | Existing reference is enough for now | Not yet | Revisit only after the `bmad` PR review pass |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review cycle |
 
-## Packaging decision for the completed lane
+## Packaging decision for the active lane
 
-- Target lane: `opencontext`
+- Target lane: `bmad`
 - Assets: no
-- Scripts: no; a deterministic helper still is not justified
-- References: yes; added for setup, retrieval, and persistence details
-- Evals: yes; added trigger-quality and routing coverage before any mutation
-  loop
-- Sections: completed; the entrypoint now has imperative triggering,
-  instructions, examples, best practices, and references
+- Scripts: no new scripts; existing `scripts/` already cover setup, validation,
+  and phase-gate review
+- References: no new reference files; existing `SETUP.md`, `REFERENCE.md`, and
+  `resources/` are enough
+- Evals: yes; add trigger-quality and routing coverage before any mutation loop
+- Sections: standardize the entrypoint so the main file becomes a compact
+  routing surface instead of a loose doc dump
 
 ## Current state
 
-- State: `opencontext` is standardized and merged on `main` via PR `#43`
+- State: `bmad` standards lane is now open as draft PR `#44` on branch
+  `chore/skill-loop-pr-open-20260418-r45`
+- PR: https://github.com/akillness/oh-my-gods/pull/44
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` survey pass
-- Stage: `merge`
+- Next owner: next scheduled `nanoclaw_pd` PR review pass
+- Stage: `pr-open`

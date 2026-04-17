@@ -5,7 +5,7 @@ Date: 2026-04-18
 ## Survey refresh
 
 - Agent Skills still recommends compact `SKILL.md` entrypoints, progressive
-  disclosure through `references/`, and only bundling scripts when the same
+  disclosure through supporting files, and only bundling scripts when the same
   deterministic helper keeps getting reinvented across runs.
 - Agent Skills best practices still warn that oversized or over-comprehensive
   skills hurt invocation quality and context efficiency, which keeps
@@ -14,36 +14,26 @@ Date: 2026-04-18
 - Agent Skills eval guidance still recommends starting with a small realistic
   prompt set and adding objective assertions after the first pass, which
   supports adding evals to the next standards lane before any mutation loop.
-- Claude Code still separates reusable instructions from isolated subagent
-  execution, which reinforces explicit routing between always-on project rules,
-  packaged skills, and delegated agents.
-- Gemini CLI extensions still package prompts, MCP servers, and custom
-  commands together, which keeps concise reusable packaging high leverage:
-  https://google-gemini.github.io/gemini-cli/docs/extensions/
-- OpenAI's latest Agents SDK update continues to push standardized long-horizon
-  agent infrastructure, which strengthens the case for compact, well-routed
-  reusable instructions instead of duplicated prose-heavy skills:
-  https://openai.com/index/the-next-evolution-of-the-agents-sdk
-- GitHub Copilot now documents custom agents and sub-agent orchestration as an
-  explicit reusable packaging surface, which reinforces the same market
-  direction toward concise, specialized, non-overlapping agent packages:
-  https://docs.github.com/en/copilot/how-tos/copilot-sdk/use-copilot-sdk/custom-agents
-- Inference for this repo: after the `opencontext` lane merged, the highest-
-  value remaining bounded question is which broader orchestration lane to
-  narrow next between `bmad` and `bmad-idea`.
-- `skill-autoresearch` is still not justified for the next lane because the
-  stronger move is to standardize the next target first, then measure any
-  remaining failures.
+- Claude Code, Codex, Gemini CLI, and GitHub Copilot continue to reinforce the
+  same packaging direction: concise reusable skill or agent surfaces with
+  explicit routing and supporting files where needed.
+- Current BMAD docs split core phase-routing from the Creative Intelligence
+  Suite module more clearly than before, which makes `bmad` the better next
+  bounded lane and keeps `bmad-idea` as the ideation-first sibling.
+- `skill-autoresearch` is still not justified for this lane because the
+  stronger move is to standardize `bmad` first, add evals, then measure any
+  remaining failures after review.
 
 Source links:
 
 - https://agentskills.io/specification
 - https://agentskills.io/skill-creation/best-practices
-- https://agentskills.io/skill-creation/evaluating-skills
-- https://code.claude.com/docs/en/sub-agents
-- https://google-gemini.github.io/gemini-cli/docs/extensions/
-- https://openai.com/index/the-next-evolution-of-the-agents-sdk
-- https://docs.github.com/en/copilot/how-tos/copilot-sdk/use-copilot-sdk/custom-agents
+- https://agentskills.io/skill-creation/optimizing-descriptions
+- https://docs.langchain.com/oss/javascript/deepagents/skills
+- https://www.langchain.com/blog/langchain-skills
+- https://docs.bmad-method.org/reference/agents/
+- https://docs.bmad-method.org/explanation/creative-intelligence/
+- https://bmadcodes.com/v6-alpha/
 
 ## Live GitHub state
 
@@ -71,16 +61,11 @@ Source links:
   followed by a smaller three-warning cluster.
 - The principles lane is now merged, so reopening it in the next run would be
   duplicate work unless measured failures appear.
-- `opencontext` was the strongest next bounded lane because it had a weak
-  trigger description, missing standards sections, and no packaged
-  `references/` or `evals/`.
 - PR `#43` cleared the `opencontext` warnings with a compact routed entrypoint,
-  focused `references/`, and trigger/routing eval coverage.
-- `bmad` and `bmad-idea` remain larger warning leaders, but they are broader
-  orchestration surfaces and therefore worse fits for the next bounded hourly
-  pass.
-- `scripts/` and `assets/` remain intentionally out of scope for
-  `opencontext`; the current lane did not need either one.
+  focused `references/`, and trigger or routing eval coverage.
+- `bmad` and `bmad-idea` remain larger warning leaders, but the current survey
+  pass now makes `bmad` the clearer next bounded lane because it is the core
+  structured-delivery surface and its discovery metadata is staler.
 
 ## Target decisions
 
@@ -91,8 +76,8 @@ Source links:
 | `agent-principles` | Merged canonical lane via PR `#41` | No | No | Added | Added | Not yet | Keep closed unless measured failures or review feedback reopen it |
 | `agent-development-principles` | Merged alias lane via PR `#41` | No | No | No | Added | Not yet | Keep closed as a compatibility alias unless routing failures appear |
 | `opencontext` | Merged standards lane via PR `#43` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `bmad` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
-| `bmad-idea` | Higher warning count but broader scope | No | Maybe later | Likely | Maybe later | Not yet | Keep deferred while narrower high-leverage lanes remain |
+| `bmad` | Active standards lane on `chore/skill-loop-pr-open-20260418-r45` | No | Existing scripts are enough | Existing setup/reference files are enough | Add now | Not yet | Finish the bounded standards package and open the PR |
+| `bmad-idea` | Deferred sibling lane | No | No | Existing reference is enough for now | Not yet | Not yet | Revisit only after the `bmad` PR review pass |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit after review feedback or failing eval runs |
 
@@ -101,21 +86,23 @@ Source links:
 - The merge lane for PR `#43` is complete.
 - `opencontext` is now closed on `main`; do not reopen it without measured
   failures or review feedback.
-- The next bounded lane should begin with a fresh survey decision between
-  `bmad` and `bmad-idea`, without widening into unrelated warning cleanup.
-- Explicit support-surface decision:
-  - `assets`: no; the lane needed guidance, not reusable media or templates
-  - `scripts`: no; repeated deterministic helper work still did not appear
-  - `references`: yes; added to move setup, retrieval, and persistence detail
-    behind progressive disclosure
-  - `evals`: yes; added trigger-quality and routing coverage before any later
+- The active bounded lane is `bmad`; do not widen this run into `bmad-idea` or
+  unrelated warning cleanup.
+- Explicit support-surface decision for `bmad`:
+  - `assets`: no
+  - `scripts`: keep the existing setup, validation, and phase-gate helpers
+  - `references`: keep the existing `SETUP.md`, `REFERENCE.md`, and
+    `resources/` support surfaces
+  - `evals`: yes; add trigger-quality and routing coverage before any later
     mutation loop
-- Do not start a mutation loop for `opencontext` unless later eval or review
-  evidence exposes measured failures after the merged packaging pass.
+- Do not start a mutation loop for `bmad` unless later eval or review evidence
+  exposes measured failures after the standards pass.
 
 ## Status
 
-- Current state: `opencontext` standards lane merged on `main` via PR `#43`
+- Current state: `bmad` standards lane open as draft PR `#44` on branch
+  `chore/skill-loop-pr-open-20260418-r45`
+- PR: https://github.com/akillness/oh-my-gods/pull/44
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` survey pass
-- Stage: `merge`
+- Next owner: next scheduled `nanoclaw_pd` PR review pass
+- Stage: `pr-open`
