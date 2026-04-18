@@ -1,48 +1,46 @@
-# Cleanup Plan: standardize the React guidance lane before any mutation loop
+# Cleanup Plan: review the React guidance lane before merge
 
 ## Goal
 
 Keep the recurring loop aligned with the current skill-packaging signal by
-running one bounded React-guidance standards lane, closing the duplicate
-`react-best-practices` / `vercel-react-best-practices` split into a canonical
-skill plus a thin compatibility alias, and opening the PR path once validation
-is clean.
+running one bounded review pass on the open React-guidance PR, removing any
+remaining duplicate alias support content, aligning catalog copy with the
+canonical/alias split, and moving the lane toward merge once validation is
+clean.
 
 ## Behavior lock
 
-- Keep this run focused on `react-best-practices` and
-  `vercel-react-best-practices`.
+- Keep this run focused on the already-open
+  `react-best-practices` / `vercel-react-best-practices` lane.
 - Do not widen this run to `playwriter` or any already merged lane unless a
   shared blocker appears.
 - Keep the support package minimal and explicit:
   - `assets`: no
   - `scripts`: no
-  - `references`: no new support files; the canonical skill should continue to
-    route detailed rule content to the bundled `AGENTS.md`
+  - `references`: no alias-local support files; the canonical skill should
+    continue to own the detailed rule pack
   - `evals`: yes, because the canonical/alias split needs trigger-quality
     checks on both sides
-- Update compact/discovery surfaces where the lane meaning changes materially:
-  `SKILL.toon`, `evals/`, and survey lock files.
+- Update public discovery surfaces where the lane meaning changed materially:
+  README catalog entries and survey lock files.
 - Do not start a `skill-autoresearch` mutation loop in this run unless the new
   canonical/alias split still leaves measured failures after review.
 
 ## Planned edits
 
-1. Refresh the survey lock after PR `#55` merged and advance the next target to
-   the React guidance duplicate.
-2. Keep `.god-skills/react-best-practices/SKILL.md` as the canonical React and
-   Next.js performance surface with tighter trigger ownership.
-3. Convert `.god-skills/vercel-react-best-practices/SKILL.md` into a thin
-   compatibility alias that routes normal work to the canonical skill.
-4. Add eval coverage and refresh `SKILL.toon` so discovery and future
-   optimization work use the canonical/alias split.
-5. Open the next bounded PR path if validation is clean.
+1. Remove any remaining duplicate alias support content from
+   `.god-skills/vercel-react-best-practices/`.
+2. Align the README catalog entries with the compatibility-alias wording.
+3. Refresh the survey lock so the run is recorded as a review follow-up instead
+   of the initial PR-open registration.
+4. Re-run validation and confirm the lane is ready for merge if no other gaps
+   remain.
 
 ## Verification
 
 - Validate both React guidance skills with the repo validator and confirm they
-  stay standards-compliant.
+  stay standards-compliant after the alias support surface is thinned.
 - Re-run repo-wide validation and confirm no new errors are introduced.
 - Check `git diff --stat` and `git status --short --branch` for bounded scope.
-- Open a PR only after the branch is committed and the bounded scope is
-  reviewable.
+- Keep the existing PR reviewable and move it toward merge only if the scope is
+  still bounded.

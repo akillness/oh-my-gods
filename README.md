@@ -348,7 +348,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `responsive-design` | Mobile-first layouts, breakpoints |
 | `ui-component-patterns` | Reusable component libraries |
 | `react-best-practices` | React/Next.js performance optimization |
-| `vercel-react-best-practices` | Vercel Engineering React guidelines |
+| `vercel-react-best-practices` | Compatibility alias for `react-best-practices` |
 | `state-management` | Redux, Context, Zustand patterns |
 | `web-accessibility` | WCAG 2.1 compliance |
 | `web-design-guidelines` | Web Interface Guidelines compliance review |

@@ -16,9 +16,9 @@
   https://github.com/akillness/oh-my-gods/pull/56
 - Repo-wide validation currently sits at `0` errors and `8` warnings before the
   new lane edits.
-- The next bounded gap is the React guidance duplicate: `react-best-practices`
-  and `vercel-react-best-practices` still overlap almost entirely instead of
-  operating as a canonical skill plus a thin compatibility alias.
+- The active bounded lane remains the React guidance duplicate, but the review
+  follow-up is now applied: the alias no longer ships duplicate support
+  content, and the public catalog matches the canonical/alias split.
 
 ## Survey refresh
 
@@ -51,17 +51,19 @@ Advance one bounded lane per run, in this order:
    compatibility alias
 3. Review PR `#56`; apply a bounded follow-up only if duplicate work or a
    standards gap remains
-4. Revisit `skill-autoresearch` only after a merged, eval-backed target still
+4. Merge PR `#56` if the review stays clean
+5. Revisit `skill-autoresearch` only after a merged, eval-backed target still
    shows measured failures
 
 This order is locked because:
 
 - `playwriter` is already merged, so keeping the loop on that lane would just
   repeat closed work.
-- `react-best-practices` and `vercel-react-best-practices` are still
-  overlapping peers, which is exactly the trigger and catalog drift that the
-  standardization workflow is meant to remove.
-- Starting a mutation loop before the canonical/alias split lands would
+- The React guidance lane needed one review follow-up because the alias still
+  carried duplicate support content and the README catalog still described it
+  as a full methodology.
+- Starting a mutation loop before the reviewed canonical/alias split lands
+  would
   optimize the wrong layer.
 
 ## Skill-autoresearch triage
@@ -73,8 +75,8 @@ This order is locked because:
 | `agent-evaluation` | Medium-high | Not yet | No | No | Added | Added | Closed after PR `#53`; reopen only on review feedback or new measured failures |
 | `survey` | Closed high-leverage lane | No | No | Added | Refreshed | Keep closed unless later review feedback reopens it |
 | `playwriter` | Closed high-leverage lane | No | No | Added install/session and MCP/security recovery references | Refreshed | Keep closed unless review feedback or measured failures reopen it |
-| `react-best-practices` | High | Not yet | No | No | Reuse bundled `AGENTS.md` | Added | Review PR `#56`, then keep closed unless feedback or measured failures reopen it |
-| `vercel-react-best-practices` | High | Not yet | No | No | Point to canonical skill | Added | Review PR `#56`, then keep closed unless feedback or measured failures reopen it |
+| `react-best-practices` | High | Not yet | No | No | Reuse bundled `AGENTS.md` | Added | Merge PR `#56`, then keep closed unless feedback or measured failures reopen it |
+| `vercel-react-best-practices` | High | Not yet | No | No | Point to canonical skill only | Added | Merge PR `#56`, then keep closed unless feedback or measured failures reopen it |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 
@@ -83,8 +85,8 @@ This order is locked because:
 - Active lane: `react-best-practices` / `vercel-react-best-practices`
   - Assets: no
   - Scripts: no
-  - References: no new files; keep the detailed compiled guidance in the
-    bundled `AGENTS.md` and have the alias point back to the canonical skill
+  - References: no alias-local support files; keep the detailed compiled
+    guidance only in the canonical skill's bundled `AGENTS.md`
   - Evals: yes, add trigger-quality coverage for both the canonical skill and
     the compatibility alias
   - Skill-autoresearch: still deferred until the merged canonical/alias split
@@ -92,8 +94,9 @@ This order is locked because:
 
 ## Current state
 
-- State: React guidance duplicate packaged and registered at PR `#56`
+- State: React guidance duplicate reviewed clean after a bounded follow-up; PR
+  `#56` is merge-ready
 - PR: https://github.com/akillness/oh-my-gods/pull/56
 - Blocker: none
-- Next owner: nanoclaw_pd review pass on the next run
-- Stage: `pr-open`
+- Next owner: nanoclaw_pd merge path
+- Stage: `merge`

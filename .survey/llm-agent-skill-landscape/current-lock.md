@@ -48,10 +48,10 @@ Date: 2026-04-19
   advertising it as active work.
 - `playwriter` is closed after PR `#55` merged, so the loop should not keep
   treating it as active work.
-- `react-best-practices` and `vercel-react-best-practices` are still a
-  standards gap: they are near-duplicate entrypoints for the same Vercel
-  guidance, the alias is not yet thin, and neither skill has eval coverage to
-  prove the canonical/alias split.
+- `react-best-practices` and `vercel-react-best-practices` now clear the
+  review follow-up: the alias no longer carries its own duplicate `AGENTS.md`,
+  the public README catalog matches the compatibility-alias wording, and the
+  canonical/alias split keeps eval coverage on both sides.
 - Official and primary-source signal keeps favoring this lane:
   - GitHub's new `gh skill` flow increases the value of compact,
     provenance-friendly skill packaging:
@@ -73,8 +73,8 @@ Date: 2026-04-19
 | `agent-evaluation` | Merged via PR `#53` | No | No | Added | Added | Not yet | Keep the lane closed unless review feedback or new measured failures appear |
 | `survey` | Merged via PR `#54` | No | No | Added | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `playwriter` | Merged via PR `#55` | No | No | Added install/session and MCP/security recovery support files | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
-| `react-best-practices` | PR `#56` open | No | No | Reuse bundled `AGENTS.md` | Added | Not yet | Hold for review unless feedback or failing evidence reopens the lane |
-| `vercel-react-best-practices` | PR `#56` open | No | No | Point to canonical skill | Added | Not yet | Hold for review unless feedback or failing evidence reopens the lane |
+| `react-best-practices` | PR `#56` open and review-clean after follow-up | No | No | Reuse bundled `AGENTS.md` | Added | Not yet | Advance to merge unless feedback or failing evidence reopens the lane |
+| `vercel-react-best-practices` | PR `#56` open and review-clean after follow-up | No | No | Point to canonical skill only | Added | Not yet | Advance to merge unless feedback or failing evidence reopens the lane |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -83,16 +83,16 @@ Date: 2026-04-19
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
 - Keep the active run centered on the React guidance duplicate until PR `#56`
-  is reviewed or a bounded follow-up is required.
+  merges or new review feedback reopens the lane.
 - Do not start a `skill-autoresearch` mutation loop for the React guidance lane
   unless later review feedback or eval evidence exposes a real measured miss
   after the canonical/alias split lands.
 
 ## Current state
 
-- Current state: `playwriter` is closed; `react-best-practices` /
-  `vercel-react-best-practices` is the active PR-open standards lane
+- Current state: `playwriter` is closed; the React guidance lane absorbed its
+  bounded PR-review follow-up and is now merge-ready
 - PR: https://github.com/akillness/oh-my-gods/pull/56
 - Blocker: none
-- Next owner: review path on the next run
-- Stage: `pr-open`
+- Next owner: merge path
+- Stage: `merge`
