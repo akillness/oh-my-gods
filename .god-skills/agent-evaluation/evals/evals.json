@@ -1,0 +1,51 @@
+{
+  "skill_name": "agent-evaluation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design an eval plan for a coding agent that edits a repo and should only ship changes when tests and builds pass.",
+      "expected_output": "Returns an agent evaluation plan centered on coding-agent outcome checks, build/test gates, and transcript capture.",
+      "assertions": [
+        "Response identifies the task as a coding-agent evaluation problem",
+        "Response recommends a code-based primary grader",
+        "Response mentions build or test pass criteria",
+        "Response prefers outcome checks over path-matching",
+        "Response includes transcript capture or review"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We have a research agent that writes sourced briefs. How should we evaluate grounding and coverage before launch?",
+      "expected_output": "Returns a research-agent evaluation plan with grounding, coverage, source quality, and verification dimensions.",
+      "assertions": [
+        "Response identifies the task as a research-agent evaluation problem",
+        "Response mentions grounding or citation correctness",
+        "Response mentions coverage",
+        "Response mentions source quality or factual verification",
+        "Response returns a structured evaluation plan rather than a generic benchmark list"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Set up a benchmark and monitoring approach for a support chatbot where empathy matters but we also need reliable escalation handling.",
+      "expected_output": "Returns a conversational-agent evaluation plan using a structured model rubric, escalation metrics, and production sampling.",
+      "assertions": [
+        "Response identifies the task as a conversational-agent evaluation problem",
+        "Response recommends model-based grading or a structured rubric",
+        "Response mentions escalation handling",
+        "Response includes production sampling or monitoring",
+        "Response includes a human review or calibration path"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our flaky pytest suite needs to be fixed. Can agent-evaluation handle that?",
+      "expected_output": "Clarifies that the task is not primarily agent-evaluation and routes test implementation/debugging work elsewhere.",
+      "assertions": [
+        "Response says the task is not primarily an AI-agent evaluation design problem",
+        "Response routes to backend-testing, debugging, or a similar implementation skill",
+        "Response does not pretend a benchmark plan alone fixes the flaky suite"
+      ]
+    }
+  ]
+}
