@@ -8,12 +8,12 @@
   https://github.com/akillness/oh-my-gods/pull/52
 - PR `#53` for `agent-evaluation` is merged:
   https://github.com/akillness/oh-my-gods/pull/53
-- Repo-wide validation still sits at `80/80` passing skills before the new lane
-  edits.
-- `agent-evaluation` is now the next bounded lane because it is still a large
-  inline skill with no `references/` package and no self-eval surface, even
-  though current agent ecosystems increasingly reward compact main entrypoints
-  plus reusable support files.
+- Repo-wide validation currently sits at `0` errors and `8` warnings before the
+  new lane edits.
+- `survey` is now the next bounded lane because it drives this recurring loop,
+  still has no `references/` package, and lacks an explicit evidence-recovery
+  surface despite a landscape that increasingly rewards provenance-friendly
+  skill packaging.
 
 ## Survey refresh
 
@@ -27,19 +27,19 @@ The landscape signal remains stable as of April 19, 2026:
    portable, standards-clean skill directories with clearer provenance and
    update paths.
 4. Inference for this repo: the highest-leverage remaining work is still
-   packaging and boundary repair on workflow-critical skills, especially for
-   evaluation and benchmark guidance, not starting mutation loops before the
-   support files and eval surface exist.
-5. `agent-evaluation` is therefore the right next lane after
-   `marketing-automation` merged, because it is important to the current
-   agent-quality landscape but still hides too much operational detail inline.
+   packaging and boundary repair on workflow-critical skills, especially where
+   provenance, evidence quality, and reusable survey outputs shape downstream
+   planning.
+5. `survey` is therefore the right next lane after `agent-evaluation` merged,
+   because it is used at the start of future lanes and still lacks the
+   reference material needed to handle stale, weak, or blocked evidence cleanly.
 
 ## Locked direction
 
 Advance one bounded lane per run, in this order:
 
-1. Package `agent-evaluation` into a compact standards lane with references,
-   evals, and refreshed compact discovery
+1. Package `survey` into a compact standards lane with an evidence-recovery
+   reference, refreshed evals, and refreshed compact discovery
 2. Open a bounded PR for that lane once validation is clean
 3. After the first review-clean pass, either make one bounded follow-up update
    or advance directly to merge
@@ -50,9 +50,9 @@ This order is locked because:
 
 - PR `#52` is already merged, so keeping the loop on that lane would just
   repeat closed work.
-- `agent-evaluation` has a clear standards gap that is still narrow enough to
-  fix in one reviewable PR: a compact entrypoint missing progressive-disclosure
-  support files.
+- `survey` has a clear standards gap that is still narrow enough to fix in one
+  reviewable PR: a compact entrypoint missing its evidence-recovery support
+  file and the matching eval refresh.
 - Starting a mutation loop before the support package exists would optimize the
   wrong layer.
 
@@ -63,25 +63,26 @@ This order is locked because:
 | `langextract` | Closed high-leverage lane | No | No | Existing script refreshed | Added | Refreshed | Keep closed unless later review feedback reopens it |
 | `marketing-automation` | Closed medium-high lane | No | No | No | Added | Added | Keep closed unless later review feedback reopens it |
 | `agent-evaluation` | Medium-high | Not yet | No | No | Added | Added | Closed after PR `#53`; reopen only on review feedback or new measured failures |
+| `survey` | High | Not yet | No | No | Add evidence-recovery reference | Refresh existing evals | Open the next bounded PR once validation is clean |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 
 ## Packaging decision for the active lane
 
-- Active lane: `agent-evaluation`
+- Active lane: `survey`
   - Assets: no
   - Scripts: no
-  - References: yes, grader-selection and eval-ops detail moved out of the main
+  - References: yes, add an evidence-recovery ladder outside the main
     entrypoint
-  - Evals: yes, trigger and boundary checks were added before any later
-    mutation loop
+  - Evals: yes, refresh the existing suite to check evidence labeling and
+    thin-evidence handling
   - Skill-autoresearch: still deferred until the merged skill shows measured
-    failures
+    failures after the support package lands
 
 ## Current state
 
-- State: `agent-evaluation` standards lane is merged and closed
-- PR: https://github.com/akillness/oh-my-gods/pull/53
+- State: `survey` standards lane is in bounded improvement
+- PR: pending this run
 - Blocker: none
-- Next owner: next scheduled survey refresh
-- Stage: `merge`
+- Next owner: maintainer opening the next PR path
+- Stage: `improvement`

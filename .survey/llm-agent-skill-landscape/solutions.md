@@ -51,6 +51,9 @@ emphasis, not a usage telemetry measurement:
   they have no support files. `langchain-bmad` was the clearest example before
   its standards pass because it combined BMAD and LangChain guidance in one
   inline surface with no `references/` or `evals/`.
+- Survey and audit skills are especially sensitive to evidence quality drift:
+  if they cannot distinguish direct page retrieval from thin snippets, later
+  planning lanes inherit avoidable uncertainty.
 - Workflow skills still need careful review for hidden hard-coded assumptions,
   such as default remote/base names or destructive recovery shortcuts, even
   after they are packaged.
@@ -67,7 +70,7 @@ emphasis, not a usage telemetry measurement:
 The highest-value improvement is still not adding another broad skill first. It
 is upgrading workflow-critical existing skills into evaluation-ready,
 standards-compliant entrypoints so future iterations can optimize them one
-bounded mutation at a time. `clawteam` is now closed via merged PR `#47`, so
-the queue has advanced to `presentation-builder`: a still-underpackaged
-workflow skill whose missing standard sections should be corrected before any
-new support files or mutation loop are considered.
+bounded mutation at a time. After `agent-evaluation` closed via merged PR
+`#53`, the queue advances to `survey`: a central intake skill that still lacks
+an explicit evidence-recovery support file even though current ecosystem drift
+increasingly punishes weak or stale sourcing.
