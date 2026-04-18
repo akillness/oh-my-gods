@@ -9,9 +9,12 @@ Date: 2026-04-18
   official updates remain:
   - Codex changelog entries on 2026-04-15 and 2026-04-16:
     https://developers.openai.com/codex/changelog
-  - Claude Code changelog entry `2.1.113` on 2026-04-17:
+  - Claude Code changelog entry `2.1.109` on 2026-04-15:
     https://code.claude.com/docs/en/changelog
-  - Gemini CLI release `v0.38.2` on 2026-04-17:
+  - GitHub launched `gh skill` on 2026-04-16:
+    https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
+  - Gemini CLI releases page was rechecked on 2026-04-18 and no newer official
+    release signal displaced the prior queue ranking:
     https://github.com/google-gemini/gemini-cli/releases
 - Agent Skills still recommends compact `SKILL.md` entrypoints with
   progressive disclosure through `references/`, `scripts/`, `assets/`, and
@@ -35,10 +38,10 @@ Date: 2026-04-18
   https://developers.openai.com/codex/skills
   https://developers.openai.com/codex/hooks
   https://developers.openai.com/codex/subagents
-- No new ecosystem signal in this refresh justifies reopening
-  `presentation-builder` after merge. The higher-value move is to reset the
-  queue onto the next bounded standards lane rather than widen into a broad
-  multi-skill rewrite.
+- No new ecosystem signal in this refresh displaced the already-locked
+  `design-system` lane. The highest-value move remains: standardize the
+  canonical skill, keep the alias thin, and open the PR without widening into
+  another warning leader.
 
 Source links:
 
@@ -85,38 +88,32 @@ Source links:
   `2026-04-18T06:04:04Z`:
   https://github.com/akillness/oh-my-gods/pull/48
   - Final live state on `2026-04-18`: `state=MERGED`
+- PR `#49` for the `design-system` standards lane opened on `2026-04-18`:
+  https://github.com/akillness/oh-my-gods/pull/49
 
 ## Audit snapshot
 
-- Focused validation for `.god-skills/presentation-builder/` now passes at
-  `0` errors and `0` warnings after the standards pass.
-- Repo-wide validation now sits at `0` errors and `20` warnings across
+- `presentation-builder` stays closed after merge; no duplicate work or new
+  standards gap justified reopening it in this run.
+- Focused validation for `.god-skills/design-system/` now passes at `0` errors
+  and `0` warnings after the standards pass.
+- Focused validation for `.god-skills/frontend-design-system/` now passes at
+  `0` errors and `0` warnings after the alias-thinning pass.
+- Repo-wide validation now sits at `0` errors and `16` warnings across
   `.god-skills/`.
-- `presentation-builder` keeps its packaged reference surface and starter eval
-  coverage after merge, and the final review pass found no duplicate work,
-  missing improvements, or new standardization gaps.
-- `skill-autoresearch` is still not justified for `presentation-builder`;
-  there are no measured behavioral failures after the standards pass, only the
-  new baseline support surface.
-- Repo-wide validation still sits at `0` errors and `20` warnings across
-  `.god-skills/`.
+- `design-system` now has a packaged reference surface and starter eval
+  coverage, and `frontend-design-system` is reduced to a thin compatibility
+  alias rather than a second full UI-system spec.
+- `skill-autoresearch` is still not justified for `design-system`; there are
+  no measured behavioral failures yet, only the new baseline support surface.
 - The unresolved warning leaders after merging PR `#48` are:
-  - `design-system` (`2`)
-  - `frontend-design-system` (`2`)
   - `langextract` (`2`)
   - `marketing-automation` (`2`)
   - `remotion-video-production` (`2`)
   - `video-production` (`2`)
-- `design-system` is now the best next bounded lane because:
-  - it is a canonical cross-product UI-system skill with no packaged support
-    surface yet
-  - its compatibility alias `frontend-design-system` has the same standards
-    debt, so one canonicalization lane can reduce duplicate work
-  - `langextract` already ships scripts and evals, which makes its remaining
-    debt narrower than the design-system pair
-  - `marketing-automation`, `remotion-video-production`, and
-    `video-production` remain valid follow-ups, but they do not outrank the
-    design-system pair on leverage plus missing support-surface coverage
+- The next survey target should not advance yet; the next run should review PR
+  `#49` for duplicate work, missing improvements, or standardization gaps
+  before considering the remaining two-warning cluster.
 
 ## Target decisions
 
@@ -132,8 +129,8 @@ Source links:
 | `langchain-bmad` | Merged lane with packaged support surface | No | No | Added | Added | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
 | `clawteam` | Merged standards lane via PR `#47` | No | Existing `scripts/setup.sh` is enough | Existing references were enough | Existing evals were enough | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
 | `presentation-builder` | Merged via PR `#48` | No | No | Added | Added | Not yet | Keep closed unless feedback or failing evals appear |
-| `design-system` | Next standards lane candidate | No | No | Yes | Yes | Not yet | Open a bounded standards PR that adds imperative trigger copy plus packaged references/evals |
-| `frontend-design-system` | Alias candidate paired with `design-system` | No | No | No separate package; point to canonical references | No separate eval package | Not yet | Keep the alias thin and align its trigger copy plus references section with the canonical skill |
+| `design-system` | PR `#49` open with standards pass committed | No | No | Added | Added | Not yet | Review the branch for duplicate work and merge only if the review stays clean |
+| `frontend-design-system` | Alias updated in PR `#49` | No | No | Points to canonical references | No separate eval package | Not yet | Keep thin unless review finds alias-specific routing drift |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean, eval-backed target shows real misses |
 
@@ -141,37 +138,30 @@ Source links:
 
 - `presentation-builder` is closed via merged PR `#48`; do not reopen it
   unless new review feedback or failing eval evidence appears.
-- The next run should stay bounded to the `design-system` canonical lane plus
-  the `frontend-design-system` compatibility alias.
+- Do not widen the next run into another warning leader unless review of PR
+  `#49` exposes a shared blocker.
 - Explicit support-surface decision for the next lane:
   - `design-system`
     - `assets`: no
-    - `scripts`: no; the standards debt is packaging and trigger quality, not
-      reusable automation
-    - `references`: yes; add concise design-token/system references so the
-      entrypoint can stay compact
-    - `evals`: yes; add trigger and boundary checks before any later mutation
-      loop
+    - `scripts`: no; the lane stayed bounded without reusable automation
+    - `references`: added via `references/system-direction.md`
+    - `evals`: added via `evals/evals.json`
   - `frontend-design-system`
     - `assets`: no
     - `scripts`: no
-    - `references`: no separate package; add a references section that points
-      to the canonical `design-system` surface
+    - `references`: no separate package; point to the canonical
+      `design-system` surface
     - `evals`: no separate package while it stays a compatibility alias
-- Explicit support-surface decision for `presentation-builder`:
-  - `assets`: no
-  - `scripts`: no; the current lane does not need a reusable helper
-  - `references`: added via `references/slides-grab-workflow.md`
-  - `evals`: added via `evals/evals.json`
 - Do not start a mutation loop for `design-system` or
-  `frontend-design-system` during the next run unless the standards pass still
-  leaves measured failures after the packaged support surface is added.
+  `frontend-design-system` unless a later review or eval pass exposes measured
+  failures that standards cleanup alone does not fix.
+- If the PR review is clean on the next run, proceed directly to merge path.
 
 ## Current state
 
-- Current state: `presentation-builder` is merged; the queue is reset to the
-  next bounded survey target
-- PR: https://github.com/akillness/oh-my-gods/pull/48
+- Current state: `design-system` standards lane is now opened for review via
+  PR `#49`
+- PR: https://github.com/akillness/oh-my-gods/pull/49
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` survey/improvement pass
-- Stage: `survey`
+- Next owner: next scheduled `nanoclaw_pd` PR review pass
+- Stage: `pr-open`

@@ -22,9 +22,11 @@
   https://github.com/akillness/oh-my-gods/pull/47
 - PR `#48` for the `presentation-builder` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/48
-- Repo-wide validation still sits at `0` errors and `20` warnings after the
-  `presentation-builder` merge.
-- The remaining leaders are the six two-warning skills.
+- Repo-wide validation now sits at `0` errors and `16` warnings after the
+  `design-system` standards pass.
+- `design-system` and `frontend-design-system` have left the warning
+  leaderboard after PR `#49` opened; the remaining leaders are the four
+  two-warning skills.
 
 ## Survey refresh
 
@@ -37,9 +39,9 @@ The landscape signal remains stable after the latest review pass:
    stay compact.
 3. GitHub's new `gh skill` workflow further raises the value of portable,
    standards-clean skill directories.
-4. Inference for this repo: after `presentation-builder` merged, the next
-   highest-value move is a bounded standards pass on the canonical
-   `design-system` skill plus its `frontend-design-system` compatibility alias.
+4. Inference for this repo: the next highest-value move is still a bounded
+   standards pass on the canonical `design-system` skill plus its
+   `frontend-design-system` compatibility alias.
 5. `langextract` remains a credible follow-up, but it already has scripts and
    evals, so the support-surface gap is less severe than the design-system pair.
 
@@ -48,21 +50,23 @@ The landscape signal remains stable after the latest review pass:
 Advance one bounded lane per run, in this order:
 
 1. Keep `presentation-builder` closed after merged PR `#48`
-2. Open the next bounded lane on `design-system` plus the
-   `frontend-design-system` alias
-3. Revisit `skill-autoresearch` only after a review-clean, eval-backed target
+2. Review PR `#49` for duplicate work, missing improvements, or
+   standardization gaps on `design-system`
+3. If the review is clean and scope remains satisfied, proceed to merge path
+4. Only after merge, reset the queue to the next bounded warning leader
+5. Revisit `skill-autoresearch` only after a review-clean, eval-backed target
    still shows measured failures
 
 This order is locked because:
 
 - `presentation-builder` is now merged, so the loop can safely advance without
   leaving open-PR debt behind.
-- `design-system` and `frontend-design-system` combine high user-facing
-  leverage with the weakest packaged support surface in the current warning
-  cluster.
-- `langextract`, `marketing-automation`, `remotion-video-production`, and
-  `video-production` remain legitimate follow-ups, but they do not outrank the
-  design-system lane on leverage plus missing support assets.
+- PR `#49` is already open, so skipping straight to another target would
+  create duplicate work and break the recurring loop contract.
+- `design-system` now has the support surface it was missing, so the next
+  uncertainty is review quality, not local packaging debt.
+- The remaining two-warning surfaces are legitimate follow-ups, but they do
+  not outrank closing the active PR lane.
 
 ## Skill-autoresearch triage
 
@@ -78,8 +82,8 @@ This order is locked because:
 | `langchain-bmad` | High | No | No | No | Added | Added | Keep closed after merged PR `#46`; do not reopen without new evidence |
 | `clawteam` | High | No | No | Existing script is enough | Existing references are enough | Existing evals are enough | Keep closed after merged PR `#47`; do not reopen without new evidence |
 | `presentation-builder` | High | Not yet | No | No | Added | Added | Keep closed after merged PR `#48`; only reopen if review feedback or failing evals appear |
-| `design-system` | High | Not yet | No | No | Yes | Yes | Open a bounded standards lane focused on trigger copy plus packaged references/evals |
-| `frontend-design-system` | High as alias support | Not yet | No | No | No separate package; point to canonical references | No separate eval package | Keep thin as a compatibility alias while aligning trigger copy and references with `design-system` |
+| `design-system` | High | Not yet | No | No | Added | Added | Review PR `#49`; merge if clean, otherwise apply one bounded follow-up |
+| `frontend-design-system` | High as alias support | Not yet | No | No | Points to canonical references | No separate eval package | Keep thin in PR `#49`; only reopen if review finds alias-specific drift |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review-clean target still misses objective checks |
 
@@ -91,25 +95,24 @@ This order is locked because:
   - References: added via `references/slides-grab-workflow.md`
   - Evals: added via `evals/evals.json`
   - Skill-autoresearch: still deferred until later measured misses appear
-- Next lane: `design-system` + `frontend-design-system`
+- Active lane: `design-system` + `frontend-design-system`
   - `design-system`
     - Assets: no
     - Scripts: no
-    - References: yes
-    - Evals: yes
+    - References: added via `references/system-direction.md`
+    - Evals: added via `evals/evals.json`
   - `frontend-design-system`
     - Assets: no
     - Scripts: no
     - References: no separate package; point at the canonical skill
     - Evals: no separate package while it remains an alias
   - Skill-autoresearch: not justified before the standards pass adds the
-    missing packaging surface
+    missing packaging surface and a later review still shows measured misses
 
 ## Current state
 
-- State: `presentation-builder` is merged; the next run should start the
-  `design-system` survey/improvement lane
-- PR: https://github.com/akillness/oh-my-gods/pull/48
+- State: `design-system` standards lane is open for review
+- PR: https://github.com/akillness/oh-my-gods/pull/49
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` survey/improvement pass
-- Stage: `survey`
+- Next owner: next scheduled `nanoclaw_pd` PR review pass
+- Stage: `pr-open`
