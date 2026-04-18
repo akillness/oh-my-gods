@@ -43,195 +43,31 @@ Playwriter connects AI agents to your **running Chrome browser** instead of spaw
 
 ### Step 2: Install and attach to the running browser
 
-## Installation
-
-### Step 1: Install Chrome Extension
-
-Install the **Playwriter** Chrome extension from the Web Store (search "Playwriter MCP" or use extension ID `jfeammnjpkecdekppnclgkkffahnhfhe`).
-
-After installing, click the extension icon on any tab you want to allow automation on. The icon turns **green** when a tab is enabled for control.
-
-### Step 2: Install CLI
-
-```bash
-npm install -g playwriter
-# or run without installing:
-npx playwriter@latest --help
-```
-
-The extension auto-starts a WebSocket relay server at `localhost:19988`.
+- Install the Playwriter Chrome extension, enable it on the specific tab you want to control, and confirm the icon turns green.
+- Install the CLI with `npm install -g playwriter`, or use `npx playwriter@latest --help` for a no-install check.
+- Expect the local relay on `localhost:19988` after the extension is active.
+- Use [references/install-and-session-workflow.md](references/install-and-session-workflow.md) for the full install, session, quoting, and Observe -> Act -> Observe workflow.
 
 ### Step 3: Start with a session, then follow Observe -> Act -> Observe
 
-## Core workflow
-
-Always follow the Observe → Act → Observe pattern:
+Always begin with a session and re-observe after each action:
 
 ```bash
-# 1. Create a session
 playwriter session new
-
-# 2. Navigate and observe
 playwriter -s 1 -e 'await page.goto("https://example.com")'
 playwriter -s 1 -e 'await snapshot({ page })'
-
-# 3. Interact based on snapshot output
 playwriter -s 1 -e 'await page.locator("aria-ref=e5").click()'
-
-# 4. Re-observe after action
 playwriter -s 1 -e 'await snapshot({ page })'
 ```
+
+Use `snapshot({ page })` for element discovery and state checks. Prefer it over screenshot-heavy flows when text or interactive structure is what matters.
 
 ### Step 4: Use sessions, MCP, and relay mode deliberately
 
-## Session management
-
-```bash
-# Create a new isolated stateful session
-playwriter session new
-
-# List all active sessions (shows browser, profile, state info)
-playwriter session list
-
-# Delete a session and clear its state
-playwriter session delete <sessionId>
-
-# Reset the CDP connection and clear execution environment
-playwriter session reset <sessionId>
-```
-
-## The -e / --eval flag
-
-Execute arbitrary Playwright code in a session:
-
-```bash
-# Navigate to a URL
-playwriter -s 1 -e 'await page.goto("https://github.com")'
-
-# Fill a form field
-playwriter -s 1 -e 'await page.fill("#search", "playwriter"); await page.keyboard.press("Enter")'
-
-# Get accessibility snapshot (preferred over screenshots for text content)
-playwriter -s 1 -e 'await snapshot({ page })'
-
-# Take screenshot with visual accessibility labels (color-coded by element type)
-playwriter -s 1 -e 'await screenshotWithAccessibilityLabels({ page })'
-
-# Store state between calls (state object persists within session)
-playwriter -s 1 -e 'state.url = page.url(); state.title = await page.title()'
-playwriter -s 1 -e 'console.log(state.url, state.title)'
-```
-
-**Quoting rules**: Wrap code in single quotes. For multiline code, use heredoc:
-
-```bash
-playwriter -s 1 -e "$(cat <<'EOF'
-const text = await page.textContent('h1');
-state.heading = text;
-await snapshot({ page });
-EOF
-)"
-```
-
-## MCP Integration
-
-### Claude Desktop config (`~/.claude/settings.json` or Claude Desktop MCP settings)
-
-```json
-{
-  "mcpServers": {
-    "playwriter": {
-      "command": "npx",
-      "args": ["-y", "playwriter@latest"]
-    }
-  }
-}
-```
-
-### Remote relay server
-
-```json
-{
-  "mcpServers": {
-    "playwriter": {
-      "command": "npx",
-      "args": ["-y", "playwriter@latest"],
-      "env": {
-        "PLAYWRITER_HOST": "your-relay-host",
-        "PLAYWRITER_TOKEN": "your-secret-token",
-        "PLAYWRITER_SESSION": "1"
-      }
-    }
-  }
-}
-```
-
-### MCP tools exposed
-
-| Tool | Description |
-|------|-------------|
-| `execute` | Run arbitrary JavaScript Playwright code (`code`, `timeout` params) |
-| `reset` | Recreate CDP connection, clear state — use after connection failures |
-
-## Built-in globals (in execute sandbox)
-
-| Global | Description |
-|--------|-------------|
-| `page` | Current Playwright page |
-| `context` | Browser context |
-| `state` | Persistent object — survives multiple `-e` calls in same session |
-| `snapshot({ page })` | Accessibility tree as text (token-efficient) |
-| `screenshotWithAccessibilityLabels({ page })` | Screenshot with color-coded element markers |
-| `getPageMarkdown()` | Article text via Mozilla Readability |
-| `waitForPageLoad()` | Smart load detection |
-| `getLatestLogs()` | Browser console errors/logs |
-| `getCleanHTML()` | Cleaned DOM HTML |
-| `getLocatorStringForElement()` | Get selector for a DOM element |
-| `getReactSource()` | React component source tree |
-
-## Accessibility labeling
-
-`screenshotWithAccessibilityLabels({ page })` overlays color-coded markers on interactive elements:
-
-| Color | Element type |
-|-------|-------------|
-| Yellow | Links |
-| Orange | Buttons |
-| Coral | Inputs |
-| Pink | Checkboxes |
-| Peach | Sliders |
-
-Click a labeled element using `aria-ref`:
-```bash
-playwriter -s 1 -e 'await page.locator("aria-ref=e5").click()'
-```
-
-## Network interception and state persistence
-
-```bash
-# Intercept network requests
-playwriter -s 1 -e 'state.requests = []; page.on("request", r => state.requests.push(r.url()))'
-
-# Check collected requests later
-playwriter -s 1 -e 'console.log(state.requests.slice(-5).join("\n"))'
-
-# Screen recording
-playwriter -s 1 -e 'await recording.start()'
-# ... do actions ...
-playwriter -s 1 -e 'const video = await recording.stop(); state.video = video'
-```
-
-## Remote access
-
-Control Chrome on a remote machine via tunnel:
-
-```bash
-# On the machine with Chrome:
-playwriter serve --token my-secret --replace
-
-# From agent machine:
-playwriter --host <ip-or-hostname> --token my-secret -s 1 -e 'await page.goto("https://example.com")'
-```
+- Keep one session per workflow and reset it when the CDP connection gets stale.
+- Use MCP when the agent client should drive the running browser directly; use the CLI `-e` surface for local scripted control.
+- Treat enabled tabs, local relay exposure, and remote tokens as explicit trust boundaries rather than background implementation details.
+- Use [references/mcp-security-and-recovery.md](references/mcp-security-and-recovery.md) for MCP config, built-in globals, remote relay notes, restricted pages, and failure recovery.
 
 ## Examples
 
@@ -257,6 +93,7 @@ How do I connect playwriter to Codex CLI or Claude Desktop so the agent can driv
 Output shape:
 - includes the `npx -y playwriter@latest` MCP command shape
 - mentions the Chrome extension and the local relay on `localhost:19988`
+- notes that the tab must be explicitly enabled in Chrome
 - keeps the guidance on agent control of the running browser session
 
 ### Example 3: Verify an authenticated multi-step flow
@@ -271,6 +108,18 @@ Output shape:
 - explains the `Observe -> Act -> Observe` loop
 - preserves the distinction between stateful browser control and isolated headless checks
 
+### Example 4: Recover from a stale session without restarting the whole flow
+
+Input:
+```text
+playwriter stopped responding after a tab reload. How should I recover without losing the current browser context?
+```
+
+Output shape:
+- uses `playwriter session reset <id>` or the MCP `reset` tool
+- keeps the answer on session recovery rather than generic browser restarts
+- points to logs or enabled-tab checks if the reset does not recover the connection
+
 ## Best practices
 
 - **Observe → Act → Observe**: always call `snapshot({ page })` before and after each action
@@ -279,20 +128,13 @@ Output shape:
 - **Use stable selectors**: prefer `aria-ref`, `data-testid`, or accessible roles
 - **Store context in `state`**: avoid repeated navigation by persisting page references
 - **Use `reset` on failures**: CDP disconnects recover cleanly with `playwriter session reset`
-
-## Troubleshooting
-
-| Issue | Solution |
-|-------|----------|
-| Extension not connecting | Click extension icon on the tab; icon must be green |
-| `connection refused :19988` | Extension auto-starts server; check Chrome is running with extension installed |
-| Code execution timeout | Increase with `--timeout 30000` flag |
-| Click fails silently | Use `snapshot({ page })` — a modal likely intercepts the click |
-| Stale session | Run `playwriter session reset <id>` to restore CDP connection |
-| Remote access failing | Confirm `playwriter serve` is running and token matches |
+- **Keep tab consent explicit**: only enabled tabs are controllable, so say when the user needs to turn the extension green
+- **Treat remote relay tokens as secrets**: keep them in env vars or a secret manager, never inline in committed configs
 
 ## References
 
+- [Install and session workflow](references/install-and-session-workflow.md)
+- [MCP, security, and recovery](references/mcp-security-and-recovery.md)
 - [GitHub: remorses/playwriter](https://github.com/remorses/playwriter)
 - [Chrome Extension Web Store](https://chromewebstore.google.com/detail/playwriter-mcp/jfeammnjpkecdekppnclgkkffahnhfhe)
 - `playwriter skill` — print full usage guide from CLI

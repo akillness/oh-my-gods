@@ -40,6 +40,16 @@
         "Response includes `snapshot({ page })` before and after actions",
         "Response keeps the answer on playwriter's running-browser workflow instead of generic Playwright advice"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "playwriter says it cannot act on my tab after a reload. What should I check before falling back to a headless browser?",
+      "expected_output": "A recovery answer that keeps the user on playwriter, checks whether the extension is enabled on the target tab, and uses session reset or logs before suggesting another browser surface.",
+      "assertions": [
+        "Response mentions the enabled or green extension state on the tab",
+        "Response includes `playwriter session reset <id>` or the `reset` tool",
+        "Response avoids immediately switching to headless browser automation as the first fix"
+      ]
     }
   ]
 }
