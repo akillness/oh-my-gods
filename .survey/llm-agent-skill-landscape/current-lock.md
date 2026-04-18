@@ -12,7 +12,7 @@ Date: 2026-04-18
 - `langextract` remained the best next lane because it still had 2 validator
   warnings, already shipped `evals/` plus a helper script, and could be fixed
   without widening to a broader umbrella skill.
-- The standards pass on `langextract` is now complete and the PR path is open:
+- The standards pass on `langextract` is now complete and PR `#51` is merged:
   https://github.com/akillness/oh-my-gods/pull/51
 
 Source links:
@@ -54,7 +54,7 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/49
 - PR `#50` for the video lane is merged:
   https://github.com/akillness/oh-my-gods/pull/50
-- PR `#51` for the `langextract` standards lane is open:
+- PR `#51` for the `langextract` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/51
 
 ## Audit snapshot
@@ -81,8 +81,8 @@ Source links:
 |---|---|---|---|---|---|---|---|
 | `video-production` | Merged canonical lane via PR `#50` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `remotion-video-production` | Merged alias lane via PR `#50` | No | No | Points to canonical references | No separate package | No | Keep thin unless later evidence proves a distinct workflow |
-| `langextract` | PR `#51` open as active standards lane | No | Existing helper refreshed | Added | Refreshed | No; the standards pass removed the validator misses without leaving a measured gap | Review PR `#51` for duplicate work, missing route-outs, or support-surface drift |
-| `marketing-automation` | Remaining 2-warning follow-up | No | No | Missing | Present | Not yet | Hold until PR `#51` review is complete |
+| `langextract` | Merged via PR `#51` after a bounded review follow-up | No | Existing helper refreshed | Added | Refreshed | No; the standards pass removed the validator misses without leaving a measured gap | Keep closed unless later review feedback or new measured failures reopen it |
+| `marketing-automation` | Remaining 2-warning follow-up | No | No | Missing | Present | Not yet | Start the next bounded standards lane now that PR `#51` is merged |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -90,8 +90,8 @@ Source links:
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Do not widen the next run into `marketing-automation` until PR `#51` is
-  reviewed.
+- Move the next run to `marketing-automation`; `langextract` no longer has
+  open PR debt.
 - Support-surface decision for the active `langextract` lane:
   - `assets`: no
   - `scripts`: keep the helper script and no more than one bounded behavioral
@@ -99,13 +99,14 @@ Source links:
   - `references`: yes, now added
   - `evals`: yes, refreshed in the same change
 - Do not start a `skill-autoresearch` mutation loop for `langextract` unless
-  PR review or later eval evidence exposes a real measured miss.
+  later review feedback or eval evidence exposes a real measured miss.
 
 ## Current state
 
-- Current state: `langextract` standards lane is committed, pushed, and waiting
-  for PR review
+- Current state: `langextract` standards lane is merged and closed after the
+  post-open review pass
 - PR: https://github.com/akillness/oh-my-gods/pull/51
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR-review pass for `langextract`
-- Stage: `pr-open`
+- Next owner: next scheduled `nanoclaw_pd` improvement pass for
+  `marketing-automation`
+- Stage: `merge`
