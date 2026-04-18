@@ -127,8 +127,8 @@ This order is locked because:
 
 ## Current state
 
-- State: duplicate video lane standardized and registered for review
+- State: duplicate video lane reviewed, bounded follow-up applied, and ready to merge
 - PR: https://github.com/akillness/oh-my-gods/pull/50
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR-review pass
-- Stage: `PR-open`
+- Next owner: current `nanoclaw_pd` merge pass
+- Stage: `merge`

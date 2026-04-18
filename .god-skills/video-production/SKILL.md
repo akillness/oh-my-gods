@@ -147,7 +147,7 @@ const IntroScene: React.FC<{ frame: number }> = ({ frame }) => {
       <Logo />
       <Title>Transform Your Workflow</Title>
     </AbsoluteFill>
-);
+  );
 };
 ```
 

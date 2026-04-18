@@ -156,15 +156,17 @@ Source links:
 - Do not start a mutation loop for `video-production` or
   `remotion-video-production` unless PR review or later eval evidence exposes
   measured failures that the standards pass did not solve.
-- The next run should enter `PR-review` mode on PR `#50`, check for duplicate
-  work, missing improvements, or alias drift, and only then choose merge or
-  one more bounded update.
+- PR review on `#50` found one bounded follow-up in the canonical
+  `video-production` example snippet; after fixing it, the lane is ready for
+  merge instead of another review cycle.
+- The next queued lane after merge remains `langextract`, unless post-merge
+  evidence reopens the video lane.
 
 ## Current state
 
-- Current state: the duplicate video lane is standardized and waiting for PR
-  review
+- Current state: the duplicate video lane has completed PR review, received one
+  bounded follow-up fix, and is now ready for merge
 - PR: https://github.com/akillness/oh-my-gods/pull/50
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR-review pass
-- Stage: `PR-open`
+- Next owner: current `nanoclaw_pd` merge pass
+- Stage: `merge`
