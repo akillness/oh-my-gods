@@ -68,7 +68,12 @@ result = lx.extract(
 ## Plugin system notes
 
 - LangExtract uses a router-based provider system
-- Third-party providers are discovered via Python entry points
+- Register provider plugins with `@router.register(...)` from
+  `langextract.providers`
+- Third-party providers are discovered via Python entry points under
+  `project.entry-points."langextract.providers"`
 - `LANGEXTRACT_DISABLE_PLUGINS=1` disables plugin loading
-- New provider implementations should follow the router or entry-point pattern
+- New provider implementations should follow the router and entry-point pattern
   in the upstream provider README
+- For non-auto-routed model IDs or OpenAI-compatible endpoints, explicit
+  provider routing still goes through `ModelConfig`

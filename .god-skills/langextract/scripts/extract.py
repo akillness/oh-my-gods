@@ -45,8 +45,16 @@ def main():
     parser.add_argument("--output", default="results.jsonl", help="Output JSONL file (default: results.jsonl)")
     parser.add_argument("--visualize", action="store_true", help="Generate HTML visualization")
     parser.add_argument("--grounded-only", action="store_true", help="Drop extractions that cannot be grounded back to the source text")
-    parser.add_argument("--fence", action="store_true", help="Use JSON fencing (for OpenAI/Ollama)")
-    parser.add_argument("--no-schema-constraints", action="store_true", help="Disable schema constraints")
+    parser.add_argument(
+        "--fence",
+        action="store_true",
+        help="Force fence_output=True for debugging or explicit provider overrides",
+    )
+    parser.add_argument(
+        "--no-schema-constraints",
+        action="store_true",
+        help="Force use_schema_constraints=False for debugging or explicit provider overrides",
+    )
     args = parser.parse_args()
 
     try:

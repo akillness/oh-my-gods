@@ -49,12 +49,12 @@
     {
       "id": 5,
       "prompt": "Explain how to create a custom langextract provider plugin for my own LLM API",
-      "expected_output": "Code showing class inheriting from lx.inference.BaseLanguageModel with @lx.providers.registry.register decorator, implementing infer() method that yields ScoredOutput. Should include pyproject.toml entry_points configuration.",
+      "expected_output": "Explanation or code that follows the current LangExtract plugin path: register a provider with @router.register(...) from langextract.providers, mention entry-point discovery via project.entry-points.\"langextract.providers\", and note that custom routing can integrate with create_model(...) or ModelConfig when explicit provider selection is needed.",
       "assertions": [
-        "Response mentions the router or provider registration pattern with regex matching",
-        "Class inherits from a LangExtract base language model interface",
-        "Class implements infer() method",
-        "Response includes entry_points configuration for PyPI package"
+        "Response mentions registering a provider with router.register or an equivalent current provider-registration API",
+        "Response mentions entry-point discovery under project.entry-points.\"langextract.providers\" or an equivalent current plugin-discovery surface",
+        "Response explains that the plugin is packaged separately from the core library",
+        "Response mentions create_model, ModelConfig, or another explicit provider-routing path for non-auto-routed models"
       ]
     }
   ]
