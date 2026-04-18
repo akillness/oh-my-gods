@@ -1,0 +1,45 @@
+{
+  "skill_name": "video-production",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We need a reusable workflow to batch-create localized product videos with captions, multiple aspect ratios, and a programmable render step. Which skill should handle this?",
+      "expected_output": "A `video-production` response that treats the request as programmable video work, chooses an appropriate pipeline, and frames the job as a real video artifact rather than generic marketing advice.",
+      "assertions": [
+        "The response identifies `video-production` as the correct surface for repeatable video generation work",
+        "The response includes a pipeline choice such as code-first, template-first, or hybrid",
+        "The response treats captions, aspect ratios, or render workflow as part of the delivery plan"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Use remotion-video-production to build a code-driven launch trailer with reusable scene components and automated variants.",
+      "expected_output": "A boundary-aware answer that treats `remotion-video-production` as an alias and routes the work to the canonical `video-production` skill.",
+      "assertions": [
+        "The response explains that `remotion-video-production` is a compatibility alias",
+        "The response routes the request to `video-production` without inventing alias-specific behavior",
+        "The response keeps Remotion as a valid pipeline inside the canonical skill"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need an editable investor deck with speaker notes and export to PPTX. Should I use video-production?",
+      "expected_output": "A boundary-aware answer that routes editable deck work to `presentation-builder` instead of overusing `video-production`.",
+      "assertions": [
+        "The response does not keep editable slide deck work inside `video-production`",
+        "The response routes the request to `presentation-builder`",
+        "The response explains that the requested artifact is a deck, not a rendered video workflow"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We only need launch messaging, campaign copy, and a funnel plan for our new video campaign. Do we still use video-production?",
+      "expected_output": "A boundary-aware answer that routes strategy-only marketing work to `marketing-automation`.",
+      "assertions": [
+        "The response does not keep messaging-only work inside `video-production`",
+        "The response routes the request to `marketing-automation`",
+        "The response distinguishes artifact production from campaign strategy"
+      ]
+    }
+  ]
+}

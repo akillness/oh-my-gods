@@ -381,7 +381,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | 스킬 | 설명 |
 |------|------|
 | `presentation-builder` | `slides-grab`으로 HTML 슬라이드 제작, PPTX/PDF 내보내기 |
-| `video-production` | Remotion 기반 프로그래밍형 영상 제작 |
+| `video-production` | 코드 중심·템플릿 중심·하이브리드 파이프라인 전반의 프로그래밍형/자동화 영상 제작 |
 | `image-generation` | Gemini/호환 API를 통한 이미지 생성 |
 | `pollinations-ai` | API 키 없이 무료 이미지 생성 |
 | `marketing-automation` | 23개 서브스킬: CRO, 카피라이팅, SEO, 성장 |

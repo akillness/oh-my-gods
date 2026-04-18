@@ -377,7 +377,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | Skill | Description |
 |-------|-------------|
 | `presentation-builder` | HTML slides with `slides-grab`, export to PPTX/PDF |
-| `video-production` | Remotion-based programmable video production |
+| `video-production` | Programmable or automated video production across code-first, template-first, and hybrid pipelines |
 | `image-generation` | Image generation via Gemini/compatible APIs |
 | `pollinations-ai` | Free image generation (no API key needed) |
 | `marketing-automation` | 23 sub-skills: CRO, copywriting, SEO, growth |
