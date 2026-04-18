@@ -9,9 +9,12 @@ Date: 2026-04-18
   official updates remain:
   - Codex changelog entries on 2026-04-15 and 2026-04-16:
     https://developers.openai.com/codex/changelog
-  - Claude Code changelog entry `2.1.113` on 2026-04-17:
+  - Claude Code changelog entry `2.1.109` on 2026-04-15:
     https://code.claude.com/docs/en/changelog
-  - Gemini CLI release `v0.38.2` on 2026-04-17:
+  - GitHub launched `gh skill` on 2026-04-16:
+    https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
+  - Gemini CLI releases page was rechecked on 2026-04-18 and no newer official
+    release signal displaced the prior queue ranking:
     https://github.com/google-gemini/gemini-cli/releases
 - Agent Skills still recommends compact `SKILL.md` entrypoints with
   progressive disclosure through `references/`, `scripts/`, `assets/`, and
@@ -35,9 +38,10 @@ Date: 2026-04-18
   https://developers.openai.com/codex/skills
   https://developers.openai.com/codex/hooks
   https://developers.openai.com/codex/subagents
-- No new ecosystem signal in this refresh justifies reopening `clawteam`
-  after merge; the higher-value move is to advance the next bounded standards
-  lane on `presentation-builder`.
+- No new ecosystem signal in this refresh displaced the already-locked
+  `design-system` lane. The highest-value move remains: standardize the
+  canonical skill, keep the alias thin, and open the PR without widening into
+  another warning leader.
 
 Source links:
 
@@ -80,33 +84,36 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/46
 - PR `#47` for the `clawteam` standards lane merged at `2026-04-18T03:02:39Z`:
   https://github.com/akillness/oh-my-gods/pull/47
-- PR `#48` for the `presentation-builder` standards lane opened on
-  `2026-04-18`:
+- PR `#48` for the `presentation-builder` standards lane merged at
+  `2026-04-18T06:04:04Z`:
   https://github.com/akillness/oh-my-gods/pull/48
-  - Review status on `2026-04-18`: no comments, no reviews, and
-    `mergeStateStatus=CLEAN`
+  - Final live state on `2026-04-18`: `state=MERGED`
+- PR `#49` for the `design-system` standards lane opened on `2026-04-18`:
+  https://github.com/akillness/oh-my-gods/pull/49
 
 ## Audit snapshot
 
-- Focused validation for `.god-skills/presentation-builder/` now passes at
-  `0` errors and `0` warnings after the standards pass.
-- Repo-wide validation now sits at `0` errors and `20` warnings across
+- `presentation-builder` stays closed after merge; no duplicate work or new
+  standards gap justified reopening it in this run.
+- Focused validation for `.god-skills/design-system/` now passes at `0` errors
+  and `0` warnings after the standards pass.
+- Focused validation for `.god-skills/frontend-design-system/` now passes at
+  `0` errors and `0` warnings after the alias-thinning pass.
+- Repo-wide validation now sits at `0` errors and `16` warnings across
   `.god-skills/`.
-- `presentation-builder` still has a packaged reference surface and starter
-  eval coverage, and the post-open review found no duplicate work, missing
-  improvements, or new standardization gaps.
-- `skill-autoresearch` is still not justified for `presentation-builder`;
-  there are no measured behavioral failures yet, only the new baseline support
-  surface.
-- The unresolved warning leaders after opening PR `#48` are:
-  - `design-system` (`2`)
-  - `frontend-design-system` (`2`)
+- `design-system` now has a packaged reference surface and starter eval
+  coverage, and `frontend-design-system` is reduced to a thin compatibility
+  alias rather than a second full UI-system spec.
+- `skill-autoresearch` is still not justified for `design-system`; there are
+  no measured behavioral failures yet, only the new baseline support surface.
+- The unresolved warning leaders after merging PR `#48` are:
   - `langextract` (`2`)
   - `marketing-automation` (`2`)
   - `remotion-video-production` (`2`)
   - `video-production` (`2`)
-- The next survey target should not advance yet; PR `#48` should merge before
-  considering the two-warning cluster.
+- The next survey target should not advance yet; the next run should review PR
+  `#49` for duplicate work, missing improvements, or standardization gaps
+  before considering the remaining two-warning cluster.
 
 ## Target decisions
 
@@ -121,34 +128,40 @@ Source links:
 | `bmad-idea` | Merged via PR `#45` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `langchain-bmad` | Merged lane with packaged support surface | No | No | Added | Added | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
 | `clawteam` | Merged standards lane via PR `#47` | No | Existing `scripts/setup.sh` is enough | Existing references were enough | Existing evals were enough | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
-| `presentation-builder` | Merge-ready via PR `#48` after a clean review pass | No | No | Added | Added | Not yet | Merge PR `#48`; do not reopen unless feedback or failing evals appear |
+| `presentation-builder` | Merged via PR `#48` | No | No | Added | Added | Not yet | Keep closed unless feedback or failing evals appear |
+| `design-system` | PR `#49` open with standards pass committed | No | No | Added | Added | Not yet | Review the branch for duplicate work and merge only if the review stays clean |
+| `frontend-design-system` | Alias updated in PR `#49` | No | No | Points to canonical references | No separate eval package | Not yet | Keep thin unless review finds alias-specific routing drift |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean, eval-backed target shows real misses |
 
 ## Locked direction
 
-- `langchain-bmad` is closed via merged PR `#46`; do not reopen it unless new
-  review feedback or failing eval evidence appears.
-- `clawteam` is closed via merged PR `#47`; do not reopen it unless new review
-  feedback or failing eval evidence appears.
-- Do not widen the next run into the two-warning cluster unless review of PR
-  `#48` exposes a shared blocker.
-- Explicit support-surface decision for `presentation-builder`:
-  - `assets`: no
-  - `scripts`: no; the current lane does not need a reusable helper
-  - `references`: added via `references/slides-grab-workflow.md`
-  - `evals`: added via `evals/evals.json`
-- Do not start a mutation loop for `presentation-builder` unless a later
-  review or eval pass exposes measured failures that standards cleanup alone
-  does not fix.
-- The PR review is now clean; the lane should stay in `merge` until PR `#48`
-  lands or new reviewer feedback appears.
+- `presentation-builder` is closed via merged PR `#48`; do not reopen it
+  unless new review feedback or failing eval evidence appears.
+- Do not widen the next run into another warning leader unless review of PR
+  `#49` exposes a shared blocker.
+- Explicit support-surface decision for the next lane:
+  - `design-system`
+    - `assets`: no
+    - `scripts`: no; the lane stayed bounded without reusable automation
+    - `references`: added via `references/system-direction.md`
+    - `evals`: added via `evals/evals.json`
+  - `frontend-design-system`
+    - `assets`: no
+    - `scripts`: no
+    - `references`: no separate package; point to the canonical
+      `design-system` surface
+    - `evals`: no separate package while it stays a compatibility alias
+- Do not start a mutation loop for `design-system` or
+  `frontend-design-system` unless a later review or eval pass exposes measured
+  failures that standards cleanup alone does not fix.
+- If the PR review is clean on the next run, proceed directly to merge path.
 
 ## Current state
 
-- Current state: `presentation-builder` standards lane has passed review and is
-  ready to merge via PR `#48`
-- PR: https://github.com/akillness/oh-my-gods/pull/48
+- Current state: `design-system` standards lane is now opened for review via
+  PR `#49`
+- PR: https://github.com/akillness/oh-my-gods/pull/49
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` merge pass
-- Stage: `merge`
+- Next owner: next scheduled `nanoclaw_pd` PR review pass
+- Stage: `pr-open`
