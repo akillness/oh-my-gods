@@ -29,7 +29,7 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/51
 - PR `#52` for `marketing-automation` is merged:
   https://github.com/akillness/oh-my-gods/pull/52
-- PR `#53` for `agent-evaluation` is the merge target for this run:
+- PR `#53` for `agent-evaluation` is merged:
   https://github.com/akillness/oh-my-gods/pull/53
 
 ## Audit snapshot
@@ -48,7 +48,7 @@ Date: 2026-04-19
 |---|---|---|---|---|---|---|---|
 | `langextract` | Merged via PR `#51` after a bounded review follow-up | No | Existing helper refreshed | Added | Refreshed | No | Keep closed unless review feedback or new measured failures appear |
 | `marketing-automation` | Merged via PR `#52` after a bounded standards pass | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
-| `agent-evaluation` | Merge target PR `#53` | No | No | Added | Added | Not yet | Merge the lane, then keep it closed unless new measured failures appear |
+| `agent-evaluation` | Merged via PR `#53` | No | No | Added | Added | Not yet | Keep the lane closed unless review feedback or new measured failures appear |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -64,9 +64,8 @@ Date: 2026-04-19
 
 ## Current state
 
-- Current state: `agent-evaluation` standards lane is review-clean and queued
-  for merge
+- Current state: `agent-evaluation` standards lane is merged and closed
 - PR: https://github.com/akillness/oh-my-gods/pull/53
 - Blocker: none
-- Next owner: merge path on this run
+- Next owner: next scheduled survey refresh
 - Stage: `merge`

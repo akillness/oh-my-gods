@@ -6,7 +6,7 @@
   https://github.com/akillness/oh-my-gods/pull/51
 - PR `#52` for `marketing-automation` is merged:
   https://github.com/akillness/oh-my-gods/pull/52
-- PR `#53` for `agent-evaluation` is the merge target for this run:
+- PR `#53` for `agent-evaluation` is merged:
   https://github.com/akillness/oh-my-gods/pull/53
 - Repo-wide validation still sits at `80/80` passing skills before the new lane
   edits.
@@ -62,7 +62,7 @@ This order is locked because:
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `langextract` | Closed high-leverage lane | No | No | Existing script refreshed | Added | Refreshed | Keep closed unless later review feedback reopens it |
 | `marketing-automation` | Closed medium-high lane | No | No | No | Added | Added | Keep closed unless later review feedback reopens it |
-| `agent-evaluation` | Medium-high | Not yet | No | No | Added | Added | Review is clean; proceed to merge path unless a new bounded gap appears |
+| `agent-evaluation` | Medium-high | Not yet | No | No | Added | Added | Closed after PR `#53`; reopen only on review feedback or new measured failures |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 
@@ -80,9 +80,8 @@ This order is locked because:
 
 ## Current state
 
-- State: `agent-evaluation` standards lane is packaged, validated, and
-  review-clean
+- State: `agent-evaluation` standards lane is merged and closed
 - PR: https://github.com/akillness/oh-my-gods/pull/53
 - Blocker: none
-- Next owner: merge path on this run
+- Next owner: next scheduled survey refresh
 - Stage: `merge`
