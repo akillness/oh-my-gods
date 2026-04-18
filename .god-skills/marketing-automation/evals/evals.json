@@ -1,0 +1,36 @@
+{
+  "skill_name": "marketing-automation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We are launching a new SaaS workflow next month and need help with messaging, landing page copy, onboarding emails, and how to measure whether it worked. Use marketing-automation.",
+      "expected_output": "A Marketing Routing Brief that chooses one primary lane, returns a single implementation-ready packet, and includes KPI plus measurement logic.",
+      "assertions": [
+        "Output includes the heading 'Marketing Routing Brief'",
+        "Output includes a 'Chosen lane' section with one primary lane",
+        "Output includes a 'Primary KPI' or equivalent explicit KPI field",
+        "Output includes a 'Measurement checklist' section"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our homepage gets traffic but signups are flat. Help with conversion. Use marketing-automation.",
+      "expected_output": "A CRO-oriented routing brief with a measurement-aware experiment packet.",
+      "assertions": [
+        "Output selects CRO as the primary lane or clearly frames the work as conversion optimization",
+        "Output includes immediate next steps",
+        "Output includes at least one measurement signal such as conversion rate, CTA clicks, or signup completion"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We need a PRD and story map for a retention initiative, plus a growth hypothesis for what to test first. Use marketing-automation.",
+      "expected_output": "A brief that keeps the marketing portion scoped and hands the product planning work to pm-skills or an equivalent planning workflow.",
+      "assertions": [
+        "Output references pm-skills or an equivalent product-planning handoff",
+        "Output does not present the whole request as a normal pure marketing lane",
+        "Output leaves a short handoff rather than absorbing the full PRD and story-map workflow"
+      ]
+    }
+  ]
+}
