@@ -1,55 +1,44 @@
-# Cleanup Plan: finish the `bmad-idea` review lane and hand it to merge path
+# Cleanup Plan: review `langchain-bmad` and advance it to merge
 
 ## Goal
 
-Keep this run bounded to finishing the `bmad-idea` review lane without widening
-into the smaller three-warning cluster or reopening already-merged closed
-lanes.
+Review the bounded `langchain-bmad` PR lane for duplicate work, missing
+standardization fixes, or support-surface gaps. If the lane stays clean, apply
+only lifecycle-state updates and move the branch onto the merge path.
 
 ## Behavior lock
 
 - Keep this run focused on:
   - `.survey/llm-agent-skill-landscape/*`
-  - `.god-skills/bmad-idea/*`
-  - `docs/bmad-idea/README.md`
+  - `.god-skills/langchain-bmad/*`
 - Do not reopen the merged `agent-configuration`, `agent-workflow`,
   `agent-principles`, `agent-development-principles`, `git-workflow`,
-  `responsive-design`, `opencontext`, or `bmad` lanes unless measured failures
-  appear.
-- Do not widen this run into a repo-wide warning cleanup pass.
-- Do not touch queued lanes outside `bmad-idea` unless the PR review exposes a
-  shared blocker.
+  `responsive-design`, `opencontext`, `bmad`, or `bmad-idea` lanes unless
+  measured failures appear.
+- Do not widen this run into `clawteam` or `presentation-builder`; they are
+  next-lane decisions, not this branch's work.
 - Do not add scripts or assets unless review evidence proves a reusable
   deterministic helper or bundled template is required.
-
-## Packaging decisions
-
-- `bmad-idea`
-  - Assets: no
-  - Scripts: no by default; only add them if deterministic helper work is
-    clearly repeated
-  - References: added; review for duplicate or missing detail, not expansion
-  - Evals: added; keep them as the baseline before any mutation loop
-- `skill-autoresearch`
-  - Keep at triage only
-  - Do not start a mutation loop until post-merge review or later eval
-    evidence shows that `bmad-idea` still fails in measured ways
+- Do not start a `skill-autoresearch` mutation loop for `langchain-bmad`; this
+  review pass only validates the packaging slice and advances its lifecycle
+  state.
 
 ## Planned edits
 
-1. Review draft PR `#45` for duplicate work, missing improvements, or stale
-   packaging assumptions.
-2. Re-run the repo-wide validator and confirm the warning count still sits at
-   `29` with `bmad-idea` off the warning leaderboard.
-3. Apply one bounded follow-up patch only if the PR review exposes a real gap.
-4. If the review is clean, move the loop to merge path instead of reopening
-   survey for the same lane.
+1. Reuse the saved survey evidence and re-run focused standards validation on
+   `.god-skills/langchain-bmad/`.
+2. Re-run the repo-wide validator and confirm the branch warning total stays at
+   `26` without introducing new regressions.
+3. Review the diff against `main` and the live PR metadata to confirm the slice
+   remains bounded to `langchain-bmad` plus recurring survey state.
+4. If the review remains clean, update the durable lock files from `pr-open` to
+   `merge` and queue the next survey target instead of reopening the same lane.
 
 ## Verification
 
+- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/langchain-bmad`
 - Run
   `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
-- Confirm `opencontext` and `bmad` remain closed and do not need reopening
-- Review `bmad-idea` for duplicate work, missing standards structure, and
-  unjustified scripts or assets
-- Leave the repo in explicit `merge` state for the next owner
+- Check `gh pr view 46 --json state,isDraft,mergeStateStatus,mergeable,url`
+- Review `git diff --name-only origin/main...HEAD`
+- Keep the repo in explicit `merge` state for the next owner

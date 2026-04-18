@@ -22,8 +22,9 @@ In practice, teams mix a small set of reusable skill packages with
 platform-native orchestration controls. They still rely on manual review gates,
 explicit permissions, and targeted supporting files rather than one giant
 prompt for everything. Inference for this repo: that makes compact entrypoints
-plus eval-backed workflow skills the main leverage bottleneck while the largest
-remaining skills still exceed the 500-line guidance threshold.
+plus eval-backed workflow skills the main leverage bottleneck, especially for
+bridge skills that sit between a delivery workflow and a fast-moving framework
+ecosystem.
 
 ## Frequency Ranking
 
@@ -46,6 +47,10 @@ emphasis, not a usage telemetry measurement:
 - OpenAI Codex, Claude subagents, and Gemini extensions all reward concise
   reusable workflow packages, so packaging debt still blocks more leverage than
   prompt mutation on oversized skills in this repo.
+- Bridge skills that sit between two ecosystems are the most drift-prone when
+  they have no support files. `langchain-bmad` was the clearest example before
+  this run because it combined BMAD and LangChain guidance in one inline
+  surface with no `references/` or `evals/`.
 - Workflow skills still need careful review for hidden hard-coded assumptions,
   such as default remote/base names or destructive recovery shortcuts, even
   after they are packaged.
@@ -62,7 +67,7 @@ emphasis, not a usage telemetry measurement:
 The highest-value improvement is still not adding another broad skill first. It
 is upgrading workflow-critical existing skills into evaluation-ready,
 standards-compliant entrypoints so future iterations can optimize them one
-bounded mutation at a time. That is why the queue has now moved to draft PR
-`#45` for `bmad-idea` instead of opening a fresh `skill-autoresearch`
-experiment or widening into the remaining three-warning cluster before this
-ideation lane is reviewed.
+bounded mutation at a time. `bmad-idea` is now closed via merged PR `#45`, so
+the queue has advanced into `langchain-bmad`: a BMAD × LangChain bridge skill
+that needed progressive-disclosure references and eval coverage before any
+future mutation loop would be worth running.
