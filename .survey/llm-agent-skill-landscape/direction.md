@@ -34,29 +34,29 @@ The landscape signal remains stable after the latest review pass:
    stay compact.
 3. GitHub's new `gh skill` workflow further raises the value of portable,
    standards-clean skill directories.
-4. Inference for this repo: the next hourly pass should review the newly
-   opened `presentation-builder` PR before advancing the queue.
+4. Inference for this repo: the active `presentation-builder` PR has now been
+   reviewed cleanly, so the next hourly pass should merge it before advancing
+   the queue.
 5. The two-warning cluster matters, but it should stay queued until PR `#48`
-   is confirmed clean or merged.
+   is merged.
 
 ## Locked direction
 
 Advance one bounded lane per run, in this order:
 
-1. Review PR `#48` for duplicate work, missing improvements, or
-   standardization gaps on `presentation-builder`
-2. If the review is clean and scope remains satisfied, proceed to merge path
-3. Only after merge, reset the queue to the next bounded warning leader in the
+1. Merge PR `#48` for `presentation-builder`
+2. Only after merge, reset the queue to the next bounded warning leader in the
    two-warning cluster
-4. Revisit `skill-autoresearch` only after a review-clean, eval-backed target
+3. Revisit `skill-autoresearch` only after a review-clean, eval-backed target
    still shows measured failures
 
 This order is locked because:
 
 - PR `#48` is already open, so skipping straight to another target would
   create duplicate work and break the recurring loop contract.
-- `presentation-builder` now has the support surface it was missing, so the
-  next uncertainty is review quality, not local packaging debt.
+- `presentation-builder` now has the support surface it was missing and the
+  review pass found no new debt, so the next uncertainty is merge completion,
+  not local packaging work.
 - The remaining two-warning surfaces are legitimate follow-ups, but they do
   not outrank closing the active PR lane.
 
@@ -73,7 +73,7 @@ This order is locked because:
 | `bmad-idea` | High | Not yet | No | No | Added | Added | Keep closed after merge unless new evidence appears |
 | `langchain-bmad` | High | No | No | No | Added | Added | Keep closed after merged PR `#46`; do not reopen without new evidence |
 | `clawteam` | High | No | No | Existing script is enough | Existing references are enough | Existing evals are enough | Keep closed after merged PR `#47`; do not reopen without new evidence |
-| `presentation-builder` | High | Not yet | No | No | Added | Added | Review PR `#48`; merge if clean, otherwise apply one bounded follow-up |
+| `presentation-builder` | High | Not yet | No | No | Added | Added | Merge PR `#48`; only reopen if review feedback or failing evals appear |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review-clean target still misses objective checks |
 
@@ -86,13 +86,14 @@ This order is locked because:
 - Evals: added via `evals/evals.json`
 - Sections: standardized around `Instructions`, `Examples`, and `Best
   practices`
-- Skill-autoresearch: still deferred until review or eval evidence shows
-  measured misses after the standards pass
+- Skill-autoresearch: still deferred until post-merge review or eval evidence
+  shows measured misses after the standards pass
 
 ## Current state
 
-- State: `presentation-builder` standards lane is open for review
+- State: `presentation-builder` standards lane is merge-ready after a clean
+  review pass
 - PR: https://github.com/akillness/oh-my-gods/pull/48
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR review pass
-- Stage: `pr-open`
+- Next owner: next scheduled `nanoclaw_pd` merge pass
+- Stage: `merge`

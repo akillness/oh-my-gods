@@ -83,6 +83,8 @@ Source links:
 - PR `#48` for the `presentation-builder` standards lane opened on
   `2026-04-18`:
   https://github.com/akillness/oh-my-gods/pull/48
+  - Review status on `2026-04-18`: no comments, no reviews, and
+    `mergeStateStatus=CLEAN`
 
 ## Audit snapshot
 
@@ -90,9 +92,9 @@ Source links:
   `0` errors and `0` warnings after the standards pass.
 - Repo-wide validation now sits at `0` errors and `20` warnings across
   `.god-skills/`.
-- `presentation-builder` now has a packaged reference surface and starter eval
-  coverage, so the branch is ready for PR review instead of more local
-  standards cleanup.
+- `presentation-builder` still has a packaged reference surface and starter
+  eval coverage, and the post-open review found no duplicate work, missing
+  improvements, or new standardization gaps.
 - `skill-autoresearch` is still not justified for `presentation-builder`;
   there are no measured behavioral failures yet, only the new baseline support
   surface.
@@ -103,9 +105,8 @@ Source links:
   - `marketing-automation` (`2`)
   - `remotion-video-production` (`2`)
   - `video-production` (`2`)
-- The next survey target should not advance yet; the next run should review PR
-  `#48` for duplicate work, missing improvements, or standardization gaps
-  before considering the two-warning cluster.
+- The next survey target should not advance yet; PR `#48` should merge before
+  considering the two-warning cluster.
 
 ## Target decisions
 
@@ -120,7 +121,7 @@ Source links:
 | `bmad-idea` | Merged via PR `#45` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `langchain-bmad` | Merged lane with packaged support surface | No | No | Added | Added | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
 | `clawteam` | Merged standards lane via PR `#47` | No | Existing `scripts/setup.sh` is enough | Existing references were enough | Existing evals were enough | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
-| `presentation-builder` | PR `#48` open with standards pass committed | No | No | Added | Added | Not yet | Review the branch for duplicate work and merge only if the review stays clean |
+| `presentation-builder` | Merge-ready via PR `#48` after a clean review pass | No | No | Added | Added | Not yet | Merge PR `#48`; do not reopen unless feedback or failing evals appear |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean, eval-backed target shows real misses |
 
@@ -140,13 +141,14 @@ Source links:
 - Do not start a mutation loop for `presentation-builder` unless a later
   review or eval pass exposes measured failures that standards cleanup alone
   does not fix.
-- If the PR review is clean on the next run, proceed directly to merge path.
+- The PR review is now clean; the lane should stay in `merge` until PR `#48`
+  lands or new reviewer feedback appears.
 
 ## Current state
 
-- Current state: `presentation-builder` standards lane is now opened for
-  review via PR `#48`
+- Current state: `presentation-builder` standards lane has passed review and is
+  ready to merge via PR `#48`
 - PR: https://github.com/akillness/oh-my-gods/pull/48
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR review pass
-- Stage: `pr-open`
+- Next owner: next scheduled `nanoclaw_pd` merge pass
+- Stage: `merge`
