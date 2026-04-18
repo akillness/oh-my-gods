@@ -76,8 +76,8 @@ This order is locked because:
 
 ## Current state
 
-- State: `agent-evaluation` selected as the next bounded standards lane
-- PR: not opened yet on this run
+- State: `agent-evaluation` standards lane packaged and awaiting review
+- PR: https://github.com/akillness/oh-my-gods/pull/53
 - Blocker: none
-- Next owner: current scheduled `nanoclaw_pd` improvement pass
-- Stage: `improvement`
+- Next owner: next scheduled `nanoclaw_pd` PR review pass
+- Stage: `PR-open`

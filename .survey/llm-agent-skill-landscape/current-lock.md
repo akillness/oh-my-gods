@@ -61,8 +61,9 @@ Date: 2026-04-19
 
 ## Current state
 
-- Current state: `agent-evaluation` standards lane in progress
-- PR: not opened yet on this run
+- Current state: `agent-evaluation` standards lane packaged and waiting for PR
+  review
+- PR: https://github.com/akillness/oh-my-gods/pull/53
 - Blocker: none
-- Next owner: current scheduled `nanoclaw_pd` implementation pass
-- Stage: `improvement`
+- Next owner: next scheduled `nanoclaw_pd` PR review pass
+- Stage: `PR-open`
