@@ -157,16 +157,17 @@ Source links:
   `remotion-video-production` unless PR review or later eval evidence exposes
   measured failures that the standards pass did not solve.
 - PR review on `#50` found one bounded follow-up in the canonical
-  `video-production` example snippet; after fixing it, the lane is ready for
-  merge instead of another review cycle.
-- The next queued lane after merge remains `langextract`, unless post-merge
-  evidence reopens the video lane.
+  `video-production` example snippet; that fix is merged in commit
+  `8a92794`, so this lane is now closed.
+- The next queued lane remains `langextract`, unless new post-merge evidence
+  reopens the video lane.
 
 ## Current state
 
-- Current state: the duplicate video lane has completed PR review, received one
-  bounded follow-up fix, and is now ready for merge
+- Current state: the duplicate video lane is merged and closed after one
+  bounded PR-review fix
 - PR: https://github.com/akillness/oh-my-gods/pull/50
 - Blocker: none
-- Next owner: current `nanoclaw_pd` merge pass
+- Next owner: next scheduled `nanoclaw_pd` survey/improvement pass for
+  `langextract`
 - Stage: `merge`
