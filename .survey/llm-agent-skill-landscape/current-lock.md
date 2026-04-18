@@ -146,8 +146,7 @@ Source links:
 
 - Current state: `clawteam` is the active bounded standards lane on branch
   `chore/skill-loop-pr-open-20260418-r49`
-- PR: not opened yet on this branch
+- PR: https://github.com/akillness/oh-my-gods/pull/47
 - Blocker: none
-- Next owner: skill editor for the `clawteam` standards pass, then PR owner
-  once the validation delta is clean
-- Stage: `improvement`
+- Next owner: PR reviewer for the bounded `clawteam` lane
+- Stage: `pr-open`

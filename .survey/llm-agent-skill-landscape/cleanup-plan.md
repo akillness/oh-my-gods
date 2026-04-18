@@ -33,7 +33,7 @@ survey-state rollover needed for the recurring loop.
 4. Re-run the repo-wide validator and confirm the total warning count drops by
    the expected `3` without introducing new regressions.
 5. Keep the branch explicitly on the next bounded lane so the following run can
-   either open the GitHub PR or review the draft cleanly.
+   review draft PR `#47` cleanly instead of reopening survey work.
 
 ## Verification
 
@@ -41,4 +41,5 @@ survey-state rollover needed for the recurring loop.
 - Run
   `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
 - Review `git diff --name-only origin/main...HEAD`
-- Keep the repo in explicit `improvement` or `pr-open` state for the next owner
+- Check `gh pr view 47 --json state,isDraft,mergeStateStatus,mergeable,url`
+- Keep the repo in explicit `pr-open` state for the next owner

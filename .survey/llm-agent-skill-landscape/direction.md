@@ -95,7 +95,7 @@ This order is locked because:
 
 - State: `clawteam` is the active bounded standards lane on branch
   `chore/skill-loop-pr-open-20260418-r49`
-- PR: not opened yet on this branch
+- PR: https://github.com/akillness/oh-my-gods/pull/47
 - Blocker: none
-- Next owner: skill editor, then PR owner once the validator delta is clean
-- Stage: `improvement`
+- Next owner: PR reviewer, then merge owner if the review stays clean
+- Stage: `pr-open`
