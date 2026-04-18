@@ -36,9 +36,10 @@ Date: 2026-04-18
   https://developers.openai.com/codex/hooks
   https://developers.openai.com/codex/subagents
 - No new ecosystem signal in this refresh displaced the next duplicate-surface
-  leader. The highest-value move now is: standardize `video-production` as the
-  canonical video skill, keep `remotion-video-production` thin unless it proves
-  distinct behavior, and avoid widening into unrelated warning leaders.
+  leader. That direction has now been executed in this run: `video-production`
+  is the canonical video skill, `remotion-video-production` is a thin
+  compatibility alias, and the lane is ready for PR review instead of broader
+  widening.
 
 Source links:
 
@@ -84,26 +85,34 @@ Source links:
 - PR `#49` for the `design-system` standards lane merged at
   `2026-04-18T08:03:07Z`:
   https://github.com/akillness/oh-my-gods/pull/49
+- PR `#50` for the duplicate video lane is now open:
+  https://github.com/akillness/oh-my-gods/pull/50
 
 ## Audit snapshot
 
 - `design-system` and `frontend-design-system` stay closed after merge; no
   duplicate work or new standards gap justified reopening them in this run.
-- Repo-wide validation still passes at `80/80` skills after the merge of
-  PR `#49`.
-- `design-system` now has a packaged reference surface and starter eval
-  coverage, and `frontend-design-system` is reduced to a thin compatibility
-  alias rather than a second full UI-system spec.
-- `skill-autoresearch` is still not justified for `design-system`; there are
-  no measured behavioral failures yet, only the new baseline support surface.
-- The unresolved warning leaders after merging PR `#49` are:
+- Repo-wide validation still passes at `80/80` skills, and total repo warnings
+  dropped from `16` to `12` after the video-lane cleanup.
+- `video-production` now has a packaged reference surface and starter eval
+  coverage, and `remotion-video-production` is reduced to a thin compatibility
+  alias rather than a second full spec.
+- `skill-autoresearch` is still not justified for the video lane; the
+  standards pass removed the objective warning pattern without leaving measured
+  failures in the new eval surface.
+- The current unresolved warning leaders after opening PR `#50` are:
   - `langextract` (`2`)
   - `marketing-automation` (`2`)
-  - `remotion-video-production` (`2`)
-  - `video-production` (`2`)
-- The queue no longer has open-PR debt. The next run should stay bounded to
-  the duplicate video pair before considering `langextract` or
-  `marketing-automation`.
+  - `agent-evaluation` (`1`)
+  - `fabric` (`1`)
+  - `pm-skills` (`1`)
+  - `ralphmode` (`1`)
+  - `react-best-practices` (`1`)
+  - `vercel-deploy` (`1`)
+  - `vercel-react-best-practices` (`1`)
+  - `web-design-guidelines` (`1`)
+- The queue now has open-PR debt again. The next run should review PR `#50`
+  before widening to another lane.
 
 ## Target decisions
 
@@ -121,8 +130,8 @@ Source links:
 | `presentation-builder` | Merged via PR `#48` | No | No | Added | Added | Not yet | Keep closed unless feedback or failing evals appear |
 | `design-system` | Merged via PR `#49` | No | No | Added | Added | Not yet | Keep closed unless feedback or failing evals appear |
 | `frontend-design-system` | Alias merged via PR `#49` | No | No | Points to canonical references | No separate eval package | Not yet | Keep thin unless later routing drift appears |
-| `video-production` | Next bounded warning leader | No | No | Likely yes | Likely yes | Not yet | Standardize the canonical skill before opening the next PR path |
-| `remotion-video-production` | Duplicate peer surface with `video-production` | No | No | Likely point to canonical references | No separate eval package while alias stays thin | Not yet | Collapse into a compatibility alias unless the audit proves distinct behavior |
+| `video-production` | PR `#50` open as canonical lane | No | No | Added | Added | No; the standards pass removed the objective validator failures | Review the PR for duplicate work or missing route-outs before merge |
+| `remotion-video-production` | Alias lane in PR `#50` | No | No | Points to canonical references | No separate eval package while alias stays thin | No | Keep thin unless review proves a distinct workflow |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean, eval-backed target shows real misses |
 
@@ -132,32 +141,30 @@ Source links:
   closed via merged PRs `#48` and `#49`; do not reopen them unless new review
   feedback or failing eval evidence appears.
 - Do not widen the next run into `langextract` or `marketing-automation`
-  unless the duplicate video lane exposes a shared blocker.
-- Explicit support-surface decision for the next lane:
+  unless PR `#50` review exposes a blocker that prevents the merge path.
+- Explicit support-surface decision for the open video lane:
   - `video-production`
     - `assets`: no
-    - `scripts`: no; the likely value is trigger cleanup and support packaging,
-      not new automation
-    - `references`: likely yes; extract the reusable spec and validation brief
-      into progressive disclosure if the standards pass stays bounded
-    - `evals`: likely yes; add a concrete trigger/boundary surface
+    - `scripts`: no
+    - `references`: added via `references/video-direction.md`
+    - `evals`: added via `evals/evals.json`
   - `remotion-video-production`
     - `assets`: no
     - `scripts`: no
     - `references`: no separate package while it stays a compatibility alias
-    - `evals`: no separate package unless the audit proves distinct behavior
+    - `evals`: no separate package unless review proves distinct behavior
 - Do not start a mutation loop for `video-production` or
-  `remotion-video-production` unless a later review or eval pass exposes
-  measured failures that standards cleanup alone does not fix.
-- The next run should enter `survey`/`improvement` mode on the duplicate video
-  lane, open a PR path only after the bounded support-surface decision is
-  committed, and then repeat the review-then-merge cycle.
+  `remotion-video-production` unless PR review or later eval evidence exposes
+  measured failures that the standards pass did not solve.
+- The next run should enter `PR-review` mode on PR `#50`, check for duplicate
+  work, missing improvements, or alias drift, and only then choose merge or
+  one more bounded update.
 
 ## Current state
 
-- Current state: `design-system` standards lane is merged and the queue is
-  reset to the next bounded survey target
-- PR: https://github.com/akillness/oh-my-gods/pull/49
+- Current state: the duplicate video lane is standardized and waiting for PR
+  review
+- PR: https://github.com/akillness/oh-my-gods/pull/50
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` survey/improvement pass
-- Stage: `survey`
+- Next owner: next scheduled `nanoclaw_pd` PR-review pass
+- Stage: `PR-open`

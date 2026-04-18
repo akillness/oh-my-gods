@@ -24,11 +24,14 @@
   https://github.com/akillness/oh-my-gods/pull/48
 - PR `#49` for the `design-system` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/49
-- Repo-wide validation still sits at `80/80` passing skills after the
-  `design-system` merge.
-- `design-system` and `frontend-design-system` are now closed; the remaining
-  warning leaders are `langextract`, `marketing-automation`,
-  `remotion-video-production`, and `video-production`.
+- PR `#50` for the duplicate video lane is now open:
+  https://github.com/akillness/oh-my-gods/pull/50
+- Repo-wide validation still sits at `80/80` passing skills, and total repo
+  warnings dropped from `16` to `12` after the video-lane cleanup.
+- `design-system` and `frontend-design-system` are now closed, and the
+  duplicate video pair has been removed from the warning leaders. The
+  remaining leading warnings are `langextract` and
+  `marketing-automation`.
 
 ## Survey refresh
 
@@ -41,12 +44,13 @@ The landscape signal remains stable after the latest merge pass:
    stay compact.
 3. GitHub's `gh skill` workflow still raises the value of portable,
    standards-clean skill directories.
-4. Inference for this repo: the next highest-value move is a bounded
-   canonicalization pass on `video-production` plus
-   `remotion-video-production`, because they still present as duplicate peers
-   instead of canonical skill plus compatibility alias.
-5. `langextract` remains a credible follow-up, but it already ships scripts and
-   evals, so its support-surface gap is less severe than the video pair.
+4. Inference for this repo: the bounded canonicalization pass on
+   `video-production` plus `remotion-video-production` was the right next
+   move, because the duplicate peer surface is now gone and the repo warning
+   count dropped immediately.
+5. `langextract` remains the strongest follow-up after PR `#50` review because
+   it still leads the remaining warning queue and already ships scripts/evals
+   that can support a bounded standards pass.
 
 ## Locked direction
 
@@ -54,10 +58,9 @@ Advance one bounded lane per run, in this order:
 
 1. Keep `presentation-builder`, `design-system`, and
    `frontend-design-system` closed after merged PRs `#48` and `#49`
-2. Standardize `video-production` as the canonical video workflow surface
-3. Thin `remotion-video-production` into a compatibility alias unless the next
-   audit proves it needs distinct behavior
-4. Add only the support files the bounded lane actually needs
+2. Review PR `#50` for duplicate work, missing improvements, or alias drift
+3. Merge the video lane if the review is clean
+4. Move next to `langextract` unless PR review exposes a blocker
 5. Revisit `skill-autoresearch` only after a review-clean, eval-backed target
    still shows measured failures
 
@@ -87,8 +90,8 @@ This order is locked because:
 | `presentation-builder` | High | No | No | No | Added | Added | Keep closed after merged PR `#48`; only reopen if review feedback or failing evals appear |
 | `design-system` | High | No | No | No | Added | Added | Keep closed after merged PR `#49`; only reopen if review feedback or failing evals appear |
 | `frontend-design-system` | High as alias support | No | No | No | Points to canonical references | No separate eval package | Keep closed as a thin alias unless routing drift appears |
-| `video-production` | High | Not yet | No | No | Likely yes | Likely yes | Standardize the canonical surface before any mutation loop |
-| `remotion-video-production` | High as alias candidate | Not yet | No | No | Likely point to canonical references | No separate package while alias stays thin | Convert to a compatibility alias unless audit proves a distinct workflow |
+| `video-production` | High | No; standards pass resolved the measured warnings | No | No | Added | Added | Review PR `#50` and merge if no duplicate work remains |
+| `remotion-video-production` | High as alias candidate | No | No | No | Points to canonical references | No separate package while alias stays thin | Keep as a compatibility alias unless review proves distinct behavior |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review-clean target still misses objective checks |
 
@@ -107,29 +110,25 @@ This order is locked because:
     - References: no separate package; point at the canonical skill
     - Evals: no separate package while it remains an alias
     - Skill-autoresearch: still deferred unless alias-specific routing drift appears
-- Next lane: `video-production` + `remotion-video-production`
+- Current open lane: `video-production` + `remotion-video-production`
   - `video-production`
     - Assets: no
-    - Scripts: no; the likely value is trigger cleanup and support packaging,
-      not new automation
-    - References: likely yes; extract the reusable video-spec and validation
-      brief into progressive disclosure if the standards pass stays bounded
-    - Evals: likely yes; the lane currently lacks a concrete trigger/boundary
-      test surface
+    - Scripts: no
+    - References: added via `references/video-direction.md`
+    - Evals: added via `evals/evals.json`
   - `remotion-video-production`
     - Assets: no
     - Scripts: no
     - References: no separate package while it stays an alias; point to the
       canonical skill
-    - Evals: no separate package unless the audit proves a distinct workflow
-  - Skill-autoresearch: not justified before the standards pass proves whether
-    the duplicate surface can be collapsed cleanly
+    - Evals: no separate package unless review proves a distinct workflow
+  - Skill-autoresearch: not justified; the standards pass resolved the measured
+    warning pattern without leaving objective misses
 
 ## Current state
 
-- State: `design-system` standards lane is merged; queue reset for the next
-  bounded survey target
-- PR: https://github.com/akillness/oh-my-gods/pull/49
+- State: duplicate video lane standardized and registered for review
+- PR: https://github.com/akillness/oh-my-gods/pull/50
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` survey/improvement pass
-- Stage: `survey`
+- Next owner: next scheduled `nanoclaw_pd` PR-review pass
+- Stage: `PR-open`
