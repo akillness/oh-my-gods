@@ -1,22 +1,23 @@
 N:presentation-builder
-D:Build editable presentations with slides-grab. Plan a deck, generate HTML slides, review visually, then export approved decks to PPTX or PDF.
+D:Build real presentation artifacts with slides-grab when the user needs an editable deck, visual iteration, and PPTX/PDF handoff after approval.
 G:presentation slides-grab pptx pdf html-slides slide-editor storytelling
 
 U[3]:
   Create a real presentation artifact — not just an outline
-  Iterate visually on HTML slides before export
-  Export approved decks to PPTX/PDF from a stable deck workspace
-S[5]{n,action,details}:
-  1,Preflight,Install slides-grab + Playwright Chromium and verify CLI help with Node.js 18+
-  2,Plan,Create slide-outline.md with audience·goal·tone·slide titles·key messages and get approval
-  3,Generate Slides,Create self-contained slide-*.html files in decks/<deck-name>/
-  4,Review Validate,Run build-viewer·validate·edit and iterate visually until approved
-  5,Export,Run slides-grab convert/pdf and report artifact paths + remaining manual polish items
+  Iterate visually on HTML slides from a stable deck workspace
+  Export approved decks to PPTX/PDF only after review
+S[6]{n,action,details}:
+  1,Confirm Artifact,Use this skill only when the user needs a real deck and lock Plan -> Design -> Review -> Export order
+  2,Preflight,Reuse or install slides-grab + Playwright Chromium and verify CLI help with Node.js 18+
+  3,Plan,Create slide-outline.md with audience·goal·tone·slide titles·key messages and get approval
+  4,Generate Slides,Create self-contained slide-*.html files in decks/<deck-name>/ and keep media under assets/
+  5,Review Validate,Run build-viewer·validate·edit and iterate visually until approved
+  6,Export,Run slides-grab convert/pdf and report artifact paths + validation status while treating PPTX as best-effort
 R[4]:
   Follow Plan -> Design -> Review -> Export order
   Do not export before user approval
   Fix HTML/CSS source when conversion fails
-  Reuse the same deck directory across revisions
+  Reuse the same deck directory across revisions and keep local assets portable
 E[3]{desc,in,out}:
   "Investor Deck","Turn this brief into a 10-slide investor deck in decks/series-a and show the outline first","Approved outline + slide HTML + PPTX/PDF export"
   "Product Launch Deck","Create an 8-slide enterprise launch deck with technical tone using slides-grab","Deck workspace + validated viewer + export artifacts"

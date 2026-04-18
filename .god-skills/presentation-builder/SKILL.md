@@ -1,6 +1,13 @@
 ---
 name: presentation-builder
-description: Build editable presentations with slides-grab. Use when creating slide decks as HTML slides, iterating visually in a browser, and exporting approved decks to PPTX or PDF.
+description: >
+  Build real presentation artifacts when the user needs an editable deck rather
+  than just an outline: investor decks, roadmap reviews, launch decks,
+  architecture/demo decks, and workshop decks. Use when the workflow needs
+  slide planning, visual iteration, and export or handoff to PPTX/PDF after
+  approval. Triggers on: slide deck, presentation, pitch deck, launch deck,
+  roadmap deck, investor deck, architecture review deck, demo deck, workshop
+  slides, keynote, presentation builder.
 allowed-tools: Bash Read Write Grep Glob WebFetch
 metadata:
   tags: presentation, slides-grab, pptx, pdf, html-slides, slide-editor, storytelling
@@ -17,8 +24,25 @@ Use `slides-grab` when the user needs a real slide deck artifact, not just an ou
 - Iterate on slide design visually instead of editing raw PPT manually
 - Export approved decks to `.pptx` or `.pdf`
 - Maintain multi-deck workspaces under `decks/<deck-name>/`
+- Revise an existing deck while keeping a stable HTML workspace
 
-## Preflight
+## Instructions
+
+### Step 1: Confirm the artifact and stage order
+
+Use `presentation-builder` only when the user needs a real deck artifact.
+Route outline-only or notes-only requests elsewhere.
+
+Lock the stage order before doing work:
+
+1. Plan
+2. Design
+3. Review
+4. Export
+
+Do not skip directly to export.
+
+### Step 2: Preflight the toolchain
 
 Install and verify `slides-grab` before authoring:
 
@@ -34,9 +58,10 @@ Minimum requirement: `Node.js >= 18`.
 
 If `slides-grab` is already available in the current project, reuse the existing install instead of cloning again.
 
-## Workflow
+Load `references/slides-grab-workflow.md` when the user needs the npm install
+path, asset contract, or export caveats.
 
-### 1. Plan the deck
+### Step 3: Plan the deck
 
 Collect:
 
@@ -53,9 +78,10 @@ Create a concise outline, usually `slide-outline.md`, with:
 - key message
 - required visuals/data
 
-Do not move to slide generation until the outline is approved.
+Do not move to slide generation until the outline is approved when the user
+wants a full deck workflow.
 
-### 2. Generate slide HTML
+### Step 4: Generate slide HTML
 
 Use a dedicated workspace such as `decks/<deck-name>/`.
 
@@ -76,7 +102,10 @@ Rules:
 - inline only the assets/styles the deck actually needs
 - keep speaker notes or rationale outside slide body when possible
 
-### 3. Build and review
+Saved slides should reference local media under `decks/<deck-name>/assets/`
+instead of remote URLs or absolute filesystem paths.
+
+### Step 5: Build and review
 
 After generating or editing slides:
 
@@ -93,7 +122,7 @@ slides-grab edit --slides-dir decks/<deck-name>
 
 Use the editor to select a region, request changes, and revise the corresponding HTML until the deck is approved.
 
-### 4. Export artifacts
+### Step 6: Export artifacts
 
 Only export after the design is approved.
 
@@ -108,28 +137,27 @@ Report:
 - validation status
 - any slides that still need manual polish
 
-## Core commands
+Treat PPTX export as best-effort output and fix source HTML/CSS when conversion
+or layout quality fails. Do not patch exported binaries.
 
-```bash
-slides-grab edit
-slides-grab build-viewer
-slides-grab validate
-slides-grab convert
-slides-grab pdf
-slides-grab list-templates
-slides-grab list-themes
+## Examples
+
+### Example 1: Investor deck
+
+```text
+Turn this product brief into a 10-slide investor deck.
+Use slides-grab, show me the outline first, then generate the deck in
+decks/series-a.
 ```
 
-All commands support `--slides-dir <path>`.
+Expected behavior:
 
-## Guardrails
+- outline before slide generation
+- stable `decks/series-a/` workspace
+- review before export
+- PPTX/PDF export only after approval
 
-- Follow the stage order: Plan -> Design -> Review -> Export
-- Do not export a deck the user has not approved
-- Fix source HTML/CSS when validation or conversion fails; do not patch exported binaries
-- Reuse the same deck directory through revisions to preserve stable iteration history
-
-## Example prompts
+### Example 2: Enterprise launch deck
 
 ```text
 Create an 8-slide enterprise product deck in decks/acme-launch.
@@ -138,12 +166,40 @@ Tone: confident, clean, technical.
 Need PPTX and PDF exports after approval.
 ```
 
+Expected behavior:
+
+- plan the deck structure
+- generate `slide-*.html` files
+- run validation and browser review
+- report artifact paths after export
+
+### Example 3: Revise an existing deck
+
 ```text
-Turn this product brief into a 10-slide investor deck.
-Use slides-grab, show me the outline first, then generate the deck in decks/series-a.
+Update decks/q2-review visuals, validate the deck, let me review it in the
+browser editor, then re-export PDF and PPTX.
 ```
+
+Expected behavior:
+
+- reuse the existing deck workspace
+- fix HTML/CSS or local assets first
+- validate before export
+- treat PPTX as best-effort if layout drift remains
+
+## Best practices
+
+1. Keep the entrypoint focused on route selection and stage order; load the
+   reference file only when install or asset detail is needed.
+2. Reuse the same deck directory through revisions to preserve stable
+   iteration history.
+3. Validate decks before export so missing assets or broken HTML fail early.
+4. Prefer local deck assets and keep remote media out of saved slide HTML.
+5. Treat PPTX and Figma export as best-effort handoff formats, not the source
+   of truth.
 
 ## References
 
-- Source repo: `https://github.com/vkehfdl1/slides-grab`
-- Key workflow from upstream: plan -> design -> visual edit -> export
+- slides-grab repo: `https://github.com/vkehfdl1/slides-grab`
+- Repo-local reference: `references/slides-grab-workflow.md`
+- Upstream workflow: `Plan -> Design -> Edit -> Export`
