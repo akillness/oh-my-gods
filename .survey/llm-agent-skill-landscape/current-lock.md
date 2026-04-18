@@ -1,6 +1,6 @@
 # Current Lock
 
-Date: 2026-04-18
+Date: 2026-04-19
 
 ## Survey refresh
 
@@ -25,28 +25,28 @@ Date: 2026-04-18
 
 ## Live GitHub state
 
-- PR `#50` for `video-production` is merged:
-  https://github.com/akillness/oh-my-gods/pull/50
 - PR `#51` for `langextract` is merged:
   https://github.com/akillness/oh-my-gods/pull/51
-- PR `#52` for `marketing-automation` is open:
+- PR `#52` for `marketing-automation` is merged:
   https://github.com/akillness/oh-my-gods/pull/52
 
 ## Audit snapshot
 
-- Repo-wide validation still passes at `80/80` skills.
-- `marketing-automation` was the next bounded target because it remained a
-  broad router with weak trigger wording, no `references/`, and no `evals/`.
-- The active branch now packages `marketing-automation` as a canonical router,
-  adds two focused reference files, and adds a three-prompt eval surface.
+- Repo-wide validation still passes at `80/80` skills before this run's edits.
+- `marketing-automation` is closed after PR `#52` merged, so the loop should
+  not keep re-reviewing that lane.
+- `agent-evaluation` is the next bounded target because it remains a large
+  inline skill with weak progressive-disclosure packaging: no `references/`
+  surface, no skill-local evals, and too much operational detail in the main
+  entrypoint.
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `video-production` | Merged canonical lane via PR `#50` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `langextract` | Merged via PR `#51` after a bounded review follow-up | No | Existing helper refreshed | Added | Refreshed | No | Keep closed unless review feedback or new measured failures appear |
-| `marketing-automation` | PR `#52` open with bounded standards pass | No | No | Added on branch | Added on branch | Not yet | Review PR `#52`; merge if clean, otherwise apply bounded review fixes |
+| `marketing-automation` | Merged via PR `#52` after a bounded standards pass | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
+| `agent-evaluation` | New standards lane for this run | No | No | Needed | Needed | Not yet | Package the missing support surface, validate, and open the PR |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -54,16 +54,15 @@ Date: 2026-04-18
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Keep the active run centered on PR `#52` until review confirms the
-  `marketing-automation` boundary is clean.
-- Do not start a `skill-autoresearch` mutation loop for `marketing-automation`
+- Keep the active run centered on `agent-evaluation` until the standards
+  package is reviewable and the PR path is opened.
+- Do not start a `skill-autoresearch` mutation loop for `agent-evaluation`
   unless later review feedback or eval evidence exposes a real measured miss.
 
 ## Current state
 
-- Current state: `marketing-automation` standards lane packaged and waiting for
-  PR review
-- PR: https://github.com/akillness/oh-my-gods/pull/52
+- Current state: `agent-evaluation` standards lane in progress
+- PR: not opened yet on this run
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR review pass
-- Stage: `PR-open`
+- Next owner: current scheduled `nanoclaw_pd` implementation pass
+- Stage: `improvement`

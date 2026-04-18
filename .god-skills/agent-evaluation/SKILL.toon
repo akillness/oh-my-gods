@@ -1,25 +1,28 @@
 N:agent-evaluation
-D:Design and implement comprehensive evaluation systems for AI agents. Use when building evals for ...
-G:agent-evaluation evals AI-agents benchmarks graders
-U[7]:
-  Designing evaluation systems for AI agents
-  Building benchmarks for coding, conversational, or research 
-  Creating graders (code-based, model-based, human)
-  Implementing production monitoring for AI systems
-  Setting up CI/CD pipelines with automated evals
-S[13]{n,action}:
-  1,Understand Grader Types
-  2,Choose Strategy by Agent Type
-  3,Follow the 8-Step Roadmap
-  0,Start Early (20-50 Tasks)
-  1,Convert Manual Tests
-  2,Ensure Clarity + Reference Solutions
-  3,Balance Positive/Negative Cases
-  4,Isolate Environments
+D:Design evaluation systems for AI agents by choosing grader mix, benchmark shape, harness boundaries, and production feedback loops. Use when the user needs eval planning for coding, research, conversational, or computer-use agents, not when they simply need the feature fixed.
+G:agent-evaluation evals benchmark grader harness regression suite quality monitoring red-team online evals
+U[5]:
+  Need an eval plan for a coding, research, conversational, or computer-use agent
+  Need to choose code-based, model-based, or human graders
+  Need an offline benchmark, regression gate, or launch-readiness eval packet
+  Need CI or production monitoring logic for agent quality
+  Need to diagnose saturation, drift, or benchmark gaming
+S[6]{n,action,details}:
+  1,Classify surface,Capture agent_type·decision_to_make·primary_risk·environment·available evidence·constraints
+  2,Choose grader stack,Pick code-based vs model-based vs human review with a named primary grader and escalation path
+  3,Design suite,Define task families·positive/negative/edge balance·success dimensions·benchmark sources
+  4,Define harness,Specify environment·reset strategy·timeouts·transcript capture·PR-vs-nightly lanes
+  5,Add operations,State production sampling·alert thresholds·human review path·saturation or drift checks
+  6,Return packet,Produce one structured Agent Evaluation Plan with immediate next steps
 R[6]:
-  **Pros**
-  **Cons**
-  **Best for**
-  **Pros**
-  **Cons**
-  **Best for**
+  Start from the decision the eval must support
+  Prefer outcome checks over path-matching
+  Use transcript review for debugging and recalibration
+  Separate deterministic PR checks from slower scheduled lanes
+  Promote real incidents into frozen regression tasks
+  Route feature implementation or flaky-suite repair to other skills
+E[4]{desc,in,out}:
+  "Coding agent gate","Design an eval plan for a coding agent that edits a repo and should only ship changes when tests and builds pass","Coding-agent evaluation plan with code-based grading, build-test gates, transcript capture, and CI-vs-nightly split"
+  "Research grounding","How should we evaluate a research agent that writes sourced briefs before launch?","Research-agent evaluation plan with grounding, coverage, source quality, and verification dimensions"
+  "Support chatbot monitoring","Set up a benchmark and monitoring approach for a support chatbot where empathy matters and escalation handling must stay reliable","Conversational-agent evaluation plan with structured rubric, escalation metrics, production sampling, and calibration path"
+  "Boundary check","Our flaky pytest suite needs to be fixed. Can agent-evaluation handle that?","Routes repair work to backend-testing or debugging instead of pretending an eval plan alone fixes the suite"
