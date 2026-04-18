@@ -1,0 +1,45 @@
+{
+  "skill_name": "design-system",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We need one visual language for our landing page, dashboard, and signup flow before we keep polishing screens one by one. Can you define the design system direction?",
+      "expected_output": "A design-system response that treats the request as shared visual-system work, defines tokens or governance, and frames cross-surface consistency before isolated screen polish.",
+      "assertions": [
+        "The response identifies `design-system` as the correct surface for a shared visual-language request",
+        "The response includes token, visual-language, or page-system guidance rather than only one-page mockup advice",
+        "The response treats landing page, dashboard, and form consistency as a system problem instead of separate ad hoc screens"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our product feels inconsistent across marketing and app surfaces. I want a token policy, typography hierarchy, and motion rules that engineers can reuse.",
+      "expected_output": "A system-level answer that defines a reusable token and handoff policy and keeps the scope at design-system level.",
+      "assertions": [
+        "The response includes semantic token or governance guidance",
+        "The response mentions reusable handoff expectations for engineers",
+        "The response keeps motion and typography inside a shared system rather than treating them as isolated decorations"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I only need a reusable modal API with slots, controlled props, and a compound component pattern. Is design-system the right skill?",
+      "expected_output": "A boundary-aware answer that routes the request to `ui-component-patterns` rather than overusing design-system.",
+      "assertions": [
+        "The response does not keep component API design inside `design-system` by default",
+        "The response routes reusable modal API work to `ui-component-patterns`",
+        "The response explains that the request is about component architecture more than visual-system governance"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "The running app only has keyboard trap and contrast issues in one modal. Should I use design-system or something else?",
+      "expected_output": "A boundary-aware answer that routes accessibility-only remediation to `web-accessibility`.",
+      "assertions": [
+        "The response does not force `design-system` for accessibility-only remediation",
+        "The response routes the request to `web-accessibility`",
+        "The response distinguishes system-level visual governance from focused WCAG remediation"
+      ]
+    }
+  ]
+}

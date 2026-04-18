@@ -1,6 +1,12 @@
 ---
 name: design-system
-description: Produce production-grade UI designs using clear design tokens, layout rules, motion guidance, and accessibility checks for consistent, scalable frontend development.
+description: >
+  Define or refactor a shared frontend UI system before polishing one screen at
+  a time. Use when the user needs token governance, visual-language rules,
+  primitive naming, page-system direction, or cross-product consistency across
+  landing pages, dashboards, forms, and component libraries. Triggers on:
+  design system, design tokens, visual language, UI governance, landing page
+  plus dashboard system, primitive naming, token policy.
 allowed-tools: Read Write Grep Glob
 metadata:
   tags: frontend, design, ui, ux, typography, animation, design-tokens, accessibility
@@ -21,6 +27,10 @@ This is a skill for production-grade UI design. It supports consistent and scala
 ---
 
 ## Instructions
+
+Load `references/system-direction.md` when the user needs the canonical token
+policy, page-system checklist, route-out boundaries, or a compact handoff brief
+instead of the full inline examples.
 
 ### Step 1: Define Design Tokens
 
@@ -418,6 +428,13 @@ and success confirmation.
 | Codex | CSS/component code generation |
 
 ---
+
+## References
+
+- Repo-local reference: `references/system-direction.md`
+- Agent Skills specification: `https://agentskills.io/specification`
+- Agent Skills description guidance:
+  `https://agentskills.io/skill-creation/optimizing-descriptions`
 
 ## Metadata
 
