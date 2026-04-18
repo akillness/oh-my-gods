@@ -67,7 +67,8 @@ emphasis, not a usage telemetry measurement:
 The highest-value improvement is still not adding another broad skill first. It
 is upgrading workflow-critical existing skills into evaluation-ready,
 standards-compliant entrypoints so future iterations can optimize them one
-bounded mutation at a time. `bmad-idea` is now closed via merged PR `#45`, so
-the queue has advanced into `langchain-bmad`: a BMAD × LangChain bridge skill
-that needed progressive-disclosure references and eval coverage before any
-future mutation loop would be worth running.
+bounded mutation at a time. `langchain-bmad` is now closed via merged PR `#46`,
+so the queue has advanced into `clawteam`: a multi-agent coordination skill
+that already has scripts, references, and evals, which makes section-level
+standardization higher leverage than new support files or an early mutation
+loop.

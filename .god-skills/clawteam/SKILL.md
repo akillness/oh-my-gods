@@ -33,7 +33,9 @@ ClawTeam is a framework-agnostic CLI that turns standalone AI agents into coordi
 - Monitoring real-time agent progress via kanban board or web UI
 - Isolating each agent's changes in a git worktree branch, merging when done
 
-## Installation
+## Instructions
+
+### Step 1: Install and validate
 
 ```bash
 pip install clawteam
@@ -50,7 +52,7 @@ Run setup validation:
 bash scripts/setup.sh
 ```
 
-## Quickstart — Template Launch
+### Step 2: Launch from a template
 
 The fastest way to start a multi-agent team:
 
@@ -68,7 +70,7 @@ clawteam launch strategy-room --goal "Design a go-to-market strategy for a B2B S
 clawteam template list
 ```
 
-## Core Workflow — Manual Team Setup
+### Step 3: Build a team manually
 
 ```bash
 # 1. Create team with leader
@@ -93,6 +95,11 @@ clawteam task wait my-project --timeout 3600
 # 6. Merge worktrees (if workspace isolation was enabled)
 clawteam workspace merge my-project --agent backend-dev --target main
 ```
+
+### Step 4: Operate the team
+
+Use the CLI reference below to monitor the board, exchange inbox messages,
+track costs, and manage workspaces once the team is running.
 
 ## CLI Reference
 
@@ -245,7 +252,39 @@ sshfs user@host:/path/to/shared ~/.clawteam-shared
 export CLAWTEAM_DATA_DIR=~/.clawteam-shared
 ```
 
-## Best Practices
+## Examples
+
+### Example 1: Launch a mixed-agent implementation swarm
+
+Input:
+
+```text
+Use clawteam to split a full-stack feature across Codex, Claude Code, and Gemini agents with isolated workspaces and a live kanban board.
+```
+
+Output shape:
+
+- installs or validates `clawteam` and required agent CLIs
+- chooses a template or creates a bounded manual team
+- enables workspace isolation when file conflicts are likely
+- reports how to monitor progress and merge agent work safely
+
+### Example 2: Run a review-focused team
+
+Input:
+
+```text
+Start a code-review swarm for this PR with separate security, performance, and architecture reviewers.
+```
+
+Output shape:
+
+- launches the `code-review` template or an equivalent manual team
+- assigns reviewer roles clearly
+- uses inbox or task dependencies for reviewer coordination
+- reports the board or monitoring command for follow-up
+
+## Best practices
 
 1. **Start with templates** — `clawteam launch software-dev` is faster than manual team creation
 2. **Enable workspace isolation** — `--workspace` prevents file conflicts between agents on the same repo
