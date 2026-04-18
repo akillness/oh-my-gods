@@ -80,28 +80,32 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/46
 - PR `#47` for the `clawteam` standards lane merged at `2026-04-18T03:02:39Z`:
   https://github.com/akillness/oh-my-gods/pull/47
+- PR `#48` for the `presentation-builder` standards lane opened on
+  `2026-04-18`:
+  https://github.com/akillness/oh-my-gods/pull/48
 
 ## Audit snapshot
 
-- Focused validation for `.god-skills/clawteam/` now passes at `0` errors and
-  `0` warnings after merge.
-- Repo-wide validation after the merge now sits at `0` errors and `23`
-  warnings across `.god-skills/`.
-- `clawteam` is closed; reopening it in the next run would be duplicate work.
-- `skill-autoresearch` is not justified for `presentation-builder`; the next
-  lane still has structural standards misses, not measured behavioral
-  failures.
-- The unresolved warning leaders after the `clawteam` merge are:
-  - `presentation-builder` (`3`)
+- Focused validation for `.god-skills/presentation-builder/` now passes at
+  `0` errors and `0` warnings after the standards pass.
+- Repo-wide validation now sits at `0` errors and `20` warnings across
+  `.god-skills/`.
+- `presentation-builder` now has a packaged reference surface and starter eval
+  coverage, so the branch is ready for PR review instead of more local
+  standards cleanup.
+- `skill-autoresearch` is still not justified for `presentation-builder`;
+  there are no measured behavioral failures yet, only the new baseline support
+  surface.
+- The unresolved warning leaders after opening PR `#48` are:
   - `design-system` (`2`)
   - `frontend-design-system` (`2`)
   - `langextract` (`2`)
   - `marketing-automation` (`2`)
   - `remotion-video-production` (`2`)
   - `video-production` (`2`)
-- `presentation-builder` is now the strongest next target because it sits
-  alone at the top of the warning leaderboard and still lacks the standard
-  section shape needed for a later eval-backed optimization loop.
+- The next survey target should not advance yet; the next run should review PR
+  `#48` for duplicate work, missing improvements, or standardization gaps
+  before considering the two-warning cluster.
 
 ## Target decisions
 
@@ -116,7 +120,7 @@ Source links:
 | `bmad-idea` | Merged via PR `#45` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `langchain-bmad` | Merged lane with packaged support surface | No | No | Added | Added | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
 | `clawteam` | Merged standards lane via PR `#47` | No | Existing `scripts/setup.sh` is enough | Existing references were enough | Existing evals were enough | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
-| `presentation-builder` | Active survey target | No | No | Likely yes | Likely yes | Not yet | Start the next bounded standards lane here |
+| `presentation-builder` | PR `#48` open with standards pass committed | No | No | Added | Added | Not yet | Review the branch for duplicate work and merge only if the review stays clean |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean, eval-backed target shows real misses |
 
@@ -126,25 +130,23 @@ Source links:
   review feedback or failing eval evidence appears.
 - `clawteam` is closed via merged PR `#47`; do not reopen it unless new review
   feedback or failing eval evidence appears.
-- The next bounded lane should begin with `presentation-builder`; do not widen
-  that run into the two-warning cluster unless a shared blocker forces it.
+- Do not widen the next run into the two-warning cluster unless review of PR
+  `#48` exposes a shared blocker.
 - Explicit support-surface decision for `presentation-builder`:
   - `assets`: no
-  - `scripts`: no by default; add only if a reusable deterministic helper is
-    actually missing
-  - `references`: likely yes; package deck-authoring and review detail behind
-    progressive disclosure if the standards pass exposes repeated inline setup
-  - `evals`: likely yes; add trigger-quality and stage-order coverage before
-    any later mutation loop
+  - `scripts`: no; the current lane does not need a reusable helper
+  - `references`: added via `references/slides-grab-workflow.md`
+  - `evals`: added via `evals/evals.json`
 - Do not start a mutation loop for `presentation-builder` unless a later
   review or eval pass exposes measured failures that standards cleanup alone
   does not fix.
+- If the PR review is clean on the next run, proceed directly to merge path.
 
 ## Current state
 
-- Current state: `clawteam` standards lane merged on `main` via PR `#47`; the
-  loop now resets to survey for `presentation-builder`
-- PR: https://github.com/akillness/oh-my-gods/pull/47
+- Current state: `presentation-builder` standards lane is now opened for
+  review via PR `#48`
+- PR: https://github.com/akillness/oh-my-gods/pull/48
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` survey pass
-- Stage: `survey`
+- Next owner: next scheduled `nanoclaw_pd` PR review pass
+- Stage: `pr-open`
