@@ -18,15 +18,14 @@
   https://github.com/akillness/oh-my-gods/pull/45
 - PR `#46` for the `langchain-bmad` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/46
-- Repo-wide validation on the current review branch sits at `0` errors and
-  `26` warnings.
-- `langchain-bmad` no longer belongs in the three-warning leaderboard; the
-  remaining highest-warning skills are now `clawteam` and
-  `presentation-builder`, each at `3` warnings.
+- Repo-wide validation now sits at `0` errors and `20` warnings after the
+  `presentation-builder` standards pass.
+- `presentation-builder` has left the warning leaderboard after PR `#48`
+  opened; the remaining leaders are the six two-warning skills.
 
 ## Survey refresh
 
-The landscape signal remains stable after the review pass:
+The landscape signal remains stable after the latest review pass:
 
 1. Agent Skills still rewards compact, discoverable, progressive-disclosure
    packaging over oversized inline entrypoints.
@@ -35,32 +34,31 @@ The landscape signal remains stable after the review pass:
    stay compact.
 3. GitHub's new `gh skill` workflow further raises the value of portable,
    standards-clean skill directories.
-4. Inference for this repo: `langchain-bmad` is closed, so the highest-value
-   move is to advance the next highest-leverage standards gap.
-5. Among the remaining warning-cluster candidates, `clawteam` is the stronger
-   post-merge survey target because it is central to multi-agent coordination
-   and already has `references/`, `scripts/`, and `evals/`, which keeps the
-   next pass smaller than reopening `presentation-builder`.
+4. Inference for this repo: the active `presentation-builder` PR has now been
+   reviewed cleanly, so the next hourly pass should merge it before advancing
+   the queue.
+5. The two-warning cluster matters, but it should stay queued until PR `#48`
+   is merged.
 
 ## Locked direction
 
 Advance one bounded lane per run, in this order:
 
-1. Standardize `clawteam` on branch `chore/skill-loop-pr-open-20260418-r49`
-2. Open or review the `clawteam` PR once the validator delta is clean
-3. Keep `presentation-builder` queued behind `clawteam`
-4. Revisit `skill-autoresearch` only after a review-clean, eval-backed target
+1. Merge PR `#48` for `presentation-builder`
+2. Only after merge, reset the queue to the next bounded warning leader in the
+   two-warning cluster
+3. Revisit `skill-autoresearch` only after a review-clean, eval-backed target
    still shows measured failures
 
 This order is locked because:
 
-- `langchain-bmad` is already merged, so reopening it would widen scope
-  without new evidence.
-- `clawteam` already has the supporting surfaces that make a small standards
-  cleanup realistic in one bounded lane.
-- `presentation-builder` is still a legitimate follow-up, but it lacks the
-  same orchestration leverage in the current agent-skill landscape and does
-  not yet beat `clawteam` on boundedness plus impact.
+- PR `#48` is already open, so skipping straight to another target would
+  create duplicate work and break the recurring loop contract.
+- `presentation-builder` now has the support surface it was missing and the
+  review pass found no new debt, so the next uncertainty is merge completion,
+  not local packaging work.
+- The remaining two-warning surfaces are legitimate follow-ups, but they do
+  not outrank closing the active PR lane.
 
 ## Skill-autoresearch triage
 
@@ -74,28 +72,28 @@ This order is locked because:
 | `bmad` | High | Not yet | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Keep closed unless failures or review feedback reopen it |
 | `bmad-idea` | High | Not yet | No | No | Added | Added | Keep closed after merge unless new evidence appears |
 | `langchain-bmad` | High | No | No | No | Added | Added | Keep closed after merged PR `#46`; do not reopen without new evidence |
-| `clawteam` | High | No | No | Existing script is enough | Existing references are enough | Existing evals are enough | Standardize missing sections on the active branch, then open or review the PR |
-| `presentation-builder` | Medium | Not yet | No | No | Probably yes | Probably yes | Keep queued behind `clawteam` unless the survey changes priority |
+| `clawteam` | High | No | No | Existing script is enough | Existing references are enough | Existing evals are enough | Keep closed after merged PR `#47`; do not reopen without new evidence |
+| `presentation-builder` | High | Not yet | No | No | Added | Added | Merge PR `#48`; only reopen if review feedback or failing evals appear |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review-clean target still misses objective checks |
 
-## Packaging decision for the next queued lane
+## Packaging decision for the active lane
 
-- Target skill: `clawteam`
+- Target skill: `presentation-builder`
 - Assets: no
-- Scripts: no new scripts by default; existing `scripts/setup.sh` is already
-  present
-- References: no new references by default; existing reference coverage is
-  already present
-- Evals: no new evals by default; existing evals are already present
-- Sections: standardize the entrypoint around `Instructions`, `Examples`, and
-  `Best practices` before considering any optimization loop
+- Scripts: no; the lane stayed bounded without them
+- References: added via `references/slides-grab-workflow.md`
+- Evals: added via `evals/evals.json`
+- Sections: standardized around `Instructions`, `Examples`, and `Best
+  practices`
+- Skill-autoresearch: still deferred until post-merge review or eval evidence
+  shows measured misses after the standards pass
 
 ## Current state
 
-- State: `clawteam` is the active bounded standards lane on branch
-  `chore/skill-loop-pr-open-20260418-r49`
-- PR: https://github.com/akillness/oh-my-gods/pull/47
+- State: `presentation-builder` standards lane is merge-ready after a clean
+  review pass
+- PR: https://github.com/akillness/oh-my-gods/pull/48
 - Blocker: none
-- Next owner: PR reviewer, then merge owner if the review stays clean
-- Stage: `pr-open`
+- Next owner: next scheduled `nanoclaw_pd` merge pass
+- Stage: `merge`

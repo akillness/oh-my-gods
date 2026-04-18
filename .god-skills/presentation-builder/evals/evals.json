@@ -1,0 +1,48 @@
+{
+  "skill_name": "presentation-builder",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Turn this product brief into a 10-slide investor deck. Use slides-grab, show me the outline first, then generate the deck in decks/series-a and export PPTX and PDF after approval.",
+      "expected_output": "A presentation-builder response that chooses slides-grab, keeps the work in a stable deck directory, and preserves the approval gate before export.",
+      "assertions": [
+        "The response identifies `presentation-builder` or `slides-grab` as the correct surface for a real editable deck",
+        "The response requires an outline or plan before slide generation",
+        "The response uses a stable deck workspace such as `decks/series-a`",
+        "The response does not export before user approval"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create an 8-slide enterprise launch deck in decks/acme-launch. Validate it, let me review it in the browser editor, then give me the final PDF.",
+      "expected_output": "A staged workflow that includes generation, validation, browser-based review, and final export in that order.",
+      "assertions": [
+        "The response follows the order plan or outline, generate, review or validate, then export",
+        "The response mentions `slides-grab validate` or equivalent validation guidance",
+        "The response mentions the visual editor or browser review step",
+        "The response reports or promises final artifact paths rather than only generic prose"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I only need a speaking outline for a workshop, not a deck file. Should I still use presentation-builder?",
+      "expected_output": "A boundary-aware answer that routes pure outline work away from presentation-builder unless an editable deck artifact is actually needed.",
+      "assertions": [
+        "The response does not force `presentation-builder` for outline-only work",
+        "The response distinguishes a real deck artifact from an outline-only request",
+        "The response names a route-out condition or alternative workflow"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our existing deck in decks/q2-review has broken remote image URLs and PPTX export drift. What should the skill tell the agent to do next?",
+      "expected_output": "Guidance that fixes the source HTML and local asset contract first, validates the deck, and treats PPTX as best-effort rather than patching the exported binary.",
+      "assertions": [
+        "The response tells the agent to fix source HTML or CSS instead of editing exported binaries",
+        "The response prefers local assets under the deck workspace over remote URLs",
+        "The response mentions validation before another export attempt",
+        "The response treats PPTX export as experimental, unstable, or best-effort"
+      ]
+    }
+  ]
+}
