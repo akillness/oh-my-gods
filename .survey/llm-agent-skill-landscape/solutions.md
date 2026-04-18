@@ -49,8 +49,8 @@ emphasis, not a usage telemetry measurement:
   prompt mutation on oversized skills in this repo.
 - Bridge skills that sit between two ecosystems are the most drift-prone when
   they have no support files. `langchain-bmad` was the clearest example before
-  this run because it combined BMAD and LangChain guidance in one inline
-  surface with no `references/` or `evals/`.
+  its standards pass because it combined BMAD and LangChain guidance in one
+  inline surface with no `references/` or `evals/`.
 - Workflow skills still need careful review for hidden hard-coded assumptions,
   such as default remote/base names or destructive recovery shortcuts, even
   after they are packaged.
@@ -67,8 +67,7 @@ emphasis, not a usage telemetry measurement:
 The highest-value improvement is still not adding another broad skill first. It
 is upgrading workflow-critical existing skills into evaluation-ready,
 standards-compliant entrypoints so future iterations can optimize them one
-bounded mutation at a time. `langchain-bmad` is now closed via merged PR `#46`,
-so the queue has advanced into `clawteam`: a multi-agent coordination skill
-that already has scripts, references, and evals, which makes section-level
-standardization higher leverage than new support files or an early mutation
-loop.
+bounded mutation at a time. `clawteam` is now closed via merged PR `#47`, so
+the queue has advanced to `presentation-builder`: a still-underpackaged
+workflow skill whose missing standard sections should be corrected before any
+new support files or mutation loop are considered.

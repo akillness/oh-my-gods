@@ -1,45 +1,40 @@
-# Cleanup Plan: standardize `clawteam` after the `langchain-bmad` merge
+# Cleanup Plan: reset the loop after merging `clawteam`
 
 ## Goal
 
-Advance one bounded standards lane on `clawteam` now that `langchain-bmad` is
-merged. Keep the work limited to the missing recommended sections and the
-survey-state rollover needed for the recurring loop.
+Close the merged `clawteam` lane cleanly and reset the recurring loop to the
+next survey target, `presentation-builder`. Keep this run limited to
+survey-state rollover so the next hourly pass starts from the right target
+instead of reopening the merged PR lane.
 
 ## Behavior lock
 
 - Keep this run focused on:
   - `.survey/llm-agent-skill-landscape/*`
-  - `.god-skills/clawteam/*`
 - Do not reopen the merged `agent-configuration`, `agent-workflow`,
   `agent-principles`, `agent-development-principles`, `git-workflow`,
-  `responsive-design`, `opencontext`, `bmad`, `bmad-idea`, or
-  `langchain-bmad` lanes unless measured failures appear.
-- Do not widen this run into `presentation-builder`; it remains queued behind
-  `clawteam`.
-- Do not add assets, new scripts, references, or evals unless fresh evidence
-  proves the existing support surface is insufficient.
-- Do not start a `skill-autoresearch` mutation loop for `clawteam`; this pass
-  is for standards cleanup first, not optimization.
+  `responsive-design`, `opencontext`, `bmad`, `bmad-idea`, `langchain-bmad`,
+  or `clawteam` lanes unless measured failures appear.
+- Do not start `presentation-builder` edits in this post-merge checkpoint.
+- Do not add assets, scripts, references, or evals in this run; only record
+  what the next lane is expected to need.
+- Do not start a `skill-autoresearch` mutation loop for `presentation-builder`
+  before its standards gaps are measured and packaged.
 
 ## Planned edits
 
-1. Reuse the saved survey evidence and refresh the durable lock from the closed
-   `langchain-bmad` merge lane to the new `clawteam` lane.
-2. Re-run focused standards validation on `.god-skills/clawteam/`.
-3. Convert the missing recommended sections in `clawteam` to the standard
-   `Instructions`, `Examples`, and `Best practices` shape without changing the
-   substantive workflow.
-4. Re-run the repo-wide validator and confirm the total warning count drops by
-   the expected `3` without introducing new regressions.
-5. Keep the branch explicitly on the next bounded lane so the following run can
-   review draft PR `#47` cleanly instead of reopening survey work.
+1. Record that PR `#47` merged cleanly and that `clawteam` is now closed.
+2. Refresh the durable lock to the next highest-value bounded survey target:
+   `presentation-builder`.
+3. Carry forward the explicit packaging decision for `presentation-builder`
+   without starting implementation in this run.
+4. Keep the branch explicitly in `survey` state so the following run begins
+   with standards triage rather than re-reviewing the merged PR.
 
 ## Verification
 
-- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/clawteam`
-- Run
+- Check `gh pr view 47 --json state,isDraft,mergedAt,mergeCommit,url`
+- Re-run
   `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
-- Review `git diff --name-only origin/main...HEAD`
-- Check `gh pr view 47 --json state,isDraft,mergeStateStatus,mergeable,url`
-- Keep the repo in explicit `pr-open` state for the next owner
+  and confirm the leaderboard moved to `presentation-builder`
+- Keep the repo in explicit `survey` state for the next owner

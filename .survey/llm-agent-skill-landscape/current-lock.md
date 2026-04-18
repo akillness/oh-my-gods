@@ -35,9 +35,9 @@ Date: 2026-04-18
   https://developers.openai.com/codex/skills
   https://developers.openai.com/codex/hooks
   https://developers.openai.com/codex/subagents
-- No new ecosystem signal in this refresh justifies reopening `langchain-bmad`
+- No new ecosystem signal in this refresh justifies reopening `clawteam`
   after merge; the higher-value move is to advance the next bounded standards
-  lane on `clawteam`.
+  lane on `presentation-builder`.
 
 Source links:
 
@@ -78,33 +78,30 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/45
 - PR `#46` for the `langchain-bmad` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/46
+- PR `#47` for the `clawteam` standards lane merged at `2026-04-18T03:02:39Z`:
+  https://github.com/akillness/oh-my-gods/pull/47
 
 ## Audit snapshot
 
-- Focused validation for `.god-skills/langchain-bmad/` still passes at `0`
-  errors and `0` warnings after merge.
-- Focused validation for `.god-skills/clawteam/` starts this lane at `0`
-  errors and `3` warnings, all from missing recommended sections:
-  `Instructions`, `Examples`, and `Best practices`.
-- Repo-wide validation on the active lane starts at `0` errors and `26`
+- Focused validation for `.god-skills/clawteam/` now passes at `0` errors and
+  `0` warnings after merge.
+- Repo-wide validation after the merge now sits at `0` errors and `23`
   warnings across `.god-skills/`.
-- `clawteam` already has the intended support surface for a bounded standards
-  pass:
-  - `assets`: no evidence needed
-  - `scripts`: existing `scripts/setup.sh` is enough
-  - `references`: existing references are enough
-  - `evals`: existing evals are enough
-- `skill-autoresearch` is not justified for `clawteam`; this lane still has
-  structural standards misses, not measured behavioral failures.
-- The unresolved warning leaders before the `clawteam` edit are:
-  - `clawteam` (`3`)
+- `clawteam` is closed; reopening it in the next run would be duplicate work.
+- `skill-autoresearch` is not justified for `presentation-builder`; the next
+  lane still has structural standards misses, not measured behavioral
+  failures.
+- The unresolved warning leaders after the `clawteam` merge are:
   - `presentation-builder` (`3`)
-- `clawteam` remains the stronger next target after PR `#46` because it is
-  central to multi-agent coordination and already has supporting surfaces,
-  which keeps the next pass small and reviewable.
-- `presentation-builder` remains queued behind `clawteam`; it is still a real
-  standards gap, but it is narrower and lacks the same orchestration leverage
-  in the current LLM-agent skill landscape.
+  - `design-system` (`2`)
+  - `frontend-design-system` (`2`)
+  - `langextract` (`2`)
+  - `marketing-automation` (`2`)
+  - `remotion-video-production` (`2`)
+  - `video-production` (`2`)
+- `presentation-builder` is now the strongest next target because it sits
+  alone at the top of the warning leaderboard and still lacks the standard
+  section shape needed for a later eval-backed optimization loop.
 
 ## Target decisions
 
@@ -118,8 +115,8 @@ Source links:
 | `bmad` | Merged standards lane via PR `#44` | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `bmad-idea` | Merged via PR `#45` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `langchain-bmad` | Merged lane with packaged support surface | No | No | Added | Added | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
-| `clawteam` | Active bounded standards lane | No | Existing `scripts/setup.sh` is enough | Existing references are enough | Existing evals are enough | No; structural cleanup first | Standardize missing sections, then open or review the next PR lane |
-| `presentation-builder` | Remaining warning-cluster lane, but lower leverage than `clawteam` | No | No | Not yet | Not yet | Not yet | Keep queued behind `clawteam` unless new survey evidence changes priority |
+| `clawteam` | Merged standards lane via PR `#47` | No | Existing `scripts/setup.sh` is enough | Existing references were enough | Existing evals were enough | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
+| `presentation-builder` | Active survey target | No | No | Likely yes | Likely yes | Not yet | Start the next bounded standards lane here |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean, eval-backed target shows real misses |
 
@@ -127,26 +124,27 @@ Source links:
 
 - `langchain-bmad` is closed via merged PR `#46`; do not reopen it unless new
   review feedback or failing eval evidence appears.
-- The active lane is now `clawteam` on branch
-  `chore/skill-loop-pr-open-20260418-r49`.
-- Explicit support-surface decision for `clawteam`:
+- `clawteam` is closed via merged PR `#47`; do not reopen it unless new review
+  feedback or failing eval evidence appears.
+- The next bounded lane should begin with `presentation-builder`; do not widen
+  that run into the two-warning cluster unless a shared blocker forces it.
+- Explicit support-surface decision for `presentation-builder`:
   - `assets`: no
-  - `scripts`: no new scripts; existing `scripts/setup.sh` is enough
-  - `references`: no new references by default; existing reference coverage is
-    already present
-  - `evals`: no new evals by default; the next pass should first standardize
-    missing recommended sections and review trigger precision
-- Keep `presentation-builder` queued behind `clawteam` unless new survey
-  evidence changes the priority order.
-- Do not start a mutation loop for `clawteam` unless a
-  later review or eval pass exposes measured failures that standards cleanup
-  alone does not fix.
+  - `scripts`: no by default; add only if a reusable deterministic helper is
+    actually missing
+  - `references`: likely yes; package deck-authoring and review detail behind
+    progressive disclosure if the standards pass exposes repeated inline setup
+  - `evals`: likely yes; add trigger-quality and stage-order coverage before
+    any later mutation loop
+- Do not start a mutation loop for `presentation-builder` unless a later
+  review or eval pass exposes measured failures that standards cleanup alone
+  does not fix.
 
 ## Current state
 
-- Current state: `clawteam` is the active bounded standards lane on branch
-  `chore/skill-loop-pr-open-20260418-r49`
+- Current state: `clawteam` standards lane merged on `main` via PR `#47`; the
+  loop now resets to survey for `presentation-builder`
 - PR: https://github.com/akillness/oh-my-gods/pull/47
 - Blocker: none
-- Next owner: PR reviewer for the bounded `clawteam` lane
-- Stage: `pr-open`
+- Next owner: next scheduled `nanoclaw_pd` survey pass
+- Stage: `survey`
