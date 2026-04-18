@@ -29,6 +29,8 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/51
 - PR `#52` for `marketing-automation` is merged:
   https://github.com/akillness/oh-my-gods/pull/52
+- PR `#53` for `agent-evaluation` is the merge target for this run:
+  https://github.com/akillness/oh-my-gods/pull/53
 
 ## Audit snapshot
 
@@ -46,7 +48,7 @@ Date: 2026-04-19
 |---|---|---|---|---|---|---|---|
 | `langextract` | Merged via PR `#51` after a bounded review follow-up | No | Existing helper refreshed | Added | Refreshed | No | Keep closed unless review feedback or new measured failures appear |
 | `marketing-automation` | Merged via PR `#52` after a bounded standards pass | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
-| `agent-evaluation` | New standards lane for this run | No | No | Needed | Needed | Not yet | Package the missing support surface, validate, and open the PR |
+| `agent-evaluation` | Merge target PR `#53` | No | No | Added | Added | Not yet | Merge the lane, then keep it closed unless new measured failures appear |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -55,15 +57,16 @@ Date: 2026-04-19
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
 - Keep the active run centered on `agent-evaluation` until the standards
-  package is reviewable and the PR path is opened.
+  package is reviewed and either a bounded follow-up is required or the lane can
+  merge cleanly.
 - Do not start a `skill-autoresearch` mutation loop for `agent-evaluation`
   unless later review feedback or eval evidence exposes a real measured miss.
 
 ## Current state
 
-- Current state: `agent-evaluation` standards lane packaged and waiting for PR
-  review
+- Current state: `agent-evaluation` standards lane is review-clean and queued
+  for merge
 - PR: https://github.com/akillness/oh-my-gods/pull/53
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR review pass
-- Stage: `PR-open`
+- Next owner: merge path on this run
+- Stage: `merge`

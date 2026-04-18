@@ -6,6 +6,8 @@
   https://github.com/akillness/oh-my-gods/pull/51
 - PR `#52` for `marketing-automation` is merged:
   https://github.com/akillness/oh-my-gods/pull/52
+- PR `#53` for `agent-evaluation` is the merge target for this run:
+  https://github.com/akillness/oh-my-gods/pull/53
 - Repo-wide validation still sits at `80/80` passing skills before the new lane
   edits.
 - `agent-evaluation` is now the next bounded lane because it is still a large
@@ -39,8 +41,10 @@ Advance one bounded lane per run, in this order:
 1. Package `agent-evaluation` into a compact standards lane with references,
    evals, and refreshed compact discovery
 2. Open a bounded PR for that lane once validation is clean
-3. Revisit `skill-autoresearch` only after a review-clean, eval-backed target
-   still shows measured failures
+3. After the first review-clean pass, either make one bounded follow-up update
+   or advance directly to merge
+4. Revisit `skill-autoresearch` only after a merged, eval-backed target still
+   shows measured failures
 
 This order is locked because:
 
@@ -58,7 +62,7 @@ This order is locked because:
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `langextract` | Closed high-leverage lane | No | No | Existing script refreshed | Added | Refreshed | Keep closed unless later review feedback reopens it |
 | `marketing-automation` | Closed medium-high lane | No | No | No | Added | Added | Keep closed unless later review feedback reopens it |
-| `agent-evaluation` | Medium-high | Not yet | No | No | Needed | Needed | Package the standards surface, then open the PR |
+| `agent-evaluation` | Medium-high | Not yet | No | No | Added | Added | Review is clean; proceed to merge path unless a new bounded gap appears |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 
@@ -67,17 +71,18 @@ This order is locked because:
 - Active lane: `agent-evaluation`
   - Assets: no
   - Scripts: no
-  - References: yes, grader-selection and eval-ops detail should move out of
-    the main entrypoint
-  - Evals: yes, trigger and boundary checks are needed before any later
+  - References: yes, grader-selection and eval-ops detail moved out of the main
+    entrypoint
+  - Evals: yes, trigger and boundary checks were added before any later
     mutation loop
-  - Skill-autoresearch: deferred until the packaged skill survives PR review
-    and still shows measured failures
+  - Skill-autoresearch: still deferred until the merged skill shows measured
+    failures
 
 ## Current state
 
-- State: `agent-evaluation` standards lane packaged and awaiting review
+- State: `agent-evaluation` standards lane is packaged, validated, and
+  review-clean
 - PR: https://github.com/akillness/oh-my-gods/pull/53
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR review pass
-- Stage: `PR-open`
+- Next owner: merge path on this run
+- Stage: `merge`
