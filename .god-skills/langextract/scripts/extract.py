@@ -19,6 +19,7 @@ Environment:
 """
 
 import argparse
+import json
 import os
 import sys
 import textwrap
@@ -37,11 +38,13 @@ def main():
     parser.add_argument("--model", default="gemini-2.5-flash", help="Model ID (default: gemini-2.5-flash)")
     parser.add_argument("--model-url", help="Base URL for Ollama or custom endpoints")
     parser.add_argument("--api-key", help="API key (overrides env var)")
+    parser.add_argument("--examples-file", help="Path to JSON file containing ExampleData-like objects")
     parser.add_argument("--passes", type=int, default=1, help="Extraction passes (default: 1)")
     parser.add_argument("--workers", type=int, default=1, help="Parallel workers (default: 1)")
     parser.add_argument("--char-buffer", type=int, default=None, help="Max chars per chunk")
     parser.add_argument("--output", default="results.jsonl", help="Output JSONL file (default: results.jsonl)")
     parser.add_argument("--visualize", action="store_true", help="Generate HTML visualization")
+    parser.add_argument("--grounded-only", action="store_true", help="Drop extractions that cannot be grounded back to the source text")
     parser.add_argument("--fence", action="store_true", help="Use JSON fencing (for OpenAI/Ollama)")
     parser.add_argument("--no-schema-constraints", action="store_true", help="Disable schema constraints")
     args = parser.parse_args()
@@ -62,16 +65,33 @@ def main():
             input_data = f.read()
 
     api_key = args.api_key or os.environ.get("LANGEXTRACT_API_KEY") or os.environ.get("OPENAI_API_KEY")
+    examples = []
+    if args.examples_file:
+        with open(args.examples_file, "r") as f:
+            payload = json.load(f)
+        for item in payload:
+            extractions = [
+                lx.data.Extraction(
+                    extraction_class=ext["extraction_class"],
+                    extraction_text=ext["extraction_text"],
+                    attributes=ext.get("attributes"),
+                )
+                for ext in item.get("extractions", [])
+            ]
+            examples.append(
+                lx.data.ExampleData(
+                    text=item["text"],
+                    extractions=extractions,
+                )
+            )
 
     extract_kwargs = dict(
         text_or_documents=input_data,
         prompt_description=args.prompt,
-        examples=[],  # No examples — basic extraction mode
+        examples=examples,
         model_id=args.model,
         extraction_passes=args.passes,
         max_workers=args.workers,
-        fence_output=args.fence,
-        use_schema_constraints=not args.no_schema_constraints,
     )
     if api_key:
         extract_kwargs["api_key"] = api_key
@@ -79,18 +99,28 @@ def main():
         extract_kwargs["model_url"] = args.model_url
     if args.char_buffer:
         extract_kwargs["max_char_buffer"] = args.char_buffer
+    if args.fence:
+        extract_kwargs["fence_output"] = True
+    if args.no_schema_constraints:
+        extract_kwargs["use_schema_constraints"] = False
 
     print(f"Extracting with model={args.model}, passes={args.passes}, workers={args.workers}...")
     result = lx.extract(**extract_kwargs)
 
-    print(f"\nExtracted {len(result.extractions)} entities:\n")
-    for ext in result.extractions:
+    extractions = result.extractions
+    if args.grounded_only:
+        extractions = [ext for ext in extractions if getattr(ext, "char_interval", None)]
+
+    print(f"\nExtracted {len(extractions)} entities:\n")
+    for ext in extractions:
         attrs = f" {ext.attributes}" if ext.attributes else ""
         print(f"  [{ext.extraction_class}] '{ext.extraction_text}' (chars {ext.start}–{ext.end}){attrs}")
 
     # Save
     output_dir = os.path.dirname(os.path.abspath(args.output)) or "."
     output_name = os.path.basename(args.output)
+    if args.grounded_only and extractions is not result.extractions:
+        result.extractions = extractions
     lx.io.save_annotated_documents([result], output_name=output_name, output_dir=output_dir)
     print(f"\nSaved to: {args.output}")
 

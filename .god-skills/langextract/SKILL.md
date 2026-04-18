@@ -1,13 +1,14 @@
 ---
 name: langextract
 description: >
-  Extract structured, schema-enforced information from unstructured text using LLMs with
-  full source grounding (character-level offsets). Use when extracting entities, relationships,
-  or structured data from documents, clinical notes, legal texts, research papers, or any
-  free-form text. Supports Gemini, OpenAI, Ollama (local), and custom providers.
-  Triggers on: information extraction, NER, entity extraction, structured output from text,
-  document parsing, text mining, LLM extraction, schema extraction, grounded extraction,
-  hallucination-free extraction, provenance, annotation.
+  Extract structured, source-grounded information from unstructured text with
+  LangExtract. Use when the user needs entities, relationships, or structured
+  data from text, URLs, notes, reports, research papers, or other free-form
+  documents and wants exact spans back to the source. Triggers on: information
+  extraction, entity extraction, NER, grounded extraction, provenance, schema
+  extraction, structured output from text, text mining, langextract,
+  annotation, ollama extraction, openai extraction, source-grounded
+  extraction.
 allowed-tools: Bash Read Write Edit Glob Grep
 metadata:
   tags: langextract, information-extraction, nlp, gemini, openai, ollama, structured-output, grounding, provenance
@@ -19,230 +20,205 @@ metadata:
 
 # langextract — LLM-Powered Structured Information Extraction
 
-> Extract structured data from unstructured text with **character-level provenance**.
-> Every extracted entity traces back to exact character offsets in the source document.
+Use `langextract` when the core job is extracting structured data from text
+while keeping each extraction traceable back to the source.
 
 ## When to use this skill
 
-- Extracting entities, relationships, or facts from unstructured text
-- Processing clinical notes, legal documents, research papers, or reports
-- Building NLP pipelines that need citation-level traceability (not just extracted values)
-- Long-document extraction (chunking + parallel workers + multi-pass for recall)
-- Replacing fragile regex/rule-based extraction with LLM-driven schema enforcement
-- Generating interactive HTML visualizations of annotated text
+- Extract entities, relationships, or facts from unstructured text
+- Process clinical notes, legal documents, research papers, reports, or logs
+- Build extraction pipelines that need source grounding, not just final values
+- Handle long documents with chunking, parallel workers, and multi-pass recall
+- Run extraction on Gemini, OpenAI, Ollama, or a custom provider
+- Generate HTML visualizations of extracted spans over the original text
 
----
+## Do not use this skill
 
-## 1. Installation
+- When the main problem is OCR, PDF layout parsing, or image-to-text recovery
+- When the task is ordinary summarization, classification, or question answering
+- When the user needs a general RAG system rather than structured extraction
+- When the input is not available as clean text or a retrievable URL yet
 
-```bash
-# Standard install (Gemini backend — default)
-pip install langextract
+## Instructions
 
-# With OpenAI support
-pip install langextract[openai]
+### Step 1: Confirm the extraction boundary
 
-# Development
-pip install -e ".[dev]"
-```
+Decide whether the input is already usable by LangExtract:
 
-**API key setup:**
-```bash
-export LANGEXTRACT_API_KEY="your-gemini-or-openai-key"
-# Gemini keys: https://aistudio.google.com/app/apikey
-# OpenAI keys:  https://platform.openai.com/api-keys
-```
+- If the source is clean text, a text file, or a URL that LangExtract can fetch,
+  continue here.
+- If the source is a PDF, scan, screenshot, or complex document layout, first
+  convert it into reliable text with an OCR or document-parsing workflow.
+- If the user really wants retrieval or summarization instead of structured
+  extraction, route to a better-matched skill.
 
----
+### Step 2: Define the schema through examples
 
-## 2. Core concepts
+Write a prompt that says exactly what to extract and how grounded it must stay.
+Then create a few `ExampleData` objects that show:
 
-| Concept | Description |
-|---------|-------------|
-| **Source grounding** | Every extraction carries `(start, end)` char offsets into original text |
-| **Controlled generation** | Gemini uses schema-constrained decoding; no hallucinated field names |
-| **Few-shot examples** | Schema is inferred from `ExampleData` objects — zero fine-tuning needed |
-| **Multi-pass extraction** | `extraction_passes=N` runs N independent passes; results are merged |
-| **Parallel chunking** | `max_workers=N` processes text chunks concurrently |
+- the extraction classes you want
+- exact `extraction_text` spans from the example text
+- attributes that add context without paraphrasing the source spans
 
----
-
-## 3. Basic extraction
+LangExtract uses those examples as the schema contract. High-quality examples
+matter more than adding more instructions.
 
 ```python
 import langextract as lx
 import textwrap
 
 prompt = textwrap.dedent("""\
-    Extract characters, emotions, and relationships in order of appearance.
-    Use exact text for extractions. Do not paraphrase or overlap entities.
-    Provide meaningful attributes for each entity to add context.""")
+    Extract medications and dosages in order of appearance.
+    Use exact text for extraction_text. Do not paraphrase.""")
 
 examples = [
     lx.data.ExampleData(
-        text="ROMEO. But soft! What light through yonder window breaks?",
+        text="Patient takes aspirin 81mg daily.",
         extractions=[
             lx.data.Extraction(
-                extraction_class="character",
-                extraction_text="ROMEO",
-                attributes={"emotional_state": "wonder"}
-            ),
-        ]
+                extraction_class="medication",
+                extraction_text="aspirin",
+                attributes={"dosage": "81mg", "frequency": "daily"},
+            )
+        ],
     )
 ]
-
-result = lx.extract(
-    text_or_documents="Lady Juliet gazed longingly at the stars...",
-    prompt_description=prompt,
-    examples=examples,
-    model_id="gemini-2.5-flash",
-)
-
-# Access results
-for extraction in result.extractions:
-    print(f"[{extraction.extraction_class}] '{extraction.extraction_text}' "
-          f"@ chars {extraction.start}–{extraction.end}")
 ```
 
----
+### Step 3: Run extraction with the right provider shape
 
-## 4. Long-document extraction (URL input, multi-pass, parallel)
-
-```python
-result = lx.extract(
-    text_or_documents="https://www.gutenberg.org/files/1513/1513-0.txt",
-    prompt_description=prompt,
-    examples=examples,
-    model_id="gemini-2.5-flash",
-    extraction_passes=3,   # 3 independent runs, results merged
-    max_workers=20,        # parallel chunk processing
-    max_char_buffer=1000   # smaller focused context windows
-)
-# Romeo & Juliet (147k chars / ~44k tokens) → 4,088 entities extracted
-```
-
----
-
-## 5. OpenAI backend
-
-```python
-import os, langextract as lx
-
-result = lx.extract(
-    text_or_documents=input_text,
-    prompt_description=prompt,
-    examples=examples,
-    model_id="gpt-4o",
-    api_key=os.environ.get("OPENAI_API_KEY"),
-    fence_output=True,
-    use_schema_constraints=False
-)
-```
-
----
-
-## 6. Local LLMs via Ollama
+Use `lx.extract()` with the source text, prompt, examples, and model choice.
 
 ```python
 result = lx.extract(
     text_or_documents=input_text,
     prompt_description=prompt,
     examples=examples,
-    model_id="gemma2:2b",
-    model_url="http://localhost:11434",
-    fence_output=False,
-    use_schema_constraints=False
+    model_id="gemini-2.5-flash",
 )
 ```
 
----
+Provider notes:
 
-## 7. Visualize results
+- Gemini is the simplest default path.
+- OpenAI works with `pip install langextract[openai]`; leave `fence_output`
+  and `use_schema_constraints` unset so the provider auto-configures them.
+- Ollama works with `model_url="http://localhost:11434"` and also prefers the
+  auto-configured defaults.
+- For custom or OpenAI-compatible providers, use `ModelConfig` and an explicit
+  provider selection.
+
+### Step 4: Keep only grounded results when needed
+
+Few-shot examples can sometimes leak into model output. LangExtract marks
+extractions that cannot be grounded in the source with `char_interval = None`.
+Filter them out when you need a strictly grounded result set.
 
 ```python
+grounded_extractions = [e for e in result.extractions if e.char_interval]
+```
+
+If downstream code uses `start` and `end`, verify the extracted span still
+matches the source text before trusting it.
+
+### Step 5: Scale for long documents and review visually
+
+For long inputs, increase recall with multiple passes and parallel workers.
+Then save the annotated output and generate the HTML review artifact.
+
+```python
+result = lx.extract(
+    text_or_documents=document_url,
+    prompt_description=prompt,
+    examples=examples,
+    model_id="gemini-2.5-flash",
+    extraction_passes=3,
+    max_workers=20,
+    max_char_buffer=1000,
+)
+
 lx.io.save_annotated_documents([result], output_name="results.jsonl", output_dir=".")
-html_content = lx.visualize("results.jsonl")
-with open("visualization.html", "w") as f:
-    f.write(html_content.data if hasattr(html_content, "data") else html_content)
-# Open visualization.html in browser → color-coded annotations over source text
+html = lx.visualize("results.jsonl")
 ```
 
----
+Use the visualization to catch missed spans, duplicated entities, and schema
+mistakes before you trust the output in a production pipeline.
 
-## 8. Key parameters reference
+## Examples
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `text_or_documents` | `str` / URL | Raw text, URL to fetch, or list of documents |
-| `prompt_description` | `str` | Natural language extraction instructions |
-| `examples` | `list[ExampleData]` | Few-shot examples that define the schema |
-| `model_id` | `str` | `gemini-2.5-flash`, `gpt-4o`, `gemma2:2b`, … |
-| `api_key` | `str` | API key (overrides `LANGEXTRACT_API_KEY` env var) |
-| `model_url` | `str` | Base URL for Ollama or custom endpoints |
-| `extraction_passes` | `int` | Independent extraction runs (default: 1) |
-| `max_workers` | `int` | Parallel chunk workers (default: 1) |
-| `max_char_buffer` | `int` | Characters per chunk |
-| `fence_output` | `bool` | Use JSON fencing instead of constrained decoding |
-| `use_schema_constraints` | `bool` | Controlled generation — Gemini default: `True` |
+### Example 1: Medication extraction from clinical text
 
----
+Input:
 
-## 9. Custom provider plugin
-
-```python
-import langextract as lx
-
-@lx.providers.registry.register(r'^mymodel', r'^custom')
-class MyProviderLanguageModel(lx.inference.BaseLanguageModel):
-    def __init__(self, model_id: str, api_key: str = None, **kwargs):
-        self.client = MyProviderClient(api_key=api_key)
-
-    def infer(self, batch_prompts, **kwargs):
-        for prompt in batch_prompts:
-            result = self.client.generate(prompt, **kwargs)
-            yield [lx.inference.ScoredOutput(score=1.0, output=result)]
+```text
+Use langextract to pull medications and dosages from this note.
 ```
 
-Package as a PyPI plugin with entry point:
-```toml
-[project.entry-points."langextract.providers"]
-myprovider = "langextract_myprovider:MyProviderLanguageModel"
+Expected shape:
+
+- `lx.extract()` with a medication-focused prompt
+- `ExampleData` that demonstrates the desired schema
+- grounded spans or a post-filter for ungrounded extractions
+
+### Example 2: Long legal document from a URL
+
+Input:
+
+```text
+How do I extract structured clauses from a 200-page contract with langextract?
 ```
 
-Disable all plugins: `LANGEXTRACT_DISABLE_PLUGINS=1`
+Expected shape:
 
----
+- URL passed to `text_or_documents`
+- `extraction_passes`, `max_workers`, and `max_char_buffer` tuned for recall
+- explanation of chunking, multi-pass behavior, and visualization review
 
-## 10. Use cases
+### Example 3: Private local extraction with Ollama
 
-| Domain | Example |
-|--------|---------|
-| **Medical/clinical** | Medication names, dosages, routes from clinical notes |
-| **Legal** | Clause extraction, party identification from contracts |
-| **Literary analysis** | Character, emotion, relationship graphs |
-| **Finance** | Structured data extraction from earnings reports |
-| **Radiology** | Free-text radiology reports → structured format |
-| **Research** | Entity/relation extraction from academic papers |
+Input:
 
----
+```text
+I need local-only extraction with Ollama and no API key.
+```
+
+Expected shape:
+
+- `model_id` set to an Ollama-served model like `gemma2:2b`
+- `model_url="http://localhost:11434"`
+- no forced `fence_output` or `use_schema_constraints` overrides unless the
+  user is debugging provider behavior
+
+### Example 4: Custom provider plugin
+
+Input:
+
+```text
+Show me how to add my own provider to langextract.
+```
+
+Expected shape:
+
+- provider registration using the router or entry-point system
+- base model implementation details
+- packaging guidance for a plugin-style provider
 
 ## Best practices
 
-1. **Write precise prompts** — specify "use exact text, do not paraphrase" to keep offsets accurate
-2. **Use few-shot examples** — 2–3 examples covering edge cases dramatically improves accuracy
-3. **Tune `max_char_buffer`** — smaller values (500–1000) give more focused context; larger values reduce API calls
-4. **Use `extraction_passes=3`** for long docs — independent runs catch entities missed in single pass
-5. **Set `max_workers`** — parallelization dramatically speeds up long-document processing
-6. **Verify offsets** — `result.text[extraction.start:extraction.end]` must equal `extraction_text`
-7. **Use visualization** — HTML output makes it easy to spot extraction errors and coverage gaps
-
----
+1. Write prompts that say "use exact text" when grounded spans matter.
+2. Keep `ExampleData` high quality and in source order; examples define the schema.
+3. Filter on `char_interval` when strict grounding matters more than recall.
+4. Prefer the provider defaults for OpenAI and Ollama unless you are debugging.
+5. Use `extraction_passes`, `max_workers`, and `max_char_buffer` together for long inputs.
+6. Review HTML visualizations before trusting a new extraction setup in production.
+7. Keep raw parsing and OCR out of this skill; feed LangExtract clean text first.
 
 ## References
 
 - [GitHub: google/langextract](https://github.com/google/langextract)
 - [PyPI: langextract](https://pypi.org/project/langextract/)
-- [Google Developers Blog announcement](https://developers.googleblog.com/introducing-langextract-a-gemini-powered-information-extraction-library/)
-- [Provider Plugin README](https://github.com/google/langextract/blob/main/langextract/providers/README.md)
-- [Long-document Example](https://github.com/google/langextract/blob/main/docs/examples/longer_text_example.md)
+- [Google Docs: LangExtract overview](https://developers.google.com/health-ai-developer-foundations/libraries/langextract)
+- [References: grounding and provider notes](references/grounding-and-providers.md)
+- [References: long-document and visualization guide](references/long-doc-workflows.md)
 - License: Apache 2.0

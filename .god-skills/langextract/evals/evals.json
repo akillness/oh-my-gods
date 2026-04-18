@@ -27,19 +27,19 @@
     {
       "id": 3,
       "prompt": "How do I use langextract with a local Ollama model to keep my data private?",
-      "expected_output": "Code using lx.extract() with model_id='gemma2:2b' (or similar), model_url='http://localhost:11434', fence_output=False, use_schema_constraints=False. Should include installation note for Ollama.",
+      "expected_output": "Code using lx.extract() with model_id='gemma2:2b' (or similar) and model_url='http://localhost:11434'. It should explain that no API key is needed for local Ollama and that provider defaults should be left unset unless debugging.",
       "assertions": [
         "Code sets model_url to localhost:11434",
-        "Code sets fence_output=False",
-        "Code sets use_schema_constraints=False",
-        "Response mentions no API key needed for local Ollama"
+        "Response mentions no API key needed for local Ollama",
+        "Response says fence_output and use_schema_constraints should normally be left unset"
       ]
     },
     {
       "id": 4,
-      "prompt": "After running langextract, how do I visualize the extracted entities overlaid on the source text?",
-      "expected_output": "Code showing lx.io.save_annotated_documents() followed by lx.visualize() and saving the HTML output to a file.",
+      "prompt": "After running langextract, how do I keep only grounded entities and visualize them overlaid on the source text?",
+      "expected_output": "Code should filter grounded entities using char_interval, then show lx.io.save_annotated_documents() followed by lx.visualize() and saving the HTML output to a file.",
       "assertions": [
+        "Response filters or mentions filtering extractions using char_interval",
         "Code calls lx.io.save_annotated_documents()",
         "Code calls lx.visualize()",
         "Code writes HTML content to a .html file",
@@ -51,8 +51,8 @@
       "prompt": "Explain how to create a custom langextract provider plugin for my own LLM API",
       "expected_output": "Code showing class inheriting from lx.inference.BaseLanguageModel with @lx.providers.registry.register decorator, implementing infer() method that yields ScoredOutput. Should include pyproject.toml entry_points configuration.",
       "assertions": [
-        "Code uses @lx.providers.registry.register decorator with regex patterns",
-        "Class inherits from lx.inference.BaseLanguageModel",
+        "Response mentions the router or provider registration pattern with regex matching",
+        "Class inherits from a LangExtract base language model interface",
         "Class implements infer() method",
         "Response includes entry_points configuration for PyPI package"
       ]
