@@ -33,6 +33,8 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/53
 - PR `#54` for `survey` is merged:
   https://github.com/akillness/oh-my-gods/pull/54
+- PR `#55` for `playwriter` is the merge target for this run:
+  https://github.com/akillness/oh-my-gods/pull/55
 
 ## Audit snapshot
 
@@ -42,10 +44,10 @@ Date: 2026-04-19
   keep re-reviewing that lane.
 - `survey` is closed after PR `#54` merged, so the loop should not keep
   advertising it as active work.
-- `playwriter` is the next bounded target because this recurring loop now
-  explicitly prefers it for browser/runtime verification, yet the skill still
-  carries install, MCP, recovery, and safety detail inline with no
-  `references/` support package.
+- `playwriter` is review-clean after the bounded standards pass: the skill now
+  has the missing install/session and MCP/security recovery references, the
+  eval suite covers enabled-tab consent and recovery, and the PR is open with
+  a clean merge state.
 - Official and primary-source signal keeps favoring this lane:
   - Playwriter's primary docs emphasize explicit enabled-tab consent, localhost
     relay boundaries, and `session new` as prerequisites:
@@ -63,7 +65,7 @@ Date: 2026-04-19
 | `marketing-automation` | Merged via PR `#52` after a bounded standards pass | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `agent-evaluation` | Merged via PR `#53` | No | No | Added | Added | Not yet | Keep the lane closed unless review feedback or new measured failures appear |
 | `survey` | Merged via PR `#54` | No | No | Added | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
-| `playwriter` | Active bounded standards lane | No | No | Add install/MCP/recovery support files | Refresh existing evals | Not yet | Open a bounded PR once the playwriter package is validated |
+| `playwriter` | Merge target PR `#55` | No | No | Added install/session and MCP/security recovery support files | Refreshed | Not yet | Merge the lane, then keep it closed unless new measured failures appear |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -71,16 +73,17 @@ Date: 2026-04-19
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Keep the active run centered on `playwriter` until the standards package is
-  review-ready and the PR path is open.
+- Keep the active run centered on `playwriter` until the lane merges or review
+  feedback forces one bounded follow-up.
 - Do not start a `skill-autoresearch` mutation loop for `playwriter` unless
   later review feedback or eval evidence exposes a real measured miss after the
   new support files land.
 
 ## Current state
 
-- Current state: `playwriter` standards lane is packaged and awaiting post-PR review
+- Current state: `playwriter` standards lane is review-clean and queued for
+  merge
 - PR: https://github.com/akillness/oh-my-gods/pull/55
 - Blocker: none
-- Next owner: nanoclaw_pd
-- Stage: `pr-open`
+- Next owner: merge path on this run
+- Stage: `merge`

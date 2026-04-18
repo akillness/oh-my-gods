@@ -12,9 +12,9 @@
   https://github.com/akillness/oh-my-gods/pull/54
 - Repo-wide validation currently sits at `0` errors and `8` warnings before the
   new lane edits.
-- `playwriter` is now the next bounded lane because the recurring loop now
-  explicitly prefers it for browser/runtime verification, but the skill still
-  lacks a `references/` package for install, MCP, and recovery detail.
+- `playwriter` is now the merge target because the recurring loop's preferred
+  live-browser verification surface has already been repackaged into a compact
+  standards lane with the missing support files and refreshed eval coverage.
 
 ## Survey refresh
 
@@ -47,11 +47,10 @@ The landscape signal remains stable as of April 19, 2026:
 
 Advance one bounded lane per run, in this order:
 
-1. Package `playwriter` into a compact standards lane with install/MCP/recovery
-   references, refreshed evals, and refreshed compact discovery
-2. Open a bounded PR for that lane once validation is clean
-3. After the first review-clean pass, either make one bounded follow-up update
-   or advance directly to merge
+1. Merge `playwriter` via PR `#55` if no new review feedback appears
+2. Keep the lane closed after merge unless review feedback or measured failures
+   reopen it
+3. Select the next bounded lane from the survey lock on the next run
 4. Revisit `skill-autoresearch` only after a merged, eval-backed target still
    shows measured failures
 
@@ -59,11 +58,11 @@ This order is locked because:
 
 - PR `#54` is already merged, so keeping the loop on the `survey` lane would
   just repeat closed work.
-- `playwriter` has a clear standards gap that is still narrow enough to fix in
-  one reviewable PR: a workflow-critical entrypoint missing the support files
-  that should carry install, consent, MCP, and recovery detail.
-- Starting a mutation loop before the support package exists would optimize the
-  wrong layer.
+- `playwriter` already received the narrow support-package repair that this run
+  family locked in: compact entrypoint, explicit references, and refreshed
+  evals.
+- Starting a mutation loop before the merged package shows a measured failure
+  would optimize the wrong layer.
 
 ## Skill-autoresearch triage
 
@@ -73,7 +72,7 @@ This order is locked because:
 | `marketing-automation` | Closed medium-high lane | No | No | No | Added | Added | Keep closed unless later review feedback reopens it |
 | `agent-evaluation` | Medium-high | Not yet | No | No | Added | Added | Closed after PR `#53`; reopen only on review feedback or new measured failures |
 | `survey` | Closed high-leverage lane | No | No | Added | Refreshed | Keep closed unless later review feedback reopens it |
-| `playwriter` | High | Not yet | No | No | Add install/MCP/recovery references | Refresh existing evals | Open the next bounded PR once validation is clean |
+| `playwriter` | High | Not yet | No | No | Added install/session and MCP/security recovery references | Refreshed | Merge PR `#55`, then keep closed unless review feedback or measured failures reopen it |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 
@@ -82,17 +81,16 @@ This order is locked because:
 - Active lane: `playwriter`
   - Assets: no
   - Scripts: no
-  - References: yes, add install/session and MCP/security/recovery support
-    files outside the main entrypoint
-  - Evals: yes, refresh the existing suite to check enabled-tab consent and
-    recovery guidance
+  - References: yes, install/session and MCP/security/recovery support files
+    are now packaged outside the main entrypoint
+  - Evals: yes, refreshed to check enabled-tab consent and recovery guidance
   - Skill-autoresearch: still deferred until the merged skill shows measured
     failures after the support package lands
 
 ## Current state
 
-- State: `playwriter` standards lane is packaged and awaiting post-PR review
+- State: `playwriter` standards lane reviewed clean and ready to merge
 - PR: https://github.com/akillness/oh-my-gods/pull/55
 - Blocker: none
 - Next owner: nanoclaw_pd
-- Stage: `pr-open`
+- Stage: `merge`
