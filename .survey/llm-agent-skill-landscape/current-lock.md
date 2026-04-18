@@ -55,8 +55,8 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/44
 - PR `#45` for the `bmad-idea` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/45
-- PR `#46` for the `langchain-bmad` standards lane is still open as a draft,
-  but `gh pr view` now reports it as `MERGEABLE` with `mergeStateStatus:
+- PR `#46` for the `langchain-bmad` standards lane is open and ready for
+  review. `gh pr view` reports it as `MERGEABLE` with `mergeStateStatus:
   CLEAN` and no review or status-check blockers:
   https://github.com/akillness/oh-my-gods/pull/46
 

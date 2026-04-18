@@ -16,9 +16,9 @@
   https://github.com/akillness/oh-my-gods/pull/44
 - PR `#45` for the `bmad-idea` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/45
-- PR `#46` for the `langchain-bmad` standards lane remains open, but the
-  review pass now confirms the branch is bounded, the target skill validates
-  cleanly, and the PR is mergeable with `mergeStateStatus: CLEAN`:
+- PR `#46` for the `langchain-bmad` standards lane is now open and ready for
+  review. The review pass confirms the branch is bounded, the target skill
+  validates cleanly, and the PR is mergeable with `mergeStateStatus: CLEAN`:
   https://github.com/akillness/oh-my-gods/pull/46
 - Repo-wide validation on the current review branch sits at `0` errors and
   `26` warnings.
