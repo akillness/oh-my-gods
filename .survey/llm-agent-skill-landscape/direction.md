@@ -81,8 +81,8 @@ This order is locked because:
 
 ## Current state
 
-- State: `survey` standards lane is in bounded improvement
-- PR: pending this run
+- State: `survey` standards lane is reviewable and awaiting PR feedback
+- PR: https://github.com/akillness/oh-my-gods/pull/54
 - Blocker: none
-- Next owner: maintainer opening the next PR path
-- Stage: `improvement`
+- Next owner: PR reviewer
+- Stage: `pr-open`
