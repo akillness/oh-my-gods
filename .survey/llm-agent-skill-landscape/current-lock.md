@@ -35,9 +35,10 @@ Date: 2026-04-18
   https://developers.openai.com/codex/skills
   https://developers.openai.com/codex/hooks
   https://developers.openai.com/codex/subagents
-- No new ecosystem signal in this refresh justifies reopening `clawteam`
-  after merge; the higher-value move is to advance the next bounded standards
-  lane on `presentation-builder`.
+- No new ecosystem signal in this refresh justifies reopening
+  `presentation-builder` after merge. The higher-value move is to reset the
+  queue onto the next bounded standards lane rather than widen into a broad
+  multi-skill rewrite.
 
 Source links:
 
@@ -80,11 +81,10 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/46
 - PR `#47` for the `clawteam` standards lane merged at `2026-04-18T03:02:39Z`:
   https://github.com/akillness/oh-my-gods/pull/47
-- PR `#48` for the `presentation-builder` standards lane opened on
-  `2026-04-18`:
+- PR `#48` for the `presentation-builder` standards lane merged at
+  `2026-04-18T06:04:04Z`:
   https://github.com/akillness/oh-my-gods/pull/48
-  - Review status on `2026-04-18`: no comments, no reviews, and
-    `mergeStateStatus=CLEAN`
+  - Final live state on `2026-04-18`: `state=MERGED`
 
 ## Audit snapshot
 
@@ -92,21 +92,31 @@ Source links:
   `0` errors and `0` warnings after the standards pass.
 - Repo-wide validation now sits at `0` errors and `20` warnings across
   `.god-skills/`.
-- `presentation-builder` still has a packaged reference surface and starter
-  eval coverage, and the post-open review found no duplicate work, missing
-  improvements, or new standardization gaps.
+- `presentation-builder` keeps its packaged reference surface and starter eval
+  coverage after merge, and the final review pass found no duplicate work,
+  missing improvements, or new standardization gaps.
 - `skill-autoresearch` is still not justified for `presentation-builder`;
-  there are no measured behavioral failures yet, only the new baseline support
-  surface.
-- The unresolved warning leaders after opening PR `#48` are:
+  there are no measured behavioral failures after the standards pass, only the
+  new baseline support surface.
+- Repo-wide validation still sits at `0` errors and `20` warnings across
+  `.god-skills/`.
+- The unresolved warning leaders after merging PR `#48` are:
   - `design-system` (`2`)
   - `frontend-design-system` (`2`)
   - `langextract` (`2`)
   - `marketing-automation` (`2`)
   - `remotion-video-production` (`2`)
   - `video-production` (`2`)
-- The next survey target should not advance yet; PR `#48` should merge before
-  considering the two-warning cluster.
+- `design-system` is now the best next bounded lane because:
+  - it is a canonical cross-product UI-system skill with no packaged support
+    surface yet
+  - its compatibility alias `frontend-design-system` has the same standards
+    debt, so one canonicalization lane can reduce duplicate work
+  - `langextract` already ships scripts and evals, which makes its remaining
+    debt narrower than the design-system pair
+  - `marketing-automation`, `remotion-video-production`, and
+    `video-production` remain valid follow-ups, but they do not outrank the
+    design-system pair on leverage plus missing support-surface coverage
 
 ## Target decisions
 
@@ -121,34 +131,47 @@ Source links:
 | `bmad-idea` | Merged via PR `#45` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `langchain-bmad` | Merged lane with packaged support surface | No | No | Added | Added | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
 | `clawteam` | Merged standards lane via PR `#47` | No | Existing `scripts/setup.sh` is enough | Existing references were enough | Existing evals were enough | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
-| `presentation-builder` | Merge-ready via PR `#48` after a clean review pass | No | No | Added | Added | Not yet | Merge PR `#48`; do not reopen unless feedback or failing evals appear |
+| `presentation-builder` | Merged via PR `#48` | No | No | Added | Added | Not yet | Keep closed unless feedback or failing evals appear |
+| `design-system` | Next standards lane candidate | No | No | Yes | Yes | Not yet | Open a bounded standards PR that adds imperative trigger copy plus packaged references/evals |
+| `frontend-design-system` | Alias candidate paired with `design-system` | No | No | No separate package; point to canonical references | No separate eval package | Not yet | Keep the alias thin and align its trigger copy plus references section with the canonical skill |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean, eval-backed target shows real misses |
 
 ## Locked direction
 
-- `langchain-bmad` is closed via merged PR `#46`; do not reopen it unless new
-  review feedback or failing eval evidence appears.
-- `clawteam` is closed via merged PR `#47`; do not reopen it unless new review
-  feedback or failing eval evidence appears.
-- Do not widen the next run into the two-warning cluster unless review of PR
-  `#48` exposes a shared blocker.
+- `presentation-builder` is closed via merged PR `#48`; do not reopen it
+  unless new review feedback or failing eval evidence appears.
+- The next run should stay bounded to the `design-system` canonical lane plus
+  the `frontend-design-system` compatibility alias.
+- Explicit support-surface decision for the next lane:
+  - `design-system`
+    - `assets`: no
+    - `scripts`: no; the standards debt is packaging and trigger quality, not
+      reusable automation
+    - `references`: yes; add concise design-token/system references so the
+      entrypoint can stay compact
+    - `evals`: yes; add trigger and boundary checks before any later mutation
+      loop
+  - `frontend-design-system`
+    - `assets`: no
+    - `scripts`: no
+    - `references`: no separate package; add a references section that points
+      to the canonical `design-system` surface
+    - `evals`: no separate package while it stays a compatibility alias
 - Explicit support-surface decision for `presentation-builder`:
   - `assets`: no
   - `scripts`: no; the current lane does not need a reusable helper
   - `references`: added via `references/slides-grab-workflow.md`
   - `evals`: added via `evals/evals.json`
-- Do not start a mutation loop for `presentation-builder` unless a later
-  review or eval pass exposes measured failures that standards cleanup alone
-  does not fix.
-- The PR review is now clean; the lane should stay in `merge` until PR `#48`
-  lands or new reviewer feedback appears.
+- Do not start a mutation loop for `design-system` or
+  `frontend-design-system` during the next run unless the standards pass still
+  leaves measured failures after the packaged support surface is added.
 
 ## Current state
 
-- Current state: `presentation-builder` standards lane has passed review and is
-  ready to merge via PR `#48`
+- Current state: `presentation-builder` is merged; the queue is reset to the
+  next bounded survey target
 - PR: https://github.com/akillness/oh-my-gods/pull/48
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` merge pass
-- Stage: `merge`
+- Next owner: next scheduled `nanoclaw_pd` survey/improvement pass
+- Stage: `survey`

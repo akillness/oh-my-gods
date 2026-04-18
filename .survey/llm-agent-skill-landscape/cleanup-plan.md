@@ -1,10 +1,10 @@
-# Cleanup Plan: review `presentation-builder` and move to merge
+# Cleanup Plan: open the next bounded standards lane on `design-system`
 
 ## Goal
 
-Take the active `presentation-builder` PR lane from review into merge. Keep the
-scope limited to recurring survey state and only reopen skill files if review
-finds a concrete duplicate, missing standards surface, or compliance gap.
+Keep `presentation-builder` closed after merge and prepare the next bounded
+standards lane on the canonical `design-system` skill plus the
+`frontend-design-system` compatibility alias.
 
 ## Behavior lock
 
@@ -13,25 +13,24 @@ finds a concrete duplicate, missing standards surface, or compliance gap.
 - Do not reopen the merged `agent-configuration`, `agent-workflow`,
   `agent-principles`, `agent-development-principles`, `git-workflow`,
   `responsive-design`, `opencontext`, `bmad`, `bmad-idea`, `langchain-bmad`,
-  or `clawteam` lanes unless measured failures appear.
-- Do not widen the run into the two-warning cluster (`design-system`,
-  `frontend-design-system`, `langextract`, `marketing-automation`,
-  `remotion-video-production`, `video-production`) unless a shared blocker
-  appears.
-- Do not reopen `.god-skills/presentation-builder/*` unless review finds a
-  concrete standards regression or missing support surface.
-- Do not start a `skill-autoresearch` mutation loop for `presentation-builder`
-  before the reviewed standards baseline is merged and later measured failures
-  exist.
+  `clawteam`, or `presentation-builder` lanes unless measured failures appear.
+- Keep the next implementation lane bounded to `design-system` plus
+  `frontend-design-system`; do not widen it to `langextract`,
+  `marketing-automation`, `remotion-video-production`, or
+  `video-production` unless a shared blocker appears.
+- Do not start a `skill-autoresearch` mutation loop for the next lane before a
+  standards pass adds the missing packaging surface and measured failures still
+  remain afterward.
 
 ## Planned edits
 
-1. Recheck live PR `#48` state, mergeability, and review status.
-2. Re-run focused and repo-wide validation to confirm
-   `presentation-builder` remains standards-clean.
-3. Refresh the durable survey lock from `pr-open` to `merge` if review stays
-   clean and bounded.
-4. Keep the next queue target frozen until PR `#48` is merged.
+1. Keep the durable survey lock aligned with merged PR `#48`.
+2. Re-run focused and repo-wide validation to confirm the warning cluster is
+   unchanged after merge.
+3. Freeze the next queue target to `design-system` plus
+   `frontend-design-system`.
+4. Carry explicit packaging decisions forward so the next run can open a
+   bounded PR path instead of re-surveying the same cluster.
 
 ## Verification
 
@@ -40,6 +39,9 @@ finds a concrete duplicate, missing standards surface, or compliance gap.
 - Re-run
   `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
   and confirm the repo remains at `0` errors / `20` warnings
-- Recheck `gh pr view 48 --json state,mergeStateStatus,reviewDecision,reviews`
+- Recheck `gh pr view 48 --json state,mergedAt,mergeStateStatus`
+- Re-run focused validation for `design-system`, `frontend-design-system`,
+  `langextract`, `marketing-automation`, `remotion-video-production`, and
+  `video-production` to confirm the next lane ranking is still justified
 - Check `git diff --stat` and `git status --short --branch` for bounded scope
-- Keep the branch merge-ready without widening the active lane
+- Keep the branch survey-only without widening into a new standards edit yet
