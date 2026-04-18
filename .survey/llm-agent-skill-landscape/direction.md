@@ -81,8 +81,8 @@ This order is locked because:
 
 ## Current state
 
-- State: `survey` standards lane is reviewable and awaiting PR feedback
+- State: `survey` standards lane reviewed clean and ready to merge
 - PR: https://github.com/akillness/oh-my-gods/pull/54
 - Blocker: none
-- Next owner: PR reviewer
-- Stage: `pr-open`
+- Next owner: nanoclaw_pd
+- Stage: `merge`

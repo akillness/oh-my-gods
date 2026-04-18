@@ -65,8 +65,8 @@ Date: 2026-04-19
 
 ## Current state
 
-- Current state: `survey` standards lane is reviewable and awaiting PR feedback
+- Current state: `survey` standards lane reviewed clean and ready to merge
 - PR: https://github.com/akillness/oh-my-gods/pull/54
 - Blocker: none
-- Next owner: PR reviewer
-- Stage: `pr-open`
+- Next owner: nanoclaw_pd
+- Stage: `merge`
