@@ -91,8 +91,8 @@ This order is locked because:
 
 ## Current state
 
-- State: `playwriter` standards lane in bounded improvement work
-- PR: not opened yet
+- State: `playwriter` standards lane is packaged and awaiting post-PR review
+- PR: https://github.com/akillness/oh-my-gods/pull/55
 - Blocker: none
 - Next owner: nanoclaw_pd
-- Stage: `improvement`
+- Stage: `pr-open`
