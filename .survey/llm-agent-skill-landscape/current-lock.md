@@ -35,6 +35,8 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/54
 - PR `#55` for `playwriter` is merged:
   https://github.com/akillness/oh-my-gods/pull/55
+- PR `#56` for the React guidance lane is open:
+  https://github.com/akillness/oh-my-gods/pull/56
 
 ## Audit snapshot
 
@@ -71,8 +73,8 @@ Date: 2026-04-19
 | `agent-evaluation` | Merged via PR `#53` | No | No | Added | Added | Not yet | Keep the lane closed unless review feedback or new measured failures appear |
 | `survey` | Merged via PR `#54` | No | No | Added | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `playwriter` | Merged via PR `#55` | No | No | Added install/session and MCP/security recovery support files | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
-| `react-best-practices` | Active standards lane | No | No | Reuse bundled `AGENTS.md` | Add | Not yet | Canonicalize the React guidance surface, then open a bounded PR |
-| `vercel-react-best-practices` | Active compatibility lane | No | No | Point to canonical skill | Add | Not yet | Convert to a thin alias, then open a bounded PR |
+| `react-best-practices` | PR `#56` open | No | No | Reuse bundled `AGENTS.md` | Added | Not yet | Hold for review unless feedback or failing evidence reopens the lane |
+| `vercel-react-best-practices` | PR `#56` open | No | No | Point to canonical skill | Added | Not yet | Hold for review unless feedback or failing evidence reopens the lane |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -80,8 +82,8 @@ Date: 2026-04-19
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Keep the active run centered on the React guidance duplicate until the
-  canonical/alias split is packaged and the PR path is open.
+- Keep the active run centered on the React guidance duplicate until PR `#56`
+  is reviewed or a bounded follow-up is required.
 - Do not start a `skill-autoresearch` mutation loop for the React guidance lane
   unless later review feedback or eval evidence exposes a real measured miss
   after the canonical/alias split lands.
@@ -89,8 +91,8 @@ Date: 2026-04-19
 ## Current state
 
 - Current state: `playwriter` is closed; `react-best-practices` /
-  `vercel-react-best-practices` is the active bounded standards lane
-- PR: not opened yet on this branch
+  `vercel-react-best-practices` is the active PR-open standards lane
+- PR: https://github.com/akillness/oh-my-gods/pull/56
 - Blocker: none
-- Next owner: improvement path on this run, then PR review after registration
-- Stage: `improvement`
+- Next owner: review path on the next run
+- Stage: `pr-open`

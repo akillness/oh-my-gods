@@ -12,6 +12,8 @@
   https://github.com/akillness/oh-my-gods/pull/54
 - PR `#55` for `playwriter` is merged:
   https://github.com/akillness/oh-my-gods/pull/55
+- PR `#56` for the React guidance lane is open:
+  https://github.com/akillness/oh-my-gods/pull/56
 - Repo-wide validation currently sits at `0` errors and `8` warnings before the
   new lane edits.
 - The next bounded gap is the React guidance duplicate: `react-best-practices`
@@ -47,7 +49,8 @@ Advance one bounded lane per run, in this order:
 1. Close `playwriter` after PR `#55` merged
 2. Standardize the React guidance duplicate into a canonical skill plus a thin
    compatibility alias
-3. Open the next bounded PR path once validation is clean
+3. Review PR `#56`; apply a bounded follow-up only if duplicate work or a
+   standards gap remains
 4. Revisit `skill-autoresearch` only after a merged, eval-backed target still
    shows measured failures
 
@@ -70,8 +73,8 @@ This order is locked because:
 | `agent-evaluation` | Medium-high | Not yet | No | No | Added | Added | Closed after PR `#53`; reopen only on review feedback or new measured failures |
 | `survey` | Closed high-leverage lane | No | No | Added | Refreshed | Keep closed unless later review feedback reopens it |
 | `playwriter` | Closed high-leverage lane | No | No | Added install/session and MCP/security recovery references | Refreshed | Keep closed unless review feedback or measured failures reopen it |
-| `react-best-practices` | High | Not yet | No | No | Reuse bundled `AGENTS.md` | Add | Canonicalize the default React/Next.js performance lane |
-| `vercel-react-best-practices` | High | Not yet | No | No | Point to canonical skill | Add | Convert into a compatibility alias for legacy prompts and workflows |
+| `react-best-practices` | High | Not yet | No | No | Reuse bundled `AGENTS.md` | Added | Review PR `#56`, then keep closed unless feedback or measured failures reopen it |
+| `vercel-react-best-practices` | High | Not yet | No | No | Point to canonical skill | Added | Review PR `#56`, then keep closed unless feedback or measured failures reopen it |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 
@@ -89,8 +92,8 @@ This order is locked because:
 
 ## Current state
 
-- State: React guidance duplicate selected as the next bounded standards lane
-- PR: not opened yet on this branch
+- State: React guidance duplicate packaged and registered at PR `#56`
+- PR: https://github.com/akillness/oh-my-gods/pull/56
 - Blocker: none
-- Next owner: nanoclaw_pd
-- Stage: `survey`
+- Next owner: nanoclaw_pd review pass on the next run
+- Stage: `pr-open`
