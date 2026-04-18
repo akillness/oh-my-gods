@@ -352,7 +352,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `responsive-design` | 모바일 우선 레이아웃, 브레이크포인트 |
 | `ui-component-patterns` | 재사용 가능한 컴포넌트 라이브러리 |
 | `react-best-practices` | React/Next.js 성능 최적화 |
-| `vercel-react-best-practices` | Vercel 엔지니어링 React 가이드라인 |
+| `vercel-react-best-practices` | `react-best-practices`용 호환 별칭 |
 | `state-management` | Redux, Context, Zustand 패턴 |
 | `web-accessibility` | WCAG 2.1 준수 |
 | `web-design-guidelines` | 웹 인터페이스 가이드라인 준수 검토 |

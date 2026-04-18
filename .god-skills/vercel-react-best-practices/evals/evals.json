@@ -1,0 +1,25 @@
+{
+  "skill_name": "vercel-react-best-practices",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use vercel-react-best-practices to review this React page for waterfalls.",
+      "expected_output": "The response should recognize the explicit legacy skill name, keep alias-routing behavior, and point to react-best-practices for the actual guidance.",
+      "assertions": [
+        "Response acknowledges `vercel-react-best-practices` as the invoked legacy name",
+        "Response points to `react-best-practices` as the canonical skill",
+        "Response does not present `vercel-react-best-practices` as a separate full methodology"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our old setup script still references vercel-react-best-practices. What should we do?",
+      "expected_output": "The response should describe the skill as a compatibility alias and recommend routing future work to react-best-practices.",
+      "assertions": [
+        "Response describes the skill as a compatibility alias",
+        "Response recommends future work use `react-best-practices`",
+        "Response keeps the alias narrow and migration-focused"
+      ]
+    }
+  ]
+}

@@ -1,208 +1,104 @@
 ---
 name: vercel-react-best-practices
-description: React and Next.js performance optimization guidelines from Vercel Engineering. Use when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.
+description: >
+  Compatibility alias for `react-best-practices`. Use when an existing
+  workflow, setup script, or user explicitly asks for
+  `vercel-react-best-practices`; route general React and Next.js performance
+  work to `react-best-practices` instead. Triggers on: legacy skill name,
+  Vercel React best practices alias, exact-folder compatibility.
 license: MIT
 allowed-tools: Read Write Grep Glob
 ---
 
 # Vercel React Best Practices
 
-Comprehensive performance optimization guide for React and Next.js applications, maintained by Vercel. Contains 45 rules across 8 categories, prioritized by impact to guide automated refactoring and code generation.
+This skill is a compatibility alias for `react-best-practices`. Keep it thin.
 
 ## When to use this skill
 
-Reference these guidelines when:
-- Writing new React components or Next.js pages
-- Implementing data fetching (client or server-side)
-- Reviewing code for performance issues
-- Refactoring existing React/Next.js code
-- Optimizing bundle size or load times
+- The user explicitly names `vercel-react-best-practices`
+- An older prompt pack or setup surface still points at this folder name
+- A migration-safe alias is needed without maintaining a second full rule pack
 
-## Rule Categories by Priority
-
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Eliminating Waterfalls | CRITICAL | `async-` |
-| 2 | Bundle Size Optimization | CRITICAL | `bundle-` |
-| 3 | Server-Side Performance | HIGH | `server-` |
-| 4 | Client-Side Data Fetching | MEDIUM-HIGH | `client-` |
-| 5 | Re-render Optimization | MEDIUM | `rerender-` |
-| 6 | Rendering Performance | MEDIUM | `rendering-` |
-| 7 | JavaScript Performance | LOW-MEDIUM | `js-` |
-| 8 | Advanced Patterns | LOW | `advanced-` |
-
-## Quick Reference
-
-### 1. Eliminating Waterfalls (CRITICAL)
-
-- `async-defer-await` - Move await into branches where actually used
-- `async-parallel` - Use Promise.all() for independent operations
-- `async-dependencies` - Use better-all for partial dependencies
-- `async-api-routes` - Start promises early, await late in API routes
-- `async-suspense-boundaries` - Use Suspense to stream content
-
-### 2. Bundle Size Optimization (CRITICAL)
-
-- `bundle-barrel-imports` - Import directly, avoid barrel files
-- `bundle-dynamic-imports` - Use next/dynamic for heavy components
-- `bundle-defer-third-party` - Load analytics/logging after hydration
-- `bundle-conditional` - Load modules only when feature is activated
-- `bundle-preload` - Preload on hover/focus for perceived speed
-
-### 3. Server-Side Performance (HIGH)
-
-- `server-cache-react` - Use React.cache() for per-request deduplication
-- `server-cache-lru` - Use LRU cache for cross-request caching
-- `server-serialization` - Minimize data passed to client components
-- `server-parallel-fetching` - Restructure components to parallelize fetches
-- `server-after-nonblocking` - Use after() for non-blocking operations
-
-### 4. Client-Side Data Fetching (MEDIUM-HIGH)
-
-- `client-swr-dedup` - Use SWR for automatic request deduplication
-- `client-event-listeners` - Deduplicate global event listeners
-
-### 5. Re-render Optimization (MEDIUM)
-
-- `rerender-defer-reads` - Don't subscribe to state only used in callbacks
-- `rerender-memo` - Extract expensive work into memoized components
-- `rerender-dependencies` - Use primitive dependencies in effects
-- `rerender-derived-state` - Subscribe to derived booleans, not raw values
-- `rerender-functional-setstate` - Use functional setState for stable callbacks
-- `rerender-lazy-state-init` - Pass function to useState for expensive values
-- `rerender-transitions` - Use startTransition for non-urgent updates
-
-### 6. Rendering Performance (MEDIUM)
-
-- `rendering-animate-svg-wrapper` - Animate div wrapper, not SVG element
-- `rendering-content-visibility` - Use content-visibility for long lists
-- `rendering-hoist-jsx` - Extract static JSX outside components
-- `rendering-svg-precision` - Reduce SVG coordinate precision
-- `rendering-hydration-no-flicker` - Use inline script for client-only data
-- `rendering-activity` - Use Activity component for show/hide
-- `rendering-conditional-render` - Use ternary, not && for conditionals
-
-### 7. JavaScript Performance (LOW-MEDIUM)
-
-- `js-batch-dom-css` - Group CSS changes via classes or cssText
-- `js-index-maps` - Build Map for repeated lookups
-- `js-cache-property-access` - Cache object properties in loops
-- `js-cache-function-results` - Cache function results in module-level Map
-- `js-cache-storage` - Cache localStorage/sessionStorage reads
-- `js-combine-iterations` - Combine multiple filter/map into one loop
-- `js-length-check-first` - Check array length before expensive comparison
-- `js-early-exit` - Return early from functions
-- `js-hoist-regexp` - Hoist RegExp creation outside loops
-- `js-min-max-loop` - Use loop for min/max instead of sort
-- `js-set-map-lookups` - Use Set/Map for O(1) lookups
-- `js-tosorted-immutable` - Use toSorted() for immutability
-
-### 8. Advanced Patterns (LOW)
-
-- `advanced-event-handler-refs` - Store event handlers in refs
-- `advanced-use-latest` - useLatest for stable callback refs
+Do not use this alias as a separate methodology. For normal React or Next.js
+performance work, use `react-best-practices`.
 
 ## Instructions
 
-For detailed explanations and code examples, read the full compiled document: `AGENTS.md`
+### Step 1: Confirm that this is alias-routing work
 
-Each rule contains:
-- Brief explanation of why it matters
-- Incorrect code example with explanation
-- Correct code example with explanation
-- Additional context and references
+Use this skill only when the legacy name itself matters for discovery or
+migration.
+
+If the user simply wants React or Next.js performance help, treat
+`react-best-practices` as the canonical surface.
+
+### Step 2: Load the canonical skill
+
+Read the canonical skill and its bundled detailed rule pack:
+
+- `../react-best-practices/SKILL.md`
+- `../react-best-practices/AGENTS.md`
+
+Reuse the canonical guidance for:
+
+- waterfall removal
+- bundle-size optimization
+- RSC or server/client boundary checks
+- rerender and hydration diagnosis
+
+### Step 3: Keep the alias thin
+
+Do not maintain a second copy of the Vercel rule catalog here.
+
+For this alias:
+
+- `assets`: no
+- `scripts`: no
+- `references`: point back to the canonical skill
+- `evals`: only enough to prove the alias stays a routing surface
+
+### Step 4: Preserve route-outs
+
+Keep neighboring boundaries aligned with the canonical skill:
+
+- Route broader app or backend performance work to
+  `../performance-optimization/SKILL.md`
+- Route browser verification on a live page to `../playwriter/SKILL.md` or
+  `../agent-browser/SKILL.md` depending on session needs
 
 ## Examples
 
-### Promise.all for Independent Operations (CRITICAL)
+### Example 1: Legacy prompt name
 
-```typescript
-// ❌ Sequential: 3 round trips
-const user = await fetchUser()
-const posts = await fetchPosts()
-const comments = await fetchComments()
+Input:
 
-// ✅ Parallel: 1 round trip
-const [user, posts, comments] = await Promise.all([
-  fetchUser(),
-  fetchPosts(),
-  fetchComments()
-])
+```text
+Use vercel-react-best-practices to audit this Next.js route for waterfalls.
 ```
 
-### Avoid Barrel File Imports (CRITICAL)
+Expected behavior:
 
-```tsx
-// ❌ Imports entire library (200-800ms import cost)
-import { Check, X, Menu } from 'lucide-react'
+- keep the request on this alias for discovery
+- load `react-best-practices` for the actual optimization guidance
+- avoid maintaining a second, duplicated rule pack here
 
-// ✅ Imports only what you need
-import Check from 'lucide-react/dist/esm/icons/check'
-import X from 'lucide-react/dist/esm/icons/x'
+### Example 2: Migration question
+
+Input:
+
+```text
+Our old automation still invokes vercel-react-best-practices. Should we keep it?
 ```
 
-### Dynamic Imports for Heavy Components (CRITICAL)
+Expected behavior:
 
-```tsx
-// ❌ Monaco bundles with main chunk ~300KB
-import { MonacoEditor } from './monaco-editor'
-
-// ✅ Monaco loads on demand
-import dynamic from 'next/dynamic'
-const MonacoEditor = dynamic(
-  () => import('./monaco-editor').then(m => m.MonacoEditor),
-  { ssr: false }
-)
-```
-
-### Use Functional setState (MEDIUM)
-
-```tsx
-// ❌ Requires state as dependency, stale closure risk
-const addItems = useCallback((newItems) => {
-  setItems([...items, ...newItems])
-}, [items])
-
-// ✅ Stable callback, no stale closures
-const addItems = useCallback((newItems) => {
-  setItems(curr => [...curr, ...newItems])
-}, [])
-```
-
-## Constraints
-
-### 필수 규칙 (MUST)
-
-1. **Waterfall 제거**: Promise.all, Suspense 사용
-2. **번들 최적화**: barrel imports 금지, dynamic imports 사용
-3. **RSC 경계**: 필요한 데이터만 직렬화
-
-### 금지 사항 (MUST NOT)
-
-1. **Sequential await**: 독립적인 fetch를 순차 실행하지 않음
-2. **Array mutations**: sort() 대신 toSorted() 사용
-3. **Inline objects in React.cache**: 캐시 미스 발생
+- explain that this folder is a compatibility alias
+- point future work to `react-best-practices`
+- keep the alias only for migration-safe discovery
 
 ## References
 
-- [React Documentation](https://react.dev)
-- [Next.js Documentation](https://nextjs.org)
-- [SWR](https://swr.vercel.app)
-- [better-all](https://github.com/shuding/better-all)
-- [Vercel Blog: Optimizing Package Imports](https://vercel.com/blog/how-we-optimized-package-imports-in-next-js)
-- [Vercel Blog: Dashboard Performance](https://vercel.com/blog/how-we-made-the-vercel-dashboard-twice-as-fast)
-
-## Metadata
-
-### 버전
-- **현재 버전**: 1.0.0
-- **최종 업데이트**: 2026-01-22
-- **호환 플랫폼**: Claude, ChatGPT, Gemini
-- **원본 출처**: vercel/agent-skills
-
-### 관련 스킬
-- [performance-optimization](../../code-quality/performance-optimization/SKILL.md): 일반 성능 최적화
-- [state-management](../state-management/SKILL.md): 상태 관리
-
-### 태그
-`#React` `#Next.js` `#performance` `#optimization` `#vercel` `#waterfalls` `#bundle-size` `#RSC` `#frontend`
+- Canonical skill: `../react-best-practices/SKILL.md`
+- Detailed rule pack: `../react-best-practices/AGENTS.md`
+- Agent Skills specification: `https://agentskills.io/specification`
