@@ -4,17 +4,17 @@ Date: 2026-04-18
 
 ## Survey refresh
 
-- No newer post-lock ecosystem releases displaced the April 16-17, 2026 signal
-  cluster already captured in the previous survey refresh. The latest checked
-  official updates remain:
-  - Codex changelog entries on 2026-04-15 and 2026-04-16:
-    https://developers.openai.com/codex/changelog
-  - Claude Code changelog entry `2.1.109` on 2026-04-15:
+- No newer post-lock ecosystem release displaced the skill-packaging signal
+  already captured in the previous survey refresh. The latest checked official
+  sources still reinforce the same direction:
+  - Claude Code changelog entry `2.1.109` remains the latest visible April
+    release in the checked surface:
     https://code.claude.com/docs/en/changelog
-  - GitHub launched `gh skill` on 2026-04-16:
+  - GitHub's `gh skill` launch on 2026-04-16 still increases the value of
+    portable, standards-clean skill directories:
     https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
-  - Gemini CLI releases page was rechecked on 2026-04-18 and no newer official
-    release signal displaced the prior queue ranking:
+  - Gemini CLI releases were rechecked on 2026-04-18 and did not surface a new
+    official signal that changes the queue ranking:
     https://github.com/google-gemini/gemini-cli/releases
 - Agent Skills still recommends compact `SKILL.md` entrypoints with
   progressive disclosure through `references/`, `scripts/`, `assets/`, and
@@ -29,19 +29,17 @@ Date: 2026-04-18
   well-packaged skills, which keeps eval-backed cleanup a better next step
   than speculative mutation loops:
   https://blog.langchain.com/langchain-skills/
-- GitHub launched `gh skill` on 2026-04-16, which increases the value of
-  portable, discoverable, provenance-friendly skill directories:
-  https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
-- Codex now documents skills, hooks, subagents, and plugin packaging as
-  first-class surfaces, which further increases the leverage of standards-clean
+- OpenAI Codex docs still document skills, hooks, and subagents as first-class
+  surfaces, which further increases the leverage of standards-clean
   multi-agent orchestration skills:
   https://developers.openai.com/codex/skills
   https://developers.openai.com/codex/hooks
   https://developers.openai.com/codex/subagents
-- No new ecosystem signal in this refresh displaced the already-locked
-  `design-system` lane. The highest-value move remains: standardize the
-  canonical skill, keep the alias thin, and open the PR without widening into
-  another warning leader.
+- No new ecosystem signal in this refresh displaced the next duplicate-surface
+  leader. That direction has now been executed in this run: `video-production`
+  is the canonical video skill, `remotion-video-production` is a thin
+  compatibility alias, and the lane is ready for PR review instead of broader
+  widening.
 
 Source links:
 
@@ -51,14 +49,11 @@ Source links:
 - https://docs.langchain.com/oss/javascript/deepagents/skills
 - https://blog.langchain.com/langchain-skills/
 - https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
-- https://developers.openai.com/codex/changelog
 - https://developers.openai.com/codex/skills
 - https://developers.openai.com/codex/hooks
 - https://developers.openai.com/codex/subagents
 - https://code.claude.com/docs/en/changelog
 - https://github.com/google-gemini/gemini-cli/releases
-- https://docs.bmad-method.org/explanation/creative-intelligence/
-- https://bmadcodes.com/v6-alpha/
 
 ## Live GitHub state
 
@@ -87,33 +82,37 @@ Source links:
 - PR `#48` for the `presentation-builder` standards lane merged at
   `2026-04-18T06:04:04Z`:
   https://github.com/akillness/oh-my-gods/pull/48
-  - Final live state on `2026-04-18`: `state=MERGED`
-- PR `#49` for the `design-system` standards lane opened on `2026-04-18`:
+- PR `#49` for the `design-system` standards lane merged at
+  `2026-04-18T08:03:07Z`:
   https://github.com/akillness/oh-my-gods/pull/49
+- PR `#50` for the duplicate video lane is now open:
+  https://github.com/akillness/oh-my-gods/pull/50
 
 ## Audit snapshot
 
-- `presentation-builder` stays closed after merge; no duplicate work or new
-  standards gap justified reopening it in this run.
-- Focused validation for `.god-skills/design-system/` now passes at `0` errors
-  and `0` warnings after the standards pass.
-- Focused validation for `.god-skills/frontend-design-system/` now passes at
-  `0` errors and `0` warnings after the alias-thinning pass.
-- Repo-wide validation now sits at `0` errors and `16` warnings across
-  `.god-skills/`.
-- `design-system` now has a packaged reference surface and starter eval
-  coverage, and `frontend-design-system` is reduced to a thin compatibility
-  alias rather than a second full UI-system spec.
-- `skill-autoresearch` is still not justified for `design-system`; there are
-  no measured behavioral failures yet, only the new baseline support surface.
-- The unresolved warning leaders after merging PR `#48` are:
+- `design-system` and `frontend-design-system` stay closed after merge; no
+  duplicate work or new standards gap justified reopening them in this run.
+- Repo-wide validation still passes at `80/80` skills, and total repo warnings
+  dropped from `16` to `12` after the video-lane cleanup.
+- `video-production` now has a packaged reference surface and starter eval
+  coverage, and `remotion-video-production` is reduced to a thin compatibility
+  alias rather than a second full spec.
+- `skill-autoresearch` is still not justified for the video lane; the
+  standards pass removed the objective warning pattern without leaving measured
+  failures in the new eval surface.
+- The current unresolved warning leaders after opening PR `#50` are:
   - `langextract` (`2`)
   - `marketing-automation` (`2`)
-  - `remotion-video-production` (`2`)
-  - `video-production` (`2`)
-- The next survey target should not advance yet; the next run should review PR
-  `#49` for duplicate work, missing improvements, or standardization gaps
-  before considering the remaining two-warning cluster.
+  - `agent-evaluation` (`1`)
+  - `fabric` (`1`)
+  - `pm-skills` (`1`)
+  - `ralphmode` (`1`)
+  - `react-best-practices` (`1`)
+  - `vercel-deploy` (`1`)
+  - `vercel-react-best-practices` (`1`)
+  - `web-design-guidelines` (`1`)
+- The queue now has open-PR debt again. The next run should review PR `#50`
+  before widening to another lane.
 
 ## Target decisions
 
@@ -129,39 +128,45 @@ Source links:
 | `langchain-bmad` | Merged lane with packaged support surface | No | No | Added | Added | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
 | `clawteam` | Merged standards lane via PR `#47` | No | Existing `scripts/setup.sh` is enough | Existing references were enough | Existing evals were enough | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
 | `presentation-builder` | Merged via PR `#48` | No | No | Added | Added | Not yet | Keep closed unless feedback or failing evals appear |
-| `design-system` | PR `#49` open with standards pass committed | No | No | Added | Added | Not yet | Review the branch for duplicate work and merge only if the review stays clean |
-| `frontend-design-system` | Alias updated in PR `#49` | No | No | Points to canonical references | No separate eval package | Not yet | Keep thin unless review finds alias-specific routing drift |
+| `design-system` | Merged via PR `#49` | No | No | Added | Added | Not yet | Keep closed unless feedback or failing evals appear |
+| `frontend-design-system` | Alias merged via PR `#49` | No | No | Points to canonical references | No separate eval package | Not yet | Keep thin unless later routing drift appears |
+| `video-production` | PR `#50` open as canonical lane | No | No | Added | Added | No; the standards pass removed the objective validator failures | Review the PR for duplicate work or missing route-outs before merge |
+| `remotion-video-production` | Alias lane in PR `#50` | No | No | Points to canonical references | No separate eval package while alias stays thin | No | Keep thin unless review proves a distinct workflow |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean, eval-backed target shows real misses |
 
 ## Locked direction
 
-- `presentation-builder` is closed via merged PR `#48`; do not reopen it
-  unless new review feedback or failing eval evidence appears.
-- Do not widen the next run into another warning leader unless review of PR
-  `#49` exposes a shared blocker.
-- Explicit support-surface decision for the next lane:
-  - `design-system`
-    - `assets`: no
-    - `scripts`: no; the lane stayed bounded without reusable automation
-    - `references`: added via `references/system-direction.md`
-    - `evals`: added via `evals/evals.json`
-  - `frontend-design-system`
+- `presentation-builder`, `design-system`, and `frontend-design-system` are
+  closed via merged PRs `#48` and `#49`; do not reopen them unless new review
+  feedback or failing eval evidence appears.
+- Do not widen the next run into `langextract` or `marketing-automation`
+  unless PR `#50` review exposes a blocker that prevents the merge path.
+- Explicit support-surface decision for the open video lane:
+  - `video-production`
     - `assets`: no
     - `scripts`: no
-    - `references`: no separate package; point to the canonical
-      `design-system` surface
-    - `evals`: no separate package while it stays a compatibility alias
-- Do not start a mutation loop for `design-system` or
-  `frontend-design-system` unless a later review or eval pass exposes measured
-  failures that standards cleanup alone does not fix.
-- If the PR review is clean on the next run, proceed directly to merge path.
+    - `references`: added via `references/video-direction.md`
+    - `evals`: added via `evals/evals.json`
+  - `remotion-video-production`
+    - `assets`: no
+    - `scripts`: no
+    - `references`: no separate package while it stays a compatibility alias
+    - `evals`: no separate package unless review proves distinct behavior
+- Do not start a mutation loop for `video-production` or
+  `remotion-video-production` unless PR review or later eval evidence exposes
+  measured failures that the standards pass did not solve.
+- PR review on `#50` found one bounded follow-up in the canonical
+  `video-production` example snippet; after fixing it, the lane is ready for
+  merge instead of another review cycle.
+- The next queued lane after merge remains `langextract`, unless post-merge
+  evidence reopens the video lane.
 
 ## Current state
 
-- Current state: `design-system` standards lane is now opened for review via
-  PR `#49`
-- PR: https://github.com/akillness/oh-my-gods/pull/49
+- Current state: the duplicate video lane has completed PR review, received one
+  bounded follow-up fix, and is now ready for merge
+- PR: https://github.com/akillness/oh-my-gods/pull/50
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR review pass
-- Stage: `pr-open`
+- Next owner: current `nanoclaw_pd` merge pass
+- Stage: `merge`

@@ -22,51 +22,57 @@
   https://github.com/akillness/oh-my-gods/pull/47
 - PR `#48` for the `presentation-builder` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/48
-- Repo-wide validation now sits at `0` errors and `16` warnings after the
-  `design-system` standards pass.
-- `design-system` and `frontend-design-system` have left the warning
-  leaderboard after PR `#49` opened; the remaining leaders are the four
-  two-warning skills.
+- PR `#49` for the `design-system` standards lane is merged:
+  https://github.com/akillness/oh-my-gods/pull/49
+- PR `#50` for the duplicate video lane is now open:
+  https://github.com/akillness/oh-my-gods/pull/50
+- Repo-wide validation still sits at `80/80` passing skills, and total repo
+  warnings dropped from `16` to `12` after the video-lane cleanup.
+- `design-system` and `frontend-design-system` are now closed, and the
+  duplicate video pair has been removed from the warning leaders. The
+  remaining leading warnings are `langextract` and
+  `marketing-automation`.
 
 ## Survey refresh
 
-The landscape signal remains stable after the latest review pass:
+The landscape signal remains stable after the latest merge pass:
 
 1. Agent Skills still rewards compact, discoverable, progressive-disclosure
    packaging over oversized inline entrypoints.
 2. LangChain and Deep Agents still reinforce packaged skills with deferred
    detail, which keeps bridge skills valuable only when they route cleanly and
    stay compact.
-3. GitHub's new `gh skill` workflow further raises the value of portable,
+3. GitHub's `gh skill` workflow still raises the value of portable,
    standards-clean skill directories.
-4. Inference for this repo: the next highest-value move is still a bounded
-   standards pass on the canonical `design-system` skill plus its
-   `frontend-design-system` compatibility alias.
-5. `langextract` remains a credible follow-up, but it already has scripts and
-   evals, so the support-surface gap is less severe than the design-system pair.
+4. Inference for this repo: the bounded canonicalization pass on
+   `video-production` plus `remotion-video-production` was the right next
+   move, because the duplicate peer surface is now gone and the repo warning
+   count dropped immediately.
+5. `langextract` remains the strongest follow-up after PR `#50` review because
+   it still leads the remaining warning queue and already ships scripts/evals
+   that can support a bounded standards pass.
 
 ## Locked direction
 
 Advance one bounded lane per run, in this order:
 
-1. Keep `presentation-builder` closed after merged PR `#48`
-2. Review PR `#49` for duplicate work, missing improvements, or
-   standardization gaps on `design-system`
-3. If the review is clean and scope remains satisfied, proceed to merge path
-4. Only after merge, reset the queue to the next bounded warning leader
+1. Keep `presentation-builder`, `design-system`, and
+   `frontend-design-system` closed after merged PRs `#48` and `#49`
+2. Review PR `#50` for duplicate work, missing improvements, or alias drift
+3. Merge the video lane if the review is clean
+4. Move next to `langextract` unless PR review exposes a blocker
 5. Revisit `skill-autoresearch` only after a review-clean, eval-backed target
    still shows measured failures
 
 This order is locked because:
 
-- `presentation-builder` is now merged, so the loop can safely advance without
-  leaving open-PR debt behind.
-- PR `#49` is already open, so skipping straight to another target would
-  create duplicate work and break the recurring loop contract.
-- `design-system` now has the support surface it was missing, so the next
-  uncertainty is review quality, not local packaging debt.
-- The remaining two-warning surfaces are legitimate follow-ups, but they do
-  not outrank closing the active PR lane.
+- PR `#49` is merged, so the queue can move without leaving open-PR debt
+  behind.
+- `video-production` and `remotion-video-production` still duplicate the same
+  job-to-be-done, while neither has the progressive-disclosure support package
+  now favored by the external landscape signal.
+- `langextract` and `marketing-automation` remain legitimate follow-ups, but
+  they do not outrank closing the duplicate-video pair first.
 
 ## Skill-autoresearch triage
 
@@ -78,41 +84,51 @@ This order is locked because:
 | `agent-development-principles` | High | Not yet | No | No | No | Yes | Keep closed as a compatibility alias unless routing failures appear |
 | `opencontext` | High | Not yet | No | No | Added | Added | Keep closed unless failing evals or review feedback reopen it |
 | `bmad` | High | Not yet | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Keep closed unless failures or review feedback reopen it |
-| `bmad-idea` | High | Not yet | No | No | Added | Added | Keep closed after merge unless new evidence appears |
+| `bmad-idea` | High | Not yet | No | No | Added | Added | Keep closed unless new evidence appears |
 | `langchain-bmad` | High | No | No | No | Added | Added | Keep closed after merged PR `#46`; do not reopen without new evidence |
 | `clawteam` | High | No | No | Existing script is enough | Existing references are enough | Existing evals are enough | Keep closed after merged PR `#47`; do not reopen without new evidence |
-| `presentation-builder` | High | Not yet | No | No | Added | Added | Keep closed after merged PR `#48`; only reopen if review feedback or failing evals appear |
-| `design-system` | High | Not yet | No | No | Added | Added | Review PR `#49`; merge if clean, otherwise apply one bounded follow-up |
-| `frontend-design-system` | High as alias support | Not yet | No | No | Points to canonical references | No separate eval package | Keep thin in PR `#49`; only reopen if review finds alias-specific drift |
+| `presentation-builder` | High | No | No | No | Added | Added | Keep closed after merged PR `#48`; only reopen if review feedback or failing evals appear |
+| `design-system` | High | No | No | No | Added | Added | Keep closed after merged PR `#49`; only reopen if review feedback or failing evals appear |
+| `frontend-design-system` | High as alias support | No | No | No | Points to canonical references | No separate eval package | Keep closed as a thin alias unless routing drift appears |
+| `video-production` | High | No; standards pass resolved the measured warnings | No | No | Added | Added | Review PR `#50` and merge if no duplicate work remains |
+| `remotion-video-production` | High as alias candidate | No | No | No | Points to canonical references | No separate package while alias stays thin | Keep as a compatibility alias unless review proves distinct behavior |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review-clean target still misses objective checks |
 
-## Packaging decision for the active lane
+## Packaging decision for the next lane
 
-- Just-merged lane: `presentation-builder`
-  - Assets: no
-  - Scripts: no; the lane stayed bounded without them
-  - References: added via `references/slides-grab-workflow.md`
-  - Evals: added via `evals/evals.json`
-  - Skill-autoresearch: still deferred until later measured misses appear
-- Active lane: `design-system` + `frontend-design-system`
+- Just-merged lane: `design-system` + `frontend-design-system`
   - `design-system`
     - Assets: no
     - Scripts: no
     - References: added via `references/system-direction.md`
     - Evals: added via `evals/evals.json`
+    - Skill-autoresearch: still deferred until later measured misses appear
   - `frontend-design-system`
     - Assets: no
     - Scripts: no
     - References: no separate package; point at the canonical skill
     - Evals: no separate package while it remains an alias
-  - Skill-autoresearch: not justified before the standards pass adds the
-    missing packaging surface and a later review still shows measured misses
+    - Skill-autoresearch: still deferred unless alias-specific routing drift appears
+- Current open lane: `video-production` + `remotion-video-production`
+  - `video-production`
+    - Assets: no
+    - Scripts: no
+    - References: added via `references/video-direction.md`
+    - Evals: added via `evals/evals.json`
+  - `remotion-video-production`
+    - Assets: no
+    - Scripts: no
+    - References: no separate package while it stays an alias; point to the
+      canonical skill
+    - Evals: no separate package unless review proves a distinct workflow
+  - Skill-autoresearch: not justified; the standards pass resolved the measured
+    warning pattern without leaving objective misses
 
 ## Current state
 
-- State: `design-system` standards lane is open for review
-- PR: https://github.com/akillness/oh-my-gods/pull/49
+- State: duplicate video lane reviewed, bounded follow-up applied, and ready to merge
+- PR: https://github.com/akillness/oh-my-gods/pull/50
 - Blocker: none
-- Next owner: next scheduled `nanoclaw_pd` PR review pass
-- Stage: `pr-open`
+- Next owner: current `nanoclaw_pd` merge pass
+- Stage: `merge`
