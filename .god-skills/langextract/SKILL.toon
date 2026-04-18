@@ -1,33 +1,33 @@
 N:langextract
-D:LLM-powered structured information extraction from unstructured text with character-level source grounding (provenance). Every extracted entity maps back to exact character offsets. Use when extracting entities, relationships, or structured data from documents. Supports Gemini (default), OpenAI, Ollama, and custom providers via plugin.
+D:Extract structured, source-grounded information from unstructured text with LangExtract. Use when the job is entity or relationship extraction from text, notes, reports, URLs, or long documents and the user wants grounded spans back to the source. Supports Gemini, OpenAI, Ollama, and custom providers.
 G:langextract information-extraction nlp ner entity-extraction structured-output gemini openai ollama grounding provenance document-parsing text-mining
 
 U[7]:
-  Extract named entities with character-level provenance from any text document
-  Process clinical notes, legal documents, or research papers into structured data
-  Build schema-enforced extraction pipelines without fine-tuning using few-shot examples
-  Handle long documents (100k+ chars) with chunking, parallel workers, and multi-pass extraction
-  Generate interactive HTML visualizations of annotated source text
-  Run local/private extraction with Ollama (no API key required)
-  Extend with custom LLM providers via Python entry-point plugin system
+  Extract named entities with grounded spans from text, URLs, notes, and reports
+  Process clinical notes, contracts, or research papers into structured data
+  Build schema-guided extraction pipelines with high-quality few-shot examples
+  Handle long documents with chunking, parallel workers, and multi-pass extraction
+  Filter out ungrounded example leakage with char_interval checks
+  Run private local extraction with Ollama and no API key
+  Extend LangExtract with explicit provider routing or plugin-style providers
 
 S[6]{n,action,details}:
-  1,Install,pip install langextract (Gemini default) or pip install langextract[openai] for OpenAI support; set LANGEXTRACT_API_KEY env var
-  2,Define schema,Create ExampleData objects with few-shot examples showing extraction_class + extraction_text + attributes — schema is inferred automatically, no fine-tuning needed
-  3,Extract,Call lx.extract(text_or_documents=..., prompt_description=..., examples=..., model_id="gemini-2.5-flash") — returns result with .extractions list
-  4,Long docs,Add extraction_passes=3 (multi-pass merge) + max_workers=20 (parallel chunks) + max_char_buffer=1000 for 100k+ character documents
-  5,Visualize,lx.io.save_annotated_documents([result], output_name="results.jsonl"); html = lx.visualize("results.jsonl") → color-coded annotation viewer
-  6,Verify,result.text[extraction.start:extraction.end] must equal extraction.extraction_text — use this assertion to catch offset drift
+  1,Check boundary,Use LangExtract only after the source is available as clean text or a retrievable URL; do OCR or PDF parsing first when needed
+  2,Define schema,Create ExampleData objects with ordered verbatim extraction_text spans and attributes so the examples define the schema cleanly
+  3,Extract,Call lx.extract(text_or_documents=..., prompt_description=..., examples=..., model_id="gemini-2.5-flash") for the default Gemini path
+  4,Provider choice,For OpenAI or Ollama keep fence_output and use_schema_constraints unset by default; for custom routing use ModelConfig and an explicit provider
+  5,Grounding filter,Drop extractions with char_interval=None when you need strictly grounded outputs from the source text only
+  6,Scale and review,Use extraction_passes=3 + max_workers + max_char_buffer for long docs, then save JSONL and generate HTML with lx.visualize()
 
 R[5]:
-  Write precise prompts: "use exact text, do not paraphrase" keeps character offsets accurate
-  Use 2-3 few-shot ExampleData covering edge cases — quality of examples drives extraction quality
-  For long documents set extraction_passes=3 to catch entities missed in a single pass
-  Use max_char_buffer=500-1000 for focused context windows; larger values reduce API calls but may miss entities
-  Use fence_output=True and use_schema_constraints=False for OpenAI/Ollama (only Gemini supports controlled generation)
+  Write precise prompts such as "use exact text" when grounded spans matter
+  Use 2-3 strong ExampleData cases instead of adding many weak examples
+  Filter on char_interval when strict grounding matters more than raw recall
+  Use max_char_buffer=500-1000 and extraction_passes=3 for long-document coverage
+  Keep OCR and raw document parsing outside this skill; feed it normalized text first
 
 E[4]{desc,in,out}:
   "Basic entity extraction","lx.extract(text='Patient took 10mg aspirin daily', prompt_description='Extract medications and dosages', examples=[...], model_id='gemini-2.5-flash')","Extraction(extraction_class='medication', extraction_text='aspirin', start=16, end=23, attributes={'dosage': '10mg', 'frequency': 'daily'})"
   "Long document from URL","lx.extract(text_or_documents='https://gutenberg.org/files/1513/1513-0.txt', ..., extraction_passes=3, max_workers=20)","4088 entities extracted from Romeo & Juliet (147k chars) — characters, emotions, relationships with offsets"
-  "Local LLM via Ollama","lx.extract(..., model_id='gemma2:2b', model_url='http://localhost:11434', fence_output=False, use_schema_constraints=False)","Same extraction interface with fully local model — no API key or internet required"
-  "HTML visualization","lx.io.save_annotated_documents([result], 'results.jsonl'); html = lx.visualize('results.jsonl')","Self-contained HTML file with color-coded entity annotations overlaid on source text"
+  "Local LLM via Ollama","lx.extract(..., model_id='gemma2:2b', model_url='http://localhost:11434')","Same extraction interface with fully local model — no API key required and provider defaults stay auto-configured"
+  "Grounded review loop","grounded = [e for e in result.extractions if e.char_interval]; lx.io.save_annotated_documents([result], 'results.jsonl')","Strictly grounded outputs plus a color-coded HTML review artifact over the source text"
