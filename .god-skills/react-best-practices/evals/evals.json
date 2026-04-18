@@ -1,0 +1,35 @@
+{
+  "skill_name": "react-best-practices",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "This Next.js route is slow because the page waterfalls three fetches and ships too much client JavaScript. Which skill should I use?",
+      "expected_output": "The response should choose react-best-practices as the default React/Next.js performance surface and mention the relevant performance categories.",
+      "assertions": [
+        "Response chooses `react-best-practices` as the default surface",
+        "Response mentions React or Next.js performance symptoms such as waterfalls, bundle size, hydration, or rerender churn",
+        "Response does not route the request to `vercel-react-best-practices` as the primary skill"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Audit this heavy client component for hydration mismatch, rerender churn, and weak server/client boundaries.",
+      "expected_output": "The response should keep the request on the canonical React performance skill and map the problem to one or two optimization lanes.",
+      "assertions": [
+        "Response keeps the work on `react-best-practices`",
+        "Response mentions hydration, rerender, or server/client boundary analysis",
+        "Response suggests narrowing to specific performance categories instead of dumping a generic full rule list"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need Vercel React guidance for a bundle-size regression in my App Router page.",
+      "expected_output": "The response should still select react-best-practices for general React/Next.js performance work even when Vercel is mentioned.",
+      "assertions": [
+        "Response chooses `react-best-practices` for the general performance request",
+        "Response treats Vercel guidance as part of the canonical skill rather than a separate alias requirement",
+        "Response mentions bundle size, App Router, or client/server boundaries"
+      ]
+    }
+  ]
+}

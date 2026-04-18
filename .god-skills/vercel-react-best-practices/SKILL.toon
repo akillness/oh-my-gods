@@ -1,29 +1,17 @@
-# react-best-practices
+N:vercel-react-best-practices
+D:Compatibility alias for react-best-practices. Use only when the exact legacy skill name matters; route normal React/Next.js performance work to the canonical skill.
+G:react next.js performance alias vercel legacy compatibility migration
 
-React/Next.js 성능 최적화 45규칙
-
-## CRITICAL
-1. Promise.all → 병렬 fetch
-2. barrel imports 금지 → 직접 import
-3. dynamic imports → 무거운 컴포넌트
-4. Suspense boundaries → 스트리밍
-5. RSC 직렬화 최소화
-
-## HIGH
-6. React.cache() → 요청 내 중복 제거
-7. LRU cache → 요청 간 캐시
-8. 컴포넌트 구성 → 병렬 fetch
-
-## MEDIUM
-9. functional setState → 안정적 콜백
-10. lazy state init → 초기화 한번만
-11. content-visibility → 긴 리스트
-12. toSorted() → 불변성
-
-## 예시
-```tsx
-// ❌ const a = await f1(); const b = await f2()
-// ✅ const [a,b] = await Promise.all([f1(),f2()])
-```
-
-Full: AGENTS.md (2500줄)
+U[4]:
+  Legacy prompt pack still names vercel-react-best-practices
+  Migration-safe folder compatibility for older automations
+  React/Next.js performance request that explicitly mentions the legacy name
+  Alias routing back to the canonical skill
+R[4]:
+  Do not maintain a second full Vercel rule pack here
+  Load ../react-best-practices/SKILL.md for actual guidance
+  Load ../react-best-practices/AGENTS.md for the detailed rule catalog
+  Route general React/Next.js performance work to the canonical skill
+E[2]{desc,in,out}:
+  "Legacy alias invocation","Use vercel-react-best-practices for this Next.js perf audit","Treat as alias, then load react-best-practices"
+  "Migration question","Should we keep vercel-react-best-practices?","Keep as compatibility alias and point future work to react-best-practices"

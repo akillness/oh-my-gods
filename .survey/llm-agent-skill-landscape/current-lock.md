@@ -33,7 +33,7 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/53
 - PR `#54` for `survey` is merged:
   https://github.com/akillness/oh-my-gods/pull/54
-- PR `#55` for `playwriter` is the merge target for this run:
+- PR `#55` for `playwriter` is merged:
   https://github.com/akillness/oh-my-gods/pull/55
 
 ## Audit snapshot
@@ -44,18 +44,23 @@ Date: 2026-04-19
   keep re-reviewing that lane.
 - `survey` is closed after PR `#54` merged, so the loop should not keep
   advertising it as active work.
-- `playwriter` is review-clean after the bounded standards pass: the skill now
-  has the missing install/session and MCP/security recovery references, the
-  eval suite covers enabled-tab consent and recovery, and the PR is open with
-  a clean merge state.
+- `playwriter` is closed after PR `#55` merged, so the loop should not keep
+  treating it as active work.
+- `react-best-practices` and `vercel-react-best-practices` are still a
+  standards gap: they are near-duplicate entrypoints for the same Vercel
+  guidance, the alias is not yet thin, and neither skill has eval coverage to
+  prove the canonical/alias split.
 - Official and primary-source signal keeps favoring this lane:
-  - Playwriter's primary docs emphasize explicit enabled-tab consent, localhost
-    relay boundaries, and `session new` as prerequisites:
-    https://github.com/remorses/playwriter
-    https://www.mintlify.com/remorses/playwriter/resources/security
-  - Extension-backed existing-session browser control is increasingly a
-    first-class comparison point in browser MCP ecosystems:
-    https://github.com/microsoft/playwright-mcp
+  - GitHub's new `gh skill` flow increases the value of compact,
+    provenance-friendly skill packaging:
+    https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
+  - Agent Skills explicitly recommends canonical skills with optional support
+    files instead of duplicated peers:
+    https://agentskills.io/specification
+  - OpenAI and Anthropic both keep emphasizing reusable skills plus subagents
+    as first-class workflow surfaces:
+    https://openai.com/codex/
+    https://docs.anthropic.com/en/docs/claude-code/sub-agents
 
 ## Target decisions
 
@@ -65,7 +70,9 @@ Date: 2026-04-19
 | `marketing-automation` | Merged via PR `#52` after a bounded standards pass | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `agent-evaluation` | Merged via PR `#53` | No | No | Added | Added | Not yet | Keep the lane closed unless review feedback or new measured failures appear |
 | `survey` | Merged via PR `#54` | No | No | Added | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
-| `playwriter` | Merge target PR `#55` | No | No | Added install/session and MCP/security recovery support files | Refreshed | Not yet | Merge the lane, then keep it closed unless new measured failures appear |
+| `playwriter` | Merged via PR `#55` | No | No | Added install/session and MCP/security recovery support files | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
+| `react-best-practices` | Active standards lane | No | No | Reuse bundled `AGENTS.md` | Add | Not yet | Canonicalize the React guidance surface, then open a bounded PR |
+| `vercel-react-best-practices` | Active compatibility lane | No | No | Point to canonical skill | Add | Not yet | Convert to a thin alias, then open a bounded PR |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -73,17 +80,17 @@ Date: 2026-04-19
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Keep the active run centered on `playwriter` until the lane merges or review
-  feedback forces one bounded follow-up.
-- Do not start a `skill-autoresearch` mutation loop for `playwriter` unless
-  later review feedback or eval evidence exposes a real measured miss after the
-  new support files land.
+- Keep the active run centered on the React guidance duplicate until the
+  canonical/alias split is packaged and the PR path is open.
+- Do not start a `skill-autoresearch` mutation loop for the React guidance lane
+  unless later review feedback or eval evidence exposes a real measured miss
+  after the canonical/alias split lands.
 
 ## Current state
 
-- Current state: `playwriter` standards lane is review-clean and queued for
-  merge
-- PR: https://github.com/akillness/oh-my-gods/pull/55
+- Current state: `playwriter` is closed; `react-best-practices` /
+  `vercel-react-best-practices` is the active bounded standards lane
+- PR: not opened yet on this branch
 - Blocker: none
-- Next owner: merge path on this run
-- Stage: `merge`
+- Next owner: improvement path on this run, then PR review after registration
+- Stage: `improvement`

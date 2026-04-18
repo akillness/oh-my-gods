@@ -10,11 +10,13 @@
   https://github.com/akillness/oh-my-gods/pull/53
 - PR `#54` for `survey` is merged:
   https://github.com/akillness/oh-my-gods/pull/54
+- PR `#55` for `playwriter` is merged:
+  https://github.com/akillness/oh-my-gods/pull/55
 - Repo-wide validation currently sits at `0` errors and `8` warnings before the
   new lane edits.
-- `playwriter` is now the merge target because the recurring loop's preferred
-  live-browser verification surface has already been repackaged into a compact
-  standards lane with the missing support files and refreshed eval coverage.
+- The next bounded gap is the React guidance duplicate: `react-best-practices`
+  and `vercel-react-best-practices` still overlap almost entirely instead of
+  operating as a canonical skill plus a thin compatibility alias.
 
 ## Survey refresh
 
@@ -27,42 +29,37 @@ The landscape signal remains stable as of April 19, 2026:
 3. GitHub's April 16, 2026 `gh skill` launch further raises the value of
    portable, standards-clean skill directories with clearer provenance and
    update paths.
-4. Playwriter's own primary docs now make enabled-tab consent, local relay
-   boundaries, and session isolation more explicit than this repo's current
-   skill packaging:
-   https://github.com/remorses/playwriter
-   https://www.mintlify.com/remorses/playwriter/resources/security
-5. Competing existing-session browser surfaces keep making the same tradeoff
-   legible: extension-backed reuse of the live browser state is valuable, but
-   only if the trust boundary and recovery path stay explicit:
-   https://github.com/microsoft/playwright-mcp
-6. Inference for this repo: the highest-leverage remaining work is still
+4. GitHub's April 16, 2026 `gh skill` launch further raises the value of
+   portable, standards-clean skill directories with clearer provenance and
+   update paths.
+5. Inference for this repo: the highest-leverage remaining work is still
    packaging and boundary repair on workflow-critical skills, especially where
-   browser verification is now an explicit part of the recurring loop.
-7. `playwriter` is therefore the right next lane after `survey` merged,
-   because it is reused as the preferred live-browser verification surface but
-   still has no support files for install, consent, MCP, and failure recovery.
+   duplicated near-peer skills can split triggers and drift out of sync.
+6. `react-best-practices` is therefore the right next lane after `playwriter`
+   merged, because it should own the default React/Next.js performance job
+   while `vercel-react-best-practices` becomes a migration-safe alias instead
+   of a second full copy.
 
 ## Locked direction
 
 Advance one bounded lane per run, in this order:
 
-1. Merge `playwriter` via PR `#55` if no new review feedback appears
-2. Keep the lane closed after merge unless review feedback or measured failures
-   reopen it
-3. Select the next bounded lane from the survey lock on the next run
+1. Close `playwriter` after PR `#55` merged
+2. Standardize the React guidance duplicate into a canonical skill plus a thin
+   compatibility alias
+3. Open the next bounded PR path once validation is clean
 4. Revisit `skill-autoresearch` only after a merged, eval-backed target still
    shows measured failures
 
 This order is locked because:
 
-- PR `#54` is already merged, so keeping the loop on the `survey` lane would
-  just repeat closed work.
-- `playwriter` already received the narrow support-package repair that this run
-  family locked in: compact entrypoint, explicit references, and refreshed
-  evals.
-- Starting a mutation loop before the merged package shows a measured failure
-  would optimize the wrong layer.
+- `playwriter` is already merged, so keeping the loop on that lane would just
+  repeat closed work.
+- `react-best-practices` and `vercel-react-best-practices` are still
+  overlapping peers, which is exactly the trigger and catalog drift that the
+  standardization workflow is meant to remove.
+- Starting a mutation loop before the canonical/alias split lands would
+  optimize the wrong layer.
 
 ## Skill-autoresearch triage
 
@@ -72,25 +69,28 @@ This order is locked because:
 | `marketing-automation` | Closed medium-high lane | No | No | No | Added | Added | Keep closed unless later review feedback reopens it |
 | `agent-evaluation` | Medium-high | Not yet | No | No | Added | Added | Closed after PR `#53`; reopen only on review feedback or new measured failures |
 | `survey` | Closed high-leverage lane | No | No | Added | Refreshed | Keep closed unless later review feedback reopens it |
-| `playwriter` | High | Not yet | No | No | Added install/session and MCP/security recovery references | Refreshed | Merge PR `#55`, then keep closed unless review feedback or measured failures reopen it |
+| `playwriter` | Closed high-leverage lane | No | No | Added install/session and MCP/security recovery references | Refreshed | Keep closed unless review feedback or measured failures reopen it |
+| `react-best-practices` | High | Not yet | No | No | Reuse bundled `AGENTS.md` | Add | Canonicalize the default React/Next.js performance lane |
+| `vercel-react-best-practices` | High | Not yet | No | No | Point to canonical skill | Add | Convert into a compatibility alias for legacy prompts and workflows |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 
 ## Packaging decision for the active lane
 
-- Active lane: `playwriter`
+- Active lane: `react-best-practices` / `vercel-react-best-practices`
   - Assets: no
   - Scripts: no
-  - References: yes, install/session and MCP/security/recovery support files
-    are now packaged outside the main entrypoint
-  - Evals: yes, refreshed to check enabled-tab consent and recovery guidance
-  - Skill-autoresearch: still deferred until the merged skill shows measured
-    failures after the support package lands
+  - References: no new files; keep the detailed compiled guidance in the
+    bundled `AGENTS.md` and have the alias point back to the canonical skill
+  - Evals: yes, add trigger-quality coverage for both the canonical skill and
+    the compatibility alias
+  - Skill-autoresearch: still deferred until the merged canonical/alias split
+    shows measured failures after review
 
 ## Current state
 
-- State: `playwriter` standards lane reviewed clean and ready to merge
-- PR: https://github.com/akillness/oh-my-gods/pull/55
+- State: React guidance duplicate selected as the next bounded standards lane
+- PR: not opened yet on this branch
 - Blocker: none
 - Next owner: nanoclaw_pd
-- Stage: `merge`
+- Stage: `survey`

@@ -1,6 +1,14 @@
 ---
 name: react-best-practices
-description: React and Next.js performance optimization guidelines from Vercel Engineering. Use when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.
+description: >
+  Run measurement-led React and Next.js performance audits for waterfalls,
+  bundle size, RSC/server-client boundaries, hydration mismatch, rerender
+  churn, script cost, and slow page interactions. Use when the user needs help
+  diagnosing or refactoring a slow React UI, App Router route, heavy client
+  component, or Next.js page with excess JavaScript or weak client/server
+  boundaries. Triggers on: React perf, Next.js perf, waterfall, bundle size,
+  hydration, rerender, client component too heavy, slow route, React profiler,
+  web vitals.
 license: MIT
 allowed-tools: Read Write Edit Grep Glob
 metadata:
@@ -17,12 +25,14 @@ Comprehensive performance optimization guide for React and Next.js applications,
 
 ## When to use this skill
 
-Reference these guidelines when:
-- Writing new React components or Next.js pages
-- Implementing data fetching (client or server-side)
-- Reviewing code for performance issues
-- Refactoring existing React/Next.js code
-- Optimizing bundle size or load times
+Use this as the canonical React/Next.js performance surface when:
+- diagnosing a slow React or Next.js page
+- reviewing code for waterfalls, hydration issues, or heavy client components
+- refactoring a React tree to reduce bundle size or rerender churn
+- mapping a performance complaint to a concrete optimization category
+
+Use `vercel-react-best-practices` only as a compatibility alias when an
+existing workflow or prompt names that older skill explicitly.
 
 ## Rule Categories by Priority
 
@@ -110,13 +120,32 @@ Reference these guidelines when:
 
 ## Instructions
 
-For detailed explanations and code examples, read the full compiled document: `AGENTS.md`
+### Step 1: Confirm this is the canonical React performance lane
+
+- Route general React and Next.js performance work here by default.
+- If the user explicitly names `vercel-react-best-practices`, keep the request
+  on that alias surface but load this canonical skill for the actual guidance.
+- Route broader non-React performance work to
+  `../performance-optimization/SKILL.md`.
+
+### Step 2: Load the detailed rule pack
+
+For detailed explanations and code examples, read the full compiled document:
+`AGENTS.md`
 
 Each rule contains:
 - Brief explanation of why it matters
 - Incorrect code example with explanation
 - Correct code example with explanation
 - Additional context and references
+
+### Step 3: Turn complaints into one or two optimization lanes
+
+- Start with the highest-cost symptom first: waterfall, bundle size,
+  hydration, rerender churn, server/client boundary, or script cost.
+- Prefer one or two specific rule categories over dumping the full rule list.
+- Keep recommendations measurement-led: point to the relevant rule family, then
+  explain what evidence would confirm it.
 
 ## Examples
 
