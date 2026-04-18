@@ -31,6 +31,8 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/52
 - PR `#53` for `agent-evaluation` is merged:
   https://github.com/akillness/oh-my-gods/pull/53
+- PR `#54` for `survey` is merged:
+  https://github.com/akillness/oh-my-gods/pull/54
 
 ## Audit snapshot
 
@@ -38,9 +40,20 @@ Date: 2026-04-19
   this run's edits.
 - `agent-evaluation` is closed after PR `#53` merged, so the loop should not
   keep re-reviewing that lane.
-- `survey` is the next bounded target because it is central to this recurring
-  loop, still lacks a `references/` support surface, and has no explicit
-  evidence-recovery contract for stale or thin-source conditions.
+- `survey` is closed after PR `#54` merged, so the loop should not keep
+  advertising it as active work.
+- `playwriter` is the next bounded target because this recurring loop now
+  explicitly prefers it for browser/runtime verification, yet the skill still
+  carries install, MCP, recovery, and safety detail inline with no
+  `references/` support package.
+- Official and primary-source signal keeps favoring this lane:
+  - Playwriter's primary docs emphasize explicit enabled-tab consent, localhost
+    relay boundaries, and `session new` as prerequisites:
+    https://github.com/remorses/playwriter
+    https://www.mintlify.com/remorses/playwriter/resources/security
+  - Extension-backed existing-session browser control is increasingly a
+    first-class comparison point in browser MCP ecosystems:
+    https://github.com/microsoft/playwright-mcp
 
 ## Target decisions
 
@@ -49,7 +62,8 @@ Date: 2026-04-19
 | `langextract` | Merged via PR `#51` after a bounded review follow-up | No | Existing helper refreshed | Added | Refreshed | No | Keep closed unless review feedback or new measured failures appear |
 | `marketing-automation` | Merged via PR `#52` after a bounded standards pass | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `agent-evaluation` | Merged via PR `#53` | No | No | Added | Added | Not yet | Keep the lane closed unless review feedback or new measured failures appear |
-| `survey` | Active bounded standards lane | No | No | Add evidence-recovery support file | Refresh existing evals | Not yet | Open a bounded PR once the survey package is validated |
+| `survey` | Merged via PR `#54` | No | No | Added | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
+| `playwriter` | Active bounded standards lane | No | No | Add install/MCP/recovery support files | Refresh existing evals | Not yet | Open a bounded PR once the playwriter package is validated |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -57,16 +71,16 @@ Date: 2026-04-19
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Keep the active run centered on `survey` until the standards package is
+- Keep the active run centered on `playwriter` until the standards package is
   review-ready and the PR path is open.
-- Do not start a `skill-autoresearch` mutation loop for `survey` unless later
-  review feedback or eval evidence exposes a real measured miss after the new
-  support file lands.
+- Do not start a `skill-autoresearch` mutation loop for `playwriter` unless
+  later review feedback or eval evidence exposes a real measured miss after the
+  new support files land.
 
 ## Current state
 
-- Current state: `survey` standards lane reviewed clean and ready to merge
-- PR: https://github.com/akillness/oh-my-gods/pull/54
+- Current state: `playwriter` standards lane in bounded improvement work
+- PR: not opened yet
 - Blocker: none
 - Next owner: nanoclaw_pd
-- Stage: `merge`
+- Stage: `improvement`
