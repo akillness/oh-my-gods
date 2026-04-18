@@ -34,13 +34,13 @@ Date: 2026-04-19
 
 ## Audit snapshot
 
-- Repo-wide validation still passes at `80/80` skills before this run's edits.
-- `marketing-automation` is closed after PR `#52` merged, so the loop should
-  not keep re-reviewing that lane.
-- `agent-evaluation` is the next bounded target because it remains a large
-  inline skill with weak progressive-disclosure packaging: no `references/`
-  surface, no skill-local evals, and too much operational detail in the main
-  entrypoint.
+- Repo-wide validation still passes with `0` errors and `8` warnings before
+  this run's edits.
+- `agent-evaluation` is closed after PR `#53` merged, so the loop should not
+  keep re-reviewing that lane.
+- `survey` is the next bounded target because it is central to this recurring
+  loop, still lacks a `references/` support surface, and has no explicit
+  evidence-recovery contract for stale or thin-source conditions.
 
 ## Target decisions
 
@@ -49,6 +49,7 @@ Date: 2026-04-19
 | `langextract` | Merged via PR `#51` after a bounded review follow-up | No | Existing helper refreshed | Added | Refreshed | No | Keep closed unless review feedback or new measured failures appear |
 | `marketing-automation` | Merged via PR `#52` after a bounded standards pass | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `agent-evaluation` | Merged via PR `#53` | No | No | Added | Added | Not yet | Keep the lane closed unless review feedback or new measured failures appear |
+| `survey` | Active bounded standards lane | No | No | Add evidence-recovery support file | Refresh existing evals | Not yet | Open a bounded PR once the survey package is validated |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -56,16 +57,16 @@ Date: 2026-04-19
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Keep the active run centered on `agent-evaluation` until the standards
-  package is reviewed and either a bounded follow-up is required or the lane can
-  merge cleanly.
-- Do not start a `skill-autoresearch` mutation loop for `agent-evaluation`
-  unless later review feedback or eval evidence exposes a real measured miss.
+- Keep the active run centered on `survey` until the standards package is
+  review-ready and the PR path is open.
+- Do not start a `skill-autoresearch` mutation loop for `survey` unless later
+  review feedback or eval evidence exposes a real measured miss after the new
+  support file lands.
 
 ## Current state
 
-- Current state: `agent-evaluation` standards lane is merged and closed
-- PR: https://github.com/akillness/oh-my-gods/pull/53
+- Current state: `survey` standards lane reviewed clean and ready to merge
+- PR: https://github.com/akillness/oh-my-gods/pull/54
 - Blocker: none
-- Next owner: next scheduled survey refresh
+- Next owner: nanoclaw_pd
 - Stage: `merge`
