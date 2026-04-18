@@ -4,6 +4,15 @@ Date: 2026-04-18
 
 ## Survey refresh
 
+- No newer post-lock ecosystem releases displaced the April 16-17, 2026 signal
+  cluster already captured in the previous survey refresh. The latest checked
+  official updates remain:
+  - Codex changelog entries on 2026-04-15 and 2026-04-16:
+    https://developers.openai.com/codex/changelog
+  - Claude Code changelog entry `2.1.113` on 2026-04-17:
+    https://code.claude.com/docs/en/changelog
+  - Gemini CLI release `v0.38.2` on 2026-04-17:
+    https://github.com/google-gemini/gemini-cli/releases
 - Agent Skills still recommends compact `SKILL.md` entrypoints with
   progressive disclosure through `references/`, `scripts/`, `assets/`, and
   `evals/`, which keeps standards-clean packaging higher leverage than broad
@@ -20,9 +29,15 @@ Date: 2026-04-18
 - GitHub launched `gh skill` on 2026-04-16, which increases the value of
   portable, discoverable, provenance-friendly skill directories:
   https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
+- Codex now documents skills, hooks, subagents, and plugin packaging as
+  first-class surfaces, which further increases the leverage of standards-clean
+  multi-agent orchestration skills:
+  https://developers.openai.com/codex/skills
+  https://developers.openai.com/codex/hooks
+  https://developers.openai.com/codex/subagents
 - No new ecosystem signal in this refresh justifies reopening `langchain-bmad`
-  for another content pass; the higher-value move after the review is to close
-  the live PR and queue the next bounded standards lane.
+  after merge; the higher-value move is to advance the next bounded standards
+  lane on `clawteam`.
 
 Source links:
 
@@ -32,6 +47,12 @@ Source links:
 - https://docs.langchain.com/oss/javascript/deepagents/skills
 - https://blog.langchain.com/langchain-skills/
 - https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
+- https://developers.openai.com/codex/changelog
+- https://developers.openai.com/codex/skills
+- https://developers.openai.com/codex/hooks
+- https://developers.openai.com/codex/subagents
+- https://code.claude.com/docs/en/changelog
+- https://github.com/google-gemini/gemini-cli/releases
 - https://docs.bmad-method.org/explanation/creative-intelligence/
 - https://bmadcodes.com/v6-alpha/
 
@@ -55,32 +76,32 @@ Source links:
   https://github.com/akillness/oh-my-gods/pull/44
 - PR `#45` for the `bmad-idea` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/45
-- PR `#46` for the `langchain-bmad` standards lane is open and ready for
-  review. `gh pr view` reports it as `MERGEABLE` with `mergeStateStatus:
-  CLEAN` and no review or status-check blockers:
+- PR `#46` for the `langchain-bmad` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/46
 
 ## Audit snapshot
 
-- Focused validation for `.god-skills/langchain-bmad/` now passes at `0`
-  errors and `0` warnings.
-- Repo-wide validation on the active review branch now sits at `0` errors and
-  `26` warnings across `.god-skills/`.
-- The branch diff remains bounded to:
-  - `.god-skills/langchain-bmad/*`
-  - `.survey/llm-agent-skill-landscape/{cleanup-plan,current-lock,direction,solutions}.md`
-- `langchain-bmad` now has the intended support surface for this lane:
-  compact entrypoint, `references/`, and `evals/`, with no evidence that
-  assets or repo-local scripts are needed.
-- `skill-autoresearch` is still not justified for `langchain-bmad`; the review
-  pass found no measured failures after the standards packaging.
-- The unresolved warning leaders after this lane are now:
+- Focused validation for `.god-skills/langchain-bmad/` still passes at `0`
+  errors and `0` warnings after merge.
+- Focused validation for `.god-skills/clawteam/` starts this lane at `0`
+  errors and `3` warnings, all from missing recommended sections:
+  `Instructions`, `Examples`, and `Best practices`.
+- Repo-wide validation on the active lane starts at `0` errors and `26`
+  warnings across `.god-skills/`.
+- `clawteam` already has the intended support surface for a bounded standards
+  pass:
+  - `assets`: no evidence needed
+  - `scripts`: existing `scripts/setup.sh` is enough
+  - `references`: existing references are enough
+  - `evals`: existing evals are enough
+- `skill-autoresearch` is not justified for `clawteam`; this lane still has
+  structural standards misses, not measured behavioral failures.
+- The unresolved warning leaders before the `clawteam` edit are:
   - `clawteam` (`3`)
   - `presentation-builder` (`3`)
-- `clawteam` is the stronger next survey target after PR `#46` merges because
-  it is central to multi-agent coordination and already has supporting
-  surfaces (`references/`, `scripts/`, `evals/`), so the next bounded pass can
-  stay small and reviewable.
+- `clawteam` remains the stronger next target after PR `#46` because it is
+  central to multi-agent coordination and already has supporting surfaces,
+  which keeps the next pass small and reviewable.
 - `presentation-builder` remains queued behind `clawteam`; it is still a real
   standards gap, but it is narrower and lacks the same orchestration leverage
   in the current LLM-agent skill landscape.
@@ -96,20 +117,18 @@ Source links:
 | `opencontext` | Merged standards lane via PR `#43` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `bmad` | Merged standards lane via PR `#44` | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
 | `bmad-idea` | Merged via PR `#45` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `langchain-bmad` | Review-clean PR lane with packaged support surface | No | No | Added | Added | No; no measured failures remain after the standards pass | Move PR `#46` onto the merge path |
-| `clawteam` | Highest-leverage remaining warning-cluster lane after `langchain-bmad` | No | Existing `scripts/setup.sh` is enough | Existing references are enough | Existing evals are enough | Not yet | Start the next run with survey triage on `clawteam` after PR `#46` merges |
+| `langchain-bmad` | Merged lane with packaged support surface | No | No | Added | Added | No; no measured failures remain after the standards pass | Keep closed unless later review or eval evidence reopens it |
+| `clawteam` | Active bounded standards lane | No | Existing `scripts/setup.sh` is enough | Existing references are enough | Existing evals are enough | No; structural cleanup first | Standardize missing sections, then open or review the next PR lane |
 | `presentation-builder` | Remaining warning-cluster lane, but lower leverage than `clawteam` | No | No | Not yet | Not yet | Not yet | Keep queued behind `clawteam` unless new survey evidence changes priority |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean, eval-backed target shows real misses |
 
 ## Locked direction
 
-- The active `langchain-bmad` lane is review-clean; do not reopen it on this
-  branch unless new review feedback or failing eval evidence appears.
-- The next action for this branch is to merge PR `#46`, not to widen scope into
-  `clawteam` or `presentation-builder`.
-- After PR `#46` merges, start the next bounded run with survey triage on
-  `clawteam`.
+- `langchain-bmad` is closed via merged PR `#46`; do not reopen it unless new
+  review feedback or failing eval evidence appears.
+- The active lane is now `clawteam` on branch
+  `chore/skill-loop-pr-open-20260418-r49`.
 - Explicit support-surface decision for `clawteam`:
   - `assets`: no
   - `scripts`: no new scripts; existing `scripts/setup.sh` is enough
@@ -119,16 +138,15 @@ Source links:
     missing recommended sections and review trigger precision
 - Keep `presentation-builder` queued behind `clawteam` unless new survey
   evidence changes the priority order.
-- Do not start a mutation loop for `langchain-bmad` or `clawteam` unless a
+- Do not start a mutation loop for `clawteam` unless a
   later review or eval pass exposes measured failures that standards cleanup
   alone does not fix.
 
-## Status
+## Current state
 
-- Current state: `langchain-bmad` is review-clean and merge-ready on branch
-  `chore/skill-loop-pr-open-20260418-r48`
-- PR: https://github.com/akillness/oh-my-gods/pull/46
+- Current state: `clawteam` is the active bounded standards lane on branch
+  `chore/skill-loop-pr-open-20260418-r49`
+- PR: https://github.com/akillness/oh-my-gods/pull/47
 - Blocker: none
-- Next owner: merge owner for PR `#46`, then survey owner for the queued
-  `clawteam` lane
-- Stage: `merge`
+- Next owner: PR reviewer for the bounded `clawteam` lane
+- Stage: `pr-open`

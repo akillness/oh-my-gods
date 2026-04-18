@@ -16,9 +16,7 @@
   https://github.com/akillness/oh-my-gods/pull/44
 - PR `#45` for the `bmad-idea` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/45
-- PR `#46` for the `langchain-bmad` standards lane is now open and ready for
-  review. The review pass confirms the branch is bounded, the target skill
-  validates cleanly, and the PR is mergeable with `mergeStateStatus: CLEAN`:
+- PR `#46` for the `langchain-bmad` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/46
 - Repo-wide validation on the current review branch sits at `0` errors and
   `26` warnings.
@@ -37,9 +35,8 @@ The landscape signal remains stable after the review pass:
    stay compact.
 3. GitHub's new `gh skill` workflow further raises the value of portable,
    standards-clean skill directories.
-4. Inference for this repo: `langchain-bmad` no longer needs another bounded
-   content pass on this branch, so the correct move is to close the live lane
-   and queue the next highest-leverage standards gap.
+4. Inference for this repo: `langchain-bmad` is closed, so the highest-value
+   move is to advance the next highest-leverage standards gap.
 5. Among the remaining warning-cluster candidates, `clawteam` is the stronger
    post-merge survey target because it is central to multi-agent coordination
    and already has `references/`, `scripts/`, and `evals/`, which keeps the
@@ -49,19 +46,16 @@ The landscape signal remains stable after the review pass:
 
 Advance one bounded lane per run, in this order:
 
-1. Merge PR `#46` for `langchain-bmad`
-2. Start the next run with survey triage on `clawteam`
+1. Standardize `clawteam` on branch `chore/skill-loop-pr-open-20260418-r49`
+2. Open or review the `clawteam` PR once the validator delta is clean
 3. Keep `presentation-builder` queued behind `clawteam`
 4. Revisit `skill-autoresearch` only after a review-clean, eval-backed target
    still shows measured failures
 
 This order is locked because:
 
-- `langchain-bmad` now has the intended compact entrypoint, references, and
-  evals, and the review pass found no duplicate work or missing
-  standardization gap worth another edit.
-- Reopening `langchain-bmad` before merge would widen scope without new
-  evidence.
+- `langchain-bmad` is already merged, so reopening it would widen scope
+  without new evidence.
 - `clawteam` already has the supporting surfaces that make a small standards
   cleanup realistic in one bounded lane.
 - `presentation-builder` is still a legitimate follow-up, but it lacks the
@@ -79,15 +73,15 @@ This order is locked because:
 | `opencontext` | High | Not yet | No | No | Added | Added | Keep closed unless failing evals or review feedback reopen it |
 | `bmad` | High | Not yet | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Keep closed unless failures or review feedback reopen it |
 | `bmad-idea` | High | Not yet | No | No | Added | Added | Keep closed after merge unless new evidence appears |
-| `langchain-bmad` | High | No | No | No | Added | Added | Merge PR `#46`; do not reopen without new evidence |
-| `clawteam` | High | Not yet | No | Existing script is enough | Existing references are enough | Existing evals are enough | Start the next run with survey triage and standards cleanup planning |
+| `langchain-bmad` | High | No | No | No | Added | Added | Keep closed after merged PR `#46`; do not reopen without new evidence |
+| `clawteam` | High | No | No | Existing script is enough | Existing references are enough | Existing evals are enough | Standardize missing sections on the active branch, then open or review the PR |
 | `presentation-builder` | Medium | Not yet | No | No | Probably yes | Probably yes | Keep queued behind `clawteam` unless the survey changes priority |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit after the next review-clean target still misses objective checks |
 
 ## Packaging decision for the next queued lane
 
-- Target skill after merge: `clawteam`
+- Target skill: `clawteam`
 - Assets: no
 - Scripts: no new scripts by default; existing `scripts/setup.sh` is already
   present
@@ -99,9 +93,9 @@ This order is locked because:
 
 ## Current state
 
-- State: `langchain-bmad` is review-clean and merge-ready on branch
-  `chore/skill-loop-pr-open-20260418-r48`
-- PR: https://github.com/akillness/oh-my-gods/pull/46
+- State: `clawteam` is the active bounded standards lane on branch
+  `chore/skill-loop-pr-open-20260418-r49`
+- PR: https://github.com/akillness/oh-my-gods/pull/47
 - Blocker: none
-- Next owner: merge owner for PR `#46`, then survey owner for `clawteam`
-- Stage: `merge`
+- Next owner: PR reviewer, then merge owner if the review stays clean
+- Stage: `pr-open`
