@@ -38,7 +38,7 @@
 
 ## Survey refresh
 
-The landscape signal remains stable as of April 19, 2026:
+The landscape signal remains stable as of April 20, 2026:
 
 1. Agent Skills still rewards compact, discoverable, progressive-disclosure
    packaging over oversized inline entrypoints.
@@ -77,9 +77,12 @@ The landscape signal remains stable as of April 19, 2026:
     was still a large core skill with no focused `references/` or `evals/`
     support package.
 13. PR `#64` now carries the bounded `api-design` package.
-14. Repo validation still passes, and GitHub reports PR `#64` as `CLEAN`, so
-    the next scheduled run should be a PR-review pass rather than a fresh
-    survey or a new lane.
+14. Repo validation still passes, GitHub reports PR `#64` as `CLEAN`, and the
+    current review pass found no duplicate work, missing support files, or
+    standardization regressions.
+15. `git-submodule` is now the strongest remaining general-purpose packaging
+    target because it is still large, generic, and missing both `references/`
+    and `evals/`.
 
 ## Locked direction
 
@@ -93,9 +96,9 @@ Advance one bounded lane per run, in this order:
 6. Keep `code-review` closed after PR `#61` merged
 7. Keep `security-best-practices` closed after PR `#62` merged
 8. Keep `code-refactoring` closed after PR `#63` merged
-9. Keep `api-design` bounded to packaging and route clarity only, then use the
-   next scheduled run for PR review on PR `#64`
-10. Revisit `skill-autoresearch` only after the packaged target still
+9. Merge `api-design` because PR `#64` is now review-clean
+10. Start the next run on `git-submodule` packaging and route clarity
+11. Revisit `skill-autoresearch` only after the packaged target still
     shows measured failures
 
 This order is locked because:
@@ -105,9 +108,11 @@ This order is locked because:
   closed after their merged PRs.
 - `security-best-practices` is now closed because PR `#62` merged.
 - `code-refactoring` is now closed because PR `#63` merged.
-- `api-design` is now the active open lane because it was still one of the
-  larger workflow-critical skills and lacked the compact support package now
-  expected in the better-maintained lanes; PR `#64` now carries that package.
+- `api-design` no longer needs more bounded packaging work on this run because
+  PR `#64` already carries the compact support package and the review pass came
+  back clean.
+- `git-submodule` is now the strongest remaining packaging target because it is
+  still large, generic, and missing both route-focused references and evals.
 - Starting a mutation loop before every discovery surface and eval assertion is
   internally consistent would still optimize the wrong layer.
 
@@ -130,7 +135,8 @@ This order is locked because:
 | `code-review` | Closed high-leverage lane | No | No | Added focused review-priority and findings-format references | Added trigger, route-out, and findings-first evals | No | Keep closed unless review feedback or new measured failures reopen it |
 | `security-best-practices` | Closed high-leverage lane | Not yet | No | No | Added focused hardening and verification references | Added trigger, route-out, and verification evals | Keep closed unless review feedback or measured failures reopen it |
 | `code-refactoring` | Closed high-leverage lane | Not yet | No | No | Added focused cleanup-slice and behavior-lock references | Added trigger, route-out, and behavior-preservation evals | Keep closed unless review feedback or new measured failures reopen it |
-| `api-design` | Active high-leverage lane | Not yet | No | No | Added focused contract-boundary and review references | Added trigger, route-out, and compatibility-design evals | Review PR `#64`, then keep closed unless real gaps remain |
+| `api-design` | Review-clean merge lane | Not yet | No | No | Added focused contract-boundary and review references | Added trigger, route-out, and compatibility-design evals | Merge PR `#64`, then keep closed unless real gaps remain |
+| `git-submodule` | Next high-leverage lane | Not yet | No | No | Needed | Needed | Start the next run with packaging and route-boundary cleanup |
 
 ## Packaging decision for the active lane
 
@@ -175,14 +181,20 @@ This order is locked because:
   - Evals: yes, keep trigger, route-out, and compatibility-design assertions
   - Skill-autoresearch: defer until the packaged lane still misses measured
     checks
+- Next queued lane after merge: `git-submodule`
+  - Assets: no
+  - Scripts: no
+  - References: yes, add focused setup, update, and removal guidance
+  - Evals: yes, add trigger, route-out, and detached-HEAD workflow assertions
+  - Skill-autoresearch: defer until the packaged lane still misses measured
+    checks
 
 ## Current state
 
-- State: PR `#64` is open for the bounded `api-design` packaging lane, GitHub
-  reports it `CLEAN`, and the branch is ready for the next scheduled review
-  pass.
+- State: PR `#64` is still open for the bounded `api-design` packaging lane,
+  but the review pass is complete, GitHub reports it `CLEAN`, and the branch is
+  ready to merge.
 - PR: https://github.com/akillness/oh-my-gods/pull/64
 - Blocker: none
-- Next owner: review PR `#64` for duplicate work, missing support surfaces, or
-  bounded follow-up; merge if that pass stays clean
-- Stage: `pr-open`
+- Next owner: merge PR `#64`; after merge, start the next run on `git-submodule`
+- Stage: `merge`

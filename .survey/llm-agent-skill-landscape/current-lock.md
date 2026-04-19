@@ -1,6 +1,6 @@
 # Current Lock
 
-Date: 2026-04-19
+Date: 2026-04-20
 
 ## Survey refresh
 
@@ -24,6 +24,10 @@ Date: 2026-04-19
   GitHub Copilot's coding agent emphasizes pull-request review and self-review:
   https://openai.com/index/introducing-the-codex-app/
   https://docs.github.com/en/copilot/concepts/about-copilot-coding-agent
+- GitHub's review guidance still treats AI-authored pull requests as
+  human-reviewed merge decisions, which matches this loop's PR-open then
+  PR-review cadence:
+  https://docs.github.com/copilot/how-tos/use-copilot-agents/coding-agent/review-copilot-prs
 
 ## Live GitHub state
 
@@ -79,6 +83,11 @@ Date: 2026-04-19
 - Repo-wide support-gap scanning still supports the same packaging direction:
   standardize one workflow-critical lane at a time, then use the next run for
   PR review before moving on.
+- The current PR-review pass found no duplicate work, no missing support
+  surfaces, no review comments, and no validation regressions on `api-design`.
+- Among still-open candidate lanes, `git-submodule` is now the highest-value
+  queued gap because it remains one of the largest general-purpose skills with
+  neither `references/` nor `evals/`.
 
 ## Target decisions
 
@@ -99,7 +108,8 @@ Date: 2026-04-19
 | `code-review` | Merged via PR `#61` | No | No | Added focused review-priority and findings-format guidance | Added trigger, route-out, and findings-first review checks | No | Keep closed unless review feedback or new measured failures appear |
 | `security-best-practices` | Merged via PR `#62` | No | No | Added focused hardening and verification guidance | Added trigger, route-out, and verification assertions | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `code-refactoring` | Merged via PR `#63` | No | No | Added focused cleanup-slice and behavior-lock guidance | Added trigger, route-out, and behavior-preservation review checks | Not yet | Keep closed unless review feedback or new measured failures appear |
-| `api-design` | PR `#64` open; package landed; clean PR state | No | No | Added focused contract-boundary and review guidance | Added trigger, route-out, and compatibility-design checks | Not yet | Use the next scheduled run for PR review, duplicate-work detection, and bounded follow-up only if needed |
+| `api-design` | PR `#64` review-clean; ready to merge | No | No | Added focused contract-boundary and review guidance | Added trigger, route-out, and compatibility-design checks | Not yet | Merge the lane; reopen only if post-merge review evidence appears |
+| `git-submodule` | Queued next candidate | No | No | Needed | Needed | Not yet | Start the next run with packaging, route clarity, and measured support files |
 
 ## Locked direction
 
@@ -114,9 +124,9 @@ Date: 2026-04-19
 - Keep `security-best-practices` closed because PR `#62` is merged and the lane
   no longer has open review work.
 - Keep `code-refactoring` closed because PR `#63` is merged.
-- Keep the active lane on `api-design` until PR `#64` finishes its review pass.
-- Use the next scheduled run for PR-review, duplicate-work detection, and a
-  bounded follow-up only if PR `#64` reveals a real gap.
+- Move `api-design` from PR-review to merge because PR `#64` is clean and the
+  packaged lane no longer shows missing support surfaces.
+- Queue `git-submodule` as the next bounded lane after the `api-design` merge.
 - Defer `skill-autoresearch` until `api-design` or another packaged target
   still shows measured failures after the PR-review pass.
 
@@ -164,14 +174,20 @@ Date: 2026-04-19
   - Evals: yes, keep trigger, route-out, and compatibility-design assertions
   - Skill-autoresearch: not justified until the packaged lane still misses
     objective checks
+- Next queued lane after merge: `git-submodule`
+  - Assets: no
+  - Scripts: no
+  - References: yes, add focused clone/update/remove and detached-HEAD recovery guidance
+  - Evals: yes, add trigger, boundary, and workflow-safety assertions
+  - Skill-autoresearch: not justified until the packaged lane still misses
+    objective checks
 
 ## Current state
 
-- Current state: PR `#64` for the bounded `api-design` packaging lane is open,
-  GitHub reports it `CLEAN`, and the branch is ready for the next scheduled
-  PR-review pass.
+- Current state: PR `#64` for the bounded `api-design` packaging lane is still
+  open, but the PR-review pass is complete, GitHub reports it `CLEAN`, local
+  validation passes, and the lane is ready to merge.
 - PR: https://github.com/akillness/oh-my-gods/pull/64
 - Blocker: none
-- Next owner: review PR `#64` for duplicate work, missing support surfaces, or
-  follow-up gaps; merge if that pass stays clean
-- Stage: `pr-open`
+- Next owner: merge PR `#64`, then start the next cycle on `git-submodule`
+- Stage: `merge`
