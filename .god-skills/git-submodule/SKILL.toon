@@ -1,18 +1,25 @@
 N:git-submodule
-D:Manage Git submodules for including external repositories within a main repository. Use when work...
-G:git submodule dependencies version-control modular
-U[7]:
-  Including external Git repositories within your main project
-  Managing shared libraries or modules across multiple project
-  Locking external dependencies to specific versions
-  Working with monorepo-style architectures with independent c
-  Cloning repositories that contain submodules
-S[8]{n,action}:
-  1,Understanding submodules
-  2,Adding submodules
-  3,Cloning with submodules
-  4,Updating submodules
-  5,Working inside submodules
-  6,Batch operations
-  7,Removing submodules
-  8,Checking submodule status
+D:Decide when Git submodules are the right dependency boundary, then operate them safely: add, clone/init recursively, update pointers, recover from detached HEAD, remove cleanly, or configure CI checkout. Use for .gitmodules, git submodule, recursive setup, pointer updates, private submodules in CI, or submodule vs subtree/vendoring decisions.
+G:git submodule gitmodules dependencies version-control ci
+R:
+  git-workflow: generic Git history, rebase, merge, PR, and collaboration work
+  npm-git-install: package-manager delivery from a Git remote
+  file-organization: broader repo-layout and vendoring decisions
+F:
+  references/decision-and-setup.md: adoption, add flow, bootstrap, CI/private access
+  references/update-and-removal.md: pointer updates, detached HEAD recovery, removal
+  evals/evals.json: trigger, boundary, and safety checks
+U[6]:
+  Decide whether submodule is the right boundary
+  Add a new submodule and record .gitmodules plus pointer changes
+  Bootstrap a repo with existing submodules
+  Update a tracked pointer or branch safely
+  Recover from detached HEAD inside a submodule
+  Remove a submodule cleanly or configure CI checkout
+S[6]{n,action}:
+  1,Ground the lane: decision bootstrap update develop remove or CI
+  2,Choose submodule vs subtree vendoring or package-manager delivery deliberately
+  3,Load the matching reference only
+  4,Use the smallest safe workflow lane
+  5,Protect work before pointer changes or detached HEAD recovery
+  6,Verify with submodule status diff and config state

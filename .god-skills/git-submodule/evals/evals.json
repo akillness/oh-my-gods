@@ -1,0 +1,55 @@
+{
+  "skill_name": "git-submodule",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We share an internal repo across several apps. Should we use a git submodule, subtree, or just vendor the code?",
+      "expected_output": "A boundary decision that compares submodules against nearby alternatives instead of assuming submodules by default.",
+      "assertions": [
+        "Response compares git submodule with subtree or vendoring rather than assuming one answer",
+        "Response explains when independently versioned history and pinned commits justify submodules",
+        "Response does not turn the request into generic Git branching advice"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I cloned this repository and the submodule directories are empty. What git submodule commands do I run?",
+      "expected_output": "A bootstrap-focused response that initializes existing submodules and verifies the result.",
+      "assertions": [
+        "Response treats the task as submodule bootstrap or recursive checkout",
+        "Response includes init or update guidance such as `git submodule update --init --recursive` or `git clone --recursive`",
+        "Response includes a verification step for resulting submodule state"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I made changes inside a submodule and realized I'm on detached HEAD. How do I save the work and update the parent repo safely?",
+      "expected_output": "A safety-first recovery flow that protects work inside the submodule before updating the parent pointer.",
+      "assertions": [
+        "Response protects or commits in-progress work before more destructive commands",
+        "Response gets the user onto a branch or creates one inside the submodule",
+        "Response updates the parent repository pointer only after the submodule commit is stable"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "How do I remove this submodule without leaving broken .git/modules metadata behind?",
+      "expected_output": "A clean removal flow specific to submodule deinit, tracked path removal, and metadata cleanup.",
+      "assertions": [
+        "Response uses a submodule-specific removal flow including deinit and `.git/modules` cleanup",
+        "Response keeps the answer focused on submodule removal instead of broad Git cleanup",
+        "Response includes a verification step for config or working-tree state afterward"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "My PR has merge conflicts after a rebase. What should I do?",
+      "expected_output": "A routing-aware response that recognizes generic Git history and collaboration work belongs to git-workflow, not git-submodule.",
+      "assertions": [
+        "Response routes generic branch or rebase conflict work to `git-workflow`",
+        "Response does not position `git-submodule` as the primary owner for ordinary PR conflict handling",
+        "Response keeps the distinction between submodule workflows and general Git workflows explicit"
+      ]
+    }
+  ]
+}

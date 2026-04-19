@@ -17,17 +17,10 @@ Date: 2026-04-20
   agentic workflows, while Anthropic and LangChain keep emphasizing subagents
   and reusable workflow surfaces:
   https://developers.openai.com/
-  https://docs.anthropic.com/en/docs/claude-code/sub-agents
+  https://code.claude.com/docs/en/sub-agents
   https://docs.langchain.com/oss/python/deepagents/skills
-- Review-heavy workflows gained even more weight in the current ecosystem:
-  OpenAI's Codex app positions PR review and delegation as core workflows, and
-  GitHub Copilot's coding agent emphasizes pull-request review and self-review:
-  https://openai.com/index/introducing-the-codex-app/
-  https://docs.github.com/en/copilot/concepts/about-copilot-coding-agent
-- GitHub's review guidance still treats AI-authored pull requests as
-  human-reviewed merge decisions, which matches this loop's PR-open then
-  PR-review cadence:
-  https://docs.github.com/copilot/how-tos/use-copilot-agents/coding-agent/review-copilot-prs
+- Review-heavy workflows still favor bounded PR lanes followed by a separate
+  review pass before merge.
 
 ## Live GitHub state
 
@@ -57,7 +50,7 @@ Date: 2026-04-20
   https://github.com/akillness/oh-my-gods/pull/62
 - PR `#63` for `code-refactoring` is merged:
   https://github.com/akillness/oh-my-gods/pull/63
-- PR `#64` for `api-design` is open and clean:
+- PR `#64` for `api-design` is merged:
   https://github.com/akillness/oh-my-gods/pull/64
 
 ## Audit snapshot
@@ -65,26 +58,12 @@ Date: 2026-04-20
 - Repo-wide validation passes at `80/80` skills with `0` spec violations when
   run via `python3 validate_frontmatter.py`.
 - `agent-evaluation`, `survey`, `playwriter`, the React guidance lane,
-  `ralphmode`, `workflow-automation`, and `testing-strategies` are closed lanes
-  and should not be re-opened without review feedback or new measured failures.
-- Official and primary-source signal still favors progressive-disclosure skill
-  packaging: concise entrypoints plus referenced support files and eval-backed
-  trigger surfaces now matter even more as GitHub's `gh skill` support expands
-  cross-host discovery and installation.
+  `ralphmode`, `workflow-automation`, `testing-strategies`, and `api-design`
+  are closed lanes and should not be re-opened without review feedback or new
+  measured failures.
 - The repo-local audit surface remains `validate_frontmatter.py`.
-- PR `#62` closed the `security-best-practices` lane at the repo's compact
-  review-and-design baseline with focused references, eval coverage, and a
-  refreshed `SKILL.toon`.
-- PR `#63` closed the `code-refactoring` lane after the scheduled review pass
-  found no duplicate work, no missing support surfaces, and no validation
-  regressions.
-- PR `#64` now carries the bounded `api-design` package: contract-first
-  entrypoint, focused references, eval coverage, and a refreshed `SKILL.toon`.
-- Repo-wide support-gap scanning still supports the same packaging direction:
-  standardize one workflow-critical lane at a time, then use the next run for
-  PR review before moving on.
-- The current PR-review pass found no duplicate work, no missing support
-  surfaces, no review comments, and no validation regressions on `api-design`.
+- PR `#64` closed the `api-design` lane with a contract-first entrypoint,
+  focused references, eval coverage, and a refreshed `SKILL.toon`.
 - Among still-open candidate lanes, `git-submodule` is now the highest-value
   queued gap because it remains one of the largest general-purpose skills with
   neither `references/` nor `evals/`.
@@ -108,86 +87,41 @@ Date: 2026-04-20
 | `code-review` | Merged via PR `#61` | No | No | Added focused review-priority and findings-format guidance | Added trigger, route-out, and findings-first review checks | No | Keep closed unless review feedback or new measured failures appear |
 | `security-best-practices` | Merged via PR `#62` | No | No | Added focused hardening and verification guidance | Added trigger, route-out, and verification assertions | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `code-refactoring` | Merged via PR `#63` | No | No | Added focused cleanup-slice and behavior-lock guidance | Added trigger, route-out, and behavior-preservation review checks | Not yet | Keep closed unless review feedback or new measured failures appear |
-| `api-design` | PR `#64` review-clean; ready to merge | No | No | Added focused contract-boundary and review guidance | Added trigger, route-out, and compatibility-design checks | Not yet | Merge the lane; reopen only if post-merge review evidence appears |
-| `git-submodule` | Queued next candidate | No | No | Needed | Needed | Not yet | Start the next run with packaging, route clarity, and measured support files |
+| `api-design` | Merged via PR `#64` | No | No | Added focused contract-boundary and review guidance | Added trigger, route-out, and compatibility-design checks | Not yet | Keep closed unless post-merge review evidence appears |
+| `git-submodule` | Active next candidate | No | No | Needed | Needed | Not yet | Package the skill, open the PR path, and hand the next run to PR review |
 
 ## Locked direction
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Keep `workflow-automation` closed because PR `#59` is merged and validation
-  still passes.
-- Keep `testing-strategies` closed because PR `#60` is merged and validation
-  still passes.
-- Keep `code-review` closed because PR `#61` merged, the review pass found no
-  further blockers, and validation still passes.
-- Keep `security-best-practices` closed because PR `#62` is merged and the lane
-  no longer has open review work.
-- Keep `code-refactoring` closed because PR `#63` is merged.
-- Move `api-design` from PR-review to merge because PR `#64` is clean and the
-  packaged lane no longer shows missing support surfaces.
-- Queue `git-submodule` as the next bounded lane after the `api-design` merge.
-- Defer `skill-autoresearch` until `api-design` or another packaged target
+- Keep `api-design` closed because PR `#64` is merged and the packaged lane no
+  longer shows missing support surfaces.
+- Move `git-submodule` from queued candidate to active bounded lane.
+- Defer `skill-autoresearch` until `git-submodule` or another packaged target
   still shows measured failures after the PR-review pass.
 
 ## Packaging decision for the active lane
 
-- Closed lane: `workflow-automation`
-  - Assets: no
-  - Scripts: no
-  - References: yes, keep runner-selection and local-CI parity guidance
-  - Evals: yes, keep trigger and repo-boundary coverage for task-runner choice,
-    local parity, and hook guardrails
-  - Skill-autoresearch: still deferred unless later measured failures appear
-- Closed lane: `testing-strategies`
-  - Assets: no
-  - Scripts: no
-  - References: yes, keep concise guidance for test-layer selection and release
-    confidence
-  - Evals: yes, keep trigger, boundary, and validation-policy assertions
-  - Skill-autoresearch: still deferred unless later measured failures appear
-- Closed lane on the previous run: `code-review`
-  - Assets: no
-  - Scripts: no
-  - References: yes, keep focused review-priority and findings-format guidance
-  - Evals: yes, keep trigger, route-out, and findings-first review assertions
-  - Skill-autoresearch: still deferred unless later measured failures appear
-- Closed lane on the previous run: `security-best-practices`
-  - Assets: no
-  - Scripts: no
-  - References: yes, keep focused hardening-control and verification/rollout
-    guidance
-  - Evals: yes, keep trigger, route-out, and verification assertions
-  - Skill-autoresearch: still deferred unless later measured failures appear
-- Closed lane on the previous run: `code-refactoring`
-  - Assets: no
-  - Scripts: no
-  - References: yes, keep focused cleanup-slice and behavior-lock guidance
-  - Evals: yes, keep trigger, route-out, and behavior-preservation review
-    assertions
-  - Skill-autoresearch: not justified until the packaged lane still misses
-    objective checks
-- Active lane on this run: `api-design`
+- Closed lane on the previous run: `api-design`
   - Assets: no
   - Scripts: no
   - References: yes, keep focused contract-boundary and review guidance
   - Evals: yes, keep trigger, route-out, and compatibility-design assertions
-  - Skill-autoresearch: not justified until the packaged lane still misses
-    objective checks
-- Next queued lane after merge: `git-submodule`
+  - Skill-autoresearch: not justified until later measured failures appear
+- Active lane on this run: `git-submodule`
   - Assets: no
   - Scripts: no
-  - References: yes, add focused clone/update/remove and detached-HEAD recovery guidance
-  - Evals: yes, add trigger, boundary, and workflow-safety assertions
+  - References: yes, add focused setup, update, removal, and CI guidance
+  - Evals: yes, add trigger, route-out, and detached-HEAD workflow assertions
   - Skill-autoresearch: not justified until the packaged lane still misses
     objective checks
 
 ## Current state
 
-- Current state: PR `#64` for the bounded `api-design` packaging lane is still
-  open, but the PR-review pass is complete, GitHub reports it `CLEAN`, local
-  validation passes, and the lane is ready to merge.
-- PR: https://github.com/akillness/oh-my-gods/pull/64
+- Current state: PR `#64` is merged, the previous lane is closed, and the
+  active work is the bounded `git-submodule` packaging lane.
+- PR: none yet for the active lane
 - Blocker: none
-- Next owner: merge PR `#64`, then start the next cycle on `git-submodule`
-- Stage: `merge`
+- Next owner: package `git-submodule`, open the PR path, then hand the next
+  cycle to PR review
+- Stage: `improvement`

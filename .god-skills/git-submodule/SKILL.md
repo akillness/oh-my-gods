@@ -1,446 +1,250 @@
 ---
 name: git-submodule
-description: Manage Git submodules for including external repositories within a main repository. Use when working with external libraries, shared modules, or managing dependencies as separate Git repositories.
+description: >
+  Decide when Git submodules are the right dependency boundary, then operate
+  them safely: add a submodule, clone and init recursively, update a tracked
+  branch, develop inside the submodule without getting lost in detached HEAD,
+  remove a submodule cleanly, or configure CI checkout. Use when the user asks
+  about `.gitmodules`, `git submodule`, recursive clone or setup, updating
+  submodule pointers, private submodules in CI, or whether submodule vs
+  subtree or vendoring is the better fit. Not for generic Git history cleanup
+  or package-manager dependency delivery.
+license: Apache-2.0
+compatibility: >
+  Best for repositories that already use Git or are deciding whether a Git
+  submodule boundary is safer than subtree, vendoring, or package-manager
+  delivery.
 allowed-tools: Bash Read Write Grep Glob
 metadata:
-  tags: git, submodule, dependencies, version-control, modular
-  platforms: Claude, ChatGPT, Gemini
+  version: "2.0.0"
+  author: Agent Skills Team
+  tags: git, submodule, dependencies, version-control, ci
+  platforms: Claude, ChatGPT, Gemini, Codex
 ---
-
 
 # Git Submodule
 
+Git submodule work is mainly about boundary choice and workflow safety. Keep
+the entrypoint focused on deciding whether submodules are appropriate, then
+walk the user through the smallest safe setup, update, recovery, or removal
+path.
+
+Read `references/decision-and-setup.md` when the user needs help choosing
+submodule vs subtree or vendoring, cloning a repo with submodules, or wiring
+CI and private access. Read `references/update-and-removal.md` when the task is
+updating pointers, recovering from detached HEAD, or removing a submodule
+cleanly.
+
+If the user mainly needs:
+
+- generic branch, merge, rebase, commit, or PR coordination, use
+  `git-workflow`
+- package-manager delivery from a Git remote, use `npm-git-install`
+- broad repository structure or vendoring strategy beyond submodule mechanics,
+  use `file-organization`
+
 ## When to use this skill
-- Including external Git repositories within your main project
-- Managing shared libraries or modules across multiple projects
-- Locking external dependencies to specific versions
-- Working with monorepo-style architectures with independent components
-- Cloning repositories that contain submodules
-- Updating submodules to newer versions
-- Removing submodules from a project
+
+- Decide whether Git submodules are the right dependency boundary for a shared
+  repository, fork, or infra component
+- Add a new submodule and record the right `.gitmodules` and pointer changes
+- Clone or bootstrap a repository that already contains submodules
+- Update a submodule pointer to a newer commit or tracked branch safely
+- Recover from detached HEAD inside a submodule during development
+- Remove a submodule cleanly without leaving stale Git metadata behind
+- Configure CI or automation that needs recursive checkout or private submodule
+  access
+
+## When not to use this skill
+
+- The main problem is generic Git history surgery, branch cleanup, or PR prep:
+  use `git-workflow`
+- The main problem is consuming a package directly from Git in npm or pnpm:
+  use `npm-git-install`
+- The team already decided against submodules and needs a broader repo-layout
+  decision instead
 
 ## Instructions
 
-### Step 1: Understanding submodules
+### Step 1: Ground the current repo shape or decision point
 
-Git submodule is a feature for including other Git repositories within a main Git repository.
+Before suggesting commands, determine which lane the user is in:
 
-**Key concepts**:
-- Submodules lock version by referencing a specific commit
-- Submodule paths and URLs are recorded in the `.gitmodules` file
-- Changes within a submodule are managed as separate commits
+- decision: should this repo use a submodule at all?
+- bootstrap: clone or initialize existing submodules
+- update: move the recorded pointer or track a remote branch
+- develop: make changes inside the submodule safely
+- remove: remove the submodule and clean metadata
+- CI: configure automation or private access for checkout
 
-### Step 2: Adding submodules
+If the repo already exists, check the smallest useful evidence first:
 
-**Basic addition**:
-```bash
-# Add submodule
-git submodule add <repository-url> <path>
+- whether `.gitmodules` exists
+- current submodule status from `git submodule status --recursive`
+- whether the user is inside a detached HEAD in the submodule
+- whether the job is local-only, shared-branch, or CI-specific
 
-# Example: Add library to libs/lib path
-git submodule add https://github.com/example/lib.git libs/lib
-```
+Do not jump into `git submodule add`, `update --remote`, or cleanup commands
+until the lane is clear.
 
-**Track a specific branch**:
-```bash
-# Add to track a specific branch
-git submodule add -b main https://github.com/example/lib.git libs/lib
-```
+### Step 2: Decide whether submodule is the right boundary
 
-**Commit after adding**:
-```bash
-git add .gitmodules libs/lib
-git commit -m "feat: add lib as submodule"
-```
+Use submodules when:
 
-### Step 3: Cloning with submodules
+- the dependency is its own Git repository with independent history
+- you want the parent repo to pin an exact external commit
+- upstream ownership and release cadence should stay separate
+- the team accepts Git-level workflow overhead in exchange for provenance
 
-**When cloning fresh**:
-```bash
-# Method 1: --recursive option when cloning
-git clone --recursive <repository-url>
+Prefer subtree or vendoring when:
 
-# Method 2: Initialize after cloning
-git clone <repository-url>
-cd <repository>
-git submodule init
-git submodule update
-```
+- contributors need one-repo editing with minimal Git ceremony
+- CI, onboarding, or access control would make submodule checkout fragile
+- the code should behave like copied source rather than a separately versioned
+  dependency
 
-**Initialize and update in one line**:
-```bash
-git submodule update --init --recursive
-```
+Prefer a package manager when:
 
-### Step 4: Updating submodules
+- the real need is language-specific dependency delivery, semver, or registry
+  workflows
+- the dependency is not meant to be edited through Git inside the parent repo
 
-**Update to latest remote version**:
-```bash
-# Update all submodules to latest remote
-git submodule update --remote
+State the reason for the choice. Do not recommend submodules by habit.
 
-# Update a specific submodule only
-git submodule update --remote libs/lib
+### Step 3: Pull only the matching reference
 
-# Update + merge
-git submodule update --remote --merge
+Load only the reference that matches the task:
 
-# Update + rebase
-git submodule update --remote --rebase
-```
+- `references/decision-and-setup.md` for adoption criteria, add flow, clone and
+  init, recursive checkout, and CI/private access
+- `references/update-and-removal.md` for tracked-branch updates, detached-HEAD
+  recovery, pointer verification, and clean removal
 
-**Checkout to the referenced commit**:
-```bash
-# Checkout submodule to the commit referenced by the main repository
-git submodule update
-```
+### Step 4: Use the smallest safe workflow lane
 
-### Step 5: Working inside submodules
+For each lane, optimize for recoverability:
 
-**Working inside a submodule**:
-```bash
-# Navigate to submodule directory
-cd libs/lib
+- decision: compare submodule vs subtree or vendoring and call out tradeoffs
+- bootstrap: `git clone --recursive` or `git submodule update --init
+  --recursive`
+- add: record the URL and path, then commit both `.gitmodules` and the
+  submodule pointer
+- update: fetch the intended remote state, move the submodule deliberately, and
+  commit only the pointer change in the parent repo
+- develop: get off detached HEAD in the submodule before making commits, then
+  update the parent pointer afterward
+- remove: deinit, remove the tracked path, clean `.git/modules/<path>`, and
+  verify no stale config remains
+- CI: enable recursive checkout and confirm auth for private submodules before
+  assuming automation will work
 
-# Checkout branch (exit detached HEAD)
-git checkout main
+When the user asks for one exact command sequence, give the shortest path plus
+the immediate verification checks.
 
-# Work on changes
-# ... make changes ...
+### Step 5: Protect work before pointer or history changes
 
-# Commit and push within submodule
-git add .
-git commit -m "feat: update library"
-git push origin main
-```
+Before risky submodule operations:
 
-**Reflect submodule changes in main repository**:
-```bash
-# Move to main repository
-cd ..
+- inspect whether the submodule has uncommitted work
+- avoid making commits from detached HEAD unless the user is intentionally
+  pinning a one-off commit
+- prefer creating or checking out the intended branch inside the submodule
+  before editing
+- treat `git submodule update --remote` as a reviewable pointer move, not a
+  blind sync
+- on shared repos, verify which branch or commit the parent should record
 
-# Update submodule reference
-git add libs/lib
-git commit -m "chore: update lib submodule reference"
-git push
-```
+If the user accidentally worked in detached HEAD, recover the work before
+running cleanup or reset commands.
 
-### Step 6: Batch operations
+### Step 6: Verify the result
 
-**Run commands on all submodules**:
-```bash
-# Pull in all submodules
-git submodule foreach 'git pull origin main'
+Use the smallest relevant checks after any non-trivial change:
 
-# Check status in all submodules
-git submodule foreach 'git status'
+- `git submodule status --recursive`
+- `git diff --submodule`
+- `git status --short --branch`
+- `git config -f .gitmodules --get-regexp 'submodule\\..*\\.(path|url|branch)'`
+- CI or checkout logs when the task is automation-specific
 
-# Checkout branch in all submodules
-git submodule foreach 'git checkout main'
-
-# Also run command on nested submodules
-git submodule foreach --recursive 'git fetch origin'
-```
-
-### Step 7: Removing submodules
-
-**Completely remove a submodule**:
-```bash
-# 1. Deinitialize submodule
-git submodule deinit <path>
-
-# 2. Remove from Git
-git rm <path>
-
-# 3. Remove cache from .git/modules
-rm -rf .git/modules/<path>
-
-# 4. Commit changes
-git commit -m "chore: remove submodule"
-```
-
-**Example: Remove libs/lib**:
-```bash
-git submodule deinit libs/lib
-git rm libs/lib
-rm -rf .git/modules/libs/lib
-git commit -m "chore: remove lib submodule"
-git push
-```
-
-### Step 8: Checking submodule status
-
-**Check status**:
-```bash
-# Check submodule status
-git submodule status
-
-# Detailed status (recursive)
-git submodule status --recursive
-
-# Summary information
-git submodule summary
-```
-
-**Interpreting output**:
-```
- 44d7d1... libs/lib (v1.0.0)      # Normal (matches referenced commit)
-+44d7d1... libs/lib (v1.0.0-1-g...)  # Local changes present
--44d7d1... libs/lib               # Not initialized
-```
+Do not claim the repo is ready until the parent repo records the intended
+pointer and the submodule state matches the user's goal.
 
 ## Examples
 
-### Example 1: Adding an External Library to a Project
+### Example 1: Decide whether submodule is the right dependency boundary
 
-```bash
-# 1. Add submodule
-git submodule add https://github.com/lodash/lodash.git vendor/lodash
+Input:
 
-# 2. Lock to a specific version (tag)
-cd vendor/lodash
-git checkout v4.17.21
-cd ../..
-
-# 3. Commit changes
-git add .
-git commit -m "feat: add lodash v4.17.21 as submodule"
-
-# 4. Push
-git push origin main
+```text
+We share an internal infrastructure repo across three projects. Should we use a
+Git submodule, subtree, or just vendor the code?
 ```
 
-### Example 2: Setup After Cloning a Repository with Submodules
+Expected shape:
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/myorg/myproject.git
-cd myproject
+- compares submodule vs subtree or vendoring instead of assuming submodule
+- explains when independent history and pinned commits justify submodules
+- calls out workflow overhead and CI or access risks
 
-# 2. Initialize and update submodules
-git submodule update --init --recursive
+### Example 2: Bootstrap a repo after clone
 
-# 3. Check submodule status
-git submodule status
+Input:
 
-# 4. Checkout submodule branch (for development)
-git submodule foreach 'git checkout main || git checkout master'
+```text
+I cloned a repo and the submodule folders are empty. What Git submodule steps do
+I run?
 ```
 
-### Example 3: Updating Submodules to the Latest Version
+Expected shape:
 
-```bash
-# 1. Update all submodules to latest remote
-git submodule update --remote --merge
+- recognizes this as a bootstrap flow, not a generic Git issue
+- uses recursive init and update commands
+- verifies the resulting pointer state
 
-# 2. Review changes
-git diff --submodule
+### Example 3: Recover from detached HEAD in a submodule
 
-# 3. Commit changes
-git add .
-git commit -m "chore: update all submodules to latest"
+Input:
 
-# 4. Push
-git push origin main
+```text
+I edited code inside a submodule and now I’m on detached HEAD. How do I save the
+work and update the parent repo safely?
 ```
 
-### Example 4: Using Shared Components Across Multiple Projects
+Expected shape:
 
-```bash
-# In Project A
-git submodule add https://github.com/myorg/shared-components.git src/shared
+- protects the in-progress work before more checkout commands
+- gets the user onto an intended branch inside the submodule
+- commits the parent pointer only after the submodule commit is stable
 
-# In Project B
-git submodule add https://github.com/myorg/shared-components.git src/shared
+### Example 4: Remove a submodule cleanly
 
-# When updating shared components (in each project)
-git submodule update --remote src/shared
-git add src/shared
-git commit -m "chore: update shared-components"
+Input:
+
+```text
+How do I remove this submodule without leaving broken Git metadata behind?
 ```
 
-### Example 5: Handling Submodules in CI/CD
+Expected shape:
 
-```yaml
-# GitHub Actions
-jobs:
-  build:
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive  # or 'true'
-
-# GitLab CI
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
-
-# Jenkins
-checkout scm: [
-  $class: 'SubmoduleOption',
-  recursiveSubmodules: true
-]
-```
-
-## Advanced workflows
-
-### Nested Submodules
-
-```bash
-# Initialize all nested submodules
-git submodule update --init --recursive
-
-# Update all nested submodules
-git submodule update --remote --recursive
-```
-
-### Changing Submodule URL
-
-```bash
-# Edit the .gitmodules file
-git config -f .gitmodules submodule.libs/lib.url https://new-url.git
-
-# Sync local configuration
-git submodule sync
-
-# Update submodule
-git submodule update --init --recursive
-```
-
-### Converting a Submodule to a Regular Directory
-
-```bash
-# 1. Back up submodule contents
-cp -r libs/lib libs/lib-backup
-
-# 2. Remove submodule
-git submodule deinit libs/lib
-git rm libs/lib
-rm -rf .git/modules/libs/lib
-
-# 3. Restore backup (excluding .git)
-rm -rf libs/lib-backup/.git
-mv libs/lib-backup libs/lib
-
-# 4. Add as regular files
-git add libs/lib
-git commit -m "chore: convert submodule to regular directory"
-```
-
-### Saving Space with Shallow Clones
-
-```bash
-# Add submodule with shallow clone
-git submodule add --depth 1 https://github.com/large/repo.git libs/large
-
-# Update existing submodule as shallow clone
-git submodule update --init --depth 1
-```
+- uses a clean remove flow including deinit and `.git/modules` cleanup
+- verifies both working tree and config state afterward
+- keeps the answer specific to submodule removal instead of broad Git cleanup
 
 ## Best practices
 
-1. **Version locking**: Always lock submodules to a specific commit/tag for reproducibility
-2. **Documentation**: Specify submodule initialization steps in README
-3. **CI configuration**: Use `--recursive` option in CI/CD pipelines
-4. **Regular updates**: Regularly update submodules for security patches and more
-5. **Branch tracking**: Configure branch tracking during development for convenience
-6. **Permission management**: Verify access permissions for submodule repositories
-7. **Shallow clone**: Use `--depth` option for large repositories to save space
-8. **Status check**: Verify status with `git submodule status` before committing
-
-## Common pitfalls
-
-- **detached HEAD**: Submodules are in detached HEAD state by default. Checkout a branch when working
-- **Missing initialization**: `git submodule update --init` is required after cloning
-- **Reference mismatch**: Must update reference in main repository after submodule changes
-- **Permission issue**: Private submodules require SSH key or token configuration
-- **Relative paths**: Using relative paths in `.gitmodules` can cause issues in forks
-- **Incomplete removal**: Must also delete `.git/modules` cache when removing a submodule
-
-## Troubleshooting
-
-### Submodule not initialized
-
-```bash
-# Force initialize
-git submodule update --init --force
-```
-
-### Submodule conflict
-
-```bash
-# Check submodule status
-git submodule status
-
-# After resolving conflict, checkout desired commit
-cd libs/lib
-git checkout <desired-commit>
-cd ..
-git add libs/lib
-git commit -m "fix: resolve submodule conflict"
-```
-
-### Permission error (private repository)
-
-```bash
-# Use SSH URL
-git config -f .gitmodules submodule.libs/lib.url git@github.com:org/private-lib.git
-git submodule sync
-git submodule update --init
-```
-
-### Submodule in dirty state
-
-```bash
-# Check changes within submodule
-cd libs/lib
-git status
-git diff
-
-# Discard changes
-git checkout .
-git clean -fd
-
-# Or commit
-git add .
-git commit -m "fix: resolve changes"
-git push
-```
-
-## Configuration
-
-### Useful Configuration
-
-```bash
-# Show submodule changes in diff
-git config --global diff.submodule log
-
-# Show submodule summary in status
-git config --global status.submoduleSummary true
-
-# Check submodule changes on push
-git config --global push.recurseSubmodules check
-
-# Also fetch submodules when fetching
-git config --global fetch.recurseSubmodules on-demand
-```
-
-### .gitmodules Example
-
-```ini
-[submodule "libs/lib"]
-    path = libs/lib
-    url = https://github.com/example/lib.git
-    branch = main
-
-[submodule "vendor/tool"]
-    path = vendor/tool
-    url = git@github.com:example/tool.git
-    shallow = true
-```
+1. Decide first whether submodule is the right boundary
+2. Inspect `.gitmodules` and current pointer state before changing commands
+3. Treat detached HEAD recovery as a first-class workflow, not an edge case
+4. Commit the parent repo pointer intentionally after submodule changes
+5. Verify CI and auth assumptions for private submodules
+6. Keep detailed command recipes in references so the entrypoint stays compact
+   and triggerable
+7. Route generic Git history work back to `git-workflow`
 
 ## References
 
-- [Git Submodules - Official Documentation](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
-- [Git Submodule Tutorial - Atlassian](https://www.atlassian.com/git/tutorials/git-submodule)
-- [Managing Dependencies with Submodules](https://github.blog/2016-02-01-working-with-submodules/)
-- [Git Submodule Cheat Sheet](https://gist.github.com/gitaarik/8735255)
+- `references/decision-and-setup.md`
+- `references/update-and-removal.md`
+- [Git Submodule Documentation](https://git-scm.com/docs/git-submodule)
+- [Gitmodules Documentation](https://git-scm.com/docs/gitmodules)
