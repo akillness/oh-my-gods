@@ -91,8 +91,10 @@ This order is locked because:
 ## Current state
 
 - State: React guidance is closed after PR `#56` merged; `ralphmode` is the
-  active bounded lane and is now in PR review
+  active bounded lane and is in PR review after a bounded follow-up synced the
+  compact `SKILL.toon` discovery surface with the new trigger and checkpoint
+  wording
 - PR: https://github.com/akillness/oh-my-gods/pull/57
 - Blocker: none
 - Next owner: PR review path
-- Stage: `pr-open`
+- Stage: `pr-review`

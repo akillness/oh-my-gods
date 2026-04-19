@@ -104,8 +104,9 @@ Date: 2026-04-19
 ## Current state
 
 - Current state: React guidance is closed after PR `#56` merged; the active
-  `ralphmode` lane is now in PR review
+  `ralphmode` lane is in PR review after a bounded follow-up synced the compact
+  `SKILL.toon` discovery surface with the new trigger and checkpoint wording
 - PR: https://github.com/akillness/oh-my-gods/pull/57
 - Blocker: none
 - Next owner: PR review path
-- Stage: `pr-open`
+- Stage: `pr-review`
