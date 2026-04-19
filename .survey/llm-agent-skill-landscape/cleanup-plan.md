@@ -1,36 +1,34 @@
-# Cleanup Plan: review `workflow-automation` before merge
+# Cleanup Plan: `testing-strategies` packaging lane
 
 ## Goal
 
-Keep the recurring loop aligned with the highest-value open lane by running one
-bounded review pass on the open `workflow-automation` PR, confirming the new
-repo-scoped packaging is standards-clean, and moving the lane from `pr-open`
-to `merge` if no duplicate work or missing support surfaces remain.
+Prepare the next bounded lane after `workflow-automation` closes by
+standardizing `testing-strategies`. Keep the work focused on packaging and
+boundary repair: tighten the trigger wording, add concise reference files, add
+eval coverage, and decide whether `skill-autoresearch` is still unnecessary
+after that package exists.
 
 ## Behavior lock
 
-- Keep this run focused on the already-open `workflow-automation` lane.
-- Do not reopen already-merged lanes unless a shared blocker appears.
-- Keep the support package decision unchanged unless review evidence says
-  otherwise:
+- Keep the next run focused on `testing-strategies` only.
+- Do not reopen already-merged unrelated lanes.
+- Keep the support package decision explicit:
   - `assets`: no
   - `scripts`: no
-  - `references`: keep the added runner-selection and local-CI parity guides
-  - `evals`: keep the added trigger and boundary checks
-- Do not start a `skill-autoresearch` mutation loop in this run unless the
-  review finds measured failures against the new eval-backed package.
+  - `references`: yes, add focused test-layer and release-readiness guidance
+  - `evals`: yes, add trigger, route-out, and validation-policy checks
+- Do not start a `skill-autoresearch` mutation loop until the packaged lane
+  still shows measured failures.
 
 ## Planned checks
 
-1. Re-read the skill, references, and evals for duplicate or missing guidance.
-2. Re-run repo validation with the repo-local validator.
-3. Confirm the PR is still bounded to the active lane and is mergeable.
-4. If the review is clean, refresh the survey lock files so the lane is
-   recorded as merge-ready.
+1. Re-read `testing-strategies` for generic or catch-all wording.
+2. Add only the references and evals needed to make the skill measurable.
+3. Re-run repo validation with the repo-local validator.
+4. Open a narrow PR for the packaged `testing-strategies` lane.
 
 ## Verification
 
 - `python3 validate_frontmatter.py`
 - `git diff --stat main...HEAD`
-- `gh pr view 58 --json number,state,headRefName,baseRefName,isDraft,mergeable,url`
-- `gh pr diff 58 --name-only`
+- `gh pr create --fill`
