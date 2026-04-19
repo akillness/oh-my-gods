@@ -35,7 +35,7 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/54
 - PR `#55` for `playwriter` is merged:
   https://github.com/akillness/oh-my-gods/pull/55
-- PR `#56` for the React guidance lane is open:
+- PR `#56` for the React guidance lane is merged:
   https://github.com/akillness/oh-my-gods/pull/56
 
 ## Audit snapshot
@@ -48,8 +48,8 @@ Date: 2026-04-19
   advertising it as active work.
 - `playwriter` is closed after PR `#55` merged, so the loop should not keep
   treating it as active work.
-- `react-best-practices` and `vercel-react-best-practices` now clear the
-  review follow-up: the alias no longer carries its own duplicate `AGENTS.md`,
+- `react-best-practices` and `vercel-react-best-practices` are now closed after
+  PR `#56` merged: the alias no longer carries its own duplicate `AGENTS.md`,
   the public README catalog matches the compatibility-alias wording, and the
   canonical/alias split keeps eval coverage on both sides.
 - Official and primary-source signal keeps favoring this lane:
@@ -73,8 +73,9 @@ Date: 2026-04-19
 | `agent-evaluation` | Merged via PR `#53` | No | No | Added | Added | Not yet | Keep the lane closed unless review feedback or new measured failures appear |
 | `survey` | Merged via PR `#54` | No | No | Added | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `playwriter` | Merged via PR `#55` | No | No | Added install/session and MCP/security recovery support files | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
-| `react-best-practices` | PR `#56` open and review-clean after follow-up | No | No | Reuse bundled `AGENTS.md` | Added | Not yet | Advance to merge unless feedback or failing evidence reopens the lane |
-| `vercel-react-best-practices` | PR `#56` open and review-clean after follow-up | No | No | Point to canonical skill only | Added | Not yet | Advance to merge unless feedback or failing evidence reopens the lane |
+| `react-best-practices` | Merged via PR `#56` after a bounded review follow-up | No | No | Reuse bundled `AGENTS.md` | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
+| `vercel-react-best-practices` | Merged via PR `#56` after a bounded review follow-up | No | No | Point to canonical skill only | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
+| `ralphmode` | Active high-leverage warning lane | No | No | Existing permission profile reference is enough | Add now | Not yet | Tighten trigger wording and add evals before any mutation loop |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -82,17 +83,29 @@ Date: 2026-04-19
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Keep the active run centered on the React guidance duplicate until PR `#56`
-  merges or new review feedback reopens the lane.
-- Do not start a `skill-autoresearch` mutation loop for the React guidance lane
-  unless later review feedback or eval evidence exposes a real measured miss
-  after the canonical/alias split lands.
+- Move the active run to `ralphmode`, because current official surfaces from
+  OpenAI, Anthropic, and GitHub keep increasing the value of safe automation,
+  repo-scoped autonomy, and portable skill packaging.
+- Fix the standards and trigger-quality gaps on `ralphmode` before considering
+  `skill-autoresearch`; there is still no measured failure baseline to justify a
+  mutation loop.
+
+## Packaging decision for the active lane
+
+- Active lane: `ralphmode`
+  - Assets: no
+  - Scripts: no
+  - References: keep the existing `references/permission-profiles.md`
+  - Evals: yes, add trigger and safety-boundary coverage for repo mode,
+    sandbox-only YOLO mode, and Codex checkpoint behavior
+  - Skill-autoresearch: still deferred until a standardized, eval-backed
+    `ralphmode` shows measured failures
 
 ## Current state
 
-- Current state: `playwriter` is closed; the React guidance lane absorbed its
-  bounded PR-review follow-up and is now merge-ready
-- PR: https://github.com/akillness/oh-my-gods/pull/56
+- Current state: React guidance is closed after PR `#56` merged; the active run
+  has moved to `ralphmode`
+- PR: not opened yet for the `ralphmode` lane
 - Blocker: none
-- Next owner: merge path
-- Stage: `merge`
+- Next owner: nanoclaw_pd improvement path
+- Stage: `improvement`

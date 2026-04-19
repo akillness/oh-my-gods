@@ -1,10 +1,17 @@
 ---
 name: ralphmode
-description: Configure Claude Code, Codex CLI, and Gemini CLI for Ralph-style automation with fewer approval prompts while keeping project boundaries, secret denylists, and sandbox-first safety rules intact.
+description: >
+  Configure Claude Code, Codex CLI, and Gemini CLI for Ralph-style automation
+  with fewer approval prompts while keeping project boundaries, secret
+  denylists, and sandbox-first safety rules intact. Use when the user needs
+  trusted-folder setup, approval-policy tuning, sandbox-first YOLO boundaries,
+  or checkpoint rules for long-running `ralph` or `omg` loops. Triggers on:
+  ralphmode, trusted folder, bypass approvals safely, Codex sandbox mode,
+  approval policy, checkpoint needed, repo-scoped automation.
 license: CC-BY-4.0
 compatibility: Claude Code, Codex CLI, and Gemini CLI. Requires bash, git, and a repo-scoped workspace. Treat full bypass as sandbox-only. Codex guidance in this skill reflects the official sandbox/approval model current on 2026-03-06; legacy permissions.allow or deny examples are compatibility notes only.
 metadata:
-  version: 0.2.0
+  version: 0.2.1
   author: supercent-io
   keyword: ralphmode
   platforms: Claude Code, Codex CLI, Gemini CLI
