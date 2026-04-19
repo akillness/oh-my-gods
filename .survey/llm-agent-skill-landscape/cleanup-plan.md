@@ -1,29 +1,31 @@
-# Cleanup Plan: `workflow-automation` post-merge follow-up
+# Cleanup Plan: `testing-strategies` packaging lane
 
 ## Goal
 
-Repair the compact discovery and eval surfaces for `workflow-automation` after
-the merged lane review found one stale `SKILL.toon` file and one soft eval set.
-Keep the follow-up bounded to those two files, re-validate the repo, and reopen
-a narrow PR instead of broadening the lane.
+Prepare the next bounded lane after `workflow-automation` closes by
+standardizing `testing-strategies`. Keep the work focused on packaging and
+boundary repair: tighten the trigger wording, add concise reference files, add
+eval coverage, and decide whether `skill-autoresearch` is still unnecessary
+after that package exists.
 
 ## Behavior lock
 
-- Keep this run focused on the follow-up `workflow-automation` lane only.
+- Keep the next run focused on `testing-strategies` only.
 - Do not reopen already-merged unrelated lanes.
-- Keep the support package decision unchanged:
+- Keep the support package decision explicit:
   - `assets`: no
   - `scripts`: no
-  - `references`: keep the added runner-selection and local-CI parity guides
-  - `evals`: tighten the existing checks without changing the covered prompts
-- Do not start a `skill-autoresearch` mutation loop in this run.
+  - `references`: yes, add focused test-layer and release-readiness guidance
+  - `evals`: yes, add trigger, route-out, and validation-policy checks
+- Do not start a `skill-autoresearch` mutation loop until the packaged lane
+  still shows measured failures.
 
 ## Planned checks
 
-1. Sync `SKILL.toon` to the current repo-scoped `SKILL.md` intent.
-2. Tighten eval assertions so they are more explicit and testable.
+1. Re-read `testing-strategies` for generic or catch-all wording.
+2. Add only the references and evals needed to make the skill measurable.
 3. Re-run repo validation with the repo-local validator.
-4. Open a narrow follow-up PR for the repaired discovery/eval surfaces.
+4. Open a narrow PR for the packaged `testing-strategies` lane.
 
 ## Verification
 

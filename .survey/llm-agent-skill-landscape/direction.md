@@ -46,9 +46,12 @@ The landscape signal remains stable as of April 19, 2026:
 6. `workflow-automation` is therefore the right next lane after `ralphmode`
    merged, because task runners, local-CI parity, and hook guardrails are
    frequent requests while the current skill still lacked references and evals.
-7. PR `#58` merged that repo-scoped package, but the delayed review lane found
-   one stale `SKILL.toon` surface and one still-soft eval set, so the active
-   work is now a narrow follow-up PR rather than a fresh skill rewrite.
+7. PR `#58` merged that repo-scoped package, and PR `#59` repaired the last
+   stale `SKILL.toon` surface plus the too-soft eval wording; the branch now
+   looks merge-ready instead of needing another improvement cycle.
+8. After that merge, the highest-value remaining gap is `testing-strategies`:
+   a high-frequency validation-policy skill that still ships as a generic
+   single-file entrypoint with no `references/` or `evals/` package.
 
 ## Locked direction
 
@@ -59,18 +62,22 @@ Advance one bounded lane per run, in this order:
 3. Keep `ralphmode` closed after PR `#57` merged
 4. Standardize `workflow-automation` so its trigger wording and repo boundary
    are measurable
-5. Repair compact discovery and eval drift for `workflow-automation` in a
-   narrow follow-up PR
-6. Revisit `skill-autoresearch` only after the follow-up PR merges and the
-   target still shows measured failures
+5. Merge the bounded `workflow-automation` follow-up PR
+6. Standardize `testing-strategies` so its validation-policy boundary is
+   measurable and packaged
+7. Revisit `skill-autoresearch` only after the next packaged target still
+   shows measured failures
 
 This order is locked because:
 
 - Reopening merged lanes would only duplicate already-closed work.
 - `workflow-automation` is a high-frequency repo skill whose previous form was
   too generic to benefit from reliable triggering or measured optimization.
+- `testing-strategies` is now the strongest remaining general-purpose gap
+  because it still lacks the references/evals package now common in the repo's
+  better-maintained lanes.
 - Starting a mutation loop before every discovery surface and eval assertion is
-  internally consistent would optimize the wrong layer.
+  internally consistent would still optimize the wrong layer.
 
 ## Skill-autoresearch triage
 
@@ -84,9 +91,10 @@ This order is locked because:
 | `react-best-practices` | Closed high-leverage lane | No | No | No | Reuse bundled `AGENTS.md` | Added | Keep closed unless review feedback or measured failures reopen it |
 | `vercel-react-best-practices` | Closed high-leverage lane | No | No | No | Point to canonical skill only | Added | Keep closed unless review feedback or measured failures reopen it |
 | `ralphmode` | Closed high-leverage lane | No | No | No | Existing permission profile reference merged | Added | Keep closed unless review feedback or measured failures reopen it |
-| `workflow-automation` | High | Not yet | No | No | Added | Tightened in PR `#59` | Review and merge the narrow follow-up PR, then defer mutation work until later measured failures appear |
+| `workflow-automation` | High | Not yet | No | No | Added | Tightened in PR `#59` | Merge the narrow follow-up PR, then keep the lane closed unless later measured failures appear |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
+| `testing-strategies` | High | Not yet | No | No | Needs concise policy references | Needs trigger and boundary evals | Standardize it first, then decide whether mutation work is justified |
 
 ## Packaging decision for the active lane
 
@@ -99,13 +107,22 @@ This order is locked because:
     PR `#59`
   - Skill-autoresearch: still deferred until the merged lane shows objective
     failures against the new eval-backed package
+- Next lane after merge: `testing-strategies`
+  - Assets: no
+  - Scripts: no
+  - References: yes, add focused guidance for test-layer selection and release
+    confidence
+  - Evals: yes, add trigger, route-out, and validation-policy assertions
+  - Skill-autoresearch: defer until the packaged lane still misses measured
+    checks
 
 ## Current state
 
 - State: React guidance and `ralphmode` remain closed after PRs `#56` and
   `#57` merged; PR `#58` merged the main `workflow-automation` package and
-  PR `#59` is the active bounded follow-up for compact-surface and eval drift
+  PR `#59` is now review-clean and ready for merge
 - PR: https://github.com/akillness/oh-my-gods/pull/59
 - Blocker: none
-- Next owner: PR review path
-- Stage: `pr-open`
+- Next owner: merge path now, then `testing-strategies` improvement on the next
+  scheduled run
+- Stage: `merge`
