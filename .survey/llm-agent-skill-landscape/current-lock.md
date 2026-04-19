@@ -11,15 +11,12 @@ Date: 2026-04-19
   compact, provenance-friendly skill packaging:
   https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
 - Agent Skills still centers directory structure, progressive disclosure, and
-  optional `references/`, `scripts/`, and `assets/` support files:
+  optional `references/`, `scripts/`, `assets/`, and `evals/` support files:
   https://agentskills.io/specification
 - OpenAI's current developer surface continues to position Codex around
-  agentic workflows, and OpenAI's current model guide explicitly highlights
-  coding, computer use, and subagents:
+  agentic workflows, while Anthropic and LangChain keep emphasizing subagents
+  and reusable workflow surfaces:
   https://developers.openai.com/
-  https://developers.openai.com/api/docs/models
-- Anthropic and LangChain still reinforce subagents and packaged skill
-  patterns as core workflow surfaces:
   https://docs.anthropic.com/en/docs/claude-code/sub-agents
   https://docs.langchain.com/oss/python/deepagents/skills
 
@@ -37,45 +34,35 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/55
 - PR `#56` for the React guidance lane is merged:
   https://github.com/akillness/oh-my-gods/pull/56
+- PR `#57` for `ralphmode` is merged:
+  https://github.com/akillness/oh-my-gods/pull/57
+- PR `#58` for `workflow-automation` is open:
+  https://github.com/akillness/oh-my-gods/pull/58
 
 ## Audit snapshot
 
-- Repo-wide validation still passes with `0` errors and `8` warnings before
-  this run's edits.
-- `agent-evaluation` is closed after PR `#53` merged, so the loop should not
-  keep re-reviewing that lane.
-- `survey` is closed after PR `#54` merged, so the loop should not keep
-  advertising it as active work.
-- `playwriter` is closed after PR `#55` merged, so the loop should not keep
-  treating it as active work.
-- `react-best-practices` and `vercel-react-best-practices` are now closed after
-  PR `#56` merged: the alias no longer carries its own duplicate `AGENTS.md`,
-  the public README catalog matches the compatibility-alias wording, and the
-  canonical/alias split keeps eval coverage on both sides.
-- Official and primary-source signal keeps favoring this lane:
-  - GitHub's new `gh skill` flow increases the value of compact,
-    provenance-friendly skill packaging:
-    https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
-  - Agent Skills explicitly recommends canonical skills with optional support
-    files instead of duplicated peers:
-    https://agentskills.io/specification
-  - OpenAI and Anthropic both keep emphasizing reusable skills plus subagents
-    as first-class workflow surfaces:
-    https://openai.com/codex/
-    https://docs.anthropic.com/en/docs/claude-code/sub-agents
+- Repo-wide validation still passes with `0` errors and `8` warnings after this
+  run's edits.
+- `agent-evaluation`, `survey`, `playwriter`, the React guidance lane, and
+  `ralphmode` are closed lanes and should not be re-opened without review
+  feedback or new measured failures.
+- Official and primary-source signal now favors `workflow-automation` as the
+  next packaging lane because repeatable repo operations are high-frequency and
+  still benefit from compact entrypoints plus support files.
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `langextract` | Merged via PR `#51` after a bounded review follow-up | No | Existing helper refreshed | Added | Refreshed | No | Keep closed unless review feedback or new measured failures appear |
-| `marketing-automation` | Merged via PR `#52` after a bounded standards pass | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
-| `agent-evaluation` | Merged via PR `#53` | No | No | Added | Added | Not yet | Keep the lane closed unless review feedback or new measured failures appear |
+| `langextract` | Merged via PR `#51` | No | Existing helper refreshed | Added | Refreshed | No | Keep closed unless review feedback or new measured failures appear |
+| `marketing-automation` | Merged via PR `#52` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
+| `agent-evaluation` | Merged via PR `#53` | No | No | Added | Added | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `survey` | Merged via PR `#54` | No | No | Added | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `playwriter` | Merged via PR `#55` | No | No | Added install/session and MCP/security recovery support files | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
-| `react-best-practices` | Merged via PR `#56` after a bounded review follow-up | No | No | Reuse bundled `AGENTS.md` | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
-| `vercel-react-best-practices` | Merged via PR `#56` after a bounded review follow-up | No | No | Point to canonical skill only | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
-| `ralphmode` | Active high-leverage warning lane | No | No | Existing permission profile reference is enough | Add now | Not yet | Tighten trigger wording and add evals before any mutation loop |
+| `react-best-practices` | Merged via PR `#56` | No | No | Reuse bundled `AGENTS.md` | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
+| `vercel-react-best-practices` | Merged via PR `#56` | No | No | Point to canonical skill only | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
+| `ralphmode` | Merged via PR `#57` | No | No | Existing permission profile reference merged | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
+| `workflow-automation` | Active PR lane via `#58` | No | No | Added runner-selection and local-CI parity references | Added | Not yet | Review the PR for duplicate work, missing improvements, and standardization gaps |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -83,30 +70,28 @@ Date: 2026-04-19
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Move the active run to `ralphmode`, because current official surfaces from
-  OpenAI, Anthropic, and GitHub keep increasing the value of safe automation,
-  repo-scoped autonomy, and portable skill packaging.
-- Fix the standards and trigger-quality gaps on `ralphmode` before considering
-  `skill-autoresearch`; there is still no measured failure baseline to justify a
-  mutation loop.
+- Keep the active run on `workflow-automation`, because it now has the bounded
+  references and evals required for review but still needs a PR-review pass.
+- Defer `skill-autoresearch` until the `workflow-automation` PR is review-clean
+  and any remaining failures can be measured against the new eval surface.
 
 ## Packaging decision for the active lane
 
-- Active lane: `ralphmode`
+- Active lane: `workflow-automation`
   - Assets: no
   - Scripts: no
-  - References: keep the existing `references/permission-profiles.md`
-  - Evals: yes, add trigger and safety-boundary coverage for repo mode,
-    sandbox-only YOLO mode, and Codex checkpoint behavior
-  - Skill-autoresearch: still deferred until a standardized, eval-backed
-    `ralphmode` shows measured failures
+  - References: yes, add runner-selection and local-CI parity guidance
+  - Evals: yes, add trigger and repo-boundary coverage for task-runner choice,
+    local parity, and hook guardrails
+  - Skill-autoresearch: still deferred until a review-clean target shows
+    measured failures against the new evals
 
 ## Current state
 
-- Current state: React guidance is closed after PR `#56` merged; the active
-  `ralphmode` lane is review-clean after a bounded follow-up synced the compact
-  `SKILL.toon` discovery surface with the new trigger and checkpoint wording
-- PR: https://github.com/akillness/oh-my-gods/pull/57
+- Current state: `workflow-automation` now has a repo-scoped entrypoint plus
+  support files and evals; the lane has moved from survey/improvement into an
+  open PR state
+- PR: https://github.com/akillness/oh-my-gods/pull/58
 - Blocker: none
-- Next owner: merge path
-- Stage: `merge`
+- Next owner: PR review path
+- Stage: `pr-open`
