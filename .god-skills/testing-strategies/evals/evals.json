@@ -1,0 +1,45 @@
+{
+  "skill_name": "testing-strategies",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We are changing token refresh and role checks in our API. What should we test before merge and before release?",
+      "expected_output": "A risk-based validation plan that treats auth and permission boundaries as first-class risks, chooses layers deliberately, and separates merge gates from release gates.",
+      "assertions": [
+        "Response mentions at least two layers from unit, integration, contract, smoke, exploratory, or release gate",
+        "Response treats auth, permission, or boundary enforcement as a key risk rather than only coverage percentage",
+        "Response distinguishes merge or PR checks from release-only checks"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our checkout E2E suite is slow and flaky, but product wants confidence for the next release. How should we structure testing?",
+      "expected_output": "A strategy answer that trims the blocking surface, keeps critical confidence explicit, and handles flakiness as a policy problem rather than accepting it.",
+      "assertions": [
+        "Response recommends narrowing or restructuring the E2E or smoke surface instead of defaulting to more end-to-end coverage",
+        "Response names a policy for flaky suites such as ownership, quarantine, or debugging follow-up",
+        "Response separates confidence-building checks from broad always-blocking PR coverage"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "What should we test for this refactor? I want a validation plan, not the tests yet.",
+      "expected_output": "A planning-oriented response that triages risk first, chooses layers by observability and cost, and stays at the strategy level.",
+      "assertions": [
+        "Response asks for or inventories risk shape, current coverage, or failure cost before prescribing layers",
+        "Response chooses the cheapest useful layer rather than defaulting to a fixed pyramid ratio",
+        "Response stays at validation-policy level instead of dumping framework-specific test code"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Add tests for this FastAPI endpoint and fix the flaky suite while you are there.",
+      "expected_output": "A routing-aware response that recognizes implementation belongs in sibling skills and does not pretend this strategy skill should own all coding work.",
+      "assertions": [
+        "Response routes direct backend test implementation to `backend-testing`",
+        "Response routes unresolved flaky root-cause work to `debugging` or clearly separates it from strategy planning",
+        "Response does not position `testing-strategies` as the sole owner of writing and fixing all tests"
+      ]
+    }
+  ]
+}

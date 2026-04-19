@@ -1,18 +1,29 @@
 N:testing-strategies
-D:Design comprehensive testing strategies for software quality assurance. Use when planning test co...
-G:testing test-strategy TDD unit-test integration-test
-U[4]:
-  **New project**: define a testing strategy
-  **Quality issues**: bugs happen frequently
-  **Before refactoring**: build a safety net
-  **CI/CD setup**: automated tests
-S[5]{n,action}:
-  1,Understand the Test Pyramid
-  2,Unit testing strategy
-  3,Integration Testing
-  4,E2E Testing (Playwright)
-  5,TDD (Test-Driven Development)
-R[3]:
-  Unit
-  Integration
-  E2E
+D:Risk-based validation policy for unit integration contract smoke exploratory and release checks. Choose what evidence is required before merge or release, control flaky or expensive suites, and route implementation work to the right sibling skill instead of dumping framework boilerplate.
+G:testing-strategies test-strategy regression-policy release-confidence flaky-tests testing-pyramid testing-trophy qa-gate coverage-plan
+
+U[5]:
+  Decide what test layers are required for a feature bug fix refactor or release
+  Turn vague "what should we test" asks into a risk-based validation plan
+  Set merge and release gates without defaulting to all possible suites
+  Control slow or flaky suites with policy and ownership instead of normalizing them
+  Route backend implementation debugging and review work to sibling skills after the strategy is clear
+
+S[5]{n,action,details}:
+  1,Triage-Risk,Capture change shape failure cost system shape current coverage and execution budget before naming layers
+  2,Choose-Layer,Pick the cheapest useful proof across unit integration contract smoke exploratory and release-gate lanes; load references/test-layer-selection.md if the boundary is unclear
+  3,Build-Policy,For each risk define what could fail which layer proves it when it runs and whether it blocks merge release or is informational only
+  4,Control-Flake,Keep local and PR gates fast treat flaky suites as owned defects and load references/release-confidence-and-flaky-policy.md for gate sizing and quarantine policy
+  5,Route-Work,Send backend implementation to backend-testing unresolved instability to debugging and diff adequacy checks to code-review
+
+R[5]:
+  Start from risk observability and cost rather than fixed pyramid ratios
+  Prefer cheaper layers unless a higher layer adds unique confidence
+  Keep merge gates smaller than release gates
+  Do not accept flaky suites as permanent background noise
+  Keep the skill at policy level instead of dumping framework-specific test code
+
+E[3]{desc,in,out}:
+  "Risky auth change","We are changing token refresh and role checks. What should we test before merge and before release?","Chooses deliberate layers for auth boundaries and separates PR blockers from release-only checks"
+  "Slow flaky checkout","Our checkout E2E suite is slow and flaky but product wants confidence for the next release.","Narrows the blocking surface, sets flaky-suite policy, and preserves critical release confidence"
+  "Route to implementation","Add tests for this FastAPI endpoint and fix the flaky suite while you are there.","Routes coding work to backend-testing and debugging instead of pretending strategy owns all implementation"

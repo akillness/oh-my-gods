@@ -43,12 +43,12 @@ The landscape signal remains stable as of April 19, 2026:
    packaging and boundary repair on workflow-critical skills, especially where
    repeatable repo operations still ship as generic single-file entrypoints
    with no eval-backed trigger surface.
-6. `workflow-automation` is therefore the right next lane after `ralphmode`
-   merged, because task runners, local-CI parity, and hook guardrails are
-   frequent requests while the current skill still lacked references and evals.
+6. `workflow-automation` was the right next lane after `ralphmode` merged,
+   because task runners, local-CI parity, and hook guardrails are frequent
+   requests while the previous skill still lacked references and evals.
 7. PR `#58` merged that repo-scoped package, and PR `#59` repaired the last
-   stale `SKILL.toon` surface plus the too-soft eval wording; the branch now
-   looks merge-ready instead of needing another improvement cycle.
+   stale `SKILL.toon` surface plus the too-soft eval wording; that lane is now
+   closed instead of needing another improvement cycle.
 8. After that merge, the highest-value remaining gap is `testing-strategies`:
    a high-frequency validation-policy skill that still ships as a generic
    single-file entrypoint with no `references/` or `evals/` package.
@@ -60,11 +60,10 @@ Advance one bounded lane per run, in this order:
 1. Keep `playwriter` closed after PR `#55` merged
 2. Keep the React guidance lane closed after PR `#56` merged
 3. Keep `ralphmode` closed after PR `#57` merged
-4. Standardize `workflow-automation` so its trigger wording and repo boundary
-   are measurable
-5. Merge the bounded `workflow-automation` follow-up PR
-6. Standardize `testing-strategies` so its validation-policy boundary is
+4. Keep `workflow-automation` closed after PR `#59` merged
+5. Standardize `testing-strategies` so its validation-policy boundary is
    measurable and packaged
+6. Open a bounded PR for the `testing-strategies` packaging lane
 7. Revisit `skill-autoresearch` only after the next packaged target still
    shows measured failures
 
@@ -91,23 +90,21 @@ This order is locked because:
 | `react-best-practices` | Closed high-leverage lane | No | No | No | Reuse bundled `AGENTS.md` | Added | Keep closed unless review feedback or measured failures reopen it |
 | `vercel-react-best-practices` | Closed high-leverage lane | No | No | No | Point to canonical skill only | Added | Keep closed unless review feedback or measured failures reopen it |
 | `ralphmode` | Closed high-leverage lane | No | No | No | Existing permission profile reference merged | Added | Keep closed unless review feedback or measured failures reopen it |
-| `workflow-automation` | High | Not yet | No | No | Added | Tightened in PR `#59` | Merge the narrow follow-up PR, then keep the lane closed unless later measured failures appear |
+| `workflow-automation` | Closed high-leverage lane | No | No | Added | Tightened in PR `#59` | No | Keep closed unless later measured failures appear |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 | `testing-strategies` | High | Not yet | No | No | Needs concise policy references | Needs trigger and boundary evals | Standardize it first, then decide whether mutation work is justified |
 
 ## Packaging decision for the active lane
 
-- Active lane: `workflow-automation`
+- Closed lane: `workflow-automation`
   - Assets: no
   - Scripts: no
   - References: yes, keep runner-selection and local-CI parity guidance
   - Evals: yes, keep trigger and repo-boundary coverage for task-runner
-    choice, local parity, and hook guardrails, with explicit assertions in
-    PR `#59`
-  - Skill-autoresearch: still deferred until the merged lane shows objective
-    failures against the new eval-backed package
-- Next lane after merge: `testing-strategies`
+    choice, local parity, and hook guardrails
+  - Skill-autoresearch: still deferred unless later measured failures appear
+- Active lane on this run: `testing-strategies`
   - Assets: no
   - Scripts: no
   - References: yes, add focused guidance for test-layer selection and release
@@ -119,10 +116,10 @@ This order is locked because:
 ## Current state
 
 - State: React guidance and `ralphmode` remain closed after PRs `#56` and
-  `#57` merged; PR `#58` merged the main `workflow-automation` package and
-  PR `#59` is now review-clean and ready for merge
-- PR: https://github.com/akillness/oh-my-gods/pull/59
+  `#57` merged; PRs `#58` and `#59` closed the `workflow-automation` lane and
+  PR `#60` has now cleared review for the bounded `testing-strategies`
+  packaging pass
+- PR: https://github.com/akillness/oh-my-gods/pull/60
 - Blocker: none
-- Next owner: merge path now, then `testing-strategies` improvement on the next
-  scheduled run
+- Next owner: merge path now
 - Stage: `merge`
