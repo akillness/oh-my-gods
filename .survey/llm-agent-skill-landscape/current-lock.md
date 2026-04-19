@@ -47,6 +47,8 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/59
 - PR `#60` for `testing-strategies` is merged:
   https://github.com/akillness/oh-my-gods/pull/60
+- PR `#61` for `code-review` is merged:
+  https://github.com/akillness/oh-my-gods/pull/61
 
 ## Audit snapshot
 
@@ -60,9 +62,9 @@ Date: 2026-04-19
   trigger surfaces now matter even more as GitHub's `gh skill` support expands
   cross-host discovery and installation.
 - The repo-local audit surface remains `validate_frontmatter.py`, and the next
-  highest-value open gap after PR `#60` is `code-review`: it is one of the
-  repo's most visible development skills, but it still shipped as a generic
-  monolith with no `references/` or `evals/` package on `main` before this run.
+  highest-value open gap after PR `#61` is `code-refactoring`: it is the
+  longest remaining general-purpose development skill in the repo and still
+  ships as a monolithic entrypoint with no `references/` or `evals/` package.
 
 ## Target decisions
 
@@ -80,7 +82,8 @@ Date: 2026-04-19
 | `testing-strategies` | Merged via PR `#60` | No | No | Added focused layer-selection and release-confidence references | Added | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
-| `code-review` | Active high-frequency legacy lane on this run | No | No | Yes, add focused review-priority and findings-format guidance | Yes, add trigger, route-out, and findings-first review checks | Not yet | Open a bounded PR for the packaging pass, then review it on the next run |
+| `code-review` | Merged via PR `#61` | No | No | Added focused review-priority and findings-format guidance | Added trigger, route-out, and findings-first review checks | No | Keep closed unless review feedback or new measured failures appear |
+| `code-refactoring` | Next high-frequency legacy lane | No | No | Yes, add focused cleanup-plan and behavior-lock guidance | Yes, add trigger, route-out, and behavior-preservation review checks | Not yet | Open the next bounded packaging lane after `code-review` closes |
 
 ## Locked direction
 
@@ -90,10 +93,12 @@ Date: 2026-04-19
   still passes.
 - Keep `testing-strategies` closed because PR `#60` is merged and validation
   still passes.
-- Move this run onto `code-review`, because it is still a high-visibility
-  review skill without the references and eval package now expected across the
-  repo's stronger lanes.
-- Defer `skill-autoresearch` until `code-review` or another packaged target
+- Keep `code-review` closed because PR `#61` merged, the review pass found no
+  further blockers, and validation still passes.
+- Move the next run onto `code-refactoring`, because it is now the strongest
+  remaining general-purpose monolith without the references and eval package
+  expected across the repo's stronger lanes.
+- Defer `skill-autoresearch` until `code-refactoring` or another packaged target
   still shows measured failures after standardization.
 
 ## Packaging decision for the active lane
@@ -112,20 +117,26 @@ Date: 2026-04-19
     confidence
   - Evals: yes, keep trigger, boundary, and validation-policy assertions
   - Skill-autoresearch: still deferred unless later measured failures appear
-- Active lane on this run: `code-review`
+- Closed lane on this run: `code-review`
   - Assets: no
   - Scripts: no
-  - References: yes, add focused review-priority and findings-format guidance
-  - Evals: yes, add trigger, route-out, and findings-first review assertions
+  - References: yes, keep focused review-priority and findings-format guidance
+  - Evals: yes, keep trigger, route-out, and findings-first review assertions
+  - Skill-autoresearch: still deferred unless later measured failures appear
+- Active lane on the next run: `code-refactoring`
+  - Assets: no
+  - Scripts: no
+  - References: yes, add focused cleanup-plan and behavior-lock guidance
+  - Evals: yes, add trigger, route-out, and behavior-preservation review
+    assertions
   - Skill-autoresearch: not justified until the packaged lane still misses
     objective checks
 
 ## Current state
 
-- Current state: PR `#60` is merged; PR `#61` is now open for the bounded
-  `code-review` packaging lane on branch
-  `chore/code-review-standardization-20260419-r61`
+- Current state: PR `#61` is merged for the bounded `code-review` packaging
+  lane after a clean PR-review pass with no follow-up blockers.
 - PR: https://github.com/akillness/oh-my-gods/pull/61
 - Blocker: none
-- Next owner: PR-review path next
-- Stage: `PR-open`
+- Next owner: next scheduled improvement run on `code-refactoring`
+- Stage: `merge`

@@ -22,6 +22,8 @@
   https://github.com/akillness/oh-my-gods/pull/59
 - PR `#60` for `testing-strategies` is merged:
   https://github.com/akillness/oh-my-gods/pull/60
+- PR `#61` for `code-review` is merged:
+  https://github.com/akillness/oh-my-gods/pull/61
 - Repo-wide validation passes at `80/80` skills with `0` spec violations on
   the active branch when run via `python3 validate_frontmatter.py`.
 - `react-best-practices`, `vercel-react-best-practices`, `ralphmode`,
@@ -57,11 +59,11 @@ The landscape signal remains stable as of April 19, 2026:
 7. `workflow-automation` was the right next lane after `ralphmode` merged,
    because task runners, local-CI parity, and hook guardrails were frequent
    requests while the previous skill still lacked references and evals.
-8. PRs `#58` and `#59` closed the `workflow-automation` lane, and PR `#60`
-   closed `testing-strategies`, so the next highest-value remaining gap is now
-   `code-review`.
-9. `code-review` is the strongest remaining general-purpose gap because it is
-   highly visible across the repo's discovery surfaces but still lacks the
+8. PRs `#58` and `#59` closed the `workflow-automation` lane, PR `#60` closed
+   `testing-strategies`, and PR `#61` closed `code-review`, so the next
+   highest-value remaining gap is now `code-refactoring`.
+9. `code-refactoring` is the strongest remaining general-purpose gap because it
+   is one of the repo's largest development skills and still lacks the
    references/evals package now common in the better-maintained lanes.
 
 ## Locked direction
@@ -73,19 +75,20 @@ Advance one bounded lane per run, in this order:
 3. Keep `ralphmode` closed after PR `#57` merged
 4. Keep `workflow-automation` closed after PR `#59` merged
 5. Keep `testing-strategies` closed after PR `#60` merged
-6. Standardize `code-review` so its review boundary is measurable and packaged
-7. Open a bounded PR for the `code-review` packaging lane
-8. Revisit `skill-autoresearch` only after the next packaged target still
+6. Keep `code-review` closed after PR `#61` merged
+7. Standardize `code-refactoring` so its cleanup boundary is measurable and packaged
+8. Open a bounded PR for the `code-refactoring` packaging lane
+9. Revisit `skill-autoresearch` only after the next packaged target still
    shows measured failures
 
 This order is locked because:
 
 - Reopening merged lanes would only duplicate already-closed work.
-- `workflow-automation` and `testing-strategies` are now closed after their
-  merged PRs.
-- `code-review` is now the strongest remaining general-purpose gap because it
-  is highly visible and still lacks the references/evals package now common in
-  the better-maintained lanes.
+- `workflow-automation`, `testing-strategies`, and `code-review` are now
+  closed after their merged PRs.
+- `code-refactoring` is now the strongest remaining general-purpose gap because
+  it is large, high-frequency, and still lacks the references/evals package
+  now common in the better-maintained lanes.
 - Starting a mutation loop before every discovery surface and eval assertion is
   internally consistent would still optimize the wrong layer.
 
@@ -105,7 +108,8 @@ This order is locked because:
 | `testing-strategies` | Closed high-leverage lane | No | No | No | Added | Added | Keep closed unless later review feedback reopens it |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
-| `code-review` | High | Not yet | No | No | Needs focused review-priority and findings-format references | Needs trigger, route-out, and findings-first evals | Standardize it first, then decide whether mutation work is justified |
+| `code-review` | Closed high-leverage lane | No | No | Added focused review-priority and findings-format references | Added trigger, route-out, and findings-first evals | No | Keep closed unless review feedback or new measured failures reopen it |
+| `code-refactoring` | High | Not yet | No | No | Needs focused cleanup-plan and behavior-lock references | Needs trigger, route-out, and behavior-preservation evals | Standardize it first, then decide whether mutation work is justified |
 
 ## Packaging decision for the active lane
 
@@ -123,11 +127,17 @@ This order is locked because:
     confidence
   - Evals: yes, keep trigger, route-out, and validation-policy assertions
   - Skill-autoresearch: still deferred unless later measured failures appear
-- Active lane on this run: `code-review`
+- Closed lane on this run: `code-review`
   - Assets: no
   - Scripts: no
-  - References: yes, add focused review-priority and findings-format guidance
-  - Evals: yes, add trigger, route-out, and findings-first review assertions
+  - References: yes, keep focused review-priority and findings-format guidance
+  - Evals: yes, keep trigger, route-out, and findings-first review assertions
+  - Skill-autoresearch: still deferred unless later measured failures appear
+- Active lane on the next run: `code-refactoring`
+  - Assets: no
+  - Scripts: no
+  - References: yes, add focused cleanup-plan and behavior-lock guidance
+  - Evals: yes, add trigger, route-out, and behavior-preservation assertions
   - Skill-autoresearch: defer until the packaged lane still misses measured
     checks
 
@@ -135,10 +145,9 @@ This order is locked because:
 
 - State: React guidance and `ralphmode` remain closed after PRs `#56` and
   `#57` merged; PRs `#58` and `#59` closed the `workflow-automation` lane,
-  PR `#60` closed `testing-strategies`, and PR `#61` is now open for the
-  bounded `code-review` packaging pass on branch
-  `chore/code-review-standardization-20260419-r61`
+  PR `#60` closed `testing-strategies`, and PR `#61` closes the bounded
+  `code-review` packaging pass after a clean PR-review loop.
 - PR: https://github.com/akillness/oh-my-gods/pull/61
 - Blocker: none
-- Next owner: PR-review path next
-- Stage: `PR-open`
+- Next owner: next scheduled improvement run on `code-refactoring`
+- Stage: `merge`

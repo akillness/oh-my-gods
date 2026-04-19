@@ -321,7 +321,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `git-workflow` | Commit, branch, merge, PR workflows |
 | `git-submodule` | Git submodule management |
 | `debugging` | Root cause analysis, regression isolation |
-| `code-review` | Comprehensive code review with API contracts |
+| `code-review` | Findings-first review for PRs, diffs, and merge risk |
 | `agent-manager` | tmux + Python agent lifecycle manager — start/stop/monitor/schedule/heartbeat without a server |
 
 ### Backend & Infrastructure
