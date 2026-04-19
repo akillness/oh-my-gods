@@ -1,323 +1,171 @@
 ---
 name: workflow-automation
-description: Automate repetitive development tasks and workflows. Use when creating build scripts, automating deployments, or setting up development workflows. Handles npm scripts, Makefile, GitHub Actions workflows, and task automation.
-allowed-tools: Bash Read Write Edit Grep Glob
+description: >
+  Design repo-scoped recurring workflow automation: task runners, bootstrap
+  entrypoints, local-CI parity commands, hook guardrails, and maintenance
+  routines that wrap existing tools without bloating into full deployment or
+  environment provisioning. Use when the user needs repeatable commands for
+  setup, build, test, lint, release prep, or repo hygiene; wants to replace
+  copy-paste shell rituals; or must choose between npm scripts, Make/just/task,
+  hooks, and lightweight repo automation. Triggers on: workflow automation,
+  task runner, make this repeatable, bootstrap script, local CI parity,
+  pre-commit hook, justfile, Taskfile, Makefile, repo automation.
+allowed-tools: Read Write Bash Grep Glob
+compatibility: >
+  Best for repository-local automation with standard shell tooling. Pair with
+  existing project commands instead of introducing new deployment platforms or
+  heavy infrastructure by default.
 metadata:
-  tags: automation, scripts, workflow, npm-scripts, Makefile, task-runner
-  platforms: Claude, ChatGPT, Gemini
+  tags: automation, task-runner, justfile, taskfile, makefile, hooks, ci-parity, repo-maintenance
+  platforms: Claude, ChatGPT, Gemini, Codex
+  version: "2.0.0"
 ---
-
 
 # Workflow Automation
 
+Workflow automation is a repo-operations skill, not a generic dump of scripts.
+Keep the entrypoint focused on repeatable developer workflows, task-runner
+choice, and local guardrails. Pull detailed patterns only when the request
+needs them.
 
 ## When to use this skill
 
-- **Repetitive tasks**: running the same commands every time
-- **Complex builds**: multi-step build processes
-- **Team onboarding**: a consistent development environment
+- Replace repeated shell rituals with named commands or a small task runner
+- Choose between `npm` scripts, `make`, `just`, or `Taskfile` for an existing
+  repo
+- Add bootstrap, setup, build, test, lint, or release-prep entrypoints
+- Mirror CI checks locally so contributors can run the same lane before push
+- Add Git hooks or maintenance routines without turning the repo into a full
+  platform-engineering project
+
+Prefer a narrower sibling skill when the real problem is elsewhere:
+
+- `deployment-automation` for shipping artifacts to environments
+- `system-environment-setup` for Docker, devcontainers, or machine setup
+- `environment-setup` for `.env` structure and config precedence
+- `git-workflow` for branch, commit, or rebase policy rather than automation
 
 ## Instructions
 
-### Step 1: npm scripts
-
-**package.json**:
-```json
-{
-  "scripts": {
-    "dev": "nodemon src/index.ts",
-    "build": "tsc && vite build",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch",
-    "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx,json}\"",
-    "type-check": "tsc --noEmit",
-    "pre-commit": "lint-staged",
-    "prepare": "husky install",
-    "clean": "rm -rf dist node_modules",
-    "reset": "npm run clean && npm install",
-    "docker:build": "docker build -t myapp .",
-    "docker:run": "docker run -p 3000:3000 myapp"
-  }
-}
-```
-
-### Step 2: Makefile
-
-**Makefile**:
-```makefile
-.PHONY: help install dev build test clean docker
-
-.DEFAULT_GOAL := help
-
-help: ## Show this help
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
-
-install: ## Install dependencies
-	npm install
-
-dev: ## Start development server
-	npm run dev
-
-build: ## Build for production
-	npm run build
-
-test: ## Run all tests
-	npm test
-
-lint: ## Run linter
-	npm run lint
-
-lint-fix: ## Fix linting issues
-	npm run lint:fix
-
-clean: ## Clean build artifacts
-	rm -rf dist coverage
-
-docker-build: ## Build Docker image
-	docker build -t myapp:latest .
-
-docker-run: ## Run Docker container
-	docker run -d -p 3000:3000 --name myapp myapp:latest
-
-deploy: build ## Deploy to production
-	@echo "Deploying to production..."
-	./scripts/deploy.sh production
-
-ci: lint test build ## Run CI pipeline locally
-	@echo "✅ CI pipeline passed!"
-```
-
-**Usage**:
-```bash
-make help        # Show all commands
-make dev         # Start development
-make ci          # Run full CI locally
-```
-
-### Step 3: Husky + lint-staged (Git Hooks)
-
-**package.json**:
-```json
-{
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md}": [
-      "prettier --write"
-    ]
-  }
-}
-```
-
-**.husky/pre-commit**:
-```bash
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-echo "Running pre-commit checks..."
-
-# Lint staged files
-npx lint-staged
-
-# Type check
-npm run type-check
-
-# Run tests related to changed files
-npm test -- --onlyChanged
-
-echo "✅ Pre-commit checks passed!"
-```
-
-### Step 4: Task Runner scripts
-
-**scripts/dev-setup.sh**:
-```bash
-#!/bin/bash
-set -e
-
-echo "🚀 Setting up development environment..."
-
-# Check prerequisites
-if ! command -v node &> /dev/null; then
-    echo "❌ Node.js is not installed"
-    exit 1
-fi
-
-if ! command -v docker &> /dev/null; then
-    echo "❌ Docker is not installed"
-    exit 1
-fi
-
-# Install dependencies
-echo "📦 Installing dependencies..."
-npm install
-
-# Copy environment file
-if [ ! -f .env ]; then
-    echo "📄 Creating .env file..."
-    cp .env.example .env
-    echo "⚠️ Please update .env with your configuration"
-fi
-
-# Start Docker services
-echo "🐳 Starting Docker services..."
-docker-compose up -d
+### Step 1: Triage the repeated work before picking a tool
 
-# Wait for database
-echo "⏳ Waiting for database..."
-./scripts/wait-for-it.sh localhost:5432 --timeout=30
-
-# Run migrations
-echo "🗄️ Running database migrations..."
-npm run migrate
-
-# Seed data (optional)
-read -p "Seed database with sample data? (y/n) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    npm run seed
-fi
-
-echo "✅ Development environment ready!"
-echo "Run 'make dev' to start the development server"
-```
-
-**scripts/deploy.sh**:
-```bash
-#!/bin/bash
-set -e
-
-ENV=$1
-
-if [ -z "$ENV" ]; then
-    echo "Usage: ./deploy.sh [staging|production]"
-    exit 1
-fi
-
-echo "🚀 Deploying to $ENV..."
+Capture the minimum facts first:
 
-# Build
-echo "📦 Building application..."
-npm run build
+- repeated jobs: setup, build, test, lint, format, release prep, cleanup, or
+  repo maintenance
+- existing command surface: package scripts, language tools, `make`, shell
+  scripts, CI YAML, or ad-hoc docs
+- team shape: solo repo, small team, monorepo, or mixed-language workspace
+- portability needs: macOS/Linux only, Windows support, or container-only
+- risk shape: destructive cleanup, publish commands, migrations, or secrets use
 
-# Run tests
-echo "🧪 Running tests..."
-npm test
+Do not start by inventing a task runner. Start by naming the repeated workflow
+and the commands that already exist.
 
-# Deploy based on environment
-if [ "$ENV" == "production" ]; then
-    echo "🌍 Deploying to production..."
-    # Production deployment logic
-    ssh production "cd /app && git pull && npm install && npm run build && pm2 restart all"
-elif [ "$ENV" == "staging" ]; then
-    echo "🧪 Deploying to staging..."
-    # Staging deployment logic
-    ssh staging "cd /app && git pull && npm install && npm run build && pm2 restart all"
-fi
+### Step 2: Choose the lightest automation surface that fits
 
-echo "✅ Deployment to $ENV completed!"
-```
+Prefer the smallest layer that makes the workflow repeatable:
 
-### Step 5: GitHub Actions workflow automation
+- package-manager scripts when one language ecosystem already owns the repo
+- `just` or `Taskfile` when the repo needs readable multi-command orchestration
+  across platforms
+- `make` when the team already uses it and POSIX-only ergonomics are acceptable
+- a small `scripts/` wrapper only when the workflow logic is too awkward to
+  keep inline in a task runner
+- Git hooks only for fast, local guardrails rather than expensive CI copies
 
-**.github/workflows/ci.yml**:
-```yaml
-name: CI
+Do not add a new task runner if the repo already has a clean, sufficient
+command surface.
 
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
+### Step 3: Design for local-CI parity, not command sprawl
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+Keep automation reviewable:
 
-    steps:
-      - uses: actions/checkout@v4
+- expose a small top-level command set such as `setup`, `build`, `test`, `lint`,
+  `check`, and `release-prep`
+- map each command to existing tools instead of duplicating business logic
+- make `check` or an equivalent command mirror the main CI quality lane
+- keep destructive or slow tasks clearly named rather than hidden in default
+  hooks
+- document prerequisites and environment assumptions next to the automation
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
+### Step 4: Add hooks and maintenance guardrails carefully
 
-      - name: Install dependencies
-        run: npm ci
+Before adding automation that runs implicitly:
 
-      - name: Run linter
-        run: npm run lint
+- keep pre-commit hooks fast enough for local use
+- leave heavy integration or end-to-end checks in CI unless the repo has a
+  strong reason otherwise
+- keep cleanup or reset commands explicit and obviously destructive
+- make release or publish commands opt-in and reviewable
+- avoid hidden network, credential, or production side effects in default flows
 
-      - name: Type check
-        run: npm run type-check
+### Step 5: Pull support files only when they add leverage
 
-      - name: Run tests
-        run: npm test -- --coverage
+Load the smallest supporting reference that matches the request:
 
-      - name: Upload coverage
-        uses: codecov/codecov-action@v3
-```
-
-## Output format
-
-```
-project/
-├── scripts/
-│   ├── dev-setup.sh
-│   ├── deploy.sh
-│   ├── test.sh
-│   └── cleanup.sh
-├── Makefile
-├── package.json
-└── .husky/
-    ├── pre-commit
-    └── pre-push
-```
-
-## Constraints
-
-### Required rules (MUST)
-
-1. **Idempotency**: safe to run scripts multiple times
-2. **Error handling**: clear messages on failure
-3. **Documentation**: comments on how to use the scripts
-
-### Prohibited items (MUST NOT)
-
-1. **Hardcoded secrets**: do not include passwords or API keys in scripts
-2. **Destructive commands**: do not run rm -rf without confirmation
-
-## Best practices
-
-1. **Use Make**: platform-agnostic interface
-2. **Git Hooks**: automated quality checks
-3. **CI/CD**: automated with GitHub Actions
-
-## References
-
-- [npm scripts](https://docs.npmjs.com/cli/v9/using-npm/scripts)
-- [Make Tutorial](https://makefiletutorial.com/)
-- [Husky](https://typicode.github.io/husky/)
-
-## Metadata
-
-### Version
--- **Current version**: 1.0.0
--- **Last updated**: 2025-01-01
--- **Compatible platforms**: Claude, ChatGPT, Gemini
-
-### Tags
-`#automation` `#scripts` `#workflow` `#npm-scripts` `#Makefile` `#utilities`
+- `references/task-runner-selection.md` for `npm` vs `make` vs `just` vs
+  `Taskfile` choices
+- `references/local-ci-parity-and-hooks.md` for local quality lanes, hook
+  policy, and maintenance guardrails
 
 ## Examples
 
-### Example 1: Basic usage
-<!-- Add example content here -->
+### Example 1: Replace tribal shell history
 
-### Example 2: Advanced usage
-<!-- Add advanced example content here -->
+Input:
+
+```text
+Everyone copies setup, lint, test, and build commands from Slack. I want one
+repeatable repo entrypoint without overengineering it.
+```
+
+Expected shape:
+
+- inventories the existing commands before adding wrappers
+- chooses one light task surface instead of multiple overlapping ones
+- exposes a small named command set and keeps CI parity explicit
+
+### Example 2: Choose a task runner
+
+Input:
+
+```text
+Should this mixed Node + Python repo use npm scripts, just, Taskfile, or make?
+```
+
+Expected shape:
+
+- compares the runner choices against language mix and portability needs
+- avoids defaulting to one runner without repo constraints
+- recommends the lightest viable surface and names tradeoffs
+
+### Example 3: Add guardrails without deployment creep
+
+Input:
+
+```text
+I want pre-commit and a local check command, but I do not want this to turn
+into a deployment pipeline.
+```
+
+Expected shape:
+
+- keeps the solution repo-scoped
+- separates fast local hooks from CI-only checks
+- avoids drifting into deployment or infrastructure advice
+
+## Best practices
+
+- Automate repeated work, not every possible command
+- Prefer one visible command surface over overlapping wrappers
+- Reuse the repo's existing tools before introducing a new runner
+- Keep local hooks fast and keep heavy checks in CI unless proven necessary
+- Make destructive, publishing, or credentialed flows explicit
+- Store detailed patterns in references so the entrypoint stays compact and
+  triggerable
+
+## References
+
+- `references/task-runner-selection.md`
+- `references/local-ci-parity-and-hooks.md`

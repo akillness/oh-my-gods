@@ -1,0 +1,35 @@
+{
+  "skill_name": "workflow-automation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our repo keeps relying on copied shell commands for setup, lint, test, and build. I want one repeatable workflow surface without turning this into platform engineering.",
+      "expected_output": "A repo-scoped automation plan that inventories existing commands, chooses one light command surface, and avoids drifting into deployment or infrastructure advice.",
+      "assertions": [
+        "Response treats `workflow-automation` as the correct skill for repo-level repeatable commands",
+        "Response recommends a compact top-level command surface such as setup/build/test/lint/check or equivalent",
+        "Response keeps the solution repo-scoped and does not default to deployment, Kubernetes, or other infrastructure tooling"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Should this mixed Node and Python repository use npm scripts, make, just, or Taskfile for local automation?",
+      "expected_output": "A choice-oriented answer that compares the task runner options against the repo shape and recommends the lightest viable surface rather than a one-size-fits-all default.",
+      "assertions": [
+        "Response compares more than one task-runner option instead of prescribing a single tool without context",
+        "Response considers language mix, portability, or existing command surfaces when choosing between npm scripts, make, just, or Taskfile",
+        "Response advises against adding a new runner when the existing repo commands already fit"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Add pre-commit checks and a local CI-parity command, but keep expensive tests and publish steps out of default local automation.",
+      "expected_output": "Guidance that separates fast hooks from heavier CI-only checks, keeps release or publish commands explicit, and names a local parity command.",
+      "assertions": [
+        "Response distinguishes fast local hooks from heavier CI-only checks",
+        "Response keeps publish, deploy, or destructive flows opt-in rather than default hook behavior",
+        "Response includes a named local parity command such as `check` or an equivalent top-level quality lane"
+      ]
+    }
+  ]
+}

@@ -1,46 +1,36 @@
-# Cleanup Plan: review the React guidance lane before merge
+# Cleanup Plan: review `workflow-automation` before merge
 
 ## Goal
 
-Keep the recurring loop aligned with the current skill-packaging signal by
-running one bounded review pass on the open React-guidance PR, removing any
-remaining duplicate alias support content, aligning catalog copy with the
-canonical/alias split, and moving the lane toward merge once validation is
-clean.
+Keep the recurring loop aligned with the highest-value open lane by running one
+bounded review pass on the open `workflow-automation` PR, confirming the new
+repo-scoped packaging is standards-clean, and moving the lane from `pr-open`
+to `merge` if no duplicate work or missing support surfaces remain.
 
 ## Behavior lock
 
-- Keep this run focused on the already-open
-  `react-best-practices` / `vercel-react-best-practices` lane.
-- Do not widen this run to `playwriter` or any already merged lane unless a
-  shared blocker appears.
-- Keep the support package minimal and explicit:
+- Keep this run focused on the already-open `workflow-automation` lane.
+- Do not reopen already-merged lanes unless a shared blocker appears.
+- Keep the support package decision unchanged unless review evidence says
+  otherwise:
   - `assets`: no
   - `scripts`: no
-  - `references`: no alias-local support files; the canonical skill should
-    continue to own the detailed rule pack
-  - `evals`: yes, because the canonical/alias split needs trigger-quality
-    checks on both sides
-- Update public discovery surfaces where the lane meaning changed materially:
-  README catalog entries and survey lock files.
-- Do not start a `skill-autoresearch` mutation loop in this run unless the new
-  canonical/alias split still leaves measured failures after review.
+  - `references`: keep the added runner-selection and local-CI parity guides
+  - `evals`: keep the added trigger and boundary checks
+- Do not start a `skill-autoresearch` mutation loop in this run unless the
+  review finds measured failures against the new eval-backed package.
 
-## Planned edits
+## Planned checks
 
-1. Remove any remaining duplicate alias support content from
-   `.god-skills/vercel-react-best-practices/`.
-2. Align the README catalog entries with the compatibility-alias wording.
-3. Refresh the survey lock so the run is recorded as a review follow-up instead
-   of the initial PR-open registration.
-4. Re-run validation and confirm the lane is ready for merge if no other gaps
-   remain.
+1. Re-read the skill, references, and evals for duplicate or missing guidance.
+2. Re-run repo validation with the repo-local validator.
+3. Confirm the PR is still bounded to the active lane and is mergeable.
+4. If the review is clean, refresh the survey lock files so the lane is
+   recorded as merge-ready.
 
 ## Verification
 
-- Validate both React guidance skills with the repo validator and confirm they
-  stay standards-compliant after the alias support surface is thinned.
-- Re-run repo-wide validation and confirm no new errors are introduced.
-- Check `git diff --stat` and `git status --short --branch` for bounded scope.
-- Keep the existing PR reviewable and move it toward merge only if the scope is
-  still bounded.
+- `python3 validate_frontmatter.py`
+- `git diff --stat main...HEAD`
+- `gh pr view 58 --json number,state,headRefName,baseRefName,isDraft,mergeable,url`
+- `gh pr diff 58 --name-only`
