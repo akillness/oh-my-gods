@@ -1,0 +1,47 @@
+{
+  "skill_name": "debugging",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "This integration test started failing after yesterday's config change. Help me reproduce it locally, isolate whether the bug is in config loading or request parsing, and prove the fix won't regress.",
+      "expected_output": "A debugging response that frames the failure, narrows the boundary, tests a concrete hypothesis, and ends with verification guidance.",
+      "assertions": [
+        "Output captures expected versus actual behavior and a minimal reproduction target",
+        "Output narrows the failure boundary instead of jumping straight to code edits",
+        "Output proposes one hypothesis-led debugging path rather than multiple unrelated fixes",
+        "Output includes verification or regression-locking guidance"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "A Playwright test flakes in CI about 20 percent of the time, but passes locally. I need a root-cause workflow, not generic advice.",
+      "expected_output": "A flake-focused debugging workflow that measures reproducibility, isolates timing or environment drift, and avoids premature fixes.",
+      "assertions": [
+        "Output treats the issue as a flaky debugging problem rather than generic test strategy",
+        "Output calls for measuring or characterizing the flake frequency or conditions",
+        "Output isolates possible timing, shared-state, or environment boundaries before patching",
+        "Output avoids pretending the root cause is already known"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Here are 8,000 lines of Kubernetes logs. Find the first real error and summarize what matters.",
+      "expected_output": "A boundary-aware response that routes raw log triage to log-analysis before deep debugging begins.",
+      "assertions": [
+        "Output recognizes the request as raw log triage first",
+        "Output routes to log-analysis instead of treating the debugging boundary as already known",
+        "Output preserves debugging as the follow-on surface after the actionable failure is identified"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our dashboard feels slow and bundle size has grown. I want help cutting p95 latency and reducing shipped JavaScript.",
+      "expected_output": "A route-out response that recognizes broad performance tuning as a performance-optimization task, not a debugging-first task.",
+      "assertions": [
+        "Output recognizes this as measurement-led performance work",
+        "Output routes broad tuning to performance-optimization",
+        "Output does not pretend that root-cause debugging is the right first surface for the request"
+      ]
+    }
+  ]
+}

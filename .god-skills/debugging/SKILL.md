@@ -1,258 +1,188 @@
 ---
 name: debugging
-description: Systematically debug code issues using proven methodologies. Use when encountering errors, unexpected behavior, or performance problems. Handles error analysis, root cause identification, debugging strategies, and fix verification.
+description: >
+  Debug code, runtime behavior, regressions, flaky failures, and code-adjacent
+  incidents with a systematic reproduce -> isolate -> hypothesize -> verify
+  loop. Use when the user has moved past raw symptom triage and now needs to
+  narrow the failing boundary, confirm what changed, design a safe fix, or
+  prove a fix with regression coverage. Triggers on: reproduce the bug,
+  isolate the regression, flaky test investigation, git bisect, why does this
+  code behave like this, and root-cause debugging after the important log
+  lines are already known. Route raw symptom-first log triage to
+  `log-analysis`.
 allowed-tools: Read Grep Glob Bash
 metadata:
-  tags: debugging, troubleshooting, error-analysis, bug-fixing, problem-solving
-  platforms: Claude, ChatGPT, Gemini
+  tags: debugging, regression, root-cause, flaky-tests, reproduce, isolate, verify
+  platforms: Claude, ChatGPT, Gemini, Codex
+  version: "2.0.0"
 ---
-
 
 # Debugging
 
+Debugging is not random poking. The job is to turn a symptom into a proved
+failure boundary, test one hypothesis at a time, and leave behind evidence
+that the fix addressed the root cause instead of only silencing the error.
+
+Read `references/reproduce-isolate-verify.md` when the failure is broad,
+intermittent, or difficult to narrow. Read
+`references/debug-boundaries-and-escalation.md` when you need to decide whether
+the task belongs here or should route to `log-analysis`,
+`performance-optimization`, `testing-strategies`, or `code-review`.
+
 ## When to use this skill
 
-- Encountering runtime errors or exceptions
-- Code produces unexpected output or behavior
-- Performance degradation or memory issues
-- Intermittent or hard-to-reproduce bugs
-- Understanding unfamiliar error messages
-- Post-incident analysis and prevention
+- Reproduce and isolate a bug, regression, or flaky test
+- Explain why code behaves differently than expected
+- Narrow a failure to a specific input, environment, commit, or subsystem
+- Design a minimal safe fix after the failing boundary is known
+- Prove that a fix works with targeted regression coverage or reruns
+- Investigate runtime behavior after the key logs, stack trace, or symptom are already available
+
+## When not to use this skill
+
+- The main task is raw log triage or finding the first actionable line in noisy logs: use `log-analysis`
+- The main task is broad performance tuning or bottleneck measurement: use `performance-optimization`
+- The main task is deciding overall test policy instead of reproducing a concrete failure: use `testing-strategies`
+- The main task is reviewing a diff or pull request rather than isolating a failing behavior: use `code-review`
+- There is no observable symptom, failing check, or concrete behavior to investigate
 
 ## Instructions
 
-### Step 1: Gather Information
+### Step 1: Frame the failure before changing code
 
-Collect all relevant context about the issue:
+Capture the minimum facts that define the debugging job:
 
-**Error details**:
-- Full error message and stack trace
-- Error type (syntax, runtime, logic, etc.)
-- When did it start occurring?
-- Is it reproducible?
+- symptom: error, wrong output, timeout, flaky test, crash, hang, or regression
+- expected versus actual behavior
+- known evidence: stack trace, failing test, logs, screenshots, or user steps
+- scope: local only, CI only, production only, specific input, or specific environment
+- recent change surface: commits, dependency updates, config changes, migrations, or data shape changes
 
-**Environment**:
-- Language and version
-- Framework and dependencies
-- OS and runtime environment
-- Recent changes to code or config
+If you cannot name the observable failure, stop guessing and gather a sharper reproduction target first.
 
-```bash
-# Check recent changes
-git log --oneline -10
-git diff HEAD~5
+### Step 2: Reproduce the bug on the smallest path
 
-# Check dependency versions
-npm list --depth=0  # Node.js
-pip freeze          # Python
-```
+Reduce the failure to the cheapest repeatable check you can run:
 
-### Step 2: Reproduce the Issue
+- a failing test
+- a one-command repro
+- a minimal fixture or request
+- a narrowed environment switch
 
-Create a minimal, reproducible example:
+Prefer deterministic reproduction over ad hoc clicking. If the failure is intermittent, record the frequency and what seems to influence it.
 
-```python
-# Bad: Vague description
-"The function sometimes fails"
+### Step 3: Isolate the failing boundary
 
-# Good: Specific reproduction steps
-"""
-1. Call process_data() with input: {"id": None}
-2. Error occurs: TypeError at line 45
-3. Expected: Return empty dict
-4. Actual: Raises exception
-"""
+Do not edit code yet. Narrow where the bug actually lives:
 
-# Minimal reproduction
-def test_reproduce_bug():
-    result = process_data({"id": None})  # Fails here
-    assert result == {}
-```
+- compare passing versus failing inputs
+- bisect recent changes when the regression window is known
+- add temporary instrumentation or targeted logging
+- disable or stub adjacent layers to find the boundary
+- check environment, config, timing, concurrency, and data-shape assumptions
 
-### Step 3: Isolate the Problem
+Read `references/reproduce-isolate-verify.md` for boundary-narrowing patterns.
 
-Use binary search debugging to narrow down the issue:
+### Step 4: Form one hypothesis and test it
 
-**Print/Log debugging**:
-```python
-def problematic_function(data):
-    print(f"[DEBUG] Input: {data}")  # Entry point
+Use one meaningful hypothesis at a time:
 
-    result = step_one(data)
-    print(f"[DEBUG] After step_one: {result}")
+- what you think is wrong
+- why that would explain the observed behavior
+- what evidence would confirm or falsify it
 
-    result = step_two(result)
-    print(f"[DEBUG] After step_two: {result}")  # Issue here?
+Avoid piling on multiple speculative fixes. If the hypothesis fails, discard it and record what you learned before trying the next one.
 
-    return step_three(result)
-```
+### Step 5: Implement the smallest root-cause fix
 
-**Divide and conquer**:
-```python
-# Comment out half the code
-# If error persists: bug is in remaining half
-# If error gone: bug is in commented half
-# Repeat until isolated
-```
+Once the cause is clear, prefer the smallest change that:
 
-### Step 4: Analyze Root Cause
+- fixes the actual failure mode
+- preserves nearby behavior
+- handles the relevant edge case
+- does not silently broaden scope without evidence
 
-Common bug patterns and solutions:
+Patch the cause, not only the visible error message.
 
-| Pattern | Symptom | Solution |
-|---------|---------|----------|
-| Off-by-one | Index out of bounds | Check loop bounds |
-| Null reference | NullPointerException | Add null checks |
-| Race condition | Intermittent failures | Add synchronization |
-| Memory leak | Gradual slowdown | Check resource cleanup |
-| Type mismatch | Unexpected behavior | Validate types |
+### Step 6: Prove the fix and lock the regression
 
-**Questions to ask**:
-1. What changed recently?
-2. Does it fail with specific inputs?
-3. Is it environment-specific?
-4. Are there any patterns in failures?
+Verification should match the failure:
 
-### Step 5: Implement Fix
+- rerun the minimal repro
+- rerun the risky surrounding checks
+- add or update regression coverage when the codebase supports it
+- confirm that temporary instrumentation is removed or intentionally kept
 
-Apply the fix with proper verification:
+If the failure cannot be reproduced deterministically, explain what evidence increases confidence and what uncertainty remains.
 
-```python
-# Before: Bug
-def get_user(user_id):
-    return users[user_id]  # KeyError if not found
+## Output format
 
-# After: Fix with proper handling
-def get_user(user_id):
-    if user_id not in users:
-        return None  # Or raise custom exception
-    return users[user_id]
-```
+Expected response shape:
 
-**Fix checklist**:
-- [ ] Addresses root cause, not just symptom
-- [ ] Doesn't break existing functionality
-- [ ] Handles edge cases
-- [ ] Includes appropriate error handling
-- [ ] Has test coverage
-
-### Step 6: Verify and Prevent
-
-Ensure the fix works and prevent regression:
-
-```python
-# Add test for the specific bug
-def test_bug_fix_issue_123():
-    """Regression test for issue #123: KeyError on missing user"""
-    result = get_user("nonexistent_id")
-    assert result is None  # Should not raise
-
-# Add edge case tests
-@pytest.mark.parametrize("input,expected", [
-    (None, None),
-    ("", None),
-    ("valid_id", {"name": "User"}),
-])
-def test_get_user_edge_cases(input, expected):
-    assert get_user(input) == expected
-```
+- `Failure summary`: symptom, expected behavior, actual behavior, and current scope
+- `Reproduction`: the smallest known repro path and whether it is deterministic
+- `Root cause`: the narrowed failing boundary and the evidence for it
+- `Fix`: the smallest root-cause change or next experiment
+- `Verification`: reruns, regression tests, and remaining uncertainty
+- `Route-outs`: only when a neighboring skill should take over part of the job
 
 ## Examples
 
-### Example 1: TypeError debugging
+### Example 1: Reproduce a flaky CI failure
 
-**Error**:
-```
-TypeError: cannot unpack non-iterable NoneType object
-  File "app.py", line 25, in process
-    name, email = get_user_info(user_id)
-```
+Input:
 
-**Analysis**:
-```python
-# Problem: get_user_info returns None when user not found
-def get_user_info(user_id):
-    user = db.find_user(user_id)
-    if user:
-        return user.name, user.email
-    # Missing: return None case!
-
-# Fix: Handle None case
-def get_user_info(user_id):
-    user = db.find_user(user_id)
-    if user:
-        return user.name, user.email
-    return None, None  # Or raise UserNotFoundError
+```text
+This Jest test only fails in CI about one run in five. Help me isolate whether
+the bug is timing, shared state, or environment drift.
 ```
 
-### Example 2: Race condition debugging
+Expected shape:
 
-**Symptom**: Test passes locally, fails in CI intermittently
+- focuses on reproducing and narrowing the flake before changing code
+- checks timing, shared state, and environment assumptions systematically
+- ends with a root-cause hypothesis plus a verification path
 
-**Analysis**:
-```python
-# Problem: Shared state without synchronization
-class Counter:
-    def __init__(self):
-        self.value = 0
+### Example 2: Explain a regression after a dependency bump
 
-    def increment(self):
-        self.value += 1  # Not atomic!
+Input:
 
-# Fix: Add thread safety
-import threading
-
-class Counter:
-    def __init__(self):
-        self.value = 0
-        self._lock = threading.Lock()
-
-    def increment(self):
-        with self._lock:
-            self.value += 1
+```text
+After upgrading our HTTP client, uploads sometimes hang forever. Why did this
+start happening?
 ```
 
-### Example 3: Memory leak debugging
+Expected shape:
 
-**Tool**: Use memory profiler
-```python
-from memory_profiler import profile
+- compares pre-upgrade and post-upgrade behavior
+- isolates whether the regression is client behavior, timeout config, or server interaction
+- proposes the smallest fix once the boundary is proven
 
-@profile
-def process_large_data():
-    results = []
-    for item in large_dataset:
-        results.append(transform(item))  # Memory grows
-    return results
+### Example 3: Route raw logs to the right surface
 
-# Fix: Use generator for large datasets
-def process_large_data():
-    for item in large_dataset:
-        yield transform(item)  # Memory efficient
+Input:
+
+```text
+Here are 5,000 lines of container logs. Tell me what the first real error is.
 ```
+
+Expected shape:
+
+- recognizes this as log triage first
+- routes to `log-analysis` instead of pretending the debugging boundary is already known
+- resumes debugging only after the actionable failure is identified
 
 ## Best practices
 
-1. **Reproduce first**: Never fix what you can't reproduce
-2. **One change at a time**: Isolate variables when debugging
-3. **Read the error**: Error messages usually point to the issue
-4. **Check assumptions**: Verify what you think is true
-5. **Use version control**: Easy to revert and compare changes
-6. **Document findings**: Help future debugging efforts
-7. **Write tests**: Prevent regression of fixed bugs
-
-## Debugging Tools
-
-| Language | Debugger | Profiler |
-|----------|----------|----------|
-| Python | pdb, ipdb | cProfile, memory_profiler |
-| JavaScript | Chrome DevTools | Performance tab |
-| Java | IntelliJ Debugger | JProfiler, VisualVM |
-| Go | Delve | pprof |
-| Rust | rust-gdb | cargo-flamegraph |
+1. Reproduce before editing.
+2. Narrow the boundary before proposing fixes.
+3. Test one hypothesis at a time.
+4. Preserve the smallest useful repro for later regressions.
+5. Add regression coverage when the failure is now understood.
+6. Route broad log, perf, or review work to sibling skills instead of absorbing everything here.
+7. Add eval-backed support coverage before any `skill-autoresearch` loop on this skill.
 
 ## References
 
-- [Debugging: The 9 Indispensable Rules](https://debuggingrules.com/)
-- [How to Debug](https://blog.regehr.org/archives/199)
-- [Rubber Duck Debugging](https://rubberduckdebugging.com/)
+- Local: `references/reproduce-isolate-verify.md`
+- Local: `references/debug-boundaries-and-escalation.md`

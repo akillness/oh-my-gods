@@ -1,16 +1,24 @@
 N:debugging
-D:Systematically debug code issues using proven methodologies. Use when encountering errors, unexpe...
-G:debugging troubleshooting error-analysis bug-fixing problem-solving
+D:Debug code, runtime behavior, regressions, flaky failures, and code-adjacent incidents. Use when...
+G:debugging regression root-cause flaky-tests reproduce isolate verify
 U[6]:
-  Encountering runtime errors or exceptions
-  Code produces unexpected output or behavior
-  Performance degradation or memory issues
-  Intermittent or hard-to-reproduce bugs
-  Understanding unfamiliar error messages
+  Reproduce and isolate a bug, regression, or flaky test
+  Explain why code behaves differently than expected
+  Narrow a failure to a specific input, environment, commit, or subsystem
+  Design a minimal safe fix after the failing boundary is known
+  Prove that a fix works with targeted regression coverage or reruns
+  Investigate runtime behavior after the key logs, stack trace, or symptom are already available
 S[6]{n,action}:
-  1,Gather Information
-  2,Reproduce the Issue
-  3,Isolate the Problem
-  4,Analyze Root Cause
-  5,Implement Fix
-  6,Verify and Prevent
+  1,Frame the failure before changing code
+  2,Reproduce the bug on the smallest path
+  3,Isolate the failing boundary
+  4,Form one hypothesis and test it
+  5,Implement the smallest root-cause fix
+  6,Prove the fix and lock the regression
+R[6]:
+  Debugging is a reproduce isolate hypothesize verify loop, not random guessing
+  Route raw symptom-first log triage to log-analysis
+  Route broad perf work to performance-optimization
+  Route test-policy work to testing-strategies
+  Route diff judgment to code-review
+  Add references and evals before any mutation loop
