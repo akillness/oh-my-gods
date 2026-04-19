@@ -51,7 +51,7 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/61
 - PR `#62` for `security-best-practices` is merged:
   https://github.com/akillness/oh-my-gods/pull/62
-- PR `#63` for `code-refactoring` is open and mergeable after the next review
+- PR `#63` for `code-refactoring` is open and mergeable after a clean review
   pass:
   https://github.com/akillness/oh-my-gods/pull/63
 
@@ -73,6 +73,13 @@ Date: 2026-04-19
 - PR `#63` now carries the bounded `code-refactoring` package: compact
   behavior-preserving entrypoint, focused references, eval coverage, and a
   refreshed `SKILL.toon`.
+- The scheduled review pass on April 19, 2026 found no duplicate work, no
+  missing support surfaces, no review comments, and no new validation failures
+  on PR `#63`.
+- Repo-wide support-gap scanning now points to `api-design` as the next
+  highest-value general-purpose lane after `code-refactoring` closes because it
+  remains a large, workflow-critical skill with no focused `references/` or
+  `evals/` package yet.
 
 ## Target decisions
 
@@ -92,7 +99,8 @@ Date: 2026-04-19
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 | `code-review` | Merged via PR `#61` | No | No | Added focused review-priority and findings-format guidance | Added trigger, route-out, and findings-first review checks | No | Keep closed unless review feedback or new measured failures appear |
 | `security-best-practices` | Merged via PR `#62` | No | No | Added focused hardening and verification guidance | Added trigger, route-out, and verification assertions | Not yet | Keep closed unless review feedback or new measured failures appear |
-| `code-refactoring` | PR `#63` open; package landed; awaiting review pass | No | No | Added focused cleanup-slice and behavior-lock guidance | Added trigger, route-out, and behavior-preservation review checks | Not yet | Review PR `#63`, then merge if no duplicate work or gaps remain |
+| `code-refactoring` | PR `#63` open; package landed; review pass clean | No | No | Added focused cleanup-slice and behavior-lock guidance | Added trigger, route-out, and behavior-preservation review checks | Not yet | Merge PR `#63`, then move the next scheduled survey to `api-design` |
+| `api-design` | Next candidate after `code-refactoring` | No | No | Not yet | Not yet | Not yet | Survey and package as the next bounded lane if no new higher-priority gap appears |
 
 ## Locked direction
 
@@ -106,9 +114,12 @@ Date: 2026-04-19
   further blockers, and validation still passes.
 - Keep `security-best-practices` closed because PR `#62` is merged and the lane
   no longer has open review work.
-- Move the current run onto PR `#63` for `code-refactoring`, because the
-  packaged branch is validator-clean and now needs the scheduled review pass
-  before merge.
+- Close the `code-refactoring` lane if PR `#63` stays merge-clean, because the
+  scheduled review pass found no duplicate work, no missing package surfaces,
+  and no validation regressions.
+- Move the next scheduled run onto `api-design`, because repo-wide gap scanning
+  shows it is now one of the largest remaining core skills without focused
+  `references/` and `evals/` support.
 - Defer `skill-autoresearch` until `code-refactoring` or another packaged target
   still shows measured failures after standardization.
 
@@ -149,14 +160,20 @@ Date: 2026-04-19
     assertions
   - Skill-autoresearch: not justified until the packaged lane still misses
     objective checks
+- Next lane after merge: `api-design`
+  - Assets: no
+  - Scripts: no
+  - References: yes, add focused resource-modeling and compatibility guidance
+  - Evals: yes, add trigger, route-out, and backward-compatibility assertions
+  - Skill-autoresearch: not justified until the packaged lane still misses
+    objective checks
 
 ## Current state
 
-- Current state: PR `#63` is open for the bounded `code-refactoring` packaging
-  lane after PR `#62` merged, and the new package is validator-clean with no
-  immediate spec gaps.
+- Current state: PR `#63` for the bounded `code-refactoring` packaging lane
+  passed the scheduled review run cleanly and is ready to move through merge.
 - PR: https://github.com/akillness/oh-my-gods/pull/63
 - Blocker: none
-- Next owner: next scheduled review run on `code-refactoring`, then merge if
-  the branch stays clean
-- Stage: `pr-open`
+- Next owner: merge this PR, then hand the next scheduled survey/improvement
+  run to `api-design`
+- Stage: `merge`

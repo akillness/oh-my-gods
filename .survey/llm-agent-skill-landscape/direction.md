@@ -26,7 +26,8 @@
   https://github.com/akillness/oh-my-gods/pull/61
 - PR `#62` for `security-best-practices` is merged:
   https://github.com/akillness/oh-my-gods/pull/62
-- PR `#63` for `code-refactoring` is open and mergeable:
+- PR `#63` for `code-refactoring` is open and mergeable after a clean review
+  pass:
   https://github.com/akillness/oh-my-gods/pull/63
 - Repo-wide validation passes at `80/80` skills with `0` spec violations on
   the active branch when run via `python3 validate_frontmatter.py`.
@@ -73,8 +74,13 @@ The landscape signal remains stable as of April 19, 2026:
     because it was one of the repo's largest development skills and still
     lacked the references/evals package now common in the better-maintained
     lanes.
-12. PR `#63` now carries the bounded `code-refactoring` package and moves the
-    loop from survey/improvement into PR-open for the next review pass.
+12. PR `#63` now carries the bounded `code-refactoring` package.
+13. The scheduled review pass on April 19, 2026 found no duplicate work, no
+    missing support surfaces, no review comments, and no validation regressions
+    on PR `#63`, so this lane should now move to merge.
+14. Repo-wide gap scanning now points to `api-design` as the strongest next
+    general-purpose target because it is still a large core skill with no
+    focused `references/` or `evals/` support package.
 
 ## Locked direction
 
@@ -87,8 +93,9 @@ Advance one bounded lane per run, in this order:
 5. Keep `testing-strategies` closed after PR `#60` merged
 6. Keep `code-review` closed after PR `#61` merged
 7. Keep `security-best-practices` closed after PR `#62` merged
-8. Keep `code-refactoring` bounded to packaging and route clarity only
-9. Run the next scheduled pass as a PR review on `code-refactoring`
+8. Keep `code-refactoring` bounded to packaging and route clarity only, then
+   merge PR `#63` after the clean review pass
+9. Move the next scheduled survey/improvement run to `api-design`
 10. Revisit `skill-autoresearch` only after the packaged target still
     shows measured failures
 
@@ -98,9 +105,12 @@ This order is locked because:
 - `workflow-automation`, `testing-strategies`, and `code-review` are now
   closed after their merged PRs.
 - `security-best-practices` is now closed because PR `#62` merged.
-- `code-refactoring` is now the active open lane because it was large,
+- `code-refactoring` was the active open lane because it was large,
   high-frequency, and lacked the references/evals package now common in the
-  better-maintained lanes.
+  better-maintained lanes; that package is now review-clean and ready to merge.
+- `api-design` is now the strongest remaining general-purpose gap because it is
+  still one of the larger workflow-critical skills and still lacks the compact
+  support package now expected in the better-maintained lanes.
 - Starting a mutation loop before every discovery surface and eval assertion is
   internally consistent would still optimize the wrong layer.
 
@@ -122,7 +132,8 @@ This order is locked because:
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 | `code-review` | Closed high-leverage lane | No | No | Added focused review-priority and findings-format references | Added trigger, route-out, and findings-first evals | No | Keep closed unless review feedback or new measured failures reopen it |
 | `security-best-practices` | Closed high-leverage lane | Not yet | No | No | Added focused hardening and verification references | Added trigger, route-out, and verification evals | Keep closed unless review feedback or measured failures reopen it |
-| `code-refactoring` | High active lane | Not yet | No | No | Added focused cleanup-slice and behavior-lock references | Added trigger, route-out, and behavior-preservation evals | Review PR `#63`, then decide whether mutation work is justified only if measured failures remain |
+| `code-refactoring` | High lane ready to close | Not yet | No | No | Added focused cleanup-slice and behavior-lock references | Added trigger, route-out, and behavior-preservation evals | Merge PR `#63`, then keep closed unless review feedback or new measured failures reopen it |
+| `api-design` | High next lane | Not yet | No | No | Not yet | Not yet | Survey and package next if no higher-priority measured gap appears |
 
 ## Packaging decision for the active lane
 
@@ -160,12 +171,21 @@ This order is locked because:
   - Evals: yes, keep trigger, route-out, and behavior-preservation assertions
   - Skill-autoresearch: defer until the packaged lane still misses measured
     checks
+- Next lane after merge: `api-design`
+  - Assets: no
+  - Scripts: no
+  - References: yes, add focused resource-modeling and compatibility guidance
+  - Evals: yes, add trigger, route-out, and backward-compatibility assertions
+  - Skill-autoresearch: defer until the packaged lane still misses measured
+    checks
 
 ## Current state
 
 - State: PR `#63` is open for the bounded `code-refactoring` packaging lane,
-  and the validator-clean package is ready for the next review pass.
+  the scheduled review pass came back clean, and the branch is ready for
+  merge.
 - PR: https://github.com/akillness/oh-my-gods/pull/63
 - Blocker: none
-- Next owner: next scheduled review run on `code-refactoring`
-- Stage: `pr-open`
+- Next owner: merge PR `#63`, then move the next scheduled survey/improvement
+  run to `api-design`
+- Stage: `merge`
