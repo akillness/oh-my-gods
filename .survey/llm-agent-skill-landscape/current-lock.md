@@ -122,10 +122,10 @@ Date: 2026-04-19
 
 ## Current state
 
-- Current state: PR `#60` is merged; the bounded `code-review` packaging pass
-  is now implemented locally on branch
-  `chore/code-review-standardization-20260419-r61` and awaiting PR creation
-- PR: not opened yet on this run
+- Current state: PR `#60` is merged; PR `#61` is now open for the bounded
+  `code-review` packaging lane on branch
+  `chore/code-review-standardization-20260419-r61`
+- PR: https://github.com/akillness/oh-my-gods/pull/61
 - Blocker: none
-- Next owner: PR-open path now
-- Stage: `improvement`
+- Next owner: PR-review path next
+- Stage: `PR-open`

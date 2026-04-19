@@ -135,10 +135,10 @@ This order is locked because:
 
 - State: React guidance and `ralphmode` remain closed after PRs `#56` and
   `#57` merged; PRs `#58` and `#59` closed the `workflow-automation` lane,
-  PR `#60` closed `testing-strategies`, and the bounded `code-review`
-  packaging pass is now implemented locally on branch
+  PR `#60` closed `testing-strategies`, and PR `#61` is now open for the
+  bounded `code-review` packaging pass on branch
   `chore/code-review-standardization-20260419-r61`
-- PR: not opened yet on this run
+- PR: https://github.com/akillness/oh-my-gods/pull/61
 - Blocker: none
-- Next owner: PR-open path now
-- Stage: `improvement`
+- Next owner: PR-review path next
+- Stage: `PR-open`
