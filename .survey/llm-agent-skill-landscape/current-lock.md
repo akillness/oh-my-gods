@@ -41,14 +41,17 @@ Date: 2026-04-19
 
 ## Audit snapshot
 
-- Repo-wide validation still passes with `0` errors and `8` warnings after this
-  run's edits.
+- Repo-wide validation passes at `80/80` skills with `0` spec violations when
+  run via `python3 validate_frontmatter.py`.
 - `agent-evaluation`, `survey`, `playwriter`, the React guidance lane, and
   `ralphmode` are closed lanes and should not be re-opened without review
   feedback or new measured failures.
 - Official and primary-source signal now favors `workflow-automation` as the
   next packaging lane because repeatable repo operations are high-frequency and
   still benefit from compact entrypoints plus support files.
+- The repo-local audit surface is `validate_frontmatter.py`; the active lane
+  does not need extra scripts or assets beyond the references and evals already
+  added in PR `#58`.
 
 ## Target decisions
 
@@ -62,7 +65,7 @@ Date: 2026-04-19
 | `react-best-practices` | Merged via PR `#56` | No | No | Reuse bundled `AGENTS.md` | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
 | `vercel-react-best-practices` | Merged via PR `#56` | No | No | Point to canonical skill only | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
 | `ralphmode` | Merged via PR `#57` | No | No | Existing permission profile reference merged | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
-| `workflow-automation` | Active PR lane via `#58` | No | No | Added runner-selection and local-CI parity references | Added | Not yet | Review the PR for duplicate work, missing improvements, and standardization gaps |
+| `workflow-automation` | Reviewed open PR lane via `#58` | No | No | Added runner-selection and local-CI parity references | Added | Not yet | Move to merge path; reopen only if review feedback or measured failures appear |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -70,28 +73,28 @@ Date: 2026-04-19
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Keep the active run on `workflow-automation`, because it now has the bounded
-  references and evals required for review but still needs a PR-review pass.
-- Defer `skill-autoresearch` until the `workflow-automation` PR is review-clean
-  and any remaining failures can be measured against the new eval surface.
+- Keep `workflow-automation` as the active lane through merge, because the
+  review pass found no duplicate work, missing support files, or standards
+  regressions in PR `#58`.
+- Defer `skill-autoresearch` until the `workflow-automation` lane is merged and
+  any remaining failures can be measured against the new eval surface.
 
 ## Packaging decision for the active lane
 
 - Active lane: `workflow-automation`
   - Assets: no
   - Scripts: no
-  - References: yes, add runner-selection and local-CI parity guidance
-  - Evals: yes, add trigger and repo-boundary coverage for task-runner choice,
+  - References: yes, keep runner-selection and local-CI parity guidance
+  - Evals: yes, keep trigger and repo-boundary coverage for task-runner choice,
     local parity, and hook guardrails
-  - Skill-autoresearch: still deferred until a review-clean target shows
-    measured failures against the new evals
+  - Skill-autoresearch: still deferred until the merged lane shows measured
+    failures against the new evals
 
 ## Current state
 
-- Current state: `workflow-automation` now has a repo-scoped entrypoint plus
-  support files and evals; the lane has moved from survey/improvement into an
-  open PR state
+- Current state: `workflow-automation` has completed its bounded PR review and
+  remains a repo-scoped entrypoint with references and evals intact
 - PR: https://github.com/akillness/oh-my-gods/pull/58
 - Blocker: none
-- Next owner: PR review path
-- Stage: `pr-open`
+- Next owner: merge path
+- Stage: `merge`
