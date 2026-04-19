@@ -325,7 +325,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `git-workflow` | 커밋, 브랜치, 머지, PR 워크플로우 |
 | `git-submodule` | Git 서브모듈 관리 |
 | `debugging` | 근본 원인 분석, 회귀 격리 |
-| `code-review` | API 계약 포함 종합 코드 리뷰 |
+| `code-review` | PR/디프 병합 위험을 찾는 findings-first 코드 리뷰 |
 | `agent-manager` | tmux + Python 에이전트 생명주기 관리 — 서버 없이 시작/중지/모니터/일정 예약/하트비트 |
 
 ### 백엔드 & 인프라

@@ -1,0 +1,45 @@
+{
+  "skill_name": "code-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review this PR and tell me if anything should block merge.",
+      "expected_output": "A findings-first code review that prioritizes correctness and regression risk over style comments.",
+      "assertions": [
+        "Response presents findings before any summary or praise",
+        "Response frames issues in terms of correctness, regression, security, performance risk, or missing verification rather than generic style alone",
+        "Response makes it clear whether the change should be approved, blocked, or needs follow-up"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Please inspect this diff for hidden regressions or missing test coverage before I merge it.",
+      "expected_output": "A review response that treats regression risk and test adequacy as primary review concerns.",
+      "assertions": [
+        "Response looks for hidden behavior changes or risky assumptions, not only formatting issues",
+        "Response treats missing or weak verification as a review issue when the risky path is not proven",
+        "Response keeps findings tied to the diff rather than turning into a generic testing strategy document"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Can you do a security-focused review of this pull request?",
+      "expected_output": "A code-review response that prioritizes trust boundaries and concrete code risks without drifting into a broad hardening guide.",
+      "assertions": [
+        "Response prioritizes auth, validation, secrets, trust boundaries, or exploitable behavior where relevant",
+        "Response stays anchored to the concrete change set instead of becoming general security-best-practices advice",
+        "Response still uses a findings-first review structure"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review this architecture direction for our checkout redesign.",
+      "expected_output": "A routing-aware response that recognizes the request is not a code review without a diff or code artifact.",
+      "assertions": [
+        "Response notes that a concrete diff, PR, patch, or code artifact is needed for code review",
+        "Response routes the request to planning, architecture, or design analysis rather than pretending to review absent code",
+        "Response does not fabricate line-level findings"
+      ]
+    }
+  ]
+}

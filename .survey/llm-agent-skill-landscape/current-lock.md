@@ -19,6 +19,11 @@ Date: 2026-04-19
   https://developers.openai.com/
   https://docs.anthropic.com/en/docs/claude-code/sub-agents
   https://docs.langchain.com/oss/python/deepagents/skills
+- Review-heavy workflows gained even more weight in the current ecosystem:
+  OpenAI's Codex app positions PR review and delegation as core workflows, and
+  GitHub Copilot's coding agent emphasizes pull-request review and self-review:
+  https://openai.com/index/introducing-the-codex-app/
+  https://docs.github.com/en/copilot/concepts/about-copilot-coding-agent
 
 ## Live GitHub state
 
@@ -40,23 +45,26 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/58
 - PR `#59` for the `workflow-automation` follow-up lane is merged:
   https://github.com/akillness/oh-my-gods/pull/59
+- PR `#60` for `testing-strategies` is merged:
+  https://github.com/akillness/oh-my-gods/pull/60
+- PR `#61` for `code-review` is merged:
+  https://github.com/akillness/oh-my-gods/pull/61
 
 ## Audit snapshot
 
 - Repo-wide validation passes at `80/80` skills with `0` spec violations when
   run via `python3 validate_frontmatter.py`.
-- `agent-evaluation`, `survey`, `playwriter`, the React guidance lane, and
-  `ralphmode` are closed lanes and should not be re-opened without review
-  feedback or new measured failures.
+- `agent-evaluation`, `survey`, `playwriter`, the React guidance lane,
+  `ralphmode`, `workflow-automation`, and `testing-strategies` are closed lanes
+  and should not be re-opened without review feedback or new measured failures.
 - Official and primary-source signal still favors progressive-disclosure skill
   packaging: concise entrypoints plus referenced support files and eval-backed
   trigger surfaces now matter even more as GitHub's `gh skill` support expands
   cross-host discovery and installation.
-- The repo-local audit surface is `validate_frontmatter.py`; the active
-  follow-up lane is closed because PR `#59` is merged.
-- The next highest-value open gap after that merge is `testing-strategies`,
-  which remained a high-frequency legacy skill with no `references/` or
-  `evals/` package on `main` before this run.
+- The repo-local audit surface remains `validate_frontmatter.py`, and the next
+  highest-value open gap after PR `#61` is `code-refactoring`: it is the
+  longest remaining general-purpose development skill in the repo and still
+  ships as a monolithic entrypoint with no `references/` or `evals/` package.
 
 ## Target decisions
 
@@ -71,20 +79,27 @@ Date: 2026-04-19
 | `vercel-react-best-practices` | Merged via PR `#56` | No | No | Point to canonical skill only | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
 | `ralphmode` | Merged via PR `#57` | No | No | Existing permission profile reference merged | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
 | `workflow-automation` | Merged via PR `#58`; follow-up PR `#59` merged | No | No | Added runner-selection and local-CI parity references | Tightened in follow-up PR | Not yet | Keep closed unless new measured failures appear |
+| `testing-strategies` | Merged via PR `#60` | No | No | Added focused layer-selection and release-confidence references | Added | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
-| `testing-strategies` | Active high-frequency legacy lane on this run | No | No | Yes, add focused layer-selection and release-confidence references | Yes, add trigger, route-out, and validation-policy evals | Not yet | Open a bounded PR for the packaging pass, then review it on the next run |
+| `code-review` | Merged via PR `#61` | No | No | Added focused review-priority and findings-format guidance | Added trigger, route-out, and findings-first review checks | No | Keep closed unless review feedback or new measured failures appear |
+| `code-refactoring` | Next high-frequency legacy lane | No | No | Yes, add focused cleanup-plan and behavior-lock guidance | Yes, add trigger, route-out, and behavior-preservation review checks | Not yet | Open the next bounded packaging lane after `code-review` closes |
 
 ## Locked direction
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Keep `workflow-automation` closed because PR `#59` is merged and validation still passes.
-- Move this run onto `testing-strategies`, because it is still a
-  high-frequency generic QA skill without the references and eval package now
+- Keep `workflow-automation` closed because PR `#59` is merged and validation
+  still passes.
+- Keep `testing-strategies` closed because PR `#60` is merged and validation
+  still passes.
+- Keep `code-review` closed because PR `#61` merged, the review pass found no
+  further blockers, and validation still passes.
+- Move the next run onto `code-refactoring`, because it is now the strongest
+  remaining general-purpose monolith without the references and eval package
   expected across the repo's stronger lanes.
-- Defer `skill-autoresearch` until `testing-strategies` or another packaged
-  target still shows measured failures after standardization.
+- Defer `skill-autoresearch` until `code-refactoring` or another packaged target
+  still shows measured failures after standardization.
 
 ## Packaging decision for the active lane
 
@@ -95,21 +110,33 @@ Date: 2026-04-19
   - Evals: yes, keep trigger and repo-boundary coverage for task-runner choice,
     local parity, and hook guardrails
   - Skill-autoresearch: still deferred unless later measured failures appear
-- Active lane on this run: `testing-strategies`
+- Closed lane: `testing-strategies`
   - Assets: no
   - Scripts: no
-  - References: yes, add concise guidance for test-layer selection and release
-    confidence instead of keeping everything inline
-  - Evals: yes, add trigger, boundary, and validation-policy assertions before
-    any mutation loop is considered
+  - References: yes, keep concise guidance for test-layer selection and release
+    confidence
+  - Evals: yes, keep trigger, boundary, and validation-policy assertions
+  - Skill-autoresearch: still deferred unless later measured failures appear
+- Closed lane on this run: `code-review`
+  - Assets: no
+  - Scripts: no
+  - References: yes, keep focused review-priority and findings-format guidance
+  - Evals: yes, keep trigger, route-out, and findings-first review assertions
+  - Skill-autoresearch: still deferred unless later measured failures appear
+- Active lane on the next run: `code-refactoring`
+  - Assets: no
+  - Scripts: no
+  - References: yes, add focused cleanup-plan and behavior-lock guidance
+  - Evals: yes, add trigger, route-out, and behavior-preservation review
+    assertions
   - Skill-autoresearch: not justified until the packaged lane still misses
     objective checks
 
 ## Current state
 
-- Current state: PR `#59` is merged; PR `#60` has completed a clean review pass
-  for the bounded `testing-strategies` packaging lane and is ready to merge
-- PR: https://github.com/akillness/oh-my-gods/pull/60
+- Current state: PR `#61` is merged for the bounded `code-review` packaging
+  lane after a clean PR-review pass with no follow-up blockers.
+- PR: https://github.com/akillness/oh-my-gods/pull/61
 - Blocker: none
-- Next owner: merge path now
+- Next owner: next scheduled improvement run on `code-refactoring`
 - Stage: `merge`

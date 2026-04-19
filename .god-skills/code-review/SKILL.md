@@ -1,392 +1,176 @@
 ---
 name: code-review
-description: Conduct thorough, constructive code reviews for quality and security. Use when reviewing pull requests, checking code quality, identifying bugs, or auditing security. Handles best practices, SOLID principles, security vulnerabilities, performance analysis, and testing coverage.
+description: >
+  Review diffs, pull requests, merge requests, and patch stacks for
+  correctness, maintainability, security, performance risk, and missing test
+  coverage. Use when the user wants to approve, block, or comment on a code
+  change, assess review findings by severity, or decide whether a change needs
+  deeper testing, debugging, or follow-up from a specialist skill. Triggers
+  on: review this PR, inspect this diff, request changes, approve or block,
+  code review checklist, what would you comment on, and pre-merge risk review.
 allowed-tools: Read Grep Glob
 metadata:
-  tags: code-review, code-quality, security, best-practices, PR-review
-  platforms: Claude, ChatGPT, Gemini
+  tags: code-review, PR-review, diff-review, bug-finding, regression-risk, security-review, testing-adequacy
+  platforms: Claude, ChatGPT, Gemini, Codex
+  version: "2.0.0"
 ---
-
 
 # Code Review
 
+Code review is a judgment surface, not a generic style pass. Optimize for the
+highest-signal findings: correctness bugs, behavioral regressions, trust-boundary
+mistakes, performance risks, and missing verification.
+
 ## When to use this skill
-- Reviewing pull requests
-- Checking code quality
-- Providing feedback on implementations
-- Identifying potential bugs
-- Suggesting improvements
-- Security audits
-- Performance analysis
+
+- Review a pull request, diff, merge request, or patch stack before merge
+- Decide whether a change should be approved, blocked, or sent back for fixes
+- Identify the most important bugs, regressions, or missing tests in a change
+- Turn vague "please review this" requests into a risk-ranked findings list
+- Check whether the stated intent of a change matches what the diff actually does
+
+Prefer a neighboring skill when the main job is not reviewing a concrete code change:
+
+- `testing-strategies` for deciding validation policy before tests exist
+- `debugging` for reproducing and isolating a known failure
+- `security-best-practices` for broader hardening guidance without a concrete diff
+- `performance-optimization` for measurement-led tuning work rather than review judgment
 
 ## Instructions
 
-### Step 1: Understand the context
-
-**Read the PR description**:
-- What is the goal of this change?
-- Which issues does it address?
-- Are there any special considerations?
-
-**Check the scope**:
-- How many files changed?
-- What type of changes? (feature, bugfix, refactor)
-- Are tests included?
-
-### Step 2: High-level review
-
-**Architecture and design**:
-- Does the approach make sense?
-- Is it consistent with existing patterns?
-- Are there simpler alternatives?
-- Is the code in the right place?
-
-**Code organization**:
-- Clear separation of concerns?
-- Appropriate abstraction levels?
-- Logical file/folder structure?
-
-### Step 3: Detailed code review
-
-**Naming**:
-- [ ] Variables: descriptive, meaningful names
-- [ ] Functions: verb-based, clear purpose
-- [ ] Classes: noun-based, single responsibility
-- [ ] Constants: UPPER_CASE for true constants
-- [ ] Avoid abbreviations unless widely known
-
-**Functions**:
-- [ ] Single responsibility
-- [ ] Reasonable length (< 50 lines ideally)
-- [ ] Clear inputs and outputs
-- [ ] Minimal side effects
-- [ ] Proper error handling
-
-**Classes and objects**:
-- [ ] Single responsibility principle
-- [ ] Open/closed principle
-- [ ] Liskov substitution principle
-- [ ] Interface segregation
-- [ ] Dependency inversion
-
-**Error handling**:
-- [ ] All errors caught and handled
-- [ ] Meaningful error messages
-- [ ] Proper logging
-- [ ] No silent failures
-- [ ] User-friendly errors for UI
-
-**Code quality**:
-- [ ] No code duplication (DRY)
-- [ ] No dead code
-- [ ] No commented-out code
-- [ ] No magic numbers
-- [ ] Consistent formatting
-
-### Step 4: Security review
-
-**Input validation**:
-- [ ] All user inputs validated
-- [ ] Type checking
-- [ ] Range checking
-- [ ] Format validation
-
-**Authentication & Authorization**:
-- [ ] Proper authentication checks
-- [ ] Authorization for sensitive operations
-- [ ] Session management
-- [ ] Password handling (hashing, salting)
-
-**Data protection**:
-- [ ] No hardcoded secrets
-- [ ] Sensitive data encrypted
-- [ ] SQL injection prevention
-- [ ] XSS prevention
-- [ ] CSRF protection
-
-**Dependencies**:
-- [ ] No vulnerable packages
-- [ ] Dependencies up-to-date
-- [ ] Minimal dependency usage
-
-### Step 5: Performance review
-
-**Algorithms**:
-- [ ] Appropriate algorithm choice
-- [ ] Reasonable time complexity
-- [ ] Reasonable space complexity
-- [ ] No unnecessary loops
-
-**Database**:
-- [ ] Efficient queries
-- [ ] Proper indexing
-- [ ] N+1 query prevention
-- [ ] Connection pooling
-
-**Caching**:
-- [ ] Appropriate caching strategy
-- [ ] Cache invalidation handled
-- [ ] Memory usage reasonable
-
-**Resource management**:
-- [ ] Files properly closed
-- [ ] Connections released
-- [ ] Memory leaks prevented
-
-### Step 6: Testing review
-
-**Test coverage**:
-- [ ] Unit tests for new code
-- [ ] Integration tests if needed
-- [ ] Edge cases covered
-- [ ] Error cases tested
-
-**Test quality**:
-- [ ] Tests are readable
-- [ ] Tests are maintainable
-- [ ] Tests are deterministic
-- [ ] No test interdependencies
-- [ ] Proper test data setup/teardown
-
-**Test naming**:
-```python
-# Good
-def test_user_creation_with_valid_data_succeeds():
-    pass
-
-# Bad
-def test1():
-    pass
-```
-
-### Step 7: Documentation review
-
-**Code comments**:
-- [ ] Complex logic explained
-- [ ] No obvious comments
-- [ ] TODOs have tickets
-- [ ] Comments are accurate
-
-**Function documentation**:
-```python
-def calculate_total(items: List[Item], tax_rate: float) -> Decimal:
-    """
-    Calculate the total price including tax.
-
-    Args:
-        items: List of items to calculate total for
-        tax_rate: Tax rate as decimal (e.g., 0.1 for 10%)
-
-    Returns:
-        Total price including tax
-
-    Raises:
-        ValueError: If tax_rate is negative
-    """
-    pass
-```
-
-**README/docs**:
-- [ ] README updated if needed
-- [ ] API docs updated
-- [ ] Migration guide if breaking changes
-
-### Step 8: Provide feedback
-
-**Be constructive**:
-```
-✅ Good:
-"Consider extracting this logic into a separate function for better
-testability and reusability:
-
-def validate_email(email: str) -> bool:
-    return '@' in email and '.' in email.split('@')[1]
-
-This would make it easier to test and reuse across the codebase."
-
-❌ Bad:
-"This is wrong. Rewrite it."
-```
-
-**Be specific**:
-```
-✅ Good:
-"On line 45, this query could cause N+1 problem. Consider using
-.select_related('author') to fetch related objects in a single query."
-
-❌ Bad:
-"Performance issues here."
-```
-
-**Prioritize issues**:
-- 🔴 Critical: Security, data loss, major bugs
-- 🟡 Important: Performance, maintainability
-- 🟢 Nice-to-have: Style, minor improvements
-
-**Acknowledge good work**:
-```
-"Nice use of the strategy pattern here! This makes it easy to add
-new payment methods in the future."
-```
-
-## Review checklist
-
-### Functionality
-- [ ] Code does what it's supposed to do
-- [ ] Edge cases handled
-- [ ] Error cases handled
-- [ ] No obvious bugs
-
-### Code Quality
-- [ ] Clear, descriptive naming
-- [ ] Functions are small and focused
-- [ ] No code duplication
-- [ ] Consistent with codebase style
-- [ ] No code smells
-
-### Security
-- [ ] Input validation
-- [ ] No hardcoded secrets
-- [ ] Authentication/authorization
-- [ ] No SQL injection vulnerabilities
-- [ ] No XSS vulnerabilities
-
-### Performance
-- [ ] No obvious bottlenecks
-- [ ] Efficient algorithms
-- [ ] Proper database queries
-- [ ] Resource management
-
-### Testing
-- [ ] Tests included
-- [ ] Good test coverage
-- [ ] Tests are maintainable
-- [ ] Edge cases tested
-
-### Documentation
-- [ ] Code is self-documenting
-- [ ] Comments where needed
-- [ ] Docs updated
-- [ ] Breaking changes documented
-
-## Common issues
-
-### Anti-patterns
-
-**God class**:
-```python
-# Bad: One class doing everything
-class UserManager:
-    def create_user(self): pass
-    def send_email(self): pass
-    def process_payment(self): pass
-    def generate_report(self): pass
-```
-
-**Magic numbers**:
-```python
-# Bad
-if user.age > 18:
-    pass
-
-# Good
-MINIMUM_AGE = 18
-if user.age > MINIMUM_AGE:
-    pass
-```
-
-**Deep nesting**:
-```python
-# Bad
-if condition1:
-    if condition2:
-        if condition3:
-            if condition4:
-                # deeply nested code
-
-# Good (early returns)
-if not condition1:
-    return
-if not condition2:
-    return
-if not condition3:
-    return
-if not condition4:
-    return
-# flat code
-```
-
-### Security vulnerabilities
-
-**SQL Injection**:
-```python
-# Bad
-query = f"SELECT * FROM users WHERE id = {user_id}"
-
-# Good
-query = "SELECT * FROM users WHERE id = %s"
-cursor.execute(query, (user_id,))
-```
-
-**XSS**:
-```javascript
-// Bad
-element.innerHTML = userInput;
-
-// Good
-element.textContent = userInput;
-```
-
-**Hardcoded secrets**:
-```python
-# Bad
-API_KEY = "sk-1234567890abcdef"
-
-# Good
-API_KEY = os.environ.get("API_KEY")
-```
-
-## Best practices
-
-1. **Review promptly**: Don't make authors wait
-2. **Be respectful**: Focus on code, not the person
-3. **Explain why**: Don't just say what's wrong
-4. **Suggest alternatives**: Show better approaches
-5. **Use examples**: Code examples clarify feedback
-6. **Pick your battles**: Focus on important issues
-7. **Acknowledge good work**: Positive feedback matters
-8. **Review your own code first**: Catch obvious issues
-9. **Use automated tools**: Let tools catch style issues
-10. **Be consistent**: Apply same standards to all code
-
-## Tools to use
-
-**Linters**:
-- Python: pylint, flake8, black
-- JavaScript: eslint, prettier
-- Go: golint, gofmt
-- Rust: clippy, rustfmt
-
-**Security**:
-- Bandit (Python)
-- npm audit (Node.js)
-- OWASP Dependency-Check
-
-**Code quality**:
-- SonarQube
-- CodeClimate
-- Codacy
-
-## References
-
-- [Google Code Review Guidelines](https://google.github.io/eng-practices/review/)
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [Clean Code by Robert C. Martin](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
+### Step 1: Establish review context
+
+Start by pinning down:
+
+- change intent: feature, bug fix, refactor, migration, dependency update, or rollout change
+- blast radius: how many files or subsystems changed and whether critical paths moved
+- verification evidence: tests, typecheck, lint, screenshots, or manual checks already provided
+- risk class: auth, data integrity, billing, API compatibility, performance, or operational safety
+
+If the request has no diff, patch, or code artifact to inspect, do not fake a review.
+Route to a better-fit planning or analysis skill instead.
+
+### Step 2: Look for findings before style comments
+
+Prioritize this order:
+
+1. correctness and regression risk
+2. security and trust-boundary mistakes
+3. data-loss or compatibility risk
+4. missing or weak verification
+5. maintainability issues that are likely to cause future bugs
+
+Do not lead with formatting or naming unless the change is otherwise clean.
+
+Read `references/review-priorities.md` when the diff is large or the important
+findings are hard to rank.
+
+### Step 3: Inspect the diff by failure mode
+
+Check the change against these questions:
+
+- Does the implementation actually satisfy the stated intent?
+- Did control flow, error handling, or cleanup behavior change in a risky way?
+- Are there hidden behavior changes at boundaries such as auth, persistence, API schemas, caching, concurrency, or background jobs?
+- Did the change add new assumptions without validation, fallback handling, or migration support?
+- Does the test evidence prove the risky paths, or only the happy path?
+
+Prefer concrete evidence over generic checklists. A small focused finding beats
+ten broad reminders.
+
+### Step 4: Treat missing verification as a review issue
+
+Review is not complete just because the code "looks fine."
+
+- If the risky behavior is untested, say so explicitly
+- Distinguish missing merge-blocking evidence from nice-to-have follow-up coverage
+- Tie the missing test request to a concrete failure mode
+- Route policy questions to `testing-strategies` and implementation work to the relevant testing skill
+
+Read `references/findings-format-and-severity.md` when deciding whether to block
+on missing tests or weaker evidence.
+
+### Step 5: Produce a findings-first review
+
+Expected response order:
+
+1. `Findings` — ordered by severity, each with file/line references when possible
+2. `Open questions / assumptions` — only if they materially affect correctness
+3. `Change summary` — brief and secondary
+
+Each finding should include:
+
+- severity: critical, high, medium, or low
+- what is wrong or risky
+- why it matters in behavior, not only in style
+- what evidence is missing or what change would address it
+
+If there are no material findings, say so explicitly and still mention any residual
+risk or verification gaps.
+
+## Output format
+
+Expected response shape:
+
+- `Findings`: findings first, ordered by severity, with file/line references where possible
+- `Open questions / assumptions`: only unresolved issues that affect the review verdict
+- `Change summary`: brief recap of what the diff does
+- `Residual risk`: anything not fully proven by available verification
 
 ## Examples
 
-### Example 1: Basic usage
-<!-- Add example content here -->
+### Example 1: Review a risky auth change
 
-### Example 2: Advanced usage
-<!-- Add advanced example content here -->
+Input:
+
+```text
+Review this PR that changes token refresh handling and session invalidation.
+```
+
+Expected shape:
+
+- focuses on auth and session-boundary regressions before style
+- checks whether failure and expiry paths are actually covered
+- calls out merge-blocking findings before summaries
+
+### Example 2: Review a broad refactor
+
+Input:
+
+```text
+Please review this refactor before I merge it. I mostly want to know if there are regression risks or missing tests.
+```
+
+Expected shape:
+
+- looks for behavior drift and hidden assumptions instead of naming-only feedback
+- treats missing regression coverage as a real review finding when warranted
+- keeps any summary short after the findings list
+
+### Example 3: Route away when there is no diff
+
+Input:
+
+```text
+Review this architecture direction for our checkout redesign.
+```
+
+Expected shape:
+
+- notes that this is not a code review because no concrete change set exists
+- routes to a planning, architecture, or design-analysis surface instead
+- does not pretend to produce diff findings without evidence
+
+## Best practices
+
+- Start from the diff's real risk, not a canned checklist.
+- Prefer a few concrete findings over a long list of weak comments.
+- Treat missing test evidence as part of review quality.
+- Keep findings behavior-focused and reference-backed.
+- Add eval coverage before any `skill-autoresearch` loop on this skill.
+- Move detailed heuristics into references so the entrypoint stays compact and triggerable.
+
+## References
+
+- Local: `references/review-priorities.md`
+- Local: `references/findings-format-and-severity.md`
