@@ -107,9 +107,9 @@ Date: 2026-04-19
 
 ## Current state
 
-- Current state: PR `#59` is merged; PR `#60` is now open for the bounded
-  `testing-strategies` packaging pass
+- Current state: PR `#59` is merged; PR `#60` has completed a clean review pass
+  for the bounded `testing-strategies` packaging lane and is ready to merge
 - PR: https://github.com/akillness/oh-my-gods/pull/60
 - Blocker: none
-- Next owner: PR review on the next run, then merge if the review stays clean
-- Stage: `pr-open`
+- Next owner: merge path now
+- Stage: `merge`

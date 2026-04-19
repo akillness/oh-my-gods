@@ -117,8 +117,9 @@ This order is locked because:
 
 - State: React guidance and `ralphmode` remain closed after PRs `#56` and
   `#57` merged; PRs `#58` and `#59` closed the `workflow-automation` lane and
-  PR `#60` is now open for the bounded `testing-strategies` packaging pass
+  PR `#60` has now cleared review for the bounded `testing-strategies`
+  packaging pass
 - PR: https://github.com/akillness/oh-my-gods/pull/60
 - Blocker: none
-- Next owner: PR review on the next scheduled run, then merge if the review stays clean
-- Stage: `pr-open`
+- Next owner: merge path now
+- Stage: `merge`
