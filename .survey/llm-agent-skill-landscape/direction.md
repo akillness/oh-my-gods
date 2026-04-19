@@ -24,9 +24,10 @@
   https://github.com/akillness/oh-my-gods/pull/60
 - PR `#61` for `code-review` is merged:
   https://github.com/akillness/oh-my-gods/pull/61
-- PR `#62` for `security-best-practices` is open, draft, and mergeable after a
-  clean re-review:
+- PR `#62` for `security-best-practices` is merged:
   https://github.com/akillness/oh-my-gods/pull/62
+- PR `#63` for `code-refactoring` is open and mergeable:
+  https://github.com/akillness/oh-my-gods/pull/63
 - Repo-wide validation passes at `80/80` skills with `0` spec violations on
   the active branch when run via `python3 validate_frontmatter.py`.
 - `react-best-practices`, `vercel-react-best-practices`, `ralphmode`,
@@ -64,15 +65,16 @@ The landscape signal remains stable as of April 19, 2026:
    requests while the previous skill still lacked references and evals.
 8. PRs `#58` and `#59` closed the `workflow-automation` lane, PR `#60` closed
    `testing-strategies`, and PR `#61` closed `code-review`.
-9. The current run's survey identified `security-best-practices` as the best
-   immediate packaging target because it was still inline-heavy, central, and
+9. The previous run's survey identified `security-best-practices` as the best
+   immediate packaging target because it was inline-heavy, central, and
    missing both `references/` and `evals/`.
-10. PR `#62` now carries that bounded `security-best-practices` package, and
-    the scheduled re-review found no remaining standardization gaps.
-11. After `security-best-practices` closes, `code-refactoring` becomes the
-    strongest remaining general-purpose gap because it is one of the repo's
-    largest development skills and still lacks the references/evals package
-    now common in the better-maintained lanes.
+10. PR `#62` is now merged, so that lane is closed.
+11. `code-refactoring` became the strongest remaining general-purpose gap
+    because it was one of the repo's largest development skills and still
+    lacked the references/evals package now common in the better-maintained
+    lanes.
+12. PR `#63` now carries the bounded `code-refactoring` package and moves the
+    loop from survey/improvement into PR-open for the next review pass.
 
 ## Locked direction
 
@@ -84,11 +86,10 @@ Advance one bounded lane per run, in this order:
 4. Keep `workflow-automation` closed after PR `#59` merged
 5. Keep `testing-strategies` closed after PR `#60` merged
 6. Keep `code-review` closed after PR `#61` merged
-7. Keep the current `security-best-practices` lane bounded to packaging,
-   review it once after PR registration, and close it if the branch stays clean
-8. Standardize `code-refactoring` so its cleanup boundary is measurable and packaged
-9. Open a bounded PR for the `code-refactoring` packaging lane
-10. Revisit `skill-autoresearch` only after the next packaged target still
+7. Keep `security-best-practices` closed after PR `#62` merged
+8. Keep `code-refactoring` bounded to packaging and route clarity only
+9. Run the next scheduled pass as a PR review on `code-refactoring`
+10. Revisit `skill-autoresearch` only after the packaged target still
     shows measured failures
 
 This order is locked because:
@@ -96,11 +97,10 @@ This order is locked because:
 - Reopening merged lanes would only duplicate already-closed work.
 - `workflow-automation`, `testing-strategies`, and `code-review` are now
   closed after their merged PRs.
-- `security-best-practices` was the strongest open lane for this run because
-  it was still central, inline-heavy, and missing support files.
-- `code-refactoring` becomes the strongest remaining general-purpose gap once
-  PR `#62` closes because it is large, high-frequency, and still lacks the
-  references/evals package now common in the better-maintained lanes.
+- `security-best-practices` is now closed because PR `#62` merged.
+- `code-refactoring` is now the active open lane because it was large,
+  high-frequency, and lacked the references/evals package now common in the
+  better-maintained lanes.
 - Starting a mutation loop before every discovery surface and eval assertion is
   internally consistent would still optimize the wrong layer.
 
@@ -121,8 +121,8 @@ This order is locked because:
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 | `code-review` | Closed high-leverage lane | No | No | Added focused review-priority and findings-format references | Added trigger, route-out, and findings-first evals | No | Keep closed unless review feedback or new measured failures reopen it |
-| `security-best-practices` | High | Not yet | No | No | Added focused hardening and verification references | Added trigger, route-out, and verification evals | Merge the clean PR `#62`, then keep closed unless review feedback or measured failures reopen it |
-| `code-refactoring` | High after PR `#62` closes | Not yet | No | No | Needs focused cleanup-plan and behavior-lock references | Needs trigger, route-out, and behavior-preservation evals | Standardize it first, then decide whether mutation work is justified |
+| `security-best-practices` | Closed high-leverage lane | Not yet | No | No | Added focused hardening and verification references | Added trigger, route-out, and verification evals | Keep closed unless review feedback or measured failures reopen it |
+| `code-refactoring` | High active lane | Not yet | No | No | Added focused cleanup-slice and behavior-lock references | Added trigger, route-out, and behavior-preservation evals | Review PR `#63`, then decide whether mutation work is justified only if measured failures remain |
 
 ## Packaging decision for the active lane
 
@@ -146,29 +146,26 @@ This order is locked because:
   - References: yes, keep focused review-priority and findings-format guidance
   - Evals: yes, keep trigger, route-out, and findings-first review assertions
   - Skill-autoresearch: still deferred unless later measured failures appear
-- Active lane on this run: `security-best-practices`
+- Closed lane on the previous run: `security-best-practices`
   - Assets: no
   - Scripts: no
   - References: yes, keep focused hardening-control and verification/rollout
     guidance
   - Evals: yes, keep trigger, route-out, and verification assertions
   - Skill-autoresearch: defer unless later measured failures appear
-- Active lane on the next run after PR `#62` closes: `code-refactoring`
+- Active lane on this run: `code-refactoring`
   - Assets: no
   - Scripts: no
-  - References: yes, add focused cleanup-plan and behavior-lock guidance
-  - Evals: yes, add trigger, route-out, and behavior-preservation assertions
+  - References: yes, keep focused cleanup-slice and behavior-lock guidance
+  - Evals: yes, keep trigger, route-out, and behavior-preservation assertions
   - Skill-autoresearch: defer until the packaged lane still misses measured
     checks
 
 ## Current state
 
-- State: PR `#62` is open for the bounded
-  `security-best-practices` packaging lane after the survey selected it as the
-  next high-value target, and the scheduled re-review found no duplicate work,
-  no missing support surfaces, and no remaining validator gaps.
-- PR: https://github.com/akillness/oh-my-gods/pull/62
+- State: PR `#63` is open for the bounded `code-refactoring` packaging lane,
+  and the validator-clean package is ready for the next review pass.
+- PR: https://github.com/akillness/oh-my-gods/pull/63
 - Blocker: none
-- Next owner: current run to merge PR `#62`, then the next scheduled
-  improvement run on `code-refactoring`
-- Stage: `merge`
+- Next owner: next scheduled review run on `code-refactoring`
+- Stage: `pr-open`

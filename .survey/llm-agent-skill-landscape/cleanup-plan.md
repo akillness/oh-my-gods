@@ -2,15 +2,15 @@
 
 ## Goal
 
-Advance the recurring improvement loop after `security-best-practices` closes
+Advance the recurring improvement loop after `security-best-practices` closed
 by standardizing `code-refactoring`. Keep the work focused on packaging and
 boundary repair: tighten the trigger wording, add concise reference files, add
-eval coverage, and decide whether `skill-autoresearch` is still unnecessary
-after that package exists.
+eval coverage, open a narrow PR, and keep `skill-autoresearch` deferred until
+measured failures remain after this package is reviewed.
 
 ## Behavior lock
 
-- Keep the next run focused on `code-refactoring` only.
+- Keep the current PR-review run focused on `code-refactoring` only.
 - Do not reopen already-merged unrelated lanes.
 - Keep the support package decision explicit:
   - `assets`: no
@@ -24,12 +24,12 @@ after that package exists.
 ## Planned checks
 
 1. Re-read `code-refactoring` for generic or catch-all wording.
-2. Add only the references and evals needed to make the skill measurable.
+2. Keep only the references and evals needed to make the skill measurable.
 3. Re-run repo validation with the repo-local validator.
-4. Open a narrow PR for the packaged `code-refactoring` lane.
+4. Review PR `#63` for duplicate work, missing support surfaces, or stale lock state.
 
 ## Verification
 
 - `python3 validate_frontmatter.py`
 - `git diff --stat origin/main...HEAD`
-- `gh pr create --fill`
+- `gh pr view 63`
