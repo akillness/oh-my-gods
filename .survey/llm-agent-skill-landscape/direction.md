@@ -46,10 +46,9 @@ The landscape signal remains stable as of April 19, 2026:
 6. `workflow-automation` is therefore the right next lane after `ralphmode`
    merged, because task runners, local-CI parity, and hook guardrails are
    frequent requests while the current skill still lacked references and evals.
-7. The current review pass found that the new `workflow-automation` package now
-   covers the needed support surfaces without expanding into deployment or
-   infrastructure scope, so the lane can advance toward merge instead of
-   another improvement cycle.
+7. PR `#58` merged that repo-scoped package, but the delayed review lane found
+   one stale `SKILL.toon` surface and one still-soft eval set, so the active
+   work is now a narrow follow-up PR rather than a fresh skill rewrite.
 
 ## Locked direction
 
@@ -60,17 +59,18 @@ Advance one bounded lane per run, in this order:
 3. Keep `ralphmode` closed after PR `#57` merged
 4. Standardize `workflow-automation` so its trigger wording and repo boundary
    are measurable
-5. Move the reviewed `workflow-automation` PR onto the merge path
-6. Revisit `skill-autoresearch` only after a merged, eval-backed target still
-   shows measured failures
+5. Repair compact discovery and eval drift for `workflow-automation` in a
+   narrow follow-up PR
+6. Revisit `skill-autoresearch` only after the follow-up PR merges and the
+   target still shows measured failures
 
 This order is locked because:
 
 - Reopening merged lanes would only duplicate already-closed work.
 - `workflow-automation` is a high-frequency repo skill whose previous form was
   too generic to benefit from reliable triggering or measured optimization.
-- Starting a mutation loop before `workflow-automation` has explicit eval
-  coverage would optimize the wrong layer.
+- Starting a mutation loop before every discovery surface and eval assertion is
+  internally consistent would optimize the wrong layer.
 
 ## Skill-autoresearch triage
 
@@ -84,7 +84,7 @@ This order is locked because:
 | `react-best-practices` | Closed high-leverage lane | No | No | No | Reuse bundled `AGENTS.md` | Added | Keep closed unless review feedback or measured failures reopen it |
 | `vercel-react-best-practices` | Closed high-leverage lane | No | No | No | Point to canonical skill only | Added | Keep closed unless review feedback or measured failures reopen it |
 | `ralphmode` | Closed high-leverage lane | No | No | No | Existing permission profile reference merged | Added | Keep closed unless review feedback or measured failures reopen it |
-| `workflow-automation` | High | Not yet | No | No | Added | Added | Move the clean PR to merge and defer mutation work until later measured failures appear |
+| `workflow-automation` | High | Not yet | No | No | Added | Tightened in PR `#59` | Review and merge the narrow follow-up PR, then defer mutation work until later measured failures appear |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 
@@ -95,16 +95,17 @@ This order is locked because:
   - Scripts: no
   - References: yes, keep runner-selection and local-CI parity guidance
   - Evals: yes, keep trigger and repo-boundary coverage for task-runner
-    choice, local parity, and hook guardrails
+    choice, local parity, and hook guardrails, with explicit assertions in
+    PR `#59`
   - Skill-autoresearch: still deferred until the merged lane shows objective
     failures against the new eval-backed package
 
 ## Current state
 
-- State: React guidance and `ralphmode` are closed after PRs `#56` and `#57`
-  merged; `workflow-automation` is the active bounded lane and its review pass
-  found the new repo-scoped entrypoint, references, and evals ready for merge
-- PR: https://github.com/akillness/oh-my-gods/pull/58
+- State: React guidance and `ralphmode` remain closed after PRs `#56` and
+  `#57` merged; PR `#58` merged the main `workflow-automation` package and
+  PR `#59` is the active bounded follow-up for compact-surface and eval drift
+- PR: https://github.com/akillness/oh-my-gods/pull/59
 - Blocker: none
-- Next owner: merge path
-- Stage: `merge`
+- Next owner: PR review path
+- Stage: `pr-open`

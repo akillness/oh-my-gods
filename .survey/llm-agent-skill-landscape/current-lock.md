@@ -36,8 +36,10 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/56
 - PR `#57` for `ralphmode` is merged:
   https://github.com/akillness/oh-my-gods/pull/57
-- PR `#58` for `workflow-automation` is open:
+- PR `#58` for `workflow-automation` is merged:
   https://github.com/akillness/oh-my-gods/pull/58
+- PR `#59` for the `workflow-automation` follow-up lane is open:
+  https://github.com/akillness/oh-my-gods/pull/59
 
 ## Audit snapshot
 
@@ -49,9 +51,9 @@ Date: 2026-04-19
 - Official and primary-source signal now favors `workflow-automation` as the
   next packaging lane because repeatable repo operations are high-frequency and
   still benefit from compact entrypoints plus support files.
-- The repo-local audit surface is `validate_frontmatter.py`; the active lane
-  does not need extra scripts or assets beyond the references and evals already
-  added in PR `#58`.
+- The repo-local audit surface is `validate_frontmatter.py`; the active
+  follow-up lane only repairs compact discovery and eval wording after PR `#58`
+  merged.
 
 ## Target decisions
 
@@ -65,7 +67,7 @@ Date: 2026-04-19
 | `react-best-practices` | Merged via PR `#56` | No | No | Reuse bundled `AGENTS.md` | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
 | `vercel-react-best-practices` | Merged via PR `#56` | No | No | Point to canonical skill only | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
 | `ralphmode` | Merged via PR `#57` | No | No | Existing permission profile reference merged | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
-| `workflow-automation` | Reviewed open PR lane via `#58` | No | No | Added runner-selection and local-CI parity references | Added | Not yet | Move to merge path; reopen only if review feedback or measured failures appear |
+| `workflow-automation` | Merged via PR `#58`; compact-surface follow-up open in PR `#59` | No | No | Added runner-selection and local-CI parity references | Tightened in follow-up PR | Not yet | Review PR `#59`, then merge if no further discovery drift remains |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -73,11 +75,12 @@ Date: 2026-04-19
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Keep `workflow-automation` as the active lane through merge, because the
-  review pass found no duplicate work, missing support files, or standards
-  regressions in PR `#58`.
-- Defer `skill-autoresearch` until the `workflow-automation` lane is merged and
-  any remaining failures can be measured against the new eval surface.
+- Keep `workflow-automation` as the active lane only for the narrow PR `#59`
+  follow-up, because PR `#58` merged but left one stale compact discovery
+  surface and one too-soft eval file.
+- Defer `skill-autoresearch` until the `workflow-automation` follow-up is
+  merged and any remaining failures can be measured against the tightened eval
+  surface.
 
 ## Packaging decision for the active lane
 
@@ -86,15 +89,16 @@ Date: 2026-04-19
   - Scripts: no
   - References: yes, keep runner-selection and local-CI parity guidance
   - Evals: yes, keep trigger and repo-boundary coverage for task-runner choice,
-    local parity, and hook guardrails
+    local parity, and hook guardrails, with more explicit assertions in PR `#59`
   - Skill-autoresearch: still deferred until the merged lane shows measured
     failures against the new evals
 
 ## Current state
 
-- Current state: `workflow-automation` has completed its bounded PR review and
-  remains a repo-scoped entrypoint with references and evals intact
-- PR: https://github.com/akillness/oh-my-gods/pull/58
+- Current state: PR `#58` merged the main workflow-automation standardization
+  pass; PR `#59` is now the active bounded follow-up to repair stale
+  `SKILL.toon` metadata and tighten eval assertions
+- PR: https://github.com/akillness/oh-my-gods/pull/59
 - Blocker: none
-- Next owner: merge path
-- Stage: `merge`
+- Next owner: PR review path
+- Stage: `pr-open`
