@@ -68,9 +68,9 @@ Date: 2026-04-20
   focused references, eval coverage, and a refreshed `SKILL.toon`.
 - PR `#65` closed the `git-submodule` lane with route-focused references,
   detached-HEAD and boundary eval coverage, and a refreshed `SKILL.toon`.
-- Among still-open candidate lanes, `api-documentation` is now the highest-
-  value queued gap because it remains a large single-file docs skill with no
-  focused `references/` or `evals/`.
+- PR `#66` now carries the packaged `api-documentation` lane with focused
+  `references/`, `evals/`, and a refreshed `SKILL.toon`; the remaining work is
+  review hygiene rather than pre-PR packaging.
 
 ## Target decisions
 
@@ -93,7 +93,7 @@ Date: 2026-04-20
 | `code-refactoring` | Merged via PR `#63` | No | No | Added focused cleanup-slice and behavior-lock guidance | Added trigger, route-out, and behavior-preservation review checks | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `api-design` | Merged via PR `#64` | No | No | Added focused contract-boundary and review guidance | Added trigger, route-out, and compatibility-design checks | Not yet | Keep closed unless post-merge review evidence appears |
 | `git-submodule` | Merged via PR `#65` | No | No | Added focused setup/update/removal and CI guidance | Added trigger, route-out, and detached-HEAD workflow checks | Not yet | Keep closed unless review feedback or new measured failures appear |
-| `api-documentation` | Active next candidate | No | No | Needed | Needed | Not yet | Package the skill, open the PR path, and hand the next run to PR review |
+| `api-documentation` | PR `#66` open review lane | No | No | Added | Added | Not yet | Review the branch for duplicate work or lock drift, then merge if clean |
 
 ## Locked direction
 
@@ -103,9 +103,10 @@ Date: 2026-04-20
   longer shows missing support surfaces.
 - Keep `git-submodule` closed because PR `#65` is merged and the packaged lane
   no longer shows missing support surfaces.
-- Move `api-documentation` from queued candidate to active bounded lane.
+- Keep `api-documentation` on the PR-review path until the lock and packaged
+  skill stay internally consistent, then advance it to merge.
 - Defer `skill-autoresearch` until `api-documentation` or another packaged
-  target still shows measured failures after the PR-review pass.
+  target still shows measured failures after a clean review pass.
 
 ## Packaging decision for the active lane
 
@@ -121,21 +122,21 @@ Date: 2026-04-20
   - References: yes, keep focused setup, update, removal, and CI guidance
   - Evals: yes, keep trigger, route-out, and detached-HEAD workflow assertions
   - Skill-autoresearch: not justified until later measured failures appear
-- Active lane on this run: `api-documentation`
+- Review lane on this run: `api-documentation`
   - Assets: no
   - Scripts: no
-  - References: yes, add focused surface-selection and publishing/example
+  - References: yes, keep focused surface-selection and publishing/example
     guidance
-  - Evals: yes, add trigger, route-out, and docs-boundary assertions
-  - Skill-autoresearch: not justified until the packaged lane still misses
+  - Evals: yes, keep trigger, route-out, and docs-boundary assertions
+  - Skill-autoresearch: not justified unless the review-clean lane still misses
     objective checks
 
 ## Current state
 
 - Current state: PR `#65` is merged, PR `#66` is open for the bounded
-  `api-documentation` packaging lane, and the branch is ready for review.
+  `api-documentation` lane, and this run reviewed the branch for duplicate
+  work and lock drift.
 - PR: https://github.com/akillness/oh-my-gods/pull/66
 - Blocker: none
-- Next owner: review PR `#66` for duplicate work, missing improvements, or
-  standardization gaps; merge if the review stays clean
-- Stage: `pr-open`
+- Next owner: merge PR `#66` if the refreshed review state stays clean
+- Stage: `merge`

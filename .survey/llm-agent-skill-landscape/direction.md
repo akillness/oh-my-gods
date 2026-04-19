@@ -60,9 +60,9 @@ The landscape signal remains stable as of April 20, 2026:
    packaging and boundary repair on workflow-critical skills that still ship as
    generic single-file entrypoints with no eval-backed trigger surface.
 7. `git-submodule` is closed after PR `#65` merged.
-8. `api-documentation` is now the strongest remaining general-purpose
-   packaging target because it is still large, generic, and missing both
-   `references/` and `evals/`.
+8. `api-documentation` is now the active review target because PR `#66`
+   already packaged the lane with focused `references/` and `evals/`, and the
+   remaining job is review hygiene before merge.
 
 ## Locked direction
 
@@ -77,8 +77,8 @@ Advance one bounded lane per run, in this order:
 7. Keep `security-best-practices` closed after PR `#62` merged
 8. Keep `code-refactoring` closed after PR `#63` merged
 9. Keep `api-design` closed after PR `#64` merged
-10. Open the next bounded lane on `api-documentation` packaging and route
-    clarity
+10. Review PR `#66` for `api-documentation`, fix only bounded drift or missing
+    support, and merge if the lane stays clean
 11. Revisit `skill-autoresearch` only after the packaged target still
     shows measured failures
 
@@ -87,9 +87,9 @@ This order is locked because:
 - Reopening merged lanes would only duplicate already-closed work.
 - `api-design` no longer needs more packaging work because PR `#64` merged.
 - `git-submodule` is now closed because PR `#65` merged.
-- `api-documentation` is now the strongest remaining packaging target because
-  it is still large, generic, and missing both route-focused references and
-  evals.
+- `api-documentation` is the active review target because PR `#66` already
+  added route-focused references and evals, so the remaining work is a clean
+  review-to-merge pass.
 - Starting a mutation loop before every discovery surface and eval assertion is
   internally consistent would still optimize the wrong layer.
 
@@ -114,7 +114,7 @@ This order is locked because:
 | `code-refactoring` | Closed high-leverage lane | Not yet | No | No | Added focused cleanup-slice and behavior-lock references | Added trigger, route-out, and behavior-preservation evals | Keep closed unless review feedback or new measured failures reopen it |
 | `api-design` | Closed merged lane | No | No | Added focused contract-boundary and review references | Added trigger, route-out, and compatibility-design evals | Keep closed unless new review evidence appears |
 | `git-submodule` | Closed merged lane | No | No | Added | Added | Keep closed unless new review evidence appears |
-| `api-documentation` | Active high-leverage lane | Not yet | No | No | Needed | Needed | Package the skill and open the next PR path |
+| `api-documentation` | Active review lane on PR `#66` | Not yet | No | No | Added | Added | Fix only bounded drift or missing review feedback, then merge |
 
 ## Packaging decision for the active lane
 
@@ -163,20 +163,20 @@ This order is locked because:
   - References: yes, keep focused setup, update, removal, and CI guidance
   - Evals: yes, keep trigger, route-out, and detached-HEAD workflow assertions
   - Skill-autoresearch: defer unless later measured failures appear
-- Active lane on this run: `api-documentation`
+- Review lane on this run: `api-documentation`
   - Assets: no
   - Scripts: no
-  - References: yes, add focused docs-surface and publishing/example guidance
-  - Evals: yes, add trigger, route-out, and docs-boundary assertions
-  - Skill-autoresearch: defer until the packaged lane still misses measured
-    checks
+  - References: yes, keep focused docs-surface and publishing/example guidance
+  - Evals: yes, keep trigger, route-out, and docs-boundary assertions
+  - Skill-autoresearch: defer until the review-clean lane still misses
+    measured checks
 
 ## Current state
 
-- State: PR `#65` for `git-submodule` is merged; PR `#66` is now open for the
-  bounded `api-documentation` lane.
+- State: PR `#65` for `git-submodule` is merged; PR `#66` remains the bounded
+  `api-documentation` review lane after this run closed the remaining lock
+  drift.
 - PR: https://github.com/akillness/oh-my-gods/pull/66
 - Blocker: none
-- Next owner: review PR `#66` for duplicate work, missing improvements, or
-  standardization gaps; merge if the review stays clean
-- Stage: `pr-open`
+- Next owner: merge PR `#66` if the refreshed review state stays clean
+- Stage: `merge`
