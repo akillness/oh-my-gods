@@ -132,10 +132,10 @@ Date: 2026-04-20
 
 ## Current state
 
-- Current state: PR `#65` is merged, the next bounded lane is
-  `api-documentation`, and no review blocker is currently open on GitHub.
-- PR: none yet for `api-documentation`
+- Current state: PR `#65` is merged, PR `#66` is open for the bounded
+  `api-documentation` packaging lane, and the branch is ready for review.
+- PR: https://github.com/akillness/oh-my-gods/pull/66
 - Blocker: none
-- Next owner: package `api-documentation`, validate the lane, and open the next
-  PR path for review
-- Stage: `survey`
+- Next owner: review PR `#66` for duplicate work, missing improvements, or
+  standardization gaps; merge if the review stays clean
+- Stage: `pr-open`

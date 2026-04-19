@@ -173,10 +173,10 @@ This order is locked because:
 
 ## Current state
 
-- State: PR `#65` for `git-submodule` is merged; the next bounded lane is
-  `api-documentation`.
-- PR: none yet for `api-documentation`
+- State: PR `#65` for `git-submodule` is merged; PR `#66` is now open for the
+  bounded `api-documentation` lane.
+- PR: https://github.com/akillness/oh-my-gods/pull/66
 - Blocker: none
-- Next owner: package `api-documentation`, validate the branch, and open the
-  next PR path
-- Stage: `survey`
+- Next owner: review PR `#66` for duplicate work, missing improvements, or
+  standardization gaps; merge if the review stays clean
+- Stage: `pr-open`
