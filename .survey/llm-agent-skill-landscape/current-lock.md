@@ -52,6 +52,8 @@ Date: 2026-04-20
   https://github.com/akillness/oh-my-gods/pull/63
 - PR `#64` for `api-design` is merged:
   https://github.com/akillness/oh-my-gods/pull/64
+- PR `#65` for `git-submodule` is merged:
+  https://github.com/akillness/oh-my-gods/pull/65
 
 ## Audit snapshot
 
@@ -64,9 +66,11 @@ Date: 2026-04-20
 - The repo-local audit surface remains `validate_frontmatter.py`.
 - PR `#64` closed the `api-design` lane with a contract-first entrypoint,
   focused references, eval coverage, and a refreshed `SKILL.toon`.
-- Among still-open candidate lanes, `git-submodule` is now the highest-value
-  queued gap because it remains one of the largest general-purpose skills with
-  neither `references/` nor `evals/`.
+- PR `#65` closed the `git-submodule` lane with route-focused references,
+  detached-HEAD and boundary eval coverage, and a refreshed `SKILL.toon`.
+- Among still-open candidate lanes, `api-documentation` is now the highest-
+  value queued gap because it remains a large single-file docs skill with no
+  focused `references/` or `evals/`.
 
 ## Target decisions
 
@@ -88,7 +92,8 @@ Date: 2026-04-20
 | `security-best-practices` | Merged via PR `#62` | No | No | Added focused hardening and verification guidance | Added trigger, route-out, and verification assertions | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `code-refactoring` | Merged via PR `#63` | No | No | Added focused cleanup-slice and behavior-lock guidance | Added trigger, route-out, and behavior-preservation review checks | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `api-design` | Merged via PR `#64` | No | No | Added focused contract-boundary and review guidance | Added trigger, route-out, and compatibility-design checks | Not yet | Keep closed unless post-merge review evidence appears |
-| `git-submodule` | Active next candidate | No | No | Needed | Needed | Not yet | Package the skill, open the PR path, and hand the next run to PR review |
+| `git-submodule` | Merged via PR `#65` | No | No | Added focused setup/update/removal and CI guidance | Added trigger, route-out, and detached-HEAD workflow checks | Not yet | Keep closed unless review feedback or new measured failures appear |
+| `api-documentation` | Active next candidate | No | No | Needed | Needed | Not yet | Package the skill, open the PR path, and hand the next run to PR review |
 
 ## Locked direction
 
@@ -96,9 +101,11 @@ Date: 2026-04-20
   evidence reopens them.
 - Keep `api-design` closed because PR `#64` is merged and the packaged lane no
   longer shows missing support surfaces.
-- Move `git-submodule` from queued candidate to active bounded lane.
-- Defer `skill-autoresearch` until `git-submodule` or another packaged target
-  still shows measured failures after the PR-review pass.
+- Keep `git-submodule` closed because PR `#65` is merged and the packaged lane
+  no longer shows missing support surfaces.
+- Move `api-documentation` from queued candidate to active bounded lane.
+- Defer `skill-autoresearch` until `api-documentation` or another packaged
+  target still shows measured failures after the PR-review pass.
 
 ## Packaging decision for the active lane
 
@@ -108,20 +115,27 @@ Date: 2026-04-20
   - References: yes, keep focused contract-boundary and review guidance
   - Evals: yes, keep trigger, route-out, and compatibility-design assertions
   - Skill-autoresearch: not justified until later measured failures appear
-- Active lane on this run: `git-submodule`
+- Closed lane on the previous run: `git-submodule`
   - Assets: no
   - Scripts: no
-  - References: yes, add focused setup, update, removal, and CI guidance
-  - Evals: yes, add trigger, route-out, and detached-HEAD workflow assertions
+  - References: yes, keep focused setup, update, removal, and CI guidance
+  - Evals: yes, keep trigger, route-out, and detached-HEAD workflow assertions
+  - Skill-autoresearch: not justified until later measured failures appear
+- Active lane on this run: `api-documentation`
+  - Assets: no
+  - Scripts: no
+  - References: yes, add focused surface-selection and publishing/example
+    guidance
+  - Evals: yes, add trigger, route-out, and docs-boundary assertions
   - Skill-autoresearch: not justified until the packaged lane still misses
     objective checks
 
 ## Current state
 
-- Current state: PR `#64` is merged, PR `#65` is open for the bounded
-  `git-submodule` packaging lane, and GitHub reports the branch `CLEAN`.
-- PR: https://github.com/akillness/oh-my-gods/pull/65
+- Current state: PR `#65` is merged, the next bounded lane is
+  `api-documentation`, and no review blocker is currently open on GitHub.
+- PR: none yet for `api-documentation`
 - Blocker: none
-- Next owner: review PR `#65` for duplicate work, missing improvements, or
-  standardization gaps; merge if the review stays clean
-- Stage: `pr-open`
+- Next owner: package `api-documentation`, validate the lane, and open the next
+  PR path for review
+- Stage: `survey`
