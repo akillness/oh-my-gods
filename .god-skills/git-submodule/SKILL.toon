@@ -3,7 +3,6 @@ D:Decide when Git submodules are the right dependency boundary, then operate the
 G:git submodule gitmodules dependencies version-control ci
 R:
   git-workflow: generic Git history, rebase, merge, PR, and collaboration work
-  npm-git-install: package-manager delivery from a Git remote
   file-organization: broader repo-layout and vendoring decisions
 F:
   references/decision-and-setup.md: adoption, add flow, bootstrap, CI/private access

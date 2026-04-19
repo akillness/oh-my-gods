@@ -39,7 +39,8 @@ If the user mainly needs:
 
 - generic branch, merge, rebase, commit, or PR coordination, use
   `git-workflow`
-- package-manager delivery from a Git remote, use `npm-git-install`
+- package-manager delivery from a Git remote, keep it out of this skill and use
+  the package manager's own Git dependency workflow
 - broad repository structure or vendoring strategy beyond submodule mechanics,
   use `file-organization`
 
@@ -60,7 +61,8 @@ If the user mainly needs:
 - The main problem is generic Git history surgery, branch cleanup, or PR prep:
   use `git-workflow`
 - The main problem is consuming a package directly from Git in npm or pnpm:
-  use `npm-git-install`
+  keep it out of this skill and use the package manager's own Git dependency
+  workflow
 - The team already decided against submodules and needs a broader repo-layout
   decision instead
 
