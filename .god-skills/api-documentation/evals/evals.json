@@ -1,0 +1,48 @@
+{
+  "skill_name": "api-documentation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We already have an OpenAPI spec for our partner API, but integrators keep getting authentication and pagination wrong. Rewrite the docs so a new developer can make the first successful request and understand common errors.",
+      "expected_output": "A developer-facing docs packet built from an existing source of truth with quickstart, auth, pagination, error guidance, and examples.",
+      "assertions": [
+        "Output treats the existing OpenAPI spec as source of truth instead of redesigning the API",
+        "Output includes a quickstart or first-request path for a new integrator",
+        "Output documents auth, pagination, and error behavior explicitly",
+        "Output includes example requests or responses rather than only prose"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write webhook docs for order.created and order.updated events, including signature verification, retry behavior, and a local testing workflow.",
+      "expected_output": "Webhook-focused documentation that explains payloads, verification, retries, and testing without drifting into contract redesign.",
+      "assertions": [
+        "Output recognizes webhook documentation as the primary docs surface",
+        "Output includes signature verification or auth details for webhooks",
+        "Output includes retry, replay, ordering, or local testing guidance",
+        "Output avoids redesigning the event contract unless the source of truth is missing"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design our new billing API and write the docs portal for it.",
+      "expected_output": "A boundary-aware response that routes contract design to api-design before or alongside documentation planning.",
+      "assertions": [
+        "Output recognizes that API contract design belongs to api-design",
+        "Output does not pretend that docs publishing can replace unsettled contract work",
+        "Output preserves a documentation-focused boundary for the remaining work"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Add JavaScript SDK docs and curl examples for our file upload API, including rate limits and migration notes from v1 to v2.",
+      "expected_output": "Documentation that combines examples, operational notes, and migration guidance for SDK consumers and raw HTTP users.",
+      "assertions": [
+        "Output includes curl or request examples plus an SDK-oriented example or section",
+        "Output documents rate limits, retries, or other operational constraints where relevant",
+        "Output includes migration or deprecation guidance for the version change",
+        "Output stays in developer documentation territory rather than backend implementation"
+      ]
+    }
+  ]
+}

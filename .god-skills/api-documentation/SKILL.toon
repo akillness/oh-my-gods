@@ -1,18 +1,25 @@
 N:api-documentation
-D:Create comprehensive API documentation for developers. Use when documenting REST APIs, GraphQL sc...
-G:API-documentation OpenAPI Swagger REST GraphQL
-U[3]:
-  **API Development**: When adding new endpoints
-  **External Release**: Public API launch
-  **Team Collaboration**: Frontend-backend interface definition
-S[4]{n,action}:
-  1,OpenAPI (Swagger) Spec
-  2,Generate Documentation from Code (JSDoc/Decorators)
-  3,Interactive Documentation
-  4,Examples & Guides
-R[5]:
-  url
-  url
-  name
-  name
-  bearerAuth
+D:Write developer-facing API documentation for REST, GraphQL, webhook, and SDK surfaces. Use when...
+G:api-documentation OpenAPI Swagger REST GraphQL SDK developer-docs
+U[6]:
+  Publish or refresh REST, GraphQL, webhook, or SDK documentation for developers
+  Turn an existing OpenAPI spec, schema, or endpoint list into readable docs
+  Write getting-started guides, auth setup docs, and example requests for integrators
+  Document errors, pagination, rate limits, retries, and webhook verification
+  Add migration notes, changelog-linked release notes, or deprecation guidance
+  Organize a docs portal or reference set into clear entrypoints for developers
+S[7]{n,action}:
+  1,Frame the docs job before writing pages
+  2,Choose the right documentation surface
+  3,Write from the developer workflow
+  4,Make examples real and safe
+  5,Document operational semantics developers depend on
+  6,Organize the output packet
+  7,Review for docs-specific quality
+R[6]:
+  Docs publishing boundary, not contract design or backend implementation
+  Use source-of-truth artifacts instead of inventing API behavior
+  Separate quickstart, reference, webhook, SDK, and migration surfaces deliberately
+  Include real examples, auth, errors, and operational constraints
+  Route contract design to api-design and test strategy to backend-testing
+  Keep end-user help work in user-guide-writing
