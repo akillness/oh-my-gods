@@ -1,0 +1,45 @@
+{
+  "skill_name": "code-refactoring",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Refactor this 250-line request handler into something reviewable without changing behavior.",
+      "expected_output": "A behavior-preserving refactor plan that locks current behavior first, proposes a narrow cleanup slice, and avoids drifting into redesign.",
+      "assertions": [
+        "Response identifies current behavior or verification evidence that should be preserved before major cleanup edits",
+        "Response proposes a narrow refactor sequence such as extraction, duplication removal, or boundary cleanup instead of a broad rewrite",
+        "Response stays focused on behavior-preserving cleanup rather than architecture redesign"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review this refactor PR for regressions and tell me whether I should merge it.",
+      "expected_output": "A routing-aware response that recognizes code review is the primary job for this request.",
+      "assertions": [
+        "Response routes diff review work to `code-review`",
+        "Response does not position `code-refactoring` as the right owner for reviewing an existing PR",
+        "Response keeps the distinction between doing a refactor and reviewing one explicit"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "The flaky test started after a cleanup. Debug the root cause and fix it.",
+      "expected_output": "A routing-aware response that recognizes failure isolation belongs to debugging before further refactoring.",
+      "assertions": [
+        "Response routes root-cause isolation to `debugging`",
+        "Response does not treat active bug investigation as ordinary refactoring work",
+        "Response separates cleanup follow-up from defect diagnosis"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We need to clean up this service layer and decide what regression coverage is required before we touch it.",
+      "expected_output": "A response that keeps refactoring and validation-policy work distinct while preserving a behavior-first cleanup sequence.",
+      "assertions": [
+        "Response mentions locking behavior before major cleanup edits",
+        "Response routes validation-policy design to `testing-strategies` or concrete test implementation to `backend-testing` as appropriate",
+        "Response keeps the refactor scope smaller than a broad rewrite plus generic testing dump"
+      ]
+    }
+  ]
+}
