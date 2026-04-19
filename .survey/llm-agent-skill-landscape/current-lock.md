@@ -118,10 +118,10 @@ Date: 2026-04-20
 
 ## Current state
 
-- Current state: PR `#64` is merged, the previous lane is closed, and the
-  active work is the bounded `git-submodule` packaging lane.
-- PR: none yet for the active lane
+- Current state: PR `#64` is merged, PR `#65` is open for the bounded
+  `git-submodule` packaging lane, and GitHub reports the branch `CLEAN`.
+- PR: https://github.com/akillness/oh-my-gods/pull/65
 - Blocker: none
-- Next owner: package `git-submodule`, open the PR path, then hand the next
-  cycle to PR review
-- Stage: `improvement`
+- Next owner: review PR `#65` for duplicate work, missing improvements, or
+  standardization gaps; merge if the review stays clean
+- Stage: `pr-open`

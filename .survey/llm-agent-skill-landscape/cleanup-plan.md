@@ -27,6 +27,7 @@ is reviewed.
 2. Keep only the references and evals needed to make the skill measurable.
 3. Re-run repo validation with the repo-local validator.
 4. Open the next PR path as soon as the branch is validator-clean.
+5. Hand the next scheduled run to PR review once the lane is open.
 
 ## Verification
 
@@ -40,6 +41,6 @@ is reviewed.
   treating `api-design` as active.
 - `git-submodule` is the strongest remaining general-purpose gap because it is
   still workflow-critical and still lacks focused `references/` and `evals/`.
-- This run should package `git-submodule`, open the PR path, and hand the next
-  scheduled run to PR-review for that new lane unless a higher-priority
-  measured failure appears first.
+- This run should package `git-submodule`, open PR `#65`, and hand the next
+  scheduled run to PR review for that lane unless a higher-priority measured
+  failure appears first.
