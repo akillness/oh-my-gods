@@ -1,20 +1,29 @@
 N:workflow-automation
-D:Automate repetitive development tasks and workflows. Use when creating build scripts, automating ...
-G:automation scripts workflow npm-scripts Makefile
-U[3]:
-  **Repetitive tasks**: running the same commands every time
-  **Complex builds**: multi-step build processes
-  **Team onboarding**: a consistent development environment
-S[5]{n,action}:
-  1,npm scripts
-  2,Makefile
-  3,Husky + lint-staged (Git Hooks)
-  4,Task Runner scripts
-  5,GitHub Actions workflow automation
-R[6]:
-  uses
-  name
-  name
-  name
-  name
-  name
+D:Repo-scoped recurring workflow automation for setup build test lint release-prep and repo hygiene. Choose the lightest command surface, keep local-CI parity explicit, and add hooks or maintenance routines without drifting into deployment or environment provisioning.
+G:workflow-automation task-runner makefile just taskfile npm-scripts local-ci-parity pre-commit hooks repo-automation bootstrap
+
+U[5]:
+  Replace copied shell rituals with one repeatable repo command surface
+  Choose between package scripts make just or Taskfile for an existing repository
+  Add setup build test lint check or release-prep entrypoints without extra platform sprawl
+  Mirror the main CI quality lane locally without hiding slow or destructive tasks in default hooks
+  Add lightweight maintenance routines or fast local guardrails while keeping deployment and machine setup in sibling skills
+
+S[5]{n,action,details}:
+  1,Triage,Name the repeated jobs existing command surface team shape portability needs and risky side effects before picking a tool
+  2,Choose-Surface,Prefer existing package scripts then just or Taskfile then existing make then small scripts only when the workflow logic no longer fits cleanly inline
+  3,Keep-Parity,Expose a small top-level command set such as setup build test lint check and map check to the main local-CI parity lane
+  4,Constrain-Hooks,Keep hooks fast and deterministic; leave heavy integration browser publish deploy and destructive flows explicit or CI-only
+  5,Load-References,Read references/task-runner-selection.md for runner choice and references/local-ci-parity-and-hooks.md for quality-lane and guardrail policy when needed
+
+R[5]:
+  Keep workflow-automation repo-scoped and route deployment work to deployment-automation
+  Route Docker devcontainer and machine bootstrap work to system-environment-setup
+  Route .env precedence and config questions to environment-setup
+  Do not add a new task runner when the existing command surface already fits
+  Keep destructive or credentialed commands visibly opt-in rather than default hook behavior
+
+E[3]{desc,in,out}:
+  "Replace tribal shell history","Everyone copies setup lint test and build commands from Slack. I want one repeatable repo entrypoint without overengineering it.","Inventories the current commands, chooses one light surface, and proposes a small setup/build/test/lint/check command set"
+  "Choose a runner","Should this mixed Node and Python repo use npm scripts make just or Taskfile for local automation?","Compares multiple runner options against repo shape and recommends the lightest viable surface"
+  "Add local guardrails","Add pre-commit checks and a local CI-parity command, but keep expensive tests and publish steps out of default automation.","Separates fast hooks from CI-only checks and keeps publish or destructive flows opt-in"

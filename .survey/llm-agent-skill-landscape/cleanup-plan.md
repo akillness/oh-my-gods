@@ -1,36 +1,32 @@
-# Cleanup Plan: review `workflow-automation` before merge
+# Cleanup Plan: `workflow-automation` post-merge follow-up
 
 ## Goal
 
-Keep the recurring loop aligned with the highest-value open lane by running one
-bounded review pass on the open `workflow-automation` PR, confirming the new
-repo-scoped packaging is standards-clean, and moving the lane from `pr-open`
-to `merge` if no duplicate work or missing support surfaces remain.
+Repair the compact discovery and eval surfaces for `workflow-automation` after
+the merged lane review found one stale `SKILL.toon` file and one soft eval set.
+Keep the follow-up bounded to those two files, re-validate the repo, and reopen
+a narrow PR instead of broadening the lane.
 
 ## Behavior lock
 
-- Keep this run focused on the already-open `workflow-automation` lane.
-- Do not reopen already-merged lanes unless a shared blocker appears.
-- Keep the support package decision unchanged unless review evidence says
-  otherwise:
+- Keep this run focused on the follow-up `workflow-automation` lane only.
+- Do not reopen already-merged unrelated lanes.
+- Keep the support package decision unchanged:
   - `assets`: no
   - `scripts`: no
   - `references`: keep the added runner-selection and local-CI parity guides
-  - `evals`: keep the added trigger and boundary checks
-- Do not start a `skill-autoresearch` mutation loop in this run unless the
-  review finds measured failures against the new eval-backed package.
+  - `evals`: tighten the existing checks without changing the covered prompts
+- Do not start a `skill-autoresearch` mutation loop in this run.
 
 ## Planned checks
 
-1. Re-read the skill, references, and evals for duplicate or missing guidance.
-2. Re-run repo validation with the repo-local validator.
-3. Confirm the PR is still bounded to the active lane and is mergeable.
-4. If the review is clean, refresh the survey lock files so the lane is
-   recorded as merge-ready.
+1. Sync `SKILL.toon` to the current repo-scoped `SKILL.md` intent.
+2. Tighten eval assertions so they are more explicit and testable.
+3. Re-run repo validation with the repo-local validator.
+4. Open a narrow follow-up PR for the repaired discovery/eval surfaces.
 
 ## Verification
 
 - `python3 validate_frontmatter.py`
 - `git diff --stat main...HEAD`
-- `gh pr view 58 --json number,state,headRefName,baseRefName,isDraft,mergeable,url`
-- `gh pr diff 58 --name-only`
+- `gh pr create --fill`
