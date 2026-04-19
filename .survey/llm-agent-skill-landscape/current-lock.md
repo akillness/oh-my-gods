@@ -103,9 +103,9 @@ Date: 2026-04-19
 
 ## Current state
 
-- Current state: React guidance is closed after PR `#56` merged; the active run
-  has moved to `ralphmode`
-- PR: not opened yet for the `ralphmode` lane
+- Current state: React guidance is closed after PR `#56` merged; the active
+  `ralphmode` lane is now in PR review
+- PR: https://github.com/akillness/oh-my-gods/pull/57
 - Blocker: none
-- Next owner: nanoclaw_pd improvement path
-- Stage: `improvement`
+- Next owner: PR review path
+- Stage: `pr-open`

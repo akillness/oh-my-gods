@@ -91,8 +91,8 @@ This order is locked because:
 ## Current state
 
 - State: React guidance is closed after PR `#56` merged; `ralphmode` is the
-  active bounded improvement lane
-- PR: not opened yet for `ralphmode`
+  active bounded lane and is now in PR review
+- PR: https://github.com/akillness/oh-my-gods/pull/57
 - Blocker: none
-- Next owner: nanoclaw_pd improvement path
-- Stage: `improvement`
+- Next owner: PR review path
+- Stage: `pr-open`
