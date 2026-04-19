@@ -1,14 +1,15 @@
 N:code-refactoring
-D:Simplify and refactor code while preserving behavior, improving clarity, and reducing complexity....
-G:refactoring code-quality DRY SOLID design-patterns
-U[4]:
-  **Code review**: Discovering complex or duplicated code
-  **Before adding new features**: Cleaning up existing code
-  **After bug fixes**: Removing root causes
-  **Resolving technical debt**: Regular refactoring
+D:Refactor code safely with a behavior-preserving workflow for decomposition, duplication removal, naming cleanup, module splits...
+G:refactoring code-quality duplication-removal clean-code naming codemod
+U[5]:
+  Simplify complex or duplicated code without changing intended behavior
+  Break a large function, file, class, or component into smaller reviewable pieces
+  Clean up naming, boundaries, or repeated logic before adding more features
+  Plan or execute a repeated migration or codemod-style cleanup safely
+  Reduce technical debt when the user wants clearer implementation, not redesign
 S[5]{n,action}:
-  1,Extract Method
-  2,Remove Duplication
-  3,Replace Conditional with Polymorphism
-  4,Introduce Parameter Object
-  5,Apply SOLID Principles
+  1,Triage the cleanup boundary before editing
+  2,Lock behavior before structural cleanup
+  3,Choose the smallest refactor slice that changes the least behavior
+  4,Apply the refactor in reversible steps
+  5,Verify behavior and route follow-on work correctly

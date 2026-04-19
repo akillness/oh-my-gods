@@ -49,9 +49,11 @@ Date: 2026-04-19
   https://github.com/akillness/oh-my-gods/pull/60
 - PR `#61` for `code-review` is merged:
   https://github.com/akillness/oh-my-gods/pull/61
-- PR `#62` for `security-best-practices` is open, draft, and mergeable after a
-  clean re-review:
+- PR `#62` for `security-best-practices` is merged:
   https://github.com/akillness/oh-my-gods/pull/62
+- PR `#63` for `code-refactoring` is open and mergeable after a clean review
+  pass:
+  https://github.com/akillness/oh-my-gods/pull/63
 
 ## Audit snapshot
 
@@ -65,13 +67,19 @@ Date: 2026-04-19
   trigger surfaces now matter even more as GitHub's `gh skill` support expands
   cross-host discovery and installation.
 - The repo-local audit surface remains `validate_frontmatter.py`.
-- PR `#62` raises `security-best-practices` to the repo's compact
-  review-and-design baseline with focused references, eval coverage, and
+- PR `#62` closed the `security-best-practices` lane at the repo's compact
+  review-and-design baseline with focused references, eval coverage, and a
   refreshed `SKILL.toon`.
-- After PR `#62` closes, the next highest-value open gap is `code-refactoring`:
-  it is the longest remaining general-purpose development skill in the repo
-  and still ships as a monolithic entrypoint with no `references/` or
-  `evals/` package.
+- PR `#63` now carries the bounded `code-refactoring` package: compact
+  behavior-preserving entrypoint, focused references, eval coverage, and a
+  refreshed `SKILL.toon`.
+- The scheduled review pass on April 19, 2026 found no duplicate work, no
+  missing support surfaces, no review comments, and no new validation failures
+  on PR `#63`.
+- Repo-wide support-gap scanning now points to `api-design` as the next
+  highest-value general-purpose lane after `code-refactoring` closes because it
+  remains a large, workflow-critical skill with no focused `references/` or
+  `evals/` package yet.
 
 ## Target decisions
 
@@ -90,8 +98,9 @@ Date: 2026-04-19
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 | `code-review` | Merged via PR `#61` | No | No | Added focused review-priority and findings-format guidance | Added trigger, route-out, and findings-first review checks | No | Keep closed unless review feedback or new measured failures appear |
-| `security-best-practices` | PR `#62` open; review clean; mergeable | No | No | Added focused hardening and verification guidance | Added trigger, route-out, and verification assertions | Not yet | Merge PR `#62`, then keep closed unless review feedback or new measured failures appear |
-| `code-refactoring` | Next high-frequency legacy lane after `security-best-practices` closes | No | No | Yes, add focused cleanup-plan and behavior-lock guidance | Yes, add trigger, route-out, and behavior-preservation review checks | Not yet | Open the next bounded packaging lane after PR `#62` closes |
+| `security-best-practices` | Merged via PR `#62` | No | No | Added focused hardening and verification guidance | Added trigger, route-out, and verification assertions | Not yet | Keep closed unless review feedback or new measured failures appear |
+| `code-refactoring` | PR `#63` open; package landed; review pass clean | No | No | Added focused cleanup-slice and behavior-lock guidance | Added trigger, route-out, and behavior-preservation review checks | Not yet | Merge PR `#63`, then move the next scheduled survey to `api-design` |
+| `api-design` | Next candidate after `code-refactoring` | No | No | Not yet | Not yet | Not yet | Survey and package as the next bounded lane if no new higher-priority gap appears |
 
 ## Locked direction
 
@@ -103,11 +112,14 @@ Date: 2026-04-19
   still passes.
 - Keep `code-review` closed because PR `#61` merged, the review pass found no
   further blockers, and validation still passes.
-- Move the current run through PR `#62` for `security-best-practices`, because
-  the branch is review-clean, validator-clean, and mergeable.
-- Move the next run onto `code-refactoring`, because it is now the strongest
-  remaining general-purpose monolith without the references and eval package
-  expected across the repo's stronger lanes once PR `#62` closes.
+- Keep `security-best-practices` closed because PR `#62` is merged and the lane
+  no longer has open review work.
+- Close the `code-refactoring` lane if PR `#63` stays merge-clean, because the
+  scheduled review pass found no duplicate work, no missing package surfaces,
+  and no validation regressions.
+- Move the next scheduled run onto `api-design`, because repo-wide gap scanning
+  shows it is now one of the largest remaining core skills without focused
+  `references/` and `evals/` support.
 - Defer `skill-autoresearch` until `code-refactoring` or another packaged target
   still shows measured failures after standardization.
 
@@ -133,30 +145,35 @@ Date: 2026-04-19
   - References: yes, keep focused review-priority and findings-format guidance
   - Evals: yes, keep trigger, route-out, and findings-first review assertions
   - Skill-autoresearch: still deferred unless later measured failures appear
-- Active lane on this run: `security-best-practices`
+- Closed lane on the previous run: `security-best-practices`
   - Assets: no
   - Scripts: no
   - References: yes, keep focused hardening-control and verification/rollout
     guidance
   - Evals: yes, keep trigger, route-out, and verification assertions
   - Skill-autoresearch: still deferred unless later measured failures appear
-- Active lane on the next run after PR `#62` closes: `code-refactoring`
+- Active lane on this run: `code-refactoring`
   - Assets: no
   - Scripts: no
-  - References: yes, add focused cleanup-plan and behavior-lock guidance
-  - Evals: yes, add trigger, route-out, and behavior-preservation review
+  - References: yes, keep focused cleanup-slice and behavior-lock guidance
+  - Evals: yes, keep trigger, route-out, and behavior-preservation review
     assertions
+  - Skill-autoresearch: not justified until the packaged lane still misses
+    objective checks
+- Next lane after merge: `api-design`
+  - Assets: no
+  - Scripts: no
+  - References: yes, add focused resource-modeling and compatibility guidance
+  - Evals: yes, add trigger, route-out, and backward-compatibility assertions
   - Skill-autoresearch: not justified until the packaged lane still misses
     objective checks
 
 ## Current state
 
-- Current state: PR `#62` is open for the bounded
-  `security-best-practices` packaging lane, and the scheduled re-review found
-  no duplicate work, no missing support surfaces, and no remaining validator
-  gaps.
-- PR: https://github.com/akillness/oh-my-gods/pull/62
+- Current state: PR `#63` for the bounded `code-refactoring` packaging lane
+  passed the scheduled review run cleanly and is ready to move through merge.
+- PR: https://github.com/akillness/oh-my-gods/pull/63
 - Blocker: none
-- Next owner: current run to advance PR `#62` through merge, then the next
-  scheduled improvement run on `code-refactoring`
+- Next owner: merge this PR, then hand the next scheduled survey/improvement
+  run to `api-design`
 - Stage: `merge`
