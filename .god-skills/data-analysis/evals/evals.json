@@ -18,7 +18,7 @@
       "expected_output": "A route-out response that recognizes dashboard-building as the primary job.",
       "assertions": [
         "Output recognizes dashboard or BI implementation as the main deliverable",
-        "Output routes the task to `looker-studio-bigquery`",
+        "Output routes the task to a dashboard or BI-specific skill, optionally naming `looker-studio-bigquery` when available",
         "Output does not keep `data-analysis` as the primary owner"
       ]
     },

@@ -44,6 +44,12 @@ Date: 2026-04-20
   bounded packaging gap because it was still a generic single-file skill with
   no local `references/`, no `evals/`, and weak route-outs across overlapping
   BI, logging, anomaly, and observability skills.
+- Review pass on April 20, 2026 found one bounded consistency issue in the
+  packaged `data-analysis` lane: it routed dashboard work directly to
+  `looker-studio-bigquery`, but that skill is not present in this repo. The
+  lane now routes to a dashboard or BI-specific skill such as
+  `looker-studio-bigquery` only when one is installed, which keeps the local
+  catalog consistent without losing the intended boundary.
 
 ## Target decisions
 
@@ -55,7 +61,7 @@ Date: 2026-04-20
 | `log-analysis` | Merged via PR `#70` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures appear |
 | `environment-setup` | Merged via PR `#71` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `user-guide-writing` | Merged via PR `#72` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `data-analysis` | PR `#73` open | No | No | Added | Added | No | Next run should review the open PR for duplicate work or missing gaps |
+| `data-analysis` | PR `#73` updated in review | No | No | Added | Added | No | Re-check PR `#73` after the bounded route-out fix, then merge if review stays clean |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
 
@@ -82,10 +88,10 @@ Date: 2026-04-20
 ## Current state
 
 - Current state: `user-guide-writing` is merged on `main`, `data-analysis` is
-  packaged and validated, and PR `#73` is now open for review.
+  packaged, validated, and updated once during PR review to remove a route-out
+  mismatch with the local skill catalog.
 - PR: https://github.com/akillness/oh-my-gods/pull/73
 - Blocker: none
-- Next owner: the next scheduled run should review PR `#73` for duplicate work,
-  missing improvements, or standardization gaps, then apply only a bounded
-  update if needed
-- Stage: `pr-open`
+- Next owner: this branch should be pushed and PR `#73` re-checked for clean
+  mergeability; if nothing else appears, the next owner can merge
+- Stage: `pr-review`

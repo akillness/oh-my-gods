@@ -8,7 +8,7 @@ U[5]:
   Summarize experiment, telemetry, finance, or stakeholder metrics packets
   Turn raw tables into evidence-backed decisions instead of chart dumps
 X[4]:
-  Dashboard or BI build -> looker-studio-bigquery
+  Dashboard or BI build -> dashboard or BI-specific skill (for example looker-studio-bigquery when installed)
   Raw log triage -> log-analysis
   Anomaly-only hunting -> pattern-detection
   Missing instrumentation or alert design -> monitoring-observability

@@ -14,6 +14,11 @@
   https://github.com/akillness/oh-my-gods/pull/73
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
+- PR review found one bounded follow-up fix: `data-analysis` must not hard-route
+  dashboard work to `looker-studio-bigquery` as if it were repo-local, because
+  this repository does not currently ship that skill. The route-out now points
+  to a dashboard or BI-specific skill such as `looker-studio-bigquery` only
+  when one is installed.
 
 ## Survey refresh
 
@@ -75,7 +80,7 @@ This order is locked because:
 | `log-analysis` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
 | `environment-setup` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
 | `user-guide-writing` | Closed merged lane | No | No | Added | Added | No | Keep closed unless new review evidence appears |
-| `data-analysis` | High and active | Not yet | No | No | Yes | Yes | Review the open PR, then apply only a bounded follow-up if needed |
+| `data-analysis` | High and active | Not yet | No | No | Yes | Yes | Push the bounded review fix, re-check PR `#73`, then merge if the review stays clean |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
@@ -98,10 +103,10 @@ This order is locked because:
 ## Current state
 
 - State: `environment-setup` and `user-guide-writing` remain closed; the active
-  lane is now `data-analysis` with PR `#73` open for review
+  lane is `data-analysis`, and PR `#73` is now in review with one bounded
+  route-out consistency fix applied
 - PR: https://github.com/akillness/oh-my-gods/pull/73
 - Blocker: none
-- Next owner: the next scheduled run should review PR `#73` for duplicate work,
-  missing improvements, or standardization gaps, and apply only a bounded
-  follow-up if needed
-- Stage: `pr-open`
+- Next owner: push the updated branch, confirm PR `#73` stays clean, then merge
+  if no new review evidence appears
+- Stage: `pr-review`

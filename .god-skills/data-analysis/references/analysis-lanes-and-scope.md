@@ -30,7 +30,7 @@ Capture:
 
 Route away when the primary deliverable is:
 
-- dashboard or BI build, refresh strategy, or stakeholder reporting surface: `looker-studio-bigquery`
+- dashboard or BI build, refresh strategy, or stakeholder reporting surface: a dashboard or BI-specific skill such as `looker-studio-bigquery` when installed
 - first-error isolation from logs or stack traces: `log-analysis`
 - anomaly-only or suspicious-pattern hunting: `pattern-detection`
 - instrumentation design, signal ownership, or alert coverage: `monitoring-observability`

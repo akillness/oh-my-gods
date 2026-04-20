@@ -6,9 +6,10 @@ description: >
   quality; explain trends; compare segments; summarize experiment or telemetry
   results; or turn raw tables into evidence-backed findings, even if they ask
   in domain language like KPI, retention, funnel, cohort, revenue, campaign,
-  export, dashboard data, or business report. Route dashboard-building to
-  `looker-studio-bigquery`, raw log triage to `log-analysis`, anomaly-only
-  hunts to `pattern-detection`, and missing instrumentation design to
+  export, dashboard data, or business report. Route dashboard-building to a
+  dashboard or BI-specific skill such as `looker-studio-bigquery` when one is
+  installed, raw log triage to `log-analysis`, anomaly-only hunts to
+  `pattern-detection`, and missing instrumentation design to
   `monitoring-observability`.
 allowed-tools: Read Grep Glob Bash
 metadata:
@@ -40,7 +41,7 @@ quality pass, segment comparison, experiment readout, or concise decision memo.
 
 ## When not to use this skill
 
-- The main deliverable is a BigQuery-backed Looker Studio dashboard or BI presentation layer: use `looker-studio-bigquery`
+- The main deliverable is a BigQuery-backed Looker Studio dashboard or BI presentation layer: route to a dashboard or BI-specific skill such as `looker-studio-bigquery` when available
 - The main problem is finding the first actionable failure in logs, stack traces, or incident output: use `log-analysis`
 - The main task is repeated-shape, fraud, smell, or anomaly hunting rather than broad analysis: use `pattern-detection`
 - The blocking issue is missing instrumentation, alerts, health signals, or telemetry design: use `monitoring-observability`
@@ -97,7 +98,7 @@ Do not dump raw tables without interpretation.
 
 ### Step 5: Keep route-outs explicit
 
-- Route dashboard implementation, refresh strategy, and BI interaction design to `looker-studio-bigquery`
+- Route dashboard implementation, refresh strategy, and BI interaction design to a dashboard or BI-specific skill such as `looker-studio-bigquery` when available
 - Route raw incident, CI, or application log triage to `log-analysis`
 - Route anomaly-only scans, suspicious repeated shapes, or rule-hunting to `pattern-detection`
 - Route missing instrumentation, telemetry ownership, and alert coverage to `monitoring-observability`
@@ -144,7 +145,7 @@ and campaign ROI.
 Expected shape:
 
 - recognizes the main job as dashboard presentation and refresh design
-- routes to `looker-studio-bigquery`
+- routes to a dashboard or BI-specific skill such as `looker-studio-bigquery` when available
 - does not keep `data-analysis` as the primary owner
 
 ### Example 3: Raw log request route-out
