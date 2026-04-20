@@ -1,0 +1,57 @@
+{
+  "skill_name": "data-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We exported signup, activation, and D7 retention by acquisition channel for the last six weeks. Find which channel mix actually improved activation and where the drop is coming from.",
+      "expected_output": "A data-analysis response that frames the question, checks whether the channel and time-window comparisons are trustworthy, and explains the observed movement with caveats.",
+      "assertions": [
+        "Output keeps the request on `data-analysis`",
+        "Output identifies a trust check such as date range, denominator, or comparability",
+        "Output explains the funnel or retention movement instead of only listing metrics",
+        "Output includes caveats, limits, or next actions"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Build a BigQuery-backed Looker Studio dashboard for weekly revenue, retention, and campaign ROI.",
+      "expected_output": "A route-out response that recognizes dashboard-building as the primary job.",
+      "assertions": [
+        "Output recognizes dashboard or BI implementation as the main deliverable",
+        "Output routes the task to a dashboard or BI-specific skill, optionally naming `looker-studio-bigquery` when available",
+        "Output does not keep `data-analysis` as the primary owner"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "These API logs are noisy and I need the first actionable error, not a business report.",
+      "expected_output": "A route-out response that recognizes raw log triage as the main task.",
+      "assertions": [
+        "Output recognizes the request as log or runtime triage",
+        "Output routes the task to `log-analysis`",
+        "Output does not frame the work as broad dataset analysis"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We cannot tell whether checkout is improving because we have no metrics, dashboards, or alert thresholds yet.",
+      "expected_output": "A route-out response that recognizes missing instrumentation and operator visibility as the blocker.",
+      "assertions": [
+        "Output recognizes missing telemetry or alert coverage as the primary blocker",
+        "Output routes the task to `monitoring-observability`",
+        "Output does not keep `data-analysis` as the primary owner"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "We exported refunds by region, plan, and support tier. Summarize where the biggest change came from and what the finance lead should investigate next.",
+      "expected_output": "A data-analysis response that turns a structured export into an evidence-backed decision memo with a concise next action.",
+      "assertions": [
+        "Output keeps the request on `data-analysis`",
+        "Output identifies relevant comparison dimensions such as region, plan, or support tier",
+        "Output separates findings from recommendations or next actions",
+        "Output is oriented toward a stakeholder decision rather than a dashboard build"
+      ]
+    }
+  ]
+}

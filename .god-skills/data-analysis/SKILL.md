@@ -1,223 +1,193 @@
 ---
 name: data-analysis
-description: Analyze datasets to extract insights, identify patterns, and generate reports. Use when exploring data, creating visualizations, or performing statistical analysis. Handles CSV, JSON, SQL queries, and Python pandas operations.
+description: >
+  Analyze datasets with a decision-first workflow. Use when the user needs to
+  inspect CSV, JSON, Parquet, spreadsheet, or SQL extracts; validate data
+  quality; explain trends; compare segments; summarize experiment or telemetry
+  results; or turn raw tables into evidence-backed findings, even if they ask
+  in domain language like KPI, retention, funnel, cohort, revenue, campaign,
+  export, dashboard data, or business report. Route dashboard-building to a
+  dashboard or BI-specific skill such as `looker-studio-bigquery` when one is
+  installed, raw log triage to `log-analysis`, anomaly-only hunts to
+  `pattern-detection`, and missing instrumentation design to
+  `monitoring-observability`.
 allowed-tools: Read Grep Glob Bash
 metadata:
-  tags: data, analysis, pandas, statistics, visualization, csv, sql
-  platforms: Claude, ChatGPT, Gemini
+  tags: data-analysis, csv, sql, pandas, metrics, funnel, cohort, retention
+  platforms: Claude, ChatGPT, Gemini, Codex
+  version: "2.0.0"
 ---
-
 
 # Data Analysis
 
+Data-analysis is the structured-dataset lane. Keep the main skill focused on
+turning raw tables, exports, query results, and metrics slices into
+evidence-backed findings instead of collapsing into dashboard-building, raw log
+triage, or pure anomaly hunting.
+
+Read `references/analysis-lanes-and-scope.md` when the first problem is
+figuring out whether the work is dataset triage, SQL slicing, notebook-scale
+analysis, or stakeholder summary. Read
+`references/data-quality-and-readout-shape.md` when the request needs a tighter
+quality pass, segment comparison, experiment readout, or concise decision memo.
 
 ## When to use this skill
 
-- **Data exploration**: Understand a new dataset
-- **Report generation**: Derive data-driven insights
-- **Quality validation**: Check data consistency
-- **Decision support**: Make data-driven recommendations
+- Inspect a CSV, JSON, Parquet, spreadsheet export, or SQL query result
+- Validate data quality, schema drift, nulls, duplicates, outliers, or bad joins
+- Explain KPI movement, funnels, retention, cohorts, campaign performance, or segment differences
+- Summarize experiments, telemetry exports, finance-style reports, or stakeholder metrics packets
+- Turn raw data into findings, caveats, and next actions instead of a pile of tables
+
+## When not to use this skill
+
+- The main deliverable is a BigQuery-backed Looker Studio dashboard or BI presentation layer: route to a dashboard or BI-specific skill such as `looker-studio-bigquery` when available
+- The main problem is finding the first actionable failure in logs, stack traces, or incident output: use `log-analysis`
+- The main task is repeated-shape, fraud, smell, or anomaly hunting rather than broad analysis: use `pattern-detection`
+- The blocking issue is missing instrumentation, alerts, health signals, or telemetry design: use `monitoring-observability`
 
 ## Instructions
 
-### Step 1: Load and explore data
+### Step 1: Frame the analysis before touching the data
 
-**Python (Pandas)**:
-```python
-import pandas as pd
-import numpy as np
+Capture the smallest useful brief:
 
-# Load CSV
-df = pd.read_csv('data.csv')
+- source: CSV, sheet, SQL result, event export, finance table, or telemetry slice
+- decision: what question must this analysis answer
+- grain: row meaning, time bucket, entity, cohort, or segment
+- success condition: what would count as a useful answer
+- constraint: freshness, sample bias, missing columns, or tooling limits
 
-# Basic info
-print(df.info())
-print(df.describe())
-print(df.head(10))
+If the real ask is a dashboard build, route it out before doing analysis work.
 
-# Check missing values
-print(df.isnull().sum())
+### Step 2: Run a fast trust check on the dataset
 
-# Data types
-print(df.dtypes)
-```
+Before deriving insights, check:
 
-**SQL**:
-```sql
--- Inspect table schema
-DESCRIBE table_name;
+- row count, date range, and key dimensions
+- nulls, duplicates, impossible values, and schema drift
+- join assumptions and whether totals reconcile
+- whether the metric denominator is stable
+- whether a slice is too small, too stale, or too biased to support a claim
 
--- Sample data
-SELECT * FROM table_name LIMIT 10;
+Report trust issues early instead of burying them under charts.
 
--- Basic stats
-SELECT
-    COUNT(*) as total_rows,
-    COUNT(DISTINCT column_name) as unique_values,
-    MIN(numeric_column) as min_val,
-    MAX(numeric_column) as max_val,
-    AVG(numeric_column) as avg_val
-FROM table_name;
-```
+### Step 3: Choose the right analysis lane
 
-### Step 2: Data cleaning
+Pick one primary lane:
 
-```python
-# Handle missing values
-df['column'].fillna(df['column'].mean(), inplace=True)
-df.dropna(subset=['required_column'], inplace=True)
+- dataset triage: understand shape, quality, and caveats
+- comparison: compare segments, cohorts, geos, plans, or channels
+- trend readout: explain movement over time
+- experiment readout: compare baseline versus variant with clear caveats
+- stakeholder summary: compress the findings into decisions and next actions
 
-# Remove duplicates
-df.drop_duplicates(inplace=True)
+Prefer one dominant lane, even if you touch a second one briefly.
 
-# Type conversions
-df['date'] = pd.to_datetime(df['date'])
-df['category'] = df['category'].astype('category')
+### Step 4: Produce findings that answer the decision
 
-# Remove outliers (IQR method)
-Q1 = df['value'].quantile(0.25)
-Q3 = df['value'].quantile(0.75)
-IQR = Q3 - Q1
-df = df[(df['value'] >= Q1 - 1.5*IQR) & (df['value'] <= Q3 + 1.5*IQR)]
-```
+For every finding:
 
-### Step 3: Statistical analysis
+- state the metric or slice
+- state the comparison or trend direction
+- note confidence or data limitations
+- avoid causal claims the data cannot support
+- separate observations from recommendations
 
-```python
-# Descriptive statistics
-print(df['numeric_column'].describe())
+Do not dump raw tables without interpretation.
 
-# Grouped analysis
-grouped = df.groupby('category').agg({
-    'value': ['mean', 'sum', 'count'],
-    'other': 'nunique'
-})
-print(grouped)
+### Step 5: Keep route-outs explicit
 
-# Correlation
-correlation = df[['col1', 'col2', 'col3']].corr()
-print(correlation)
-
-# Pivot table
-pivot = pd.pivot_table(df,
-    values='sales',
-    index='region',
-    columns='month',
-    aggfunc='sum'
-)
-```
-
-### Step 4: Visualization
-
-```python
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Histogram
-plt.figure(figsize=(10, 6))
-df['value'].hist(bins=30)
-plt.title('Distribution of Values')
-plt.savefig('histogram.png')
-
-# Boxplot
-plt.figure(figsize=(10, 6))
-sns.boxplot(x='category', y='value', data=df)
-plt.title('Value by Category')
-plt.savefig('boxplot.png')
-
-# Heatmap (correlation)
-plt.figure(figsize=(10, 8))
-sns.heatmap(correlation, annot=True, cmap='coolwarm')
-plt.title('Correlation Matrix')
-plt.savefig('heatmap.png')
-
-# Time series
-plt.figure(figsize=(12, 6))
-df.groupby('date')['value'].sum().plot()
-plt.title('Time Series of Values')
-plt.savefig('timeseries.png')
-```
-
-### Step 5: Derive insights
-
-```python
-# Top/bottom analysis
-top_10 = df.nlargest(10, 'value')
-bottom_10 = df.nsmallest(10, 'value')
-
-# Trend analysis
-df['month'] = df['date'].dt.to_period('M')
-monthly_trend = df.groupby('month')['value'].sum()
-growth = monthly_trend.pct_change() * 100
-
-# Segment analysis
-segments = df.groupby('segment').agg({
-    'revenue': 'sum',
-    'customers': 'nunique',
-    'orders': 'count'
-})
-segments['avg_order_value'] = segments['revenue'] / segments['orders']
-```
+- Route dashboard implementation, refresh strategy, and BI interaction design to a dashboard or BI-specific skill such as `looker-studio-bigquery` when available
+- Route raw incident, CI, or application log triage to `log-analysis`
+- Route anomaly-only scans, suspicious repeated shapes, or rule-hunting to `pattern-detection`
+- Route missing instrumentation, telemetry ownership, and alert coverage to `monitoring-observability`
 
 ## Output format
 
-### Analysis report structure
+Expected response shape:
 
-```markdown
-# Data Analysis Report
-
-## 1. Dataset overview
-- Dataset: [name]
-- Records: X,XXX
-- Columns: XX
-- Date range: YYYY-MM-DD ~ YYYY-MM-DD
-
-## 2. Key findings
-- Insight 1
-- Insight 2
-- Insight 3
-
-## 3. Statistical summary
-| Metric | Value |
-|------|-----|
-| Mean | X.XX |
-| Median | X.XX |
-| Std dev | X.XX |
-
-## 4. Recommendations
-1. [Recommendation 1]
-2. [Recommendation 2]
-```
-
-## Best practices
-
-1. **Understand the data first**: Learn structure and meaning before analysis
-2. **Incremental analysis**: Move from simple to complex analyses
-3. **Use visualization**: Use a variety of charts to spot patterns
-4. **Validate assumptions**: Always verify assumptions about the data
-5. **Reproducibility**: Document analysis code and results
-
-## Constraints
-
-### Required rules (MUST)
-1. Preserve raw data (work on a copy)
-2. Document the analysis process
-3. Validate results
-
-### Prohibited (MUST NOT)
-1. Do not expose sensitive personal data
-2. Do not draw unsupported conclusions
-
-## References
-
-- [Pandas Documentation](https://pandas.pydata.org/docs/)
-- [Matplotlib Gallery](https://matplotlib.org/stable/gallery/)
-- [Seaborn Tutorial](https://seaborn.pydata.org/tutorial.html)
+- `Question and data source`: what is being analyzed and why
+- `Data trust check`: row count, time range, and caveats
+- `Key findings`: the smallest set of findings that answer the decision
+- `Evidence`: the comparison, metric, or segment behind each finding
+- `Limits`: uncertainty, bias, or missing data that constrains the conclusion
+- `Next actions`: what to investigate, monitor, or decide next
+- `Route-out`: sibling skill if the request belongs elsewhere
 
 ## Examples
 
-### Example 1: Basic usage
-<!-- Add example content here -->
+### Example 1: Funnel or retention export
 
-### Example 2: Advanced usage
-<!-- Add advanced example content here -->
+Input:
+
+```text
+We exported signup, activation, and D7 retention by channel for the last six
+weeks. Find which channel mix actually improved activation and where the drop
+is coming from.
+```
+
+Expected shape:
+
+- keeps the work on `data-analysis`
+- checks whether the channel definitions and date windows are comparable
+- explains the funnel and retention movement with caveats
+
+### Example 2: Dashboard request route-out
+
+Input:
+
+```text
+Build a BigQuery-backed Looker Studio dashboard for weekly revenue, retention,
+and campaign ROI.
+```
+
+Expected shape:
+
+- recognizes the main job as dashboard presentation and refresh design
+- routes to a dashboard or BI-specific skill such as `looker-studio-bigquery` when available
+- does not keep `data-analysis` as the primary owner
+
+### Example 3: Raw log request route-out
+
+Input:
+
+```text
+These API logs are noisy and I need the first actionable error, not a business
+report.
+```
+
+Expected shape:
+
+- recognizes this as raw log triage
+- routes to `log-analysis`
+- does not treat the task as a structured dataset analysis problem
+
+### Example 4: Instrumentation gap route-out
+
+Input:
+
+```text
+We cannot tell whether checkout is improving because we have no metrics,
+dashboards, or alert thresholds yet.
+```
+
+Expected shape:
+
+- recognizes missing telemetry as the primary blocker
+- routes to `monitoring-observability`
+- does not keep `data-analysis` as the primary owner
+
+## Best practices
+
+1. Start with the decision, not the chart type.
+2. Check whether the denominator, join, and time window are trustworthy before comparing slices.
+3. Separate observation, inference, and recommendation.
+4. Keep route-outs explicit when the real job is dashboards, logs, anomalies, or instrumentation design.
+5. Add references and evals before any `skill-autoresearch` loop on this skill.
+
+## References
+
+- Local: `references/analysis-lanes-and-scope.md`
+- Local: `references/data-quality-and-readout-shape.md`
+- Pandas documentation: https://pandas.pydata.org/docs/

@@ -16,8 +16,8 @@ Date: 2026-04-20
 - Official platform docs continue to reinforce skills as cross-host routing
   surfaces:
   https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
-  https://code.claude.com/docs/en/sub-agents
-  https://platform.openai.com/docs/guides/agents-sdk/
+  https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills
+  https://platform.openai.com/docs/guides/agent-evals
 
 ## Live GitHub state
 
@@ -27,19 +27,29 @@ Date: 2026-04-20
 - PR `#70` for `log-analysis` is merged.
 - PR `#71` for `environment-setup` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/71
+- PR `#72` for `user-guide-writing` merged on April 20, 2026:
+  https://github.com/akillness/oh-my-gods/pull/72
+- PR `#73` for `data-analysis` is open:
+  https://github.com/akillness/oh-my-gods/pull/73
 
 ## Audit snapshot
 
 - Repo-wide validation passes at `80/80` skills with `0` spec violations when
   run via `python3 validate_frontmatter.py`.
-- `environment-setup` is now a closed lane and should not be reopened without
+- `environment-setup` is a closed lane and should not be reopened without
   review feedback or measured failures.
-- The current repo audit found `user-guide-writing` to be the strongest
-  remaining bounded packaging gap because it is still a long generic template
-  dump with no local `references/`, no `evals/`, and weak route-outs across
-  overlapping sibling documentation skills.
-- The current audit demoted the earlier tentative `data-analysis` lead into the
-  next-candidate slot behind `user-guide-writing`.
+- `user-guide-writing` is a closed lane and should not be reopened without
+  review feedback or measured failures because PR `#72` is merged on `main`.
+- The current repo audit found `data-analysis` to be the strongest remaining
+  bounded packaging gap because it was still a generic single-file skill with
+  no local `references/`, no `evals/`, and weak route-outs across overlapping
+  BI, logging, anomaly, and observability skills.
+- Review pass on April 20, 2026 found one bounded consistency issue in the
+  packaged `data-analysis` lane: it routed dashboard work directly to
+  `looker-studio-bigquery`, but that skill is not present in this repo. The
+  lane now routes to a dashboard or BI-specific skill such as
+  `looker-studio-bigquery` only when one is installed, which keeps the local
+  catalog consistent without losing the intended boundary.
 
 ## Target decisions
 
@@ -50,8 +60,8 @@ Date: 2026-04-20
 | `monitoring-observability` | Merged via PR `#69` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures appear |
 | `log-analysis` | Merged via PR `#70` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures appear |
 | `environment-setup` | Merged via PR `#71` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `user-guide-writing` | Active lane | No | No | Add now | Add now | No | Package the skill, validate it, and open the PR path |
-| `data-analysis` | Still generic | No | No | Not yet | Not yet | Not yet | Keep as the next survey candidate after the active review cycle |
+| `user-guide-writing` | Merged via PR `#72` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
+| `data-analysis` | PR `#73` updated in review | No | No | Added | Added | No | Re-check PR `#73` after the bounded route-out fix, then merge if review stays clean |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
 
@@ -59,16 +69,15 @@ Date: 2026-04-20
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Treat `environment-setup` as closed because PR `#71` is merged.
-- Treat `user-guide-writing` as the active lane for this run.
+- Treat `environment-setup` and `user-guide-writing` as closed because PRs
+  `#71` and `#72` are merged.
+- Treat `data-analysis` as the active lane for this run.
 - Defer `skill-autoresearch` until the packaged skill is reviewed and still
   shows measured failures.
-- Keep `data-analysis` as the next likely survey candidate after the
-  `user-guide-writing` cycle closes.
 
 ## Packaging decision for the active lane
 
-- Active lane on this run: `user-guide-writing`
+- Active lane on this run: `data-analysis`
   - Assets: no
   - Scripts: no
   - References: yes
@@ -78,12 +87,11 @@ Date: 2026-04-20
 
 ## Current state
 
-- Current state: `user-guide-writing` passed the next-run review cleanly, with
-  repo validation still at `80/80` and the skill-specific validator reporting
-  `0` warnings, so the lane is now merge-ready.
-- PR: https://github.com/akillness/oh-my-gods/pull/72
+- Current state: `user-guide-writing` is merged on `main`, `data-analysis` is
+  packaged, validated, and updated once during PR review to remove a route-out
+  mismatch with the local skill catalog.
+- PR: https://github.com/akillness/oh-my-gods/pull/73
 - Blocker: none
-- Next owner: the next scheduled run should confirm `user-guide-writing` is
-  merged on `main` and then refresh the survey lock for `data-analysis` as the
-  next bounded packaging candidate
-- Stage: `merge`
+- Next owner: this branch should be pushed and PR `#73` re-checked for clean
+  mergeability; if nothing else appears, the next owner can merge
+- Stage: `pr-review`
