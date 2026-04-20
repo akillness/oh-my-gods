@@ -1,0 +1,46 @@
+{
+  "skill_name": "task-estimation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Estimate a new CSV export feature for sprint planning. It needs filtering, download, and audit logging.",
+      "expected_output": "Returns an estimate packet that uses a relative estimation mode, surfaces drivers and dependencies, and keeps the answer distinct from backlog decomposition.",
+      "assertions": [
+        "Output includes an 'Estimate mode' section",
+        "Output includes a concrete estimate or estimate range plus confidence",
+        "Output identifies at least two estimate drivers or dependencies",
+        "Output includes a recommended next move",
+        "Output does not read like a retrospective or standup update"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "How big is controller support for our demo build? I just need a rough roadmap signal for next month.",
+      "expected_output": "Chooses a lightweight estimation frame such as t-shirt sizing or rough forecast, keeps uncertainty visible, and avoids fake date precision.",
+      "assertions": [
+        "Output chooses t-shirt sizing, rough forecast, or an explicitly lightweight estimation mode",
+        "Output includes confidence or uncertainty language",
+        "Output avoids presenting a fixed delivery promise as the main answer"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Give me story points for this onboarding overhaul. We have not defined the flows yet.",
+      "expected_output": "Recognizes the scope is not estimate-ready, calls out the missing scope, and routes decomposition to task-planning instead of inventing a precise point value.",
+      "assertions": [
+        "Output flags missing scope, low confidence, or a similar readiness issue",
+        "Output routes or recommends routing to `task-planning`",
+        "Output avoids pretending a precise estimate is reliable"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Yesterday we finished two tickets, today we will do three more, and one engineer is blocked. Can you help?",
+      "expected_output": "Recognizes the request is a daily execution/status cadence question and routes it away from task-estimation.",
+      "assertions": [
+        "Output routes to `standup-meeting` or explicitly says this is not primarily an estimation request",
+        "Output does not force a story-point estimate onto a standup-style update"
+      ]
+    }
+  ]
+}
