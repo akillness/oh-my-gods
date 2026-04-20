@@ -213,3 +213,16 @@ Expected behavior:
 - chooses async-retro or milestone-retro mode
 - recommends a lightweight facilitation structure
 - ends with a concise packet and next move
+
+## Best practices
+
+1. Review prior retro actions before drafting new ones whenever earlier commitments exist.
+2. Keep the action set small, owner-backed, and tied to repeated delivery signals instead of generic complaints.
+3. Choose the lightest retro format that fits the scope rather than forcing a full workshop template.
+4. Route planning, estimation, standup, and incident-forensics work to the neighboring skill before it dilutes the packet.
+5. Keep unresolved technical investigation as explicit follow-up work, not a fake retrospective conclusion.
+
+## References
+
+- `references/operating-modes-and-route-outs.md`
+- `references/action-review-and-packet-shapes.md`

@@ -13,9 +13,12 @@ Date: 2026-04-21
 - Agent Skills still centers directory structure, progressive disclosure, and
   optional `references/`, `scripts/`, `assets/`, and `evals/` support files:
   https://agentskills.io/specification
-- Agent Skills best-practice guidance still warns against oversized all-in-one
-  skills and favors focused reference files:
-  https://agentskills.io/skill-creation/best-practices
+- GitHub Docs still frames agent skills as portable folders of instructions,
+  scripts, and resources that load when relevant across multiple hosts:
+  https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
+- Gemini CLI now exposes built-in skills, hooks, subagents, and memory
+  surfaces, which reinforces the value of compact reusable workflows:
+  https://github.com/google-gemini/gemini-cli/discussions/17790
 - OpenAI's eval guidance still reinforces reproducible evaluation gates before
   deeper optimization loops:
   https://developers.openai.com/api/docs/guides/agent-evals
@@ -43,10 +46,13 @@ Date: 2026-04-21
   run via `python3 validate_frontmatter.py`.
 - `standup-meeting` is now a closed lane because PR `#77` is merged on
   `origin/main`.
-- `sprint-retrospective` is now the active recurring lane because it was the
+- `sprint-retrospective` is the active recurring lane because it was the
   highest-leverage remaining PM boundary gap after `standup-meeting` closed.
-- This run completed the bounded standardization pass first: the skill now has
-  route-clean references, trigger evals, and a synced `SKILL.toon`.
+- The first pass packaged the lane with route-clean references, trigger evals,
+  and a synced `SKILL.toon`.
+- This review run found one remaining standards gap: the main `SKILL.md` still
+  missed the recommended `Best practices` and `References` sections, even
+  though the support files already existed. That bounded follow-up is now fixed.
 - `skill-autoresearch` is still deferred because there is not yet a residual
   measured failure after the packaging pass.
 
@@ -65,7 +71,7 @@ Date: 2026-04-21
 | `task-planning` | Merged via PR `#75` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `task-estimation` | Merged via PR `#76` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `standup-meeting` | Merged via PR `#77` | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
-| `sprint-retrospective` | PR `#78` open | No | No | Yes | Yes | No | Review the branch on the next run and apply a bounded follow-up only if the review finds a real gap |
+| `sprint-retrospective` | PR `#78` reviewed with bounded follow-up applied | No | No | Yes | Yes | No | Merge PR `#78`, then return to survey mode for the next bounded lane |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a packaged reviewed target still misses objective checks |
 
@@ -74,8 +80,8 @@ Date: 2026-04-21
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
 - Treat `standup-meeting` as closed because PR `#77` is merged.
-- Treat `sprint-retrospective` as the active lane because the bounded
-  improvement pass is complete and PR `#78` is now open.
+- Treat `sprint-retrospective` as the active lane and move it to merge after
+  this clean review pass plus the bounded standards fix.
 - Defer `skill-autoresearch` again because the target needed support-surface
   hardening before any mutation loop would be credible.
 
@@ -86,15 +92,14 @@ Date: 2026-04-21
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because the right first move was a bounded
-    standardization pass rather than a mutation loop
+  - Skill-autoresearch: no, because the branch review exposed a standards gap,
+    not a residual measured failure after packaging
 
 ## Current state
 
-- Current state: `sprint-retrospective` has completed the bounded
-  standardization pass and its PR is now open
+- Current state: `sprint-retrospective` has completed packaging, passed review,
+  and received a bounded standards follow-up on this run
 - PR: https://github.com/akillness/oh-my-gods/pull/78
 - Blocker: none
-- Next owner: PR review on the next run; only apply a bounded follow-up if that
-  review exposes duplicate work, missing improvements, or standardization gaps
-- Stage: `pr-open`
+- Next owner: merge PR `#78`, then survey the next bounded lane on the next run
+- Stage: `merge`

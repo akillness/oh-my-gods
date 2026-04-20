@@ -26,21 +26,25 @@ The landscape signal remains stable as of April 21, 2026:
 1. Agent Skills still rewards compact, discoverable, progressive-disclosure
    packaging over oversized inline entrypoints:
    https://agentskills.io/specification
-2. Agent Skills best-practice guidance still recommends moving detailed support
-   material into references rather than bloating the front door:
-   https://agentskills.io/skill-creation/best-practices
-3. GitHub's April 16, 2026 `gh skill` launch further raises the value of
+2. GitHub's April 16, 2026 `gh skill` launch further raises the value of
    portable, provenance-friendly skill directories with durable update paths:
    https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
-4. OpenAI's eval guidance reinforces reproducible evaluation gates before
+3. GitHub Docs still frames skills as portable folders of instructions,
+   scripts, and resources that load across supported hosts:
+   https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
+   https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills
+4. Gemini CLI's 2026 skills and hooks rollout reinforces the same direction:
+   compact reusable workflow surfaces plus hook-driven control:
+   https://github.com/google-gemini/gemini-cli/discussions/17790
+5. OpenAI's eval guidance reinforces reproducible evaluation gates before
    deeper optimization loops:
    https://developers.openai.com/api/docs/guides/agent-evals
-5. Ecosystem leaders such as Microsoft's `skills` repository reinforce the
+6. Ecosystem leaders such as Microsoft's `skills` repository reinforce the
    value of support files and acceptance-style verification:
    https://github.com/microsoft/skills
-6. Repo-local audit matters more than reopening merged lanes, because those
+7. Repo-local audit matters more than reopening merged lanes, because those
    lanes are already closed on `main`.
-7. `sprint-retrospective` is now the strongest active bounded lane because it
+8. `sprint-retrospective` is now the strongest active bounded lane because it
    sits on the same crowded PM boundary as `standup-meeting`, `task-planning`,
    and `task-estimation`, and now has a real PR to review instead of a stale
    local-only draft.
@@ -60,8 +64,8 @@ Advance one bounded lane per run, in this order:
 9. Keep `task-planning` closed after PR `#75` merged
 10. Keep `task-estimation` closed after PR `#76` merged
 11. Keep `standup-meeting` closed after PR `#77` merged
-12. Move the active lane to `sprint-retrospective`, review PR `#78`, and only
-    apply a bounded follow-up if the review finds a real gap
+12. Move the active lane to `sprint-retrospective`, apply one bounded review
+    fix if needed, then clear the PR for merge
 13. Revisit `skill-autoresearch` only after a packaged, reviewed target still
     shows measured failures
 
@@ -71,8 +75,11 @@ This order is locked because:
 - `standup-meeting` is now closed because PR `#77` merged.
 - `sprint-retrospective` needed packaging hardening before any optimization loop
   would be defensible.
-- A clean PR-review pass on `#78` is now higher leverage than starting another
-  unrelated lane.
+- A clean PR-review pass on `#78` is still higher leverage than starting
+  another unrelated lane.
+- The only review gap found on this run was standards-shaped and bounded:
+  missing recommended `Best practices` and `References` sections in the main
+  `SKILL.md`.
 
 ## Skill-autoresearch triage
 
@@ -89,7 +96,7 @@ This order is locked because:
 | `task-planning` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
 | `task-estimation` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
 | `standup-meeting` | Closed merged lane | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
-| `sprint-retrospective` | High and active | No | No | No | Yes | Yes | Review PR `#78` on the next run; patch only if the review finds a bounded gap |
+| `sprint-retrospective` | High and active | No | No | No | Yes | Yes | Merge PR `#78` after this run's bounded standards fix and clean validation |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
@@ -100,14 +107,14 @@ This order is locked because:
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because the right first move was packaging
-    hardening, not mutation
+  - Skill-autoresearch: no, because the review gap was standards debt, not a
+    residual measured failure after packaging
 
 ## Current state
 
-- State: `sprint-retrospective` is the active lane and its bounded
-  standardization PR is now open
+- State: `sprint-retrospective` is the active lane, its review found one
+  bounded standards gap, and that gap is now fixed
 - PR: https://github.com/akillness/oh-my-gods/pull/78
 - Blocker: none
-- Next owner: PR review on the next run
-- Stage: `pr-open`
+- Next owner: merge PR `#78`, then return to survey mode on the next run
+- Stage: `merge`
