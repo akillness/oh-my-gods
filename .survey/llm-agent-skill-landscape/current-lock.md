@@ -36,7 +36,8 @@ Date: 2026-04-20
   https://github.com/akillness/oh-my-gods/pull/69
 - PR `#70` for `log-analysis` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/70
-- PR `#71` for `environment-setup` opened on April 20, 2026:
+- PR `#71` for `environment-setup` opened on April 20, 2026 and remains
+  mergeable after a review-clean pass:
   https://github.com/akillness/oh-my-gods/pull/71
 
 ## Audit snapshot
@@ -51,9 +52,14 @@ Date: 2026-04-20
   merged into `main`.
 - `log-analysis` is now a closed packaged lane after PR `#70` merged into
   `main`.
-- `environment-setup` is the strongest active repo-local packaging gap on the
-  new branch because it previously shipped as a large generic recipe sheet with
-  no focused `references/`, `evals/`, or compact companion surface.
+- `environment-setup` was the strongest active repo-local packaging gap on this
+  branch because it previously shipped as a large generic recipe sheet with no
+  focused `references/`, `evals/`, or compact companion surface.
+- Review found no duplicate work, missing support files, or spec drift in the
+  `environment-setup` lane; the PR is ready to merge.
+- Repo-wide inventory now points to still-generic high-reuse skills such as
+  `data-analysis` and `user-guide-writing` as the most likely next survey lane
+  after `environment-setup` closes.
 
 ## Target decisions
 
@@ -63,7 +69,9 @@ Date: 2026-04-20
 | `performance-optimization` | Merged via PR `#68` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `monitoring-observability` | Merged via PR `#69` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures reopen it |
 | `log-analysis` | Merged via PR `#70` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures reopen it |
-| `environment-setup` | PR `#71` open | No | No | Added | Added | No | Review PR `#71` next; merge if no duplicate work or standardization gaps appear |
+| `environment-setup` | PR `#71` review-clean | No | No | Added | Added | No | Merge PR `#71`; do not reopen unless post-merge review or measured failures appear |
+| `data-analysis` | Still generic | No | No | Not yet | Not yet | Not yet | Re-enter survey after the merge and confirm whether it is the highest-value next lane |
+| `user-guide-writing` | Still generic | No | No | Not yet | Not yet | Not yet | Keep as the secondary next-lane candidate behind `data-analysis` |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -75,9 +83,11 @@ Date: 2026-04-20
 - Treat `performance-optimization` as closed because PR `#68` is merged.
 - Treat `monitoring-observability` as closed because PR `#69` is merged.
 - Treat `log-analysis` as closed because PR `#70` is merged.
-- Treat `environment-setup` as the active PR-open lane.
+- Treat `environment-setup` as the active merge-ready lane.
 - Defer `skill-autoresearch` until a packaged target still shows measured
   failures after a clean review pass.
+- Re-enter survey mode after the merge and choose the next bounded lane from
+  the remaining still-generic skills instead of reopening merged work.
 
 ## Packaging decision for the active lane
 
@@ -87,20 +97,22 @@ Date: 2026-04-20
   - References: yes
   - Evals: yes
   - Skill-autoresearch: not justified until later measured failures appear
-- Active lane in PR review path: `environment-setup`
+- Active lane in merge path: `environment-setup`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
   - Skill-autoresearch: not justified because the packaging pass is
-    validator-clean and no measured failures justify a mutation loop
+    validator-clean, the review is clean, and no measured failures justify a
+    mutation loop
 
 ## Current state
 
 - Current state: `log-analysis` is merged and closed; `environment-setup` is
-  packaged, validator-clean, and registered as PR `#71`.
+  packaged, validator-clean, review-clean, and ready to merge as PR `#71`.
 - PR: https://github.com/akillness/oh-my-gods/pull/71
 - Blocker: none
-- Next owner: next scheduled run should review PR `#71` for duplicate work,
-  missing improvements, or standardization gaps, then merge if clean
-- Stage: `pr-open`
+- Next owner: this run should merge PR `#71`; the next scheduled run should
+  return to survey mode and rank the next bounded lane, starting with
+  `data-analysis` and `user-guide-writing`
+- Stage: `merge`
