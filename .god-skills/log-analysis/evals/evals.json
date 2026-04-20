@@ -1,0 +1,46 @@
+{
+  "skill_name": "log-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our GitHub Actions build failed after 14 minutes and the logs are huge. Find the first real error and tell me what matters.",
+      "expected_output": "A log-analysis response that identifies the first actionable failure, summarizes its scope, and names the next read-only check.",
+      "assertions": [
+        "Output keeps the request on `log-analysis`",
+        "Output prioritizes the first actionable failure rather than broad summaries",
+        "Output identifies likely scope or subsystem",
+        "Output ends with a next read-only check"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We already know the exact failing request, stack frame, and repro path. Help me isolate the bug in code.",
+      "expected_output": "A boundary-clean response that routes the task to debugging because log triage is complete.",
+      "assertions": [
+        "Output recognizes that the failing boundary is already known",
+        "Output routes the request to `debugging`",
+        "Output does not keep `log-analysis` as the primary owner"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "This browser console dump has warnings, failed requests, and one crash. Which line should I care about first?",
+      "expected_output": "A log-analysis response that narrows the event window, separates noise from the likely trigger, and identifies the next smallest check.",
+      "assertions": [
+        "Output keeps the request on `log-analysis`",
+        "Output distinguishes likely trigger lines from generic warnings",
+        "Output narrows the sequence or time window before interpreting cause"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We have almost no traces or alerts, so every outage starts with random log digging. What telemetry should we add?",
+      "expected_output": "A route-out response that recognizes the primary problem as observability design rather than log triage.",
+      "assertions": [
+        "Output recognizes missing telemetry as the main blind spot",
+        "Output routes the request to `monitoring-observability`",
+        "Output does not present `log-analysis` as the primary long-term owner"
+      ]
+    }
+  ]
+}
