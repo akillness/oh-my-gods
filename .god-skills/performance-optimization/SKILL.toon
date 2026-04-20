@@ -1,14 +1,29 @@
 N:performance-optimization
-D:Optimize application performance for speed, efficiency, and scalability. Use when improving page ...
-G:performance optimization React lazy-loading caching
-U[4]:
-  **Slow page loads**: low Lighthouse score
-  **Slow rendering**: delayed user interactions
-  **Large bundle size**: increased download time
-  **Slow queries**: database bottlenecks
-S[5]{n,action}:
-  1,Measure performance
-  2,Optimize React
-  3,Optimize bundle size
-  4,Optimize images
-  5,Optimize database queries
+D:Run measurement-led tuning across frontend backend database cache and runtime bottlenecks. Use this skill to locate the tightest latency throughput memory bundle-size or frame-time constraint, choose the right profiling evidence, try one or two high-leverage changes, and verify the before/after impact.
+G:performance-optimization latency throughput memory bundle-size profiling bottlenecks query-plan frame-time slow-api slow-page
+
+U[5]:
+  Diagnose a slow page slow API throughput drop memory spike query bottleneck or frame-time problem
+  Turn vague "the app feels slow" complaints into a profiling plan and a bounded tuning pass
+  Choose whether the dominant constraint is frontend backend database cache or runtime
+  Verify before-and-after impact instead of guessing from generic tips
+  Route React Next observability debugging and cleanup work to narrower sibling skills when they are the better owner
+
+S[5]{n,action,details}:
+  1,Frame-Symptom,Capture symptom shape affected path severity environment and current evidence before changing code
+  2,Pick-Measurement,Choose the cheapest measurement path that can expose the bottleneck and load references/measurement-modes-and-bottleneck-ladder.md when the layer is unclear
+  3,Choose-Lane,Rank the dominant bottleneck and stage one or two optimization lanes with a success metric for each
+  4,Route-Cleanly,Send React or Next work to react-best-practices missing telemetry design to monitoring-observability failure isolation to debugging and cleanup-only work to code-refactoring
+  5,Verify-Impact,Compare before and after using the same measurement path and record tradeoffs remaining risk and next bottleneck only after the dominant one shrinks
+
+R[5]:
+  Measure before tuning and verify after every claimed improvement
+  Pick the tightest bottleneck first instead of stacking unrelated optimizations
+  Prefer one or two high-leverage changes over a generic checklist
+  Keep stack-specific implementation detail in narrower sibling skills
+  Add references and evals before any skill-autoresearch loop
+
+E[3]{desc,in,out}:
+  "Broad API latency","Our checkout API p95 jumped from 280ms to 1.4s after the last release. Help me find the bottleneck.","Frames the path with evidence, chooses one or two tuning lanes, and proves improvement with before/after metrics"
+  "Route React perf","This Next.js route waterfalls fetches, ships too much client JavaScript, and rerenders after hydration.","Routes the work to react-best-practices instead of treating this skill as the primary React lane"
+  "Route observability setup","We have latency spikes but almost no traces dashboards or alerting.","Routes instrumentation setup to monitoring-observability and keeps tuning as the follow-on stage"

@@ -1,0 +1,46 @@
+{
+  "skill_name": "performance-optimization",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our checkout API p95 jumped from 280ms to 1.4s after the last release. I need a measurement-first tuning plan, not random tips.",
+      "expected_output": "A response that keeps the work on performance-optimization, frames the latency issue with evidence, and proposes one or two bounded optimization lanes.",
+      "assertions": [
+        "Output treats the request as measurement-led performance work",
+        "Output asks for or selects concrete evidence such as traces, flamegraphs, benchmarks, or query plans",
+        "Output proposes one or two bounded optimization lanes instead of a generic checklist",
+        "Output includes before-and-after verification guidance"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "This Next.js route waterfalls three fetches, ships too much client JavaScript, and rerenders after hydration. Which skill should I use?",
+      "expected_output": "A boundary-clean response that routes React and Next.js performance tuning to react-best-practices.",
+      "assertions": [
+        "Output recognizes the request as React or Next.js-specific performance work",
+        "Output routes the task to `react-best-practices`",
+        "Output does not present `performance-optimization` as the primary implementation surface for this prompt"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We cannot explain our latency spikes because we have almost no traces, dashboards, or alerting. What should we do first?",
+      "expected_output": "A response that identifies observability as the immediate blocker and routes setup work to monitoring-observability before tuning begins.",
+      "assertions": [
+        "Output identifies missing instrumentation or telemetry as the immediate blocker",
+        "Output routes the request to `monitoring-observability`",
+        "Output preserves `performance-optimization` as the later follow-on surface once evidence exists"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our worker throughput collapsed and memory usage doubled on one queue. Help me find the dominant bottleneck and prove the fix helped.",
+      "expected_output": "A cross-stack performance response that stays on performance-optimization and focuses on evidence, bottleneck ranking, and measurable impact.",
+      "assertions": [
+        "Output keeps the request on `performance-optimization`",
+        "Output considers throughput and memory as measurable bottleneck classes",
+        "Output calls for one baseline and one repeated measurement path before and after changes"
+      ]
+    }
+  ]
+}
