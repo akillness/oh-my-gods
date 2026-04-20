@@ -58,7 +58,7 @@ Date: 2026-04-20
 | `debugging` | Merged via PR `#67` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `performance-optimization` | Merged via PR `#68` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `monitoring-observability` | Merged via PR `#69` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures reopen it |
-| `log-analysis` | PR `#70` open | No | No | Added | Added | Not yet | Review for duplicate work or drift, then merge if clean |
+| `log-analysis` | PR `#70` review-clean | No | No | Added | Added | No | Merge PR `#70`; reopen only if review feedback or measured failures appear |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -69,7 +69,7 @@ Date: 2026-04-20
 - Treat `debugging` as closed because PR `#67` is merged.
 - Treat `performance-optimization` as closed because PR `#68` is merged.
 - Treat `monitoring-observability` as closed because PR `#69` is merged.
-- Treat `log-analysis` as the active PR-open lane.
+- Treat `log-analysis` as the active merge-ready lane after a clean review pass.
 - Defer `skill-autoresearch` until a packaged target still shows measured
   failures after a clean review pass.
 
@@ -81,20 +81,20 @@ Date: 2026-04-20
   - References: yes
   - Evals: yes
   - Skill-autoresearch: not justified until later measured failures appear
-- Active lane in PR-open: `log-analysis`
+- Active lane in merge: `log-analysis`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: not justified because the packaged lane still needs a
-    review pass before any mutation loop decision
+  - Skill-autoresearch: not justified because the review pass is clean and no
+    measured failures justify a mutation loop
 
 ## Current state
 
 - Current state: `monitoring-observability` is merged and closed; `log-analysis`
-  is packaged, validator-clean, and PR-open as the next bounded lane.
+  is packaged, validator-clean, review-clean, and ready to merge.
 - PR: https://github.com/akillness/oh-my-gods/pull/70
 - Blocker: none
-- Next owner: next scheduled run should review PR `#70` for duplicate work,
-  missing improvements, or standardization drift, then merge if clean
-- Stage: `pr-open`
+- Next owner: current scheduled run should merge PR `#70`; next scheduled run
+  should only reopen the lane if review feedback or measured failures appear
+- Stage: `merge`

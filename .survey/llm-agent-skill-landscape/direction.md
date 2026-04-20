@@ -10,8 +10,8 @@
   https://github.com/akillness/oh-my-gods/pull/68
 - PR `#69` for `monitoring-observability` is merged:
   https://github.com/akillness/oh-my-gods/pull/69
-- PR `#70` for `log-analysis` is now open after a validator-clean packaging
-  pass:
+- PR `#70` for `log-analysis` is open, review-clean, and mergeable after a
+  validator-clean packaging pass:
   https://github.com/akillness/oh-my-gods/pull/70
 
 ## Survey refresh
@@ -50,9 +50,9 @@ Advance one bounded lane per run, in this order:
 1. Keep `debugging` closed after PR `#67` merged
 2. Keep `performance-optimization` closed after PR `#68` merged
 3. Keep `monitoring-observability` closed after PR `#69` merged
-4. Review `log-analysis` on PR `#70` for duplicate work, missing improvements,
-   or standardization drift
-5. Revisit `skill-autoresearch` only after a packaged, review-clean target
+4. Merge `log-analysis` on PR `#70` because the review pass found no bounded
+   follow-up change that justifies delaying merge
+5. Revisit `skill-autoresearch` only after a packaged, merged target
    still shows measured failures
 
 This order is locked because:
@@ -70,7 +70,7 @@ This order is locked because:
 | `debugging` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
 | `performance-optimization` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
 | `monitoring-observability` | Closed merged lane | No | No | No | Added | Added | Keep closed unless review feedback or failing checks appear |
-| `log-analysis` | High and active | No | No | No | Added | Added | Review PR `#70`, then merge if clean |
+| `log-analysis` | High and active | No | No | No | Added | Added | Merge PR `#70`; reopen only if review feedback or measured failures appear |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 
@@ -82,20 +82,20 @@ This order is locked because:
   - References: yes
   - Evals: yes
   - Skill-autoresearch: no
-- Active PR-open lane: `log-analysis`
+- Active merge lane: `log-analysis`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, defer because the lane still needs a review pass
-    before any mutation loop decision
+  - Skill-autoresearch: no, defer because the review pass is clean and there
+    is no measured failure to ratchet against
 
 ## Current state
 
 - State: `monitoring-observability` is merged and closed; `log-analysis` is
-  packaged, validator-clean, and PR-open
+  packaged, validator-clean, review-clean, and merge-ready
 - PR: https://github.com/akillness/oh-my-gods/pull/70
 - Blocker: none
-- Next owner: next scheduled run should review PR `#70` for duplicate work,
-  missing improvements, or standardization gaps, then merge if clean
-- Stage: `pr-open`
+- Next owner: current scheduled run should merge PR `#70`; future runs should
+  reopen the lane only if review feedback or measured failures appear
+- Stage: `merge`
