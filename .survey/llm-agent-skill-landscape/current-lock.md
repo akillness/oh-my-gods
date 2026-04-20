@@ -27,7 +27,7 @@ Date: 2026-04-20
   https://github.com/akillness/oh-my-gods/pull/66
 - PR `#67` for `debugging` is no longer open; `main` already contains its merge
   commit `749b1eb`.
-- PR `#68` for `performance-optimization` is now open:
+- PR `#68` for `performance-optimization` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/68
 
 ## Audit snapshot
@@ -36,22 +36,22 @@ Date: 2026-04-20
   run via `python3 validate_frontmatter.py`.
 - `debugging` is now a closed lane and should not be reopened without review
   feedback or measured failures.
-- `performance-optimization` and `monitoring-observability` remain the two
-  under-packaged high-value candidates.
-- The sharper repo-local contradiction is `performance-optimization`, because
-  it still overlaps with `react-best-practices` while lacking focused
+- `performance-optimization` is now a closed packaged lane after PR `#68`
+  merged.
+- `monitoring-observability` is now the strongest remaining under-packaged
+  high-value candidate because tracing, telemetry, and alerting remain
+  first-class platform concerns across the surveyed agent ecosystem.
+- The sharper remaining repo-local contradiction is now the generic
+  single-file shape of `monitoring-observability`, which still lacks focused
   `references/` and `evals/`.
-- This run closed that packaging gap for `performance-optimization` by adding a
-  bounded measurement-led entrypoint, focused `references/`, eval coverage, and
-  a refreshed `SKILL.toon`.
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
 | `debugging` | Merged via PR `#67` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
-| `performance-optimization` | PR `#68` open review lane | No | No | Added | Added | No | Review for duplicate work, missing improvements, or standardization gaps; merge if clean |
-| `monitoring-observability` | Survey candidate behind the performance lane | No | No | Missing | Missing | No | Revisit after the performance lane closes |
+| `performance-optimization` | Merged via PR `#68` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
+| `monitoring-observability` | Active survey candidate | No | No | Missing | Missing | No | Start the next bounded packaging lane here |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -60,37 +60,32 @@ Date: 2026-04-20
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
 - Treat `debugging` as closed because PR `#67` is merged.
-- Treat `performance-optimization` as the active `pr-open` lane because PR
-  `#68` is now open.
-- Keep `monitoring-observability` as the next survey/improvement candidate.
+- Treat `performance-optimization` as closed because PR `#68` is merged.
+- Promote `monitoring-observability` to the next survey/improvement candidate.
 - Defer `skill-autoresearch` until a packaged target still shows measured
   failures after a clean review pass.
 
 ## Packaging decision for the active lane
 
-- Closed lane on the previous run: `debugging`
+- Closed lane on the previous run: `performance-optimization`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
   - Skill-autoresearch: not justified until later measured failures appear
-- Active review lane: `performance-optimization`
+- Next lane to package: `monitoring-observability`
   - Assets: no
   - Scripts: no
-  - References: yes, focused tuning-mode, handoff-boundary, and
-    measurement guidance added
-  - Evals: yes, bottleneck, route-out, and evidence-first assertions added
-  - Skill-autoresearch: not justified unless the review-clean lane still misses
-    objective checks
+  - References: missing
+  - Evals: missing
+  - Skill-autoresearch: not justified until the lane is packaged and reviewed
 
 ## Current state
 
-- Current state: the loop packaged `performance-optimization`, validated the
-  repo cleanly, pushed branch
-  `chore/performance-optimization-standardization-20260420-r70`, and opened PR
-  `#68`.
+- Current state: PR `#68` reviewed cleanly with no duplicate work or
+  standardization gaps, then merged after repo validation stayed clean.
 - PR: https://github.com/akillness/oh-my-gods/pull/68
 - Blocker: none
-- Next owner: next scheduled run should review PR `#68` for duplicate work,
-  missing improvements, or standardization gaps; merge if clean
-- Stage: `pr-open`
+- Next owner: next scheduled run should survey and package
+  `monitoring-observability`
+- Stage: `merge`
