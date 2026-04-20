@@ -14,7 +14,8 @@
   https://github.com/akillness/oh-my-gods/pull/73
 - PR `#74` for `pattern-detection` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/74
-- Draft PR `#75` for `task-planning` opened on April 20, 2026:
+- Draft PR `#75` for `task-planning` is open and re-reviewed clean on April 20,
+  2026:
   https://github.com/akillness/oh-my-gods/pull/75
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
@@ -22,8 +23,8 @@
   unless new review evidence appears.
 - `pattern-detection` is now packaged, validated, merged, and should stay
   closed unless new review evidence appears.
-- `task-planning` now has a first bounded packaging pass and should be reviewed
-  before any new survey target is selected.
+- `task-planning` now has a first bounded packaging pass and the follow-up
+  review run found no bounded improvement worth another patch before merge.
 
 ## Survey refresh
 
@@ -64,7 +65,8 @@ Advance one bounded lane per run, in this order:
 6. Keep `user-guide-writing` closed after PR `#72` merged
 7. Keep `data-analysis` closed after PR `#73` merged
 8. Keep `pattern-detection` closed after PR `#74` merged
-9. Review draft PR `#75` for `task-planning`
+9. Move the active lane to `task-planning`, then merge PR `#75` after the first
+   clean review run
 10. Revisit `skill-autoresearch` only after a packaged, reviewed target still
     shows measured failures
 
@@ -76,8 +78,9 @@ This order is locked because:
   work.
 - `pattern-detection` is now closed because PR `#74` merged, so reopening it
   now would duplicate already-finished work.
-- `task-planning` is now in PR-open state, so the next run should review that
-  branch before choosing a new survey target.
+- `task-planning` was the strongest still-open bounded packaging move after the
+  latest repo audit, and the review rerun found no remaining bounded fix to
+  justify another improvement pass before merge.
 
 ## Skill-autoresearch triage
 
@@ -91,7 +94,7 @@ This order is locked because:
 | `user-guide-writing` | Closed merged lane | No | No | Added | Added | No | Keep closed unless new review evidence appears |
 | `data-analysis` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
 | `pattern-detection` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
-| `task-planning` | Active draft lane | Not yet | No | No | Yes | Yes | Review the draft PR first; run `skill-autoresearch` only if the new evals expose residual routing failures |
+| `task-planning` | High and active | No | No | No | Yes | Yes | Merge PR `#75`, then choose the next bounded lane on the next survey run |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
@@ -102,15 +105,15 @@ This order is locked because:
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: not yet for this run; defer until PR review can
-    exercise the new eval harness
+  - Skill-autoresearch: no, because the review rerun did not surface a measured
+    failure that would justify a mutation loop
 
 ## Current state
 
-- State: `task-planning` is open as draft PR `#75`, so the next run should
-  start in PR-review mode rather than survey mode
+- State: `task-planning` remains the active lane, but the branch review is now
+  clean and ready to advance from `pr-open` to merge
 - PR: https://github.com/akillness/oh-my-gods/pull/75
 - Blocker: none
-- Next owner: review the draft branch for duplicate work, missing improvements,
-  or standardization gaps; merge if clean
-- Stage: `pr-open`
+- Next owner: merge PR `#75`; after merge, resume survey mode to pick the next
+  bounded generic skill gap
+- Stage: `merge`
