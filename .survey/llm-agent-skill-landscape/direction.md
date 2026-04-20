@@ -12,7 +12,8 @@
   https://github.com/akillness/oh-my-gods/pull/72
 - PR `#73` for `data-analysis` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/73
-- PR `#74` for `pattern-detection` is open:
+- PR `#74` for `pattern-detection` is open and re-reviewed clean on April 20,
+  2026:
   https://github.com/akillness/oh-my-gods/pull/74
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
@@ -61,7 +62,8 @@ Advance one bounded lane per run, in this order:
 5. Keep `environment-setup` closed after PR `#71` merged
 6. Keep `user-guide-writing` closed after PR `#72` merged
 7. Keep `data-analysis` closed after PR `#73` merged
-8. Move the active lane to `pattern-detection`
+8. Move the active lane to `pattern-detection`, then merge PR `#74` after the
+   first clean review run
 9. Revisit `skill-autoresearch` only after a packaged, reviewed target still
    shows measured failures
 
@@ -71,8 +73,9 @@ This order is locked because:
 - `environment-setup`, `user-guide-writing`, and `data-analysis` are already
   merged, so keeping the loop on those branches would now be stale duplicate
   work.
-- `pattern-detection` is now the strongest still-open bounded packaging move
-  after the latest repo audit.
+- `pattern-detection` was the strongest still-open bounded packaging move after
+  the latest repo audit, and the review rerun found no remaining bounded fix to
+  justify another improvement pass before merge.
 
 ## Skill-autoresearch triage
 
@@ -85,7 +88,7 @@ This order is locked because:
 | `environment-setup` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
 | `user-guide-writing` | Closed merged lane | No | No | Added | Added | No | Keep closed unless new review evidence appears |
 | `data-analysis` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
-| `pattern-detection` | High and active | Not yet | No | No | Yes | Yes | Review PR `#74`, apply only bounded follow-ups if needed, then merge if clean |
+| `pattern-detection` | High and active | No | No | No | Yes | Yes | Merge PR `#74`, then choose the next bounded lane on the next survey run |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
@@ -102,15 +105,15 @@ This order is locked because:
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, defer because the immediate gain is packaging and
-    trigger-boundary repair rather than mutation against measured failures
+  - Skill-autoresearch: no, because the review rerun did not surface a measured
+    failure that would justify a mutation loop
 
 ## Current state
 
-- State: `data-analysis` is merged on `origin/main`; the active lane is now
-  `pattern-detection`, and the branch has already opened the next PR path
+- State: `pattern-detection` remains the active lane, but the branch review is
+  now clean and ready to advance from `pr-open` to merge
 - PR: https://github.com/akillness/oh-my-gods/pull/74
 - Blocker: none
-- Next owner: review PR `#74`, apply only bounded fixes if needed, then merge
-  if the review stays clean
-- Stage: `pr-open`
+- Next owner: merge PR `#74`; after merge, resume survey mode to pick the next
+  bounded generic skill gap
+- Stage: `merge`

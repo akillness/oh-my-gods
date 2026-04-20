@@ -62,7 +62,7 @@ Date: 2026-04-20
 | `environment-setup` | Merged via PR `#71` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `user-guide-writing` | Merged via PR `#72` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `data-analysis` | Merged via PR `#73` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `pattern-detection` | PR `#74` open | No | No | Added | Added | Not yet | Review PR `#74` for duplicate work or missing route-outs, then merge if clean |
+| `pattern-detection` | PR `#74` reviewed clean | No | No | Added | Added | No | Merge PR `#74`, then pick the next bounded generic skill gap on the next run |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
 
@@ -72,9 +72,9 @@ Date: 2026-04-20
   evidence reopens them.
 - Treat `environment-setup`, `user-guide-writing`, and `data-analysis` as
   closed because PRs `#71`, `#72`, and `#73` are merged.
-- Treat `pattern-detection` as the active review lane for this run.
-- Defer `skill-autoresearch` until the packaged skill is reviewed and still
-  shows measured failures.
+- Treat `pattern-detection` as reviewed clean on this run and ready for merge.
+- Defer `skill-autoresearch` again because the packaged skill now passes the
+  bounded review gate without a measured residual failure.
 
 ## Packaging decision for the active lane
 
@@ -83,16 +83,16 @@ Date: 2026-04-20
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: not justified because this run is solving packaging and
-    trigger-boundary gaps first, not measured failure residuals
+  - Skill-autoresearch: no, because repo validation, per-skill validation, and
+    branch review did not expose a residual failure worth a mutation loop
 
 ## Current state
 
-- Current state: `data-analysis` is merged on `origin/main`, the prior review
-  lane is closed, and this run has packaged `pattern-detection` and opened the
-  next PR path.
+- Current state: `pattern-detection` remains the active lane, but the open PR
+  has now been re-reviewed with clean validation and no bounded follow-up diff
+  justified.
 - PR: https://github.com/akillness/oh-my-gods/pull/74
 - Blocker: none
-- Next owner: review PR `#74` for duplicate work, missing improvements, or
-  standardization gaps; merge if the review stays clean
-- Stage: `pr-open`
+- Next owner: merge PR `#74`; on the next run, survey the remaining landscape
+  for the next bounded packaging lane
+- Stage: `merge`
