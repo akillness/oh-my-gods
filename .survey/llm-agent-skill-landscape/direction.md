@@ -10,6 +10,8 @@
   https://github.com/akillness/oh-my-gods/pull/71
 - PR `#72` for `user-guide-writing` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/72
+- PR `#73` for `data-analysis` is open:
+  https://github.com/akillness/oh-my-gods/pull/73
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
 
@@ -73,7 +75,7 @@ This order is locked because:
 | `log-analysis` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
 | `environment-setup` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
 | `user-guide-writing` | Closed merged lane | No | No | Added | Added | No | Keep closed unless new review evidence appears |
-| `data-analysis` | High and active | Not yet | No | No | Yes | Yes | Package the lane, validate it, and open the PR path |
+| `data-analysis` | High and active | Not yet | No | No | Yes | Yes | Review the open PR, then apply only a bounded follow-up if needed |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
@@ -96,9 +98,10 @@ This order is locked because:
 ## Current state
 
 - State: `environment-setup` and `user-guide-writing` remain closed; the active
-  lane is now `data-analysis` in packaging before PR registration
-- PR: not opened yet for `data-analysis`
+  lane is now `data-analysis` with PR `#73` open for review
+- PR: https://github.com/akillness/oh-my-gods/pull/73
 - Blocker: none
-- Next owner: this run should validate the packaged `data-analysis` lane and
-  open the bounded PR path unless a review blocker appears
-- Stage: `improvement`
+- Next owner: the next scheduled run should review PR `#73` for duplicate work,
+  missing improvements, or standardization gaps, and apply only a bounded
+  follow-up if needed
+- Stage: `pr-open`

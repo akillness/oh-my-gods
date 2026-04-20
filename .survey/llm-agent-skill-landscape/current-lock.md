@@ -29,6 +29,8 @@ Date: 2026-04-20
   https://github.com/akillness/oh-my-gods/pull/71
 - PR `#72` for `user-guide-writing` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/72
+- PR `#73` for `data-analysis` is open:
+  https://github.com/akillness/oh-my-gods/pull/73
 
 ## Audit snapshot
 
@@ -53,7 +55,7 @@ Date: 2026-04-20
 | `log-analysis` | Merged via PR `#70` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures appear |
 | `environment-setup` | Merged via PR `#71` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `user-guide-writing` | Merged via PR `#72` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `data-analysis` | Active lane | No | No | Add now | Add now | No | Package the skill, validate it, and open the PR path |
+| `data-analysis` | PR `#73` open | No | No | Added | Added | No | Next run should review the open PR for duplicate work or missing gaps |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
 
@@ -79,11 +81,11 @@ Date: 2026-04-20
 
 ## Current state
 
-- Current state: `user-guide-writing` is merged on `main`, the survey lock has
-  advanced to `data-analysis`, and the active lane is now in packaging before
-  PR registration.
-- PR: not opened yet for `data-analysis`
+- Current state: `user-guide-writing` is merged on `main`, `data-analysis` is
+  packaged and validated, and PR `#73` is now open for review.
+- PR: https://github.com/akillness/oh-my-gods/pull/73
 - Blocker: none
-- Next owner: this run should package `data-analysis`, validate it, and open
-  the bounded PR path
-- Stage: `improvement`
+- Next owner: the next scheduled run should review PR `#73` for duplicate work,
+  missing improvements, or standardization gaps, then apply only a bounded
+  update if needed
+- Stage: `pr-open`
