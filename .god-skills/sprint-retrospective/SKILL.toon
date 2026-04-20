@@ -1,9 +1,30 @@
 N:sprint-retrospective
-D:Facilitate effective sprint retrospectives for continuous team improvement. Use when conducting t...
-G:retrospective agile scrum team-improvement facilitation
-U[3]:
-  **End of sprint**: at the end of each sprint
-  **Project milestone**: after major releases
-  **Team issues**: when an immediate retrospective is needed
-S[1]{n,action}:
-  1,Start-Stop-Continue
+D:Facilitate sprint retrospectives, milestone postmortems, or iteration reviews that turn completed work into a few owned process improvements instead of another stale template exercise. Use when the user needs a retro format, async or hybrid retro flow, retrospective facilitation script, or action follow-through after a sprint, release, milestone, or rough delivery cycle.
+G:sprint-retrospective retrospective milestone-review postmortem-lite team-improvement facilitation
+
+U[5]:
+  Run a retrospective after a sprint, milestone, release push, or rough delivery cycle
+  Choose a lightweight retro mode instead of defaulting to a stale template
+  Review prior action items before creating new ones
+  Support async or hybrid retrospective facilitation
+  Return a concise packet with signals, actions, and a next move
+
+X[4]:
+  future-work planning or backlog slicing -> task-planning
+  story points, t-shirt sizes, or forecast ranges -> task-estimation
+  daily status cadence or blocker rounds -> standup-meeting
+  deep incident forensics or log triage -> debugging or log-analysis
+
+S[5]{n,action}:
+  1,Identify the retrospective mode
+  2,Review prior actions before inventing new ones
+  3,Choose the lightest useful retrospective format
+  4,Distill evidence into themes and a tiny action set
+  5,Return the retrospective packet
+
+R[5]:
+  completed-work review stays separate from planning and estimation
+  previous commitments are reviewed before new actions are added
+  action lists stay small and owner-backed
+  unresolved technical forensics are routed instead of hand-waved
+  output ends with a recommended next move

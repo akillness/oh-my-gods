@@ -1,0 +1,52 @@
+{
+  "skill_name": "sprint-retrospective",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me run a sprint retrospective for the last two weeks. We shipped most of the sprint goal, but reviews dragged and the same two action items from the previous retro never moved.",
+      "expected_output": "Chooses a retrospective mode, reviews prior action status before adding new work, and returns a concise retrospective packet with a small action set.",
+      "assertions": [
+        "Output identifies the request as retrospective work rather than planning or estimation",
+        "Output includes a review of prior action items before proposing new actions",
+        "Output limits the new action set to a small owned list or explicitly recommends keeping it small"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We just finished a milestone and half the team is remote. Give me an async retrospective format that helps us capture what worked, what slipped, and what to change next.",
+      "expected_output": "Chooses async-retro or milestone-retro mode and provides a lightweight facilitation packet instead of a generic scrum lecture.",
+      "assertions": [
+        "Output identifies an async or milestone retrospective mode",
+        "Output provides a concise retro structure or packet rather than only generic advice",
+        "Output includes a recommended next move or follow-up checkpoint"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Break this launch goal into sprint-ready tasks with dependencies and acceptance criteria.",
+      "expected_output": "Recognizes the request is planning work and routes it to task-planning instead of forcing a retrospective.",
+      "assertions": [
+        "Output routes or recommends routing to `task-planning`",
+        "Output explicitly says this is not primarily retrospective work"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Can you estimate these five backlog items in story points and tell me how confident we should be?",
+      "expected_output": "Recognizes the request is estimation work and routes it to task-estimation.",
+      "assertions": [
+        "Output routes or recommends routing to `task-estimation`",
+        "Output explicitly says this is not primarily retrospective work"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Give me a short daily standup format for our engineering team and make blockers obvious.",
+      "expected_output": "Recognizes the request is a standup workflow and routes it to standup-meeting.",
+      "assertions": [
+        "Output routes or recommends routing to `standup-meeting`",
+        "Output explicitly says this is not primarily retrospective work"
+      ]
+    }
+  ]
+}
