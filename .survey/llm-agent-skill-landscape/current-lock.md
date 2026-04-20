@@ -39,6 +39,9 @@ Date: 2026-04-21
   https://github.com/akillness/oh-my-gods/pull/75
 - PR `#76` for `task-estimation` merged on April 21, 2026:
   https://github.com/akillness/oh-my-gods/pull/76
+- PR `#77` for `standup-meeting` is open and re-reviewed clean on
+  April 21, 2026:
+  https://github.com/akillness/oh-my-gods/pull/77
 
 ## Audit snapshot
 
@@ -46,10 +49,13 @@ Date: 2026-04-21
   run via `python3 validate_frontmatter.py`.
 - `task-estimation` is now a closed lane because PR `#76` is merged on
   `origin/main`.
-- `standup-meeting` is now the strongest bounded generic PM gap because it
-  still has stale template metadata, weak route-outs, and no support files.
-- `standup-meeting` packaging justifies `references/` and `evals/`, but not
-  `assets/`, `scripts/`, or a `skill-autoresearch` mutation loop yet.
+- `standup-meeting` remains the active recurring lane, but branch review did
+  not reveal duplicate work, spec drift, or a missing bounded follow-up patch.
+- The next bounded packaging gap should be chosen on the next survey run after
+  PR `#77` merges.
+- Current repo inference: the highest-value remaining work is still packaging
+  workflow-adjacent generic PM skills that lack route-clean support files and
+  reproducible trigger checks.
 
 ## Target decisions
 
@@ -65,7 +71,7 @@ Date: 2026-04-21
 | `pattern-detection` | Merged via PR `#74` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `task-planning` | Merged via PR `#75` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `task-estimation` | Merged via PR `#76` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `standup-meeting` | Active improvement lane | No | No | Yes | Yes | No | Open the bounded packaging PR, then review it on the next run |
+| `standup-meeting` | PR `#77` reviewed clean | No | No | Yes | Yes | No | Merge PR `#77`, then choose the next bounded generic PM skill gap on the next run |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
 
@@ -74,9 +80,9 @@ Date: 2026-04-21
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
 - Treat `task-estimation` as closed because PR `#76` is merged.
-- Advance the active lane to `standup-meeting`.
-- Defer `skill-autoresearch` again because the packaging gap is clearer than
-  any measured residual failure.
+- Treat `standup-meeting` as reviewed clean on this run and ready for merge.
+- Defer `skill-autoresearch` again because the packaged skill passes the
+  bounded review gate without a measured residual failure.
 
 ## Packaging decision for the active lane
 
@@ -85,15 +91,15 @@ Date: 2026-04-21
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because repo validation and the lane audit expose
-    a packaging gap, not a post-packaging measured failure
+  - Skill-autoresearch: no, because repo validation, support-file sync, and
+    branch review did not expose a residual failure worth a mutation loop
 
 ## Current state
 
-- Current state: `standup-meeting` is the active recurring lane and now has a
-  bounded packaging diff opened for review
+- Current state: `standup-meeting` remains the active lane, but the open PR has
+  now been re-reviewed clean with no bounded follow-up diff justified
 - PR: https://github.com/akillness/oh-my-gods/pull/77
 - Blocker: none
-- Next owner: review branch `chore/standup-meeting-standardization-20260421-r84`
-  for duplicate work, missing improvements, or lingering standardization gaps
-- Stage: `pr-open`
+- Next owner: merge PR `#77`; on the next run, survey the remaining landscape
+  for the next bounded generic PM skill gap
+- Stage: `merge`

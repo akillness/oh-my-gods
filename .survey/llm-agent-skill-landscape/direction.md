@@ -16,6 +16,8 @@
   https://github.com/akillness/oh-my-gods/pull/74
 - PR `#75` for `task-planning` merged on April 21, 2026:
   https://github.com/akillness/oh-my-gods/pull/75
+- PR `#76` for `task-estimation` merged on April 21, 2026:
+  https://github.com/akillness/oh-my-gods/pull/76
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
 - `data-analysis` is now packaged, validated, merged, and should stay closed
@@ -23,6 +25,8 @@
 - `pattern-detection` is now packaged, validated, merged, and should stay
   closed unless new review evidence appears.
 - `task-planning` is now packaged, validated, merged, and should stay closed
+  unless new review evidence appears.
+- `task-estimation` is now packaged, validated, merged, and should stay closed
   unless new review evidence appears.
 
 ## Survey refresh
@@ -47,8 +51,9 @@ The landscape signal remains stable as of April 21, 2026:
    https://github.com/microsoft/skills
 6. Repo-local audit matters more than reopening merged lanes, because those
    lanes are already closed on `main`.
-7. `task-estimation` remains the strongest active bounded lane because its
-   newly packaged branch still sits on a crowded PM boundary, so the next
+7. `standup-meeting` remains the strongest active bounded lane because its
+   newly packaged branch sits on the crowded coordination boundary with
+   `task-planning`, `task-estimation`, and `sprint-retrospective`, so the next
    highest-value move is clearing the reviewed PR instead of starting a stale
    duplicate improvement pass.
 
@@ -65,9 +70,10 @@ Advance one bounded lane per run, in this order:
 7. Keep `data-analysis` closed after PR `#73` merged
 8. Keep `pattern-detection` closed after PR `#74` merged
 9. Keep `task-planning` closed after PR `#75` merged
-10. Move the active lane to `task-estimation`, then clear its reviewed PR
+10. Keep `task-estimation` closed after PR `#76` merged
+11. Move the active lane to `standup-meeting`, then clear its reviewed PR
     before surveying a new lane
-11. Revisit `skill-autoresearch` only after a packaged, reviewed target still
+12. Revisit `skill-autoresearch` only after a packaged, reviewed target still
     shows measured failures
 
 This order is locked because:
@@ -79,7 +85,8 @@ This order is locked because:
 - `pattern-detection` is now closed because PR `#74` merged, so reopening it
   now would duplicate already-finished work.
 - `task-planning` is now closed because PR `#75` merged.
-- `task-estimation` is still the strongest active bounded move after the latest
+- `task-estimation` is now closed because PR `#76` merged.
+- `standup-meeting` is still the strongest active bounded move after the latest
   repo audit because the branch is already packaged, validated, and now only
   needs merge-path progression instead of another content rewrite.
 
@@ -96,13 +103,14 @@ This order is locked because:
 | `data-analysis` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
 | `pattern-detection` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
 | `task-planning` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
-| `task-estimation` | High and active | No | No | No | Yes | Yes | The PR is now reviewed clean; merge it, then survey for the next bounded lane |
+| `task-estimation` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
+| `standup-meeting` | High and active | No | No | No | Yes | Yes | The PR is now reviewed clean; merge it, then survey for the next bounded lane |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
 ## Packaging decision for the active lane
 
-- Active lane on this run: `task-estimation`
+- Active lane on this run: `standup-meeting`
   - Assets: no
   - Scripts: no
   - References: yes
@@ -112,9 +120,9 @@ This order is locked because:
 
 ## Current state
 
-- State: `task-estimation` remains the active lane, but the open PR has now
+- State: `standup-meeting` remains the active lane, but the open PR has now
   been re-reviewed clean with no bounded follow-up diff justified
-- PR: https://github.com/akillness/oh-my-gods/pull/76
+- PR: https://github.com/akillness/oh-my-gods/pull/77
 - Blocker: none
-- Next owner: merge PR `#76`, then return to survey on the following run
+- Next owner: merge PR `#77`, then return to survey on the following run
 - Stage: `merge`
