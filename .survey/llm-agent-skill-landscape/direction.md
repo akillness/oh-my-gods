@@ -9,7 +9,8 @@
 - PR `#68` for `performance-optimization` is merged:
   https://github.com/akillness/oh-my-gods/pull/68
 - PR `#69` for `monitoring-observability` is now open after a validator-clean
-  packaging pass:
+  packaging pass, and the review pass found no comments, no requested changes,
+  and `mergeStateStatus=CLEAN`:
   https://github.com/akillness/oh-my-gods/pull/69
 
 ## Survey refresh
@@ -36,8 +37,9 @@ The landscape signal remains stable as of April 20, 2026:
 6. Inference for this repo: the highest-leverage remaining work is still
    packaging and boundary repair on workflow-critical skills that still ship as
    generic single-file entrypoints with no eval-backed trigger surface.
-7. That logic selected `monitoring-observability`, and the current run has now
-   converted it into a bounded packaged lane with `references/` and `evals/`.
+7. That logic selected `monitoring-observability`, and the current run
+   confirmed the packaged lane is clean enough to advance from PR review into
+   merge without reopening implementation scope.
 
 ## Locked direction
 
@@ -45,8 +47,9 @@ Advance one bounded lane per run, in this order:
 
 1. Keep `debugging` closed after PR `#67` merged
 2. Keep `performance-optimization` closed after PR `#68` merged
-3. Review `monitoring-observability` in PR `#69`, then merge if clean
-4. Revisit `skill-autoresearch` only after a packaged, review-clean target
+3. Move `monitoring-observability` through merge from PR `#69`
+4. After merge is confirmed, survey the next bounded lane
+5. Revisit `skill-autoresearch` only after a packaged, review-clean target
    still shows measured failures
 
 This order is locked because:
@@ -54,8 +57,9 @@ This order is locked because:
 - Reopening merged lanes would duplicate already-closed work.
 - `performance-optimization` is already packaged and review-clean, so reopening
   it now would duplicate work.
-- `monitoring-observability` already received the bounded packaging pass, so
-  the next run should review rather than reopen implementation scope.
+- `monitoring-observability` already received the bounded packaging pass, and
+  the review pass found no real gaps, so the lane should move to merge rather
+  than reopen implementation scope.
 
 ## Skill-autoresearch triage
 
@@ -63,7 +67,7 @@ This order is locked because:
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `debugging` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
 | `performance-optimization` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
-| `monitoring-observability` | High and active | No | No | No | Added | Added | Review PR `#69`, apply only bounded follow-up if review finds a real gap |
+| `monitoring-observability` | High and active | No | No | No | Added | Added | Move through merge; reopen only if review feedback or failing checks appear |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 
@@ -75,19 +79,20 @@ This order is locked because:
   - References: yes
   - Evals: yes
   - Skill-autoresearch: no
-- Active review lane: `monitoring-observability`
+- Active merge lane: `monitoring-observability`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, defer until the lane is review-clean and still shows measured failures
+  - Skill-autoresearch: no, defer because the review-clean lane does not show
+    measured failures
 
 ## Current state
 
-- State: `monitoring-observability` is packaged, validator-clean, and open as
-  PR `#69`
+- State: `monitoring-observability` is packaged, validator-clean, review-clean,
+  and ready to merge as PR `#69`
 - PR: https://github.com/akillness/oh-my-gods/pull/69
 - Blocker: none
-- Next owner: next scheduled run should review PR `#69` for duplicate work,
-  missing improvements, or standardization gaps, then merge if clean
-- Stage: `pr-open`
+- Next owner: next scheduled run should confirm PR `#69` merged into `main`,
+  keep the lane closed, and choose the next bounded survey target
+- Stage: `merge`
