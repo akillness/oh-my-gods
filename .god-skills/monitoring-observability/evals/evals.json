@@ -1,0 +1,46 @@
+{
+  "skill_name": "monitoring-observability",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We keep learning about API incidents from customer reports because we have no useful dashboards, alert thresholds, or health signals. What should we instrument first?",
+      "expected_output": "A monitoring-observability response that frames the blind spots, proposes a bounded signal package, and assigns operator-facing surfaces.",
+      "assertions": [
+        "Output keeps the request on `monitoring-observability`",
+        "Output identifies missing dashboards, alerts, or health signals as the immediate problem",
+        "Output proposes a focused signal package rather than a long vendor checklist",
+        "Output includes ownership, operator surfaces, or verification guidance"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Here are 6,000 Kubernetes log lines. Find the first real error and tell me what matters.",
+      "expected_output": "A boundary-clean response that routes raw log triage to log-analysis before broader observability design work.",
+      "assertions": [
+        "Output recognizes the request as raw log triage first",
+        "Output routes the task to `log-analysis`",
+        "Output does not present `monitoring-observability` as the primary execution surface for this prompt"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We already have traces and dashboards. Now I need to cut checkout latency and prove the fix improved p95.",
+      "expected_output": "A route-out response that recognizes the remaining work as measured tuning and sends it to performance-optimization.",
+      "assertions": [
+        "Output recognizes that telemetry already exists",
+        "Output routes the request to `performance-optimization`",
+        "Output does not turn monitoring-observability into a generic performance-tuning surface"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our background data pipeline sometimes stalls and the PM team cannot tell whether freshness lag, retry storms, or stage failures are causing it. Help me decide what telemetry and alerts we need.",
+      "expected_output": "A monitoring-observability response that treats the pipeline as an observability design problem and defines metrics, alerts, and audience-specific dashboards.",
+      "assertions": [
+        "Output keeps the request on `monitoring-observability`",
+        "Output identifies pipeline telemetry such as lag, retries, stage timing, or freshness",
+        "Output distinguishes dashboards or alerts for operators versus stakeholders"
+      ]
+    }
+  ]
+}

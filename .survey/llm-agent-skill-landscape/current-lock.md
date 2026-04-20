@@ -20,6 +20,9 @@ Date: 2026-04-20
   first-class agent primitives:
   https://openai.github.io/openai-agents-python/tracing/
   https://docs.langchain.com/langsmith/observability-concepts
+- OpenTelemetry now publishes GenAI semantic conventions, which strengthens the
+  case for keeping observability guidance vendor-neutral and signal-first:
+  https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/
 
 ## Live GitHub state
 
@@ -29,6 +32,10 @@ Date: 2026-04-20
   commit `749b1eb`.
 - PR `#68` for `performance-optimization` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/68
+- PR `#69` for `monitoring-observability` opened on April 20, 2026, and the
+  review pass found no comments, no requested changes, and
+  `mergeStateStatus=CLEAN`:
+  https://github.com/akillness/oh-my-gods/pull/69
 
 ## Audit snapshot
 
@@ -38,12 +45,12 @@ Date: 2026-04-20
   feedback or measured failures.
 - `performance-optimization` is now a closed packaged lane after PR `#68`
   merged.
-- `monitoring-observability` is now the strongest remaining under-packaged
-  high-value candidate because tracing, telemetry, and alerting remain
-  first-class platform concerns across the surveyed agent ecosystem.
-- The sharper remaining repo-local contradiction is now the generic
-  single-file shape of `monitoring-observability`, which still lacks focused
-  `references/` and `evals/`.
+- `monitoring-observability` is now packaged into a compact
+  observability-design surface with focused `references/` and `evals/`, and
+  the PR review pass found no duplicate work, missing support, or
+  standardization drift.
+- No measured need emerged for `assets/`, `scripts/`, or a
+  `skill-autoresearch` loop during the packaging or review pass.
 
 ## Target decisions
 
@@ -51,7 +58,7 @@ Date: 2026-04-20
 |---|---|---|---|---|---|---|---|
 | `debugging` | Merged via PR `#67` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `performance-optimization` | Merged via PR `#68` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
-| `monitoring-observability` | Active survey candidate | No | No | Missing | Missing | No | Start the next bounded packaging lane here |
+| `monitoring-observability` | PR `#69` reviewed clean | No | No | Added | Added | No | Proceed through merge path, then keep closed unless review feedback or measured failures reopen it |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -61,7 +68,8 @@ Date: 2026-04-20
   evidence reopens them.
 - Treat `debugging` as closed because PR `#67` is merged.
 - Treat `performance-optimization` as closed because PR `#68` is merged.
-- Promote `monitoring-observability` to the next survey/improvement candidate.
+- Treat `monitoring-observability` as the active merge lane because PR `#69`
+  is review-clean and ready for merge.
 - Defer `skill-autoresearch` until a packaged target still shows measured
   failures after a clean review pass.
 
@@ -73,19 +81,20 @@ Date: 2026-04-20
   - References: yes
   - Evals: yes
   - Skill-autoresearch: not justified until later measured failures appear
-- Next lane to package: `monitoring-observability`
+- Active lane in merge: `monitoring-observability`
   - Assets: no
   - Scripts: no
-  - References: missing
-  - Evals: missing
-  - Skill-autoresearch: not justified until the lane is packaged and reviewed
+  - References: yes
+  - Evals: yes
+  - Skill-autoresearch: not justified because the review pass found no measured
+    failures that require a mutation loop
 
 ## Current state
 
-- Current state: PR `#68` reviewed cleanly with no duplicate work or
-  standardization gaps, then merged after repo validation stayed clean.
-- PR: https://github.com/akillness/oh-my-gods/pull/68
+- Current state: `monitoring-observability` is packaged, validator-clean,
+  review-clean, and ready to move through merge as PR `#69`.
+- PR: https://github.com/akillness/oh-my-gods/pull/69
 - Blocker: none
-- Next owner: next scheduled run should survey and package
-  `monitoring-observability`
+- Next owner: next scheduled run should confirm PR `#69` merged into `main`,
+  keep the lane closed, and survey the next bounded skill gap
 - Stage: `merge`
