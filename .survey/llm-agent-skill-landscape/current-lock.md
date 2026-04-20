@@ -96,11 +96,10 @@ Date: 2026-04-21
 
 ## Current state
 
-- Current state: `task-planning` is closed on `main`; `task-estimation` is the
-  next active bounded lane and should advance to PR-open on this run if
-  validation stays clean.
-- PR: not opened yet for `task-estimation`
+- Current state: `task-planning` is closed on `main`; `task-estimation` is now
+  the active bounded lane and has advanced to PR-open.
+- PR: https://github.com/akillness/oh-my-gods/pull/76
 - Blocker: none
-- Next owner: open the `task-estimation` PR, then on the next run review the
-  branch for duplicate work, missing improvements, or standardization gaps
-- Stage: `improvement`
+- Next owner: on the next run, review the `task-estimation` branch for
+  duplicate work, missing improvements, or standardization gaps
+- Stage: `pr-open`

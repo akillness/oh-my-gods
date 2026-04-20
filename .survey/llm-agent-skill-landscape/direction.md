@@ -113,10 +113,8 @@ This order is locked because:
 ## Current state
 
 - State: `task-planning` is closed on `main`; `task-estimation` is now the
-  active lane and should advance from `survey` to `pr-open` on this run if the
-  bounded packaging diff validates cleanly
-- PR: not opened yet for `task-estimation`
+  active lane and has advanced from `survey` to `pr-open`
+- PR: https://github.com/akillness/oh-my-gods/pull/76
 - Blocker: none
-- Next owner: open the `task-estimation` PR, then re-review that branch on the
-  next run
-- Stage: `survey`
+- Next owner: re-review that branch on the next run
+- Stage: `pr-open`
