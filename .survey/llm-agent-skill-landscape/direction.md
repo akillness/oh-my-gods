@@ -2,19 +2,14 @@
 
 ## Audit snapshot
 
-- PR `#67` for `debugging` is already merged into `main` via commit
-  `749b1eb Package debugging for root-cause isolation and clear route-outs (#67)`.
+- PR `#67` for `debugging` is already merged into `main`.
+- PR `#68` for `performance-optimization` is already merged into `main`.
+- PR `#69` for `monitoring-observability` is already merged into `main`.
+- PR `#70` for `log-analysis` is already merged into `main`.
+- PR `#71` for `environment-setup` merged on April 20, 2026:
+  https://github.com/akillness/oh-my-gods/pull/71
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
-- PR `#68` for `performance-optimization` is merged:
-  https://github.com/akillness/oh-my-gods/pull/68
-- PR `#69` for `monitoring-observability` is merged:
-  https://github.com/akillness/oh-my-gods/pull/69
-- PR `#70` for `log-analysis` is merged:
-  https://github.com/akillness/oh-my-gods/pull/70
-- PR `#71` for `environment-setup` remains open and mergeable after a
-  validator-clean packaging pass and a no-findings review:
-  https://github.com/akillness/oh-my-gods/pull/71
 
 ## Survey refresh
 
@@ -26,28 +21,23 @@ The landscape signal remains stable as of April 20, 2026:
 2. GitHub's April 16, 2026 `gh skill` launch further raises the value of
    portable, provenance-friendly skill directories with durable update paths:
    https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
-3. GitHub now has official agent-skills docs, which reinforces that the repo
-   should keep packaging portable across hosts:
+3. GitHub now documents agent skills as a cross-host surface for Copilot CLI,
+   Copilot cloud agent, and editor agent mode:
    https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
-4. OpenAI, Anthropic, and LangChain continue to treat subagents, skills, and
-   tracing as first-class agent surfaces:
-   https://openai.github.io/openai-agents-python/tracing/
+4. Claude and OpenAI continue to treat subagents, tools, and traceable agent
+   workflows as first-class surfaces:
    https://code.claude.com/docs/en/sub-agents
-   https://docs.langchain.com/langsmith/observability-concepts
-5. OpenTelemetry's GenAI semantic conventions reinforce a vendor-neutral,
-   signal-first framing for observability guidance:
-   https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/
+   https://platform.openai.com/docs/guides/agents-sdk/
+5. Repo-local audit now matters more than the previously tentative
+   `data-analysis` vs `user-guide-writing` split, because `user-guide-writing`
+   is currently the larger, more overlap-prone, still-unpackaged lane.
 6. Inference for this repo: the highest-leverage remaining work is still
-   packaging and boundary repair on workflow-critical skills that still ship as
-   generic single-file entrypoints with no eval-backed trigger surface.
-7. With `log-analysis` now merged, `environment-setup` was the next clean
-   bounded gap; PR `#71` replaces a large inline recipe dump with route-clean
-   env policy, focused `references/`, `evals/`, and a compact companion
-   surface.
-8. Repo-wide inventory after the `environment-setup` review points to the next
-   likely packaging lane being a still-generic, high-reuse skill such as
-   `data-analysis` or `user-guide-writing`, both of which still lack focused
-   `references/` and `evals`.
+   packaging workflow-critical skills that remain generic single-file
+   entrypoints with no eval-backed trigger surface.
+7. After `environment-setup` merged, the next strongest bounded lane is now
+   `user-guide-writing`, not `data-analysis`, because the repo audit found
+   broader overlap with `technical-writing`, `api-documentation`, and
+   `changelog-maintenance`, plus no local `references/` or `evals/`.
 
 ## Locked direction
 
@@ -57,24 +47,23 @@ Advance one bounded lane per run, in this order:
 2. Keep `performance-optimization` closed after PR `#68` merged
 3. Keep `monitoring-observability` closed after PR `#69` merged
 4. Keep `log-analysis` closed after PR `#70` merged
-5. Merge `environment-setup` after the review-clean PR `#71` pass
-6. Re-enter survey mode on the next scheduled run to choose the next bounded
-   packaging lane, starting with `data-analysis` vs `user-guide-writing`
-7. Revisit `skill-autoresearch` only after a packaged, merged target still
+5. Keep `environment-setup` closed after PR `#71` merged
+6. Move the active lane to `user-guide-writing`
+7. Keep `data-analysis` as the next likely survey candidate after the
+   `user-guide-writing` review cycle closes
+8. Revisit `skill-autoresearch` only after a packaged, reviewed target still
    shows measured failures
 
 This order is locked because:
 
 - Reopening merged lanes would duplicate already-closed work.
-- `monitoring-observability` is already merged, so reopening it now would
-  duplicate closed work.
-- `log-analysis` is already merged, so reopening it now would duplicate closed
-  work.
-- `environment-setup` was the strongest remaining operational skill that still
-  lacked progressive-disclosure support and clean route-outs.
-- After the `environment-setup` review came back clean, the next remaining
-  value is in still-generic, still-unpackaged high-reuse skills rather than in
-  reopening already-merged lanes.
+- `environment-setup` is already merged, so keeping the loop on that branch
+  would now be stale duplicate work.
+- `user-guide-writing` is larger and more overlap-prone than the previously
+  tentative `data-analysis` lane, making it the stronger bounded packaging move
+  on this run.
+- `data-analysis` remains a strong follow-on candidate, but it is no longer the
+  top priority after the latest repo audit.
 
 ## Skill-autoresearch triage
 
@@ -82,37 +71,37 @@ This order is locked because:
 |------|----------|-------------------------------|-------------|--------------|------------------|------------|---------------------|
 | `debugging` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
 | `performance-optimization` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
-| `monitoring-observability` | Closed merged lane | No | No | No | Added | Added | Keep closed unless review feedback or failing checks appear |
-| `log-analysis` | Closed merged lane | No | No | No | Added | Added | Keep closed unless review feedback or measured failures appear |
-| `environment-setup` | High and review-clean | No | No | No | Added | Added | Merge PR `#71`; do not reopen unless post-merge review or measured failures appear |
-| `data-analysis` | High and still generic | Not yet | No | No | Not yet | Not yet | Re-enter survey on the next run and package if it still ranks above other generic lanes |
-| `user-guide-writing` | Medium-high and still generic | Not yet | No | No | Not yet | Not yet | Keep as the secondary next-lane candidate behind `data-analysis` |
-| `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
-| `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
+| `monitoring-observability` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
+| `log-analysis` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
+| `environment-setup` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
+| `user-guide-writing` | High and active | Not yet | No | No | Yes | Yes | Package the lane, validate it, and open the PR path |
+| `data-analysis` | High and still generic | Not yet | No | No | Not yet | Not yet | Keep as the next survey candidate after the current review cycle |
+| `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
+| `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
 ## Packaging decision for the active lane
 
-- Closed lane on this run: `log-analysis`
+- Closed lane on the previous run: `environment-setup`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
   - Skill-autoresearch: no
-- Active merge-ready lane: `environment-setup`
+- Active lane on this run: `user-guide-writing`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, defer because the packaging pass is validator-clean,
-    the review is clean, and there is no measured failure to ratchet against
+  - Skill-autoresearch: no, defer because the immediate gain is packaging and
+    trigger-boundary repair rather than mutation against measured failures
 
 ## Current state
 
-- State: `log-analysis` is merged and closed; `environment-setup` is packaged,
-  validator-clean, review-clean, and ready to merge as PR `#71`
-- PR: https://github.com/akillness/oh-my-gods/pull/71
+- State: `environment-setup` remains closed; `user-guide-writing` has now
+  passed the next-run review cleanly and is ready for merge
+- PR: https://github.com/akillness/oh-my-gods/pull/72
 - Blocker: none
-- Next owner: this run should merge PR `#71`; the following scheduled run
-  should return to survey mode and rank the next bounded lane, starting with
-  `data-analysis` and `user-guide-writing`
+- Next owner: after merge, the next scheduled run should refresh the survey
+  lock and start the bounded `data-analysis` packaging review unless new merge
+  feedback reopens `user-guide-writing`
 - Stage: `merge`
