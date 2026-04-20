@@ -97,10 +97,11 @@ This order is locked because:
 
 ## Current state
 
-- State: `environment-setup` is merged and closed; `user-guide-writing` now has
-  an open PR path with packaged references and evals
+- State: `environment-setup` remains closed; `user-guide-writing` has now
+  passed the next-run review cleanly and is ready for merge
 - PR: https://github.com/akillness/oh-my-gods/pull/72
 - Blocker: none
-- Next owner: the next scheduled run should review PR `#72` for duplicate work,
-  missing improvements, or standardization gaps before merge
-- Stage: `pr-open`
+- Next owner: after merge, the next scheduled run should refresh the survey
+  lock and start the bounded `data-analysis` packaging review unless new merge
+  feedback reopens `user-guide-writing`
+- Stage: `merge`

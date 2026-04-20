@@ -78,10 +78,12 @@ Date: 2026-04-20
 
 ## Current state
 
-- Current state: `user-guide-writing` is the active bounded lane and its
-  packaging pass is validator-clean with an open PR.
+- Current state: `user-guide-writing` passed the next-run review cleanly, with
+  repo validation still at `80/80` and the skill-specific validator reporting
+  `0` warnings, so the lane is now merge-ready.
 - PR: https://github.com/akillness/oh-my-gods/pull/72
 - Blocker: none
-- Next owner: the next scheduled run should review PR `#72` for duplicate work,
-  missing improvements, or standardization gaps before merge
-- Stage: `pr-open`
+- Next owner: the next scheduled run should confirm `user-guide-writing` is
+  merged on `main` and then refresh the survey lock for `data-analysis` as the
+  next bounded packaging candidate
+- Stage: `merge`
