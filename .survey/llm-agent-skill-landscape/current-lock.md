@@ -34,8 +34,10 @@ Date: 2026-04-20
   https://github.com/akillness/oh-my-gods/pull/68
 - PR `#69` for `monitoring-observability` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/69
-- PR `#70` for `log-analysis` opened on April 20, 2026:
+- PR `#70` for `log-analysis` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/70
+- PR `#71` for `environment-setup` opened on April 20, 2026:
+  https://github.com/akillness/oh-my-gods/pull/71
 
 ## Audit snapshot
 
@@ -47,9 +49,11 @@ Date: 2026-04-20
   merged.
 - `monitoring-observability` is now a closed packaged lane after PR `#69`
   merged into `main`.
-- `log-analysis` was the strongest remaining repo-local packaging gap before
-  PR `#70`; that gap is now closed on the branch with focused `references/`,
-  `evals/`, and a compact companion surface, and the lane is review-clean.
+- `log-analysis` is now a closed packaged lane after PR `#70` merged into
+  `main`.
+- `environment-setup` is the strongest active repo-local packaging gap on the
+  new branch because it previously shipped as a large generic recipe sheet with
+  no focused `references/`, `evals/`, or compact companion surface.
 
 ## Target decisions
 
@@ -58,7 +62,8 @@ Date: 2026-04-20
 | `debugging` | Merged via PR `#67` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `performance-optimization` | Merged via PR `#68` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
 | `monitoring-observability` | Merged via PR `#69` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures reopen it |
-| `log-analysis` | PR `#70` review-clean | No | No | Added | Added | No | Merge PR `#70`; reopen only if review feedback or measured failures appear |
+| `log-analysis` | Merged via PR `#70` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures reopen it |
+| `environment-setup` | PR `#71` open | No | No | Added | Added | No | Review PR `#71` next; merge if no duplicate work or standardization gaps appear |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
@@ -69,32 +74,33 @@ Date: 2026-04-20
 - Treat `debugging` as closed because PR `#67` is merged.
 - Treat `performance-optimization` as closed because PR `#68` is merged.
 - Treat `monitoring-observability` as closed because PR `#69` is merged.
-- Treat `log-analysis` as the active merge-ready lane after a clean review pass.
+- Treat `log-analysis` as closed because PR `#70` is merged.
+- Treat `environment-setup` as the active PR-open lane.
 - Defer `skill-autoresearch` until a packaged target still shows measured
   failures after a clean review pass.
 
 ## Packaging decision for the active lane
 
-- Closed lane on the previous run: `monitoring-observability`
+- Closed lane on the previous run: `log-analysis`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
   - Skill-autoresearch: not justified until later measured failures appear
-- Active lane in merge: `log-analysis`
+- Active lane in PR review path: `environment-setup`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: not justified because the review pass is clean and no
-    measured failures justify a mutation loop
+  - Skill-autoresearch: not justified because the packaging pass is
+    validator-clean and no measured failures justify a mutation loop
 
 ## Current state
 
-- Current state: `monitoring-observability` is merged and closed; `log-analysis`
-  is packaged, validator-clean, review-clean, and ready to merge.
-- PR: https://github.com/akillness/oh-my-gods/pull/70
+- Current state: `log-analysis` is merged and closed; `environment-setup` is
+  packaged, validator-clean, and registered as PR `#71`.
+- PR: https://github.com/akillness/oh-my-gods/pull/71
 - Blocker: none
-- Next owner: current scheduled run should merge PR `#70`; next scheduled run
-  should only reopen the lane if review feedback or measured failures appear
-- Stage: `merge`
+- Next owner: next scheduled run should review PR `#71` for duplicate work,
+  missing improvements, or standardization gaps, then merge if clean
+- Stage: `pr-open`
