@@ -1,21 +1,30 @@
 N:monitoring-observability
-D:Set up monitoring, logging, and observability for applications and infrastructure. Use when imple...
-G:monitoring observability logging metrics Prometheus
-U[4]:
-  **Before Production Deployment**: Essential monitoring system setup
-  **Performance Issues**: Identify bottlenecks
-  **Incident Response**: Quick root cause identification
-  **SLA Compliance**: Track availability/response times
-S[5]{n,action}:
-  1,Metrics Collection (Prometheus)
-  2,Alert Rules
-  3,Log Aggregation (Structured Logging)
-  4,Grafana Dashboard
-  5,Health Checks
+D:Design or review observability for services pipelines and live operations. Use this skill to choose what telemetry to emit, which symptoms deserve alerts, how dashboards should support operators, and when to route into debugging performance tuning or raw log triage instead.
+G:monitoring-observability telemetry tracing dashboards alerting health-checks observability runbooks logs metrics
+
+U[5]:
+  Decide what telemetry a service worker pipeline or live-ops system should emit
+  Add or review health checks dashboards alert thresholds tracing or logging policy
+  Turn vague "we cannot see what is happening" complaints into an instrumentation plan
+  Review whether current dashboards and alerts are sufficient for release on-call or live operations
+  Make product data or AI-agent workflows observable before debugging or performance tuning begins
+
+S[5]{n,action,details}:
+  1,Frame-Decision,Capture the system surface operating goal current blind spot incident shape and audience before choosing tools
+  2,Pick-Signal-Package,Choose the smallest useful package of metrics logs traces events or checks and load references/telemetry-layers-and-signal-design.md when the layers overlap
+  3,Design-Operator-Surfaces,Define source owner dashboard or alert surface threshold and correlation identifiers for each signal
+  4,Route-Cleanly,Send raw log triage to log-analysis concrete bug isolation to debugging measured tuning to performance-optimization engine-only profiling to game-performance-profiler and deploy mechanics to deployment-automation
+  5,Verify-Usability,Confirm every signal answers an operating question every alert has an owner and dashboards show symptom scope and next checks
+
 R[6]:
-  job_name
-  targets
-  job_name
-  targets
-  static_configs
-  targets
+  Start from the operating decision not the vendor tool
+  Add the smallest signal package that closes the current blind spot
+  Prefer owned dashboards and alerts over telemetry sprawl
+  Keep route-outs explicit once the work becomes debugging tuning or log triage
+  Add references and evals before any skill-autoresearch loop
+  Keep the entrypoint compact enough to trigger reliably
+
+E[3]{desc,in,out}:
+  "Missing production visibility","We keep learning about API incidents from customer reports because we have no useful dashboards or alerts.","Frames the blind spots, proposes a bounded signal package, and assigns operator-facing surfaces"
+  "Route raw logs","Here are 6,000 container log lines. Find the real error and tell me what broke.","Routes the task to log-analysis instead of pretending observability design is the immediate job"
+  "Route tuning","We already have traces and dashboards. Now I need to cut checkout latency and prove the fix improved p95.","Routes the tuning pass to performance-optimization because telemetry design is no longer the blocker"
