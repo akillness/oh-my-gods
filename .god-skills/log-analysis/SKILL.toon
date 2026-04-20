@@ -1,14 +1,30 @@
 N:log-analysis
-D:Analyze application logs to identify errors, performance issues, and security anomalies. Use when...
-G:logs analysis debugging monitoring grep
-U[4]:
-  **Error debugging**: analyze the root cause of application errors
-  **Performance analysis**: analyze response times and throughput
-  **Security audit**: detect anomalous access patterns
-  **Incident response**: investigate the root cause during an outage
-S[5]{n,action}:
-  1,Locate Log Files
-  2,Search for Error Patterns
-  3,Pattern Analysis
-  4,Performance Analysis
-  5,Security Analysis
+D:Triage application infrastructure browser API CI and runtime logs into the first actionable failure repeated patterns likely scope and next read-only checks. Use this skill when the user shares raw logs stack traces console output gateway errors or asks what line actually matters in a noisy incident.
+G:log-analysis logs runtime incident triage first-error ci-failure console-output stack-trace noisy-logs
+
+U[5]:
+  Find the first actionable line in noisy logs stack traces or browser console output
+  Summarize repeated error classes likely subsystem and blast radius without pretending the root cause is proven
+  Triage CI container API gateway worker or infrastructure logs into the next smallest check
+  Separate signal from noise before deeper debugging observability or deployment work
+  Route the task onward once the next owner is clearer than the logs
+
+S[5]{n,action,details}:
+  1,Frame-Slice,Capture source timeframe environment symptom and the specific question before scanning for errors
+  2,Find-First-Failure,Prioritize the first actionable failure in the symptom window over repeated wrappers or late cascades
+  3,Cluster-Pattern,Summarize what repeats how broad it is and which subsystem is most likely involved
+  4,Route-Cleanly,Send proved failure isolation to debugging missing telemetry design to monitoring-observability anomaly hunting to pattern-detection structured dataset or KPI analysis to data-analysis and rollout mechanics to deployment-automation
+  5,Name-Next-Check,End with the smallest read-only check that would reduce uncertainty fastest
+
+R[5]:
+  Keep the task read-only and mask secrets when quoting logs
+  Prefer the smallest useful time window over scanning everything
+  Separate known evidence from inference
+  Do not mistake cascades for the triggering failure
+  Add references and evals before any skill-autoresearch loop
+
+E[4]{desc,in,out}:
+  "CI noise triage","Our Actions job failed after 14 minutes and the logs are huge. Find the first real error.","Identifies the first actionable failure cluster, summarizes scope, and names the next read-only check"
+  "Browser console triage","This console dump has warnings, failed requests, and one crash. Which line matters first?","Narrows the sequence, separates noise from the likely trigger, and states the next check"
+  "Route to debugging","I already know the exact failing request and stack frame. Help me isolate the bug in code.","Routes to debugging because log triage is no longer the main job"
+  "Route to data-analysis","We exported six weeks of incident counts and latency by region. Find the business trend behind the spikes.","Routes to data-analysis because the task is structured dataset analysis rather than runtime log triage"

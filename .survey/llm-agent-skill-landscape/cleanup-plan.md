@@ -1,40 +1,41 @@
-# Cleanup Plan: `monitoring-observability` packaging lane
+# Cleanup Plan: `log-analysis` packaging lane
 
 ## Goal
 
-Advance the recurring improvement loop after PR `#68` merged by packaging
-`monitoring-observability` as the next bounded skill. Keep the work focused on
-trigger and boundary repair, concise references, and eval coverage. Defer
-`skill-autoresearch` until the packaged lane still shows measured failures
-after review.
+Advance the recurring improvement loop after PR `#69` merged by packaging
+`log-analysis` as the next bounded skill. Keep the work focused on trigger and
+boundary repair, concise references, eval coverage, and a compact companion
+`SKILL.toon`. Defer `skill-autoresearch` until the packaged lane still shows
+measured failures after review.
 
 ## Why this lane is next
 
-- PR `#68` merged, so reopening `performance-optimization` would duplicate
+- PR `#69` merged, so reopening `monitoring-observability` would duplicate
   already-closed work.
 - External survey signal still favors portable, standards-clean skill
   directories with progressive disclosure over oversized inline entrypoints.
-- `monitoring-observability` is now the strongest remaining repo-local
-  contradiction because it still ships as a large generic recipe dump with no
-  `references/` or `evals/`.
+- `log-analysis` is now the strongest remaining repo-local contradiction
+  because it still ships as a generic recipe sheet with weak route-outs and no
+  `references/`, `evals/`, or compact companion surface.
 
 ## Behavior lock
 
-- Keep this run focused on `monitoring-observability` only.
+- Keep this run focused on `log-analysis` only.
 - Do not reopen already-merged unrelated lanes.
 - Keep the support package decision explicit:
   - `assets`: no
   - `scripts`: no
-  - `references`: yes, add focused signal-design and handoff guidance
+  - `references`: yes, add focused triage and handoff guidance
   - `evals`: yes, add trigger and route-out checks
 - Keep `skill-autoresearch` deferred until a packaged, review-clean target
   still shows measured failures.
 
 ## Planned checks
 
-1. Replace the oversized inline recipe content with a compact routing-first
+1. Replace the generic inline recipe content with a compact routing-first
    entrypoint.
-2. Add only the references and evals needed to make the skill measurable.
+2. Add only the references, evals, and `SKILL.toon` surface needed to make the
+   skill measurable.
 3. Re-run repo validation with the repo-local validator.
 4. Open the next PR path as soon as the branch is validator-clean.
 5. Hand the following scheduled run to PR review once the lane is open.
