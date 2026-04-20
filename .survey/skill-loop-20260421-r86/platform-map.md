@@ -27,7 +27,7 @@
 ## Current Mapping
 
 - Survey result: `sprint-retrospective` is the next highest-value lane
-- Active workflow on this run: `improvement` moving toward `pr-open`
+- Active workflow on this run: `pr-open`
 - Support decision:
   - assets: no
   - scripts: no
