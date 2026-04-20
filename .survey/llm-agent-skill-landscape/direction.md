@@ -97,10 +97,10 @@ This order is locked because:
 
 ## Current state
 
-- State: `environment-setup` is merged and closed; `user-guide-writing` is the
-  new active lane and is being packaged for PR registration on this run
+- State: `environment-setup` is merged and closed; `user-guide-writing` now has
+  an open PR path with packaged references and evals
+- PR: https://github.com/akillness/oh-my-gods/pull/72
 - Blocker: none
-- Next owner: this run should open the `user-guide-writing` PR; the next
-  scheduled run should review that branch for duplicate work, missing support
-  files, or route-out gaps
-- Stage: `improvement`
+- Next owner: the next scheduled run should review PR `#72` for duplicate work,
+  missing improvements, or standardization gaps before merge
+- Stage: `pr-open`

@@ -79,8 +79,9 @@ Date: 2026-04-20
 ## Current state
 
 - Current state: `user-guide-writing` is the active bounded lane and its
-  packaging pass is validator-clean.
+  packaging pass is validator-clean with an open PR.
+- PR: https://github.com/akillness/oh-my-gods/pull/72
 - Blocker: none
-- Next owner: this run should open the PR; the next scheduled run should review
-  the branch for duplicate work, missing improvements, or standardization gaps
-- Stage: `improvement`
+- Next owner: the next scheduled run should review PR `#72` for duplicate work,
+  missing improvements, or standardization gaps before merge
+- Stage: `pr-open`
