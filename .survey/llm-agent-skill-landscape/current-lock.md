@@ -31,6 +31,8 @@ Date: 2026-04-20
   https://github.com/akillness/oh-my-gods/pull/72
 - PR `#73` for `data-analysis` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/73
+- PR `#74` for `pattern-detection` is open:
+  https://github.com/akillness/oh-my-gods/pull/74
 
 ## Audit snapshot
 
@@ -60,7 +62,7 @@ Date: 2026-04-20
 | `environment-setup` | Merged via PR `#71` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `user-guide-writing` | Merged via PR `#72` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `data-analysis` | Merged via PR `#73` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `pattern-detection` | Active lane | No | No | Add | Add | Not yet | Package it as the next bounded route-clean scan lane |
+| `pattern-detection` | PR `#74` open | No | No | Added | Added | Not yet | Review PR `#74` for duplicate work or missing route-outs, then merge if clean |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
 
@@ -70,7 +72,7 @@ Date: 2026-04-20
   evidence reopens them.
 - Treat `environment-setup`, `user-guide-writing`, and `data-analysis` as
   closed because PRs `#71`, `#72`, and `#73` are merged.
-- Treat `pattern-detection` as the active lane for this run.
+- Treat `pattern-detection` as the active review lane for this run.
 - Defer `skill-autoresearch` until the packaged skill is reviewed and still
   shows measured failures.
 
@@ -87,10 +89,10 @@ Date: 2026-04-20
 ## Current state
 
 - Current state: `data-analysis` is merged on `origin/main`, the prior review
-  lane is closed, and this run has moved the loop to a fresh
-  `pattern-detection` packaging pass.
-- PR: not opened yet for `pattern-detection`
+  lane is closed, and this run has packaged `pattern-detection` and opened the
+  next PR path.
+- PR: https://github.com/akillness/oh-my-gods/pull/74
 - Blocker: none
-- Next owner: package `pattern-detection`, validate it, then register the new
-  PR path on this branch
-- Stage: `improvement`
+- Next owner: review PR `#74` for duplicate work, missing improvements, or
+  standardization gaps; merge if the review stays clean
+- Stage: `pr-open`

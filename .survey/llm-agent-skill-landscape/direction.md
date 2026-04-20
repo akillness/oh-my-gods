@@ -12,6 +12,8 @@
   https://github.com/akillness/oh-my-gods/pull/72
 - PR `#73` for `data-analysis` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/73
+- PR `#74` for `pattern-detection` is open:
+  https://github.com/akillness/oh-my-gods/pull/74
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
 - `data-analysis` is now packaged, validated, merged, and should stay closed
@@ -83,7 +85,7 @@ This order is locked because:
 | `environment-setup` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
 | `user-guide-writing` | Closed merged lane | No | No | Added | Added | No | Keep closed unless new review evidence appears |
 | `data-analysis` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
-| `pattern-detection` | High and active | Not yet | No | No | Yes | Yes | Package the skill, add route-clean references and evals, then open a new PR |
+| `pattern-detection` | High and active | Not yet | No | No | Yes | Yes | Review PR `#74`, apply only bounded follow-ups if needed, then merge if clean |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
@@ -106,9 +108,9 @@ This order is locked because:
 ## Current state
 
 - State: `data-analysis` is merged on `origin/main`; the active lane is now
-  `pattern-detection`
-- PR: not opened yet for `pattern-detection`
+  `pattern-detection`, and the branch has already opened the next PR path
+- PR: https://github.com/akillness/oh-my-gods/pull/74
 - Blocker: none
-- Next owner: finish the bounded packaging pass, validate it, then register the
-  PR path from this new branch
-- Stage: `improvement`
+- Next owner: review PR `#74`, apply only bounded fixes if needed, then merge
+  if the review stays clean
+- Stage: `pr-open`
