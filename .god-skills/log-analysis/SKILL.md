@@ -90,6 +90,7 @@ compete for attention.
 - Route code-level root-cause isolation to `debugging` once the failing boundary is clear
 - Route missing dashboards, alerts, or trace coverage to `monitoring-observability`
 - Route repeated suspicious shapes across code or datasets to `pattern-detection`
+- Route structured dataset, KPI, or business-analysis requests to `data-analysis`
 - Route deploy mechanics or release rollback questions to `deployment-automation`
 - Keep this skill focused on read-only triage and scope narrowing
 

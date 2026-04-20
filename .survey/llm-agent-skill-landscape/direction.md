@@ -38,10 +38,9 @@ The landscape signal remains stable as of April 20, 2026:
 6. Inference for this repo: the highest-leverage remaining work is still
    packaging and boundary repair on workflow-critical skills that still ship as
    generic single-file entrypoints with no eval-backed trigger surface.
-7. With `monitoring-observability` now merged, the next clean bounded gap is
-   `log-analysis`: it remains a generic recipe sheet, lacks route-out
-   discipline, and ships with no `references/`, `evals/`, or compact companion
-   surface.
+7. With `monitoring-observability` now merged, `log-analysis` was the next
+   clean bounded gap; PR `#70` closes it with route-out discipline,
+   `references/`, `evals/`, and a compact companion surface.
 
 ## Locked direction
 

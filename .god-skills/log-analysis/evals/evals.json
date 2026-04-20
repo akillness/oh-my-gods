@@ -41,6 +41,16 @@
         "Output routes the request to `monitoring-observability`",
         "Output does not present `log-analysis` as the primary long-term owner"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "We exported six weeks of incident counts, ticket volumes, and latency by region. Help me find the trend behind the spikes.",
+      "expected_output": "A route-out response that recognizes the primary task as structured dataset analysis rather than runtime log triage.",
+      "assertions": [
+        "Output recognizes the request as structured dataset or trend analysis",
+        "Output routes the request to `data-analysis`",
+        "Output does not keep `log-analysis` as the primary owner"
+      ]
     }
   ]
 }

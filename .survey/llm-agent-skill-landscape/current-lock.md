@@ -47,9 +47,9 @@ Date: 2026-04-20
   merged.
 - `monitoring-observability` is now a closed packaged lane after PR `#69`
   merged into `main`.
-- `log-analysis` is now the strongest remaining repo-local packaging gap
-  because it still ships as a generic recipe surface with no focused
-  `references/`, `evals/`, or compact companion surface.
+- `log-analysis` was the strongest remaining repo-local packaging gap before
+  PR `#70`; that gap is now closed on the branch with focused `references/`,
+  `evals/`, and a compact companion surface, and the lane is review-clean.
 
 ## Target decisions
 
