@@ -1,14 +1,22 @@
 N:pattern-detection
-D:Detect patterns, anomalies, and trends in code and data. Use when identifying code smells, findin...
-G:patterns anomalies regex code-analysis security
-U[4]:
-  **Code review**: Proactively detect problematic patterns
-  **Security review**: Scan for vulnerability patterns
-  **Refactoring**: Identify duplicate code
-  **Monitoring**: Alert on anomalies
+D:Hunt for repeated rules, suspicious shapes, and anomalies across code, logs, telemetry, and struct...
+G:pattern-detection anomalies repeated-issues regex ast outliers
+U[5]:
+  Hunt for repeated code smells, duplicated logic, suspicious API usage, or rule-shaped bugs
+  Scan logs, telemetry, or event exports for repeated signatures after first raw triage is done
+  Find structured-data anomalies, outlier segments, or suspicious repeated shapes
+  Turn vague "what keeps repeating here?" requests into a concrete scan plan
+  Produce ranked patterns with confidence and next checks
 S[5]{n,action}:
-  1,Detect code smell patterns
-  2,Security vulnerability patterns
-  3,Code structure patterns
-  4,Data anomaly patterns
-  5,Trend analysis
+  1,Frame the pattern hunt before scanning
+  2,Choose one primary detection mode
+  3,Rank the strongest repeated shapes
+  4,Keep route-outs explicit
+  5,End with the smallest next verification
+R[6]:
+  `log-analysis`
+  `debugging`
+  `security-best-practices`
+  `data-analysis`
+  `references/detection-modes-and-thresholds.md`
+  `references/route-outs-and-confidence.md`
