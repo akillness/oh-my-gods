@@ -1,9 +1,29 @@
 N:task-estimation
-D:Estimate software development tasks accurately using various techniques. Use when planning sprint...
-G:estimation agile sprint-planning story-points planning-poker
-U[3]:
-  **Sprint Planning**: Decide what work to include in the sprint
-  **Roadmap creation**: Build long-term plans
-  **Resource planning**: Estimate team size and schedule
-S[1]{n,action}:
-  1,Story Points (relative estimation)
+D:Turn vague backlog items, stories, bugs, spikes, roadmap slices, or milestone work into practical size signals, uncertainty notes, and forecast-safe estimate packets. Use when the user needs story points, t-shirt sizing, planning-poker prep, reference-story calibration, or risk framing without turning estimates into deadlines.
+G:task-estimation story-points t-shirt-sizing planning-poker roadmap-forecasting agile
+
+U[5]:
+  Estimate a backlog item, bug, feature slice, spike, or milestone task
+  Choose between story points, t-shirt sizing, planning-poker prep, or a rough forecast packet
+  Calibrate work against reference stories instead of guessing in isolation
+  Surface uncertainty, dependencies, and split recommendations
+  Produce a commitment-safe estimate packet rather than a deadline
+
+X[3]:
+  backlog decomposition or readiness shaping -> task-planning
+  daily blocker cadence or execution sync -> standup-meeting
+  completed-work process reflection -> sprint-retrospective
+
+S[5]{n,action}:
+  1,Triage the estimate mode
+  2,Pick the lightest useful estimation frame
+  3,Estimate relative to reference work and visible uncertainty
+  4,Build an estimate packet with confidence and blockers
+  5,Separate planning signal from commitment
+
+R[5]:
+  choose the smallest useful estimation frame
+  keep uncertainty and split signals visible
+  avoid fake precision when scope is vague
+  route non-estimation work to neighboring PM skills
+  end with a recommended next move

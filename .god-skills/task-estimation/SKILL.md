@@ -1,226 +1,263 @@
 ---
 name: task-estimation
-description: Estimate software development tasks accurately using various techniques. Use when planning sprints, roadmaps, or project timelines. Handles story points, t-shirt sizing, planning poker, and estimation best practices.
+description: >
+  Turn vague backlog items, stories, bugs, spikes, roadmap slices, or milestone
+  work into practical size signals, uncertainty notes, and forecast-safe
+  estimate packets. Use when the user needs story points, t-shirt sizing,
+  planning-poker prep, reference-story calibration, confidence/risk framing, or
+  a "how big is this / how risky is this / how should we estimate it?" pass for
+  software, product, or game work. Not for backlog decomposition, standups, or
+  retrospectives.
 allowed-tools: Read Write Grep Glob
+compatibility: >
+  Best for issue lists, backlog items, planning notes, sprint candidates, bug
+  clusters, roadmap slices, and milestone work that needs sizing without
+  turning estimates into commitments or schedule theater.
 metadata:
-  tags: estimation, agile, sprint-planning, story-points, planning-poker
-  platforms: Claude, ChatGPT, Gemini
+  tags: task-estimation, story-points, t-shirt-sizing, planning-poker, roadmap-forecasting, agile, project-management
+  platforms: Claude, ChatGPT, Gemini, Codex
+  version: "2.0.0"
 ---
-
 
 # Task Estimation
 
+Use this skill to turn "how big is this?" into a practical estimate packet that
+helps planning without pretending to predict delivery exactly.
+
+The goal is not to produce fake precision. The goal is to:
+
+- choose the right estimation mode for the question
+- size work relative to known reference work
+- surface uncertainty, dependencies, and split signals
+- keep estimates separate from scope shaping and daily management rituals
+- give teams a commitment-safe forecast signal they can discuss honestly
+
+Read `references/estimation-patterns.md` and
+`references/uncertainty-and-forecasting.md` before handling unusual sizing or
+forecasting cases.
+
+If the user mainly needs:
+
+- backlog decomposition, readiness, or acceptance criteria: route to
+  `task-planning`
+- daily blocker triage or execution cadence: route to `standup-meeting`
+- process reflection after work completes: route to `sprint-retrospective`
 
 ## When to use this skill
 
-- **Sprint Planning**: Decide what work to include in the sprint
-- **Roadmap creation**: Build long-term plans
-- **Resource planning**: Estimate team size and schedule
+- Estimate a backlog item, bug, feature slice, spike, or milestone task
+- Choose between story points, t-shirt sizing, or a rough forecast packet
+- Prepare planning-poker or sizing discussion before sprint or milestone
+  planning
+- Calibrate work against reference stories instead of guessing in isolation
+- Explain risk, uncertainty, and split recommendations when work is too large
+- Produce a forecast-safe estimate packet without turning it into a deadline
+
+## When not to use this skill
+
+- The main job is decomposing messy scope into ready slices: use
+  `task-planning`
+- The main job is a daily sync, blocker roundup, or walk-the-board ritual: use
+  `standup-meeting`
+- The main job is reflecting on completed work and process changes: use
+  `sprint-retrospective`
 
 ## Instructions
 
-### Step 1: Story Points (relative estimation)
+### Step 1: Triage what kind of estimate is actually needed
 
-**Fibonacci sequence**: 1, 2, 3, 5, 8, 13, 21
+Label the request before assigning a number.
 
-```markdown
-## Story Point guidelines
+Possible estimate modes:
 
-### 1 Point (Very Small)
-- Example: text change, constant value update
-- Time: 1-2 hours
-- Complexity: very low
-- Risk: none
+- `story-points`
+- `t-shirt-sizing`
+- `planning-poker-prep`
+- `rough-forecast`
+- `spike-needs-split`
+- `unknown-needs-clarification`
 
-### 2 Points (Small)
-- Example: simple bug fix, add logging
-- Time: 2-4 hours
-- Complexity: low
-- Risk: low
+Capture the minimum inputs:
 
-### 3 Points (Medium)
-- Example: simple CRUD API endpoint
-- Time: 4-8 hours
-- Complexity: medium
-- Risk: low
+- work item and intended outcome
+- current scope shape: bug, feature, refactor, spike, launch slice, or
+  milestone task
+- known dependencies or blocked prerequisites
+- reference work or past comparable stories
+- risk and uncertainty level: low | medium | high
+- whether the request is for team discussion, roadmap planning, or immediate
+  sprint selection
 
-### 5 Points (Medium-Large)
-- Example: complex form implementation, auth middleware
-- Time: 1-2 days
-- Complexity: medium
-- Risk: medium
+If the work is still too vague to estimate honestly, say so and route scope
+shaping to `task-planning` before pretending the number is useful.
 
-### 8 Points (Large)
-- Example: new feature (frontend + backend)
-- Time: 2-3 days
-- Complexity: high
-- Risk: medium
+### Step 2: Pick the cheapest useful estimation frame
 
-### 13 Points (Very Large)
-- Example: payment system integration
-- Time: 1 week
-- Complexity: very high
-- Risk: high
-- **Recommended**: Split into smaller tasks
+Use the lightest frame that matches the decision:
 
-### 21+ Points (Epic)
-- **Required**: Must be split into smaller stories
-```
+| Frame | Use when | Typical output |
+|------|----------|----------------|
+| Story points | Near-term team planning with reference stories | relative size plus split signal |
+| T-shirt sizing | Early roadmap or backlog sorting | XS/S/M/L/XL plus uncertainty note |
+| Planning poker prep | Team has to discuss and converge | candidate range, open questions, and likely disagreements |
+| Rough forecast | Stakeholder needs planning signal, not a promise | estimate range, assumptions, and confidence |
 
-### Step 2: Planning Poker
+Read `references/estimation-patterns.md` when the frame choice is unclear.
 
-**Process**:
-1. Product Owner explains the story
-2. Team asks questions
-3. Everyone picks a card (1, 2, 3, 5, 8, 13)
-4. Reveal simultaneously
-5. Explain highest/lowest scores
-6. Re-vote
-7. Reach consensus
+### Step 3: Estimate relative to known work, not in isolation
 
-**Example**:
-```
-Story: "Users can upload a profile photo"
+Anchor the estimate to:
 
-Member A: 3 points (simple frontend)
-Member B: 5 points (image resizing needed)
-Member C: 8 points (S3 upload, security considerations)
+- one or two reference stories or tasks
+- hidden work such as testing, rollout, coordination, or approvals
+- uncertainty multipliers: unknown requirements, external dependencies, unclear
+  ownership, or unfamiliar systems
 
-Discussion:
-- Use an image processing library
-- S3 is already set up
-- File size validation needed
+Rules:
 
-Re-vote → consensus on 5 points
-```
+- Split or flag anything that is too broad to compare cleanly
+- Keep uncertainty visible instead of burying it inside a single number
+- Treat spikes and discovery-heavy work as estimate risks, not normal delivery
+  stories
+- Avoid converting a size signal into a promised date
 
-### Step 3: T-Shirt Sizing (quick estimation)
+### Step 4: Build an estimate packet
 
-```markdown
-## T-Shirt sizes
+For every estimate, capture:
 
-- **XS**: 1-2 Story Points (within 1 hour)
-- **S**: 2-3 Story Points (half day)
-- **M**: 5 Story Points (1-2 days)
-- **L**: 8 Story Points (1 week)
-- **XL**: 13+ Story Points (needs splitting)
+- Work item
+- Estimation mode
+- Estimate or range
+- Confidence: high | medium | low
+- Key drivers
+- Dependencies
+- Split recommendation: yes | no
+- If yes, what should be split first?
+- Notes on what this estimate does not mean
 
-**When to use**:
-- Initial backlog grooming
-- Rough roadmap planning
-- Quick prioritization
-```
+Good notes:
 
-### Step 4: Consider risk and uncertainty
+- 8 points because auth, migration, and QA surfaces are all in play
+- low confidence until API limits are confirmed
+- should split UI polish from export pipeline work
 
-**Estimation adjustment**:
-```typescript
-interface TaskEstimate {
-  baseEstimate: number;      // base estimate
-  risk: 'low' | 'medium' | 'high';
-  uncertainty: number;        // 0-1
-  finalEstimate: number;      // adjusted estimate
-}
+Weak notes:
 
-function adjustEstimate(estimate: TaskEstimate): number {
-  let buffer = 1.0;
+- probably fine
+- should be quick
+- one day maybe
 
-  // risk buffer
-  if (estimate.risk === 'medium') buffer *= 1.3;
-  if (estimate.risk === 'high') buffer *= 1.5;
+### Step 5: Separate estimate from commitment
 
-  // uncertainty buffer
-  buffer *= (1 + estimate.uncertainty);
+Before returning the answer, explicitly state:
 
-  return Math.ceil(estimate.baseEstimate * buffer);
-}
+- what the estimate is useful for
+- what would make it change
+- whether scope must be split before the estimate is actionable
+- whether the team should use this as planning input only, not a deadline
 
-// Example
-const task = {
-  baseEstimate: 5,
-  risk: 'medium',
-  uncertainty: 0.2  // 20% uncertainty
-};
+Use this blocker vocabulary when needed:
 
-const final = adjustEstimate(task);  // 5 * 1.3 * 1.2 = 7.8 → 8 points
-```
+- `missing-scope`
+- `missing-reference-story`
+- `external-dependency`
+- `unknown-architecture`
+- `approval-needed`
+- `needs-split`
 
-## Output format
+### Step 6: Return the estimate packet
 
-### Estimation document template
+Return a concise packet with this exact structure:
 
 ```markdown
-## Task: [Task Name]
+# Estimate Packet
 
-### Description
-[work description]
+## Estimate mode
+- Mode: ...
+- Planning use: ...
 
-### Acceptance Criteria
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Criterion 3
+## Work item
+- Item: ...
+- Intended outcome: ...
 
-### Estimation
-- **Story Points**: 5
-- **T-Shirt Size**: M
-- **Estimated Time**: 1-2 days
+## Estimate
+- Size: ...
+- Confidence: ...
+- Split recommendation: yes | no
 
-### Breakdown
-- Frontend UI: 2 points
-- API Endpoint: 2 points
-- Testing: 1 point
+## Drivers
+- ...
 
-### Risks
-- Uncertain API response time (medium risk)
-- External library dependency (low risk)
+## Dependencies and blockers
+- ...
 
-### Dependencies
-- User authentication must be completed first
+## Notes
+- What would change the estimate
+- What this estimate should not be used as
 
-### Notes
-- Need to discuss design with UX team
+## Recommended next move
+- ...
 ```
-
-## Constraints
-
-### Required rules (MUST)
-
-1. **Relative estimation**: Relative complexity instead of absolute time
-2. **Team consensus**: Agreement from the whole team, not individuals
-3. **Use historical data**: Plan based on velocity
-
-### Prohibited (MUST NOT)
-
-1. **Pressuring individuals**: Estimates are not promises
-2. **Overly granular estimation**: Split anything 13+ points
-3. **Turning estimates into deadlines**: estimate ≠ commitment
-
-## Best practices
-
-1. **Break Down**: Split big work into smaller pieces
-2. **Reference Stories**: Reference similar past work
-3. **Include buffer**: Prepare for the unexpected
-
-## References
-
-- [Scrum Guide](https://scrumguides.org/)
-- [Planning Poker](https://www.planningpoker.com/)
-- [Story Points](https://www.atlassian.com/agile/project-management/estimation)
-
-## Metadata
-
-### Version
-- **Current version**: 1.0.0
-- **Last updated**: 2025-01-01
-- **Compatible platforms**: Claude, ChatGPT, Gemini
-
-### Tags
-`#estimation` `#agile` `#story-points` `#planning-poker` `#sprint-planning` `#project-management`
 
 ## Examples
 
-### Example 1: Basic usage
-<!-- Add example content here -->
+### Example 1: Size a sprint candidate
 
-### Example 2: Advanced usage
-<!-- Add advanced example content here -->
+Input:
+
+```text
+Estimate our new CSV export feature for sprint planning. It needs filtering,
+download, and audit logging.
+```
+
+Expected behavior:
+
+- chooses a relative estimation mode such as story points
+- calls out backend, UI, and audit surfaces as estimate drivers
+- recommends a split if the scope is too broad
+
+### Example 2: Give a rough roadmap signal
+
+Input:
+
+```text
+How big is controller support for our demo build? I just need a rough roadmap
+signal for next month.
+```
+
+Expected behavior:
+
+- prefers t-shirt sizing or rough forecast instead of fake date precision
+- surfaces hardware/test uncertainty
+- keeps the answer distinct from milestone planning decomposition
+
+### Example 3: Refuse fake precision on vague scope
+
+Input:
+
+```text
+Give me story points for this onboarding overhaul. We have not defined the
+flows yet.
+```
+
+Expected behavior:
+
+- flags missing scope or recommends routing to `task-planning`
+- avoids pretending a precise point value is reliable
+- keeps estimation separate from backlog decomposition
+
+## Best practices
+
+- Use reference stories whenever possible.
+- Keep the estimate honest about uncertainty.
+- Split oversized work before treating the number as actionable.
+- Treat estimates as planning signals, not promises.
+- Add eval coverage before any `skill-autoresearch` loop on this skill.
+- Keep deeper heuristics in references so the entrypoint stays compact and
+  triggerable.
+
+## References
+
+- Local: `references/estimation-patterns.md`
+- Local: `references/uncertainty-and-forecasting.md`
+- Scrum Guide: https://scrumguides.org/
