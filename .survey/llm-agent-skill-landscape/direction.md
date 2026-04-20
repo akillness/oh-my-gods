@@ -12,16 +12,14 @@
   https://github.com/akillness/oh-my-gods/pull/72
 - PR `#73` for `data-analysis` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/73
-- PR `#74` for `pattern-detection` is open and re-reviewed clean on April 20,
-  2026:
+- PR `#74` for `pattern-detection` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/74
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
 - `data-analysis` is now packaged, validated, merged, and should stay closed
   unless new review evidence appears.
-- The strongest remaining bounded packaging gap is `pattern-detection`, because
-  it still behaves like a generic scan cookbook without route-clean support
-  files or eval-backed trigger checks.
+- `pattern-detection` is now packaged, validated, merged, and should stay
+  closed unless new review evidence appears.
 
 ## Survey refresh
 
@@ -62,8 +60,7 @@ Advance one bounded lane per run, in this order:
 5. Keep `environment-setup` closed after PR `#71` merged
 6. Keep `user-guide-writing` closed after PR `#72` merged
 7. Keep `data-analysis` closed after PR `#73` merged
-8. Move the active lane to `pattern-detection`, then merge PR `#74` after the
-   first clean review run
+8. Keep `pattern-detection` closed after PR `#74` merged
 9. Revisit `skill-autoresearch` only after a packaged, reviewed target still
    shows measured failures
 
@@ -73,9 +70,8 @@ This order is locked because:
 - `environment-setup`, `user-guide-writing`, and `data-analysis` are already
   merged, so keeping the loop on those branches would now be stale duplicate
   work.
-- `pattern-detection` was the strongest still-open bounded packaging move after
-  the latest repo audit, and the review rerun found no remaining bounded fix to
-  justify another improvement pass before merge.
+- `pattern-detection` is now closed because PR `#74` merged, so reopening it
+  now would duplicate already-finished work.
 
 ## Skill-autoresearch triage
 
@@ -88,7 +84,7 @@ This order is locked because:
 | `environment-setup` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
 | `user-guide-writing` | Closed merged lane | No | No | Added | Added | No | Keep closed unless new review evidence appears |
 | `data-analysis` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
-| `pattern-detection` | High and active | No | No | No | Yes | Yes | Merge PR `#74`, then choose the next bounded lane on the next survey run |
+| `pattern-detection` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
@@ -100,20 +96,20 @@ This order is locked because:
   - References: yes
   - Evals: yes
   - Skill-autoresearch: no
-- Active lane on this run: `pattern-detection`
+- Closed lane on this run: `pattern-detection`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because the review rerun did not surface a measured
-    failure that would justify a mutation loop
+  - Skill-autoresearch: no, because the review rerun and merge did not surface
+    a measured failure that would justify a mutation loop
 
 ## Current state
 
-- State: `pattern-detection` remains the active lane, but the branch review is
-  now clean and ready to advance from `pr-open` to merge
+- State: `pattern-detection` is merged on `origin/main`, so the lane is now
+  closed and the next run should resume survey mode
 - PR: https://github.com/akillness/oh-my-gods/pull/74
 - Blocker: none
-- Next owner: merge PR `#74`; after merge, resume survey mode to pick the next
-  bounded generic skill gap
+- Next owner: survey the remaining landscape and pick the next bounded generic
+  skill gap
 - Stage: `merge`

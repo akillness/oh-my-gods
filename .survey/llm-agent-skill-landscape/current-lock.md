@@ -31,7 +31,7 @@ Date: 2026-04-20
   https://github.com/akillness/oh-my-gods/pull/72
 - PR `#73` for `data-analysis` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/73
-- PR `#74` for `pattern-detection` is open:
+- PR `#74` for `pattern-detection` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/74
 
 ## Audit snapshot
@@ -43,10 +43,10 @@ Date: 2026-04-20
 - `user-guide-writing` is a closed lane and should not be reopened without
   review feedback or measured failures because PR `#72` is merged on `main`.
 - `data-analysis` is now closed because PR `#73` is merged on `origin/main`.
-- The next bounded packaging gap is `pattern-detection`, which is still a
-  generic single-file skill with no local `references/`, no `evals/`, and weak
-  route-outs across overlapping code-review, security, log, debugging, and
-  structured-data lanes.
+- `pattern-detection` is now closed because PR `#74` is merged on
+  `origin/main`.
+- The next bounded packaging gap should be chosen on the next survey run from
+  the remaining generic or under-packaged skills.
 - Current repo inference: the highest-value remaining work is still packaging
   workflow-adjacent generic skills that lack route-clean support files and
   reproducible trigger checks.
@@ -62,7 +62,7 @@ Date: 2026-04-20
 | `environment-setup` | Merged via PR `#71` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `user-guide-writing` | Merged via PR `#72` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `data-analysis` | Merged via PR `#73` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `pattern-detection` | PR `#74` reviewed clean | No | No | Added | Added | No | Merge PR `#74`, then pick the next bounded generic skill gap on the next run |
+| `pattern-detection` | Merged via PR `#74` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
 
@@ -72,27 +72,27 @@ Date: 2026-04-20
   evidence reopens them.
 - Treat `environment-setup`, `user-guide-writing`, and `data-analysis` as
   closed because PRs `#71`, `#72`, and `#73` are merged.
-- Treat `pattern-detection` as reviewed clean on this run and ready for merge.
-- Defer `skill-autoresearch` again because the packaged skill now passes the
-  bounded review gate without a measured residual failure.
+- Treat `pattern-detection` as closed because PR `#74` is merged.
+- Defer `skill-autoresearch` again because the packaged skill merged without a
+  measured residual failure.
 
 ## Packaging decision for the active lane
 
-- Active lane on this run: `pattern-detection`
+- Closed lane on this run: `pattern-detection`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because repo validation, per-skill validation, and
-    branch review did not expose a residual failure worth a mutation loop
+  - Skill-autoresearch: no, because repo validation, per-skill validation,
+    review, and merge did not expose a residual failure worth a mutation loop
 
 ## Current state
 
-- Current state: `pattern-detection` remains the active lane, but the open PR
-  has now been re-reviewed with clean validation and no bounded follow-up diff
-  justified.
+- Current state: `pattern-detection` is merged on `origin/main`, so the active
+  lane is closed and the next run should return to survey mode to choose a new
+  bounded target.
 - PR: https://github.com/akillness/oh-my-gods/pull/74
 - Blocker: none
-- Next owner: merge PR `#74`; on the next run, survey the remaining landscape
-  for the next bounded packaging lane
+- Next owner: survey the remaining landscape and choose the next bounded
+  packaging lane
 - Stage: `merge`
