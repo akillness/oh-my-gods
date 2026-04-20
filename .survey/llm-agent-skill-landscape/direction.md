@@ -10,6 +10,9 @@
   https://github.com/akillness/oh-my-gods/pull/68
 - PR `#69` for `monitoring-observability` is merged:
   https://github.com/akillness/oh-my-gods/pull/69
+- PR `#70` for `log-analysis` is now open after a validator-clean packaging
+  pass:
+  https://github.com/akillness/oh-my-gods/pull/70
 
 ## Survey refresh
 
@@ -47,7 +50,8 @@ Advance one bounded lane per run, in this order:
 1. Keep `debugging` closed after PR `#67` merged
 2. Keep `performance-optimization` closed after PR `#68` merged
 3. Keep `monitoring-observability` closed after PR `#69` merged
-4. Package `log-analysis` as the next bounded lane and open its PR path
+4. Review `log-analysis` on PR `#70` for duplicate work, missing improvements,
+   or standardization drift
 5. Revisit `skill-autoresearch` only after a packaged, review-clean target
    still shows measured failures
 
@@ -66,7 +70,7 @@ This order is locked because:
 | `debugging` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
 | `performance-optimization` | Closed merged lane | No | No | No | Added | Added | Keep closed unless new review evidence appears |
 | `monitoring-observability` | Closed merged lane | No | No | No | Added | Added | Keep closed unless review feedback or failing checks appear |
-| `log-analysis` | High and active | No | No | No | Add | Add | Package, validate, and open a PR |
+| `log-analysis` | High and active | No | No | No | Added | Added | Review PR `#70`, then merge if clean |
 | `skill-standardization` | Medium | Not yet | No | Existing validator is enough | No | Already present | Keep as the audit surface |
 | `skill-autoresearch` | Medium | Only after measured failures | No | No | Already present | Already present | Revisit only after a review-clean target still misses objective checks |
 
@@ -78,21 +82,20 @@ This order is locked because:
   - References: yes
   - Evals: yes
   - Skill-autoresearch: no
-- Active improvement lane: `log-analysis`
+- Active PR-open lane: `log-analysis`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, defer because packaging and review coverage come
-    first
+  - Skill-autoresearch: no, defer because the lane still needs a review pass
+    before any mutation loop decision
 
 ## Current state
 
-- State: `monitoring-observability` is merged and closed; `log-analysis` is the
-  active packaging lane
-- PR: not opened yet for `log-analysis`
+- State: `monitoring-observability` is merged and closed; `log-analysis` is
+  packaged, validator-clean, and PR-open
+- PR: https://github.com/akillness/oh-my-gods/pull/70
 - Blocker: none
-- Next owner: current run should package `log-analysis`, validate it, and open
-  the PR path; the next scheduled run should review that PR for duplicate work
-  or missing improvements
-- Stage: `improvement`
+- Next owner: next scheduled run should review PR `#70` for duplicate work,
+  missing improvements, or standardization gaps, then merge if clean
+- Stage: `pr-open`
