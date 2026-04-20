@@ -1,14 +1,20 @@
 N:data-analysis
-D:Analyze datasets to extract insights, identify patterns, and generate reports. Use when exploring...
-G:data analysis pandas statistics visualization
-U[4]:
-  **Data exploration**: Understand a new dataset
-  **Report generation**: Derive data-driven insights
-  **Quality validation**: Check data consistency
-  **Decision support**: Make data-driven recommendations
+D:Analyze structured datasets with a decision-first workflow. Use this skill when the job is to inspect exports, validate data quality, explain trends, compare segments, or turn raw tables into findings with caveats and next actions.
+G:data-analysis csv sql pandas cohort retention funnel kpi metrics export
+U[5]:
+  Inspect CSV, JSON, Parquet, sheet, or SQL exports
+  Validate data quality, schema drift, nulls, duplicates, or shaky denominators
+  Explain trends, funnels, retention, cohort movement, or segment differences
+  Summarize experiment, telemetry, finance, or stakeholder metrics packets
+  Turn raw tables into evidence-backed decisions instead of chart dumps
+X[4]:
+  Dashboard or BI build -> looker-studio-bigquery
+  Raw log triage -> log-analysis
+  Anomaly-only hunting -> pattern-detection
+  Missing instrumentation or alert design -> monitoring-observability
 S[5]{n,action}:
-  1,Load and explore data
-  2,Data cleaning
-  3,Statistical analysis
-  4,Visualization
-  5,Derive insights
+  1,Frame the decision and data source
+  2,Run a fast trust check on the dataset
+  3,Choose the primary analysis lane
+  4,Produce findings with evidence and caveats
+  5,Route adjacent work out explicitly
