@@ -17,6 +17,8 @@ Date: 2026-04-21
   surfaces:
   https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
   https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills
+- OpenAI's eval guidance still reinforces reproducible evaluation gates before
+  deeper optimization loops:
   https://developers.openai.com/api/docs/guides/agent-evals
 
 ## Live GitHub state
@@ -35,28 +37,24 @@ Date: 2026-04-21
   https://github.com/akillness/oh-my-gods/pull/74
 - PR `#75` for `task-planning` merged on April 21, 2026:
   https://github.com/akillness/oh-my-gods/pull/75
-- Draft PR `#76` for `task-estimation` is open and re-reviewed clean on
-  April 21, 2026:
+- PR `#76` for `task-estimation` merged on April 21, 2026:
   https://github.com/akillness/oh-my-gods/pull/76
+- PR `#77` for `standup-meeting` is open and re-reviewed clean on
+  April 21, 2026:
+  https://github.com/akillness/oh-my-gods/pull/77
 
 ## Audit snapshot
 
 - Repo-wide validation passes at `80/80` skills with `0` spec violations when
   run via `python3 validate_frontmatter.py`.
-- `environment-setup` is a closed lane and should not be reopened without
-  review feedback or measured failures.
-- `user-guide-writing` is a closed lane and should not be reopened without
-  review feedback or measured failures because PR `#72` is merged on `main`.
-- `data-analysis` is now closed because PR `#73` is merged on `origin/main`.
-- `pattern-detection` is now closed because PR `#74` is merged on
+- `task-estimation` is now a closed lane because PR `#76` is merged on
   `origin/main`.
-- `task-planning` is now closed because PR `#75` is merged on `origin/main`.
-- `task-estimation` remains the active recurring lane, but branch review did
+- `standup-meeting` remains the active recurring lane, but branch review did
   not reveal duplicate work, spec drift, or a missing bounded follow-up patch.
 - The next bounded packaging gap should be chosen on the next survey run after
-  PR `#76` merges.
+  PR `#77` merges.
 - Current repo inference: the highest-value remaining work is still packaging
-  workflow-adjacent generic skills that lack route-clean support files and
+  workflow-adjacent generic PM skills that lack route-clean support files and
   reproducible trigger checks.
 
 ## Target decisions
@@ -72,7 +70,8 @@ Date: 2026-04-21
 | `data-analysis` | Merged via PR `#73` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `pattern-detection` | Merged via PR `#74` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `task-planning` | Merged via PR `#75` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `task-estimation` | PR `#76` reviewed clean | No | No | Yes | Yes | No | Merge PR `#76`, then choose the next bounded generic skill gap on the next run |
+| `task-estimation` | Merged via PR `#76` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
+| `standup-meeting` | PR `#77` reviewed clean | No | No | Yes | Yes | No | Merge PR `#77`, then choose the next bounded generic PM skill gap on the next run |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
 
@@ -80,17 +79,14 @@ Date: 2026-04-21
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Treat `environment-setup`, `user-guide-writing`, and `data-analysis` as
-  closed because PRs `#71`, `#72`, and `#73` are merged.
-- Treat `pattern-detection` as closed because PR `#74` is merged.
-- Treat `task-planning` as closed because PR `#75` is merged.
-- Treat `task-estimation` as reviewed clean on this run and ready for merge.
+- Treat `task-estimation` as closed because PR `#76` is merged.
+- Treat `standup-meeting` as reviewed clean on this run and ready for merge.
 - Defer `skill-autoresearch` again because the packaged skill passes the
   bounded review gate without a measured residual failure.
 
 ## Packaging decision for the active lane
 
-- Active lane on this run: `task-estimation`
+- Active lane on this run: `standup-meeting`
   - Assets: no
   - Scripts: no
   - References: yes
@@ -100,11 +96,10 @@ Date: 2026-04-21
 
 ## Current state
 
-- Current state: `task-estimation` remains the active lane, but the open PR has
-  now been re-reviewed with clean validation and no bounded follow-up diff
-  justified.
-- PR: https://github.com/akillness/oh-my-gods/pull/76
+- Current state: `standup-meeting` remains the active lane, but the open PR has
+  now been re-reviewed clean with no bounded follow-up diff justified
+- PR: https://github.com/akillness/oh-my-gods/pull/77
 - Blocker: none
-- Next owner: merge PR `#76`; on the next run, survey the remaining landscape
-  for the next bounded packaging lane
+- Next owner: merge PR `#77`; on the next run, survey the remaining landscape
+  for the next bounded generic PM skill gap
 - Stage: `merge`

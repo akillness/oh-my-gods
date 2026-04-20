@@ -1,9 +1,29 @@
 N:standup-meeting
-D:Conduct effective daily standup meetings for agile teams. Use when facilitating standups, trackin...
-G:standup daily-scrum agile team-sync blockers
-U[3]:
-  **Daily**: same time, same place
-  **During a sprint**: when team sync is needed
-  **Remote teams**: async standup
-S[1]{n,action}:
-  1,3 Questions format
+D:Facilitate useful daily standups, daily scrums, async check-ins, or walk-the-board delivery syncs without turning them into manager-facing status theater. Use for daily coordination, blocker triage, and remote-team check-ins rather than planning or retrospectives.
+G:standup-meeting daily-scrum async-standup blocker-triage agile
+
+U[5]:
+  run a short daily sync for active sprint or delivery work
+  convert a vague standup into a board-first or blocker-first flow
+  create an async check-in format for distributed teams
+  surface blocked work, review-ready items, and follow-up owners
+  reset a noisy standup ritual that has become too long or low-signal
+
+X[3]:
+  backlog decomposition or sprint-candidate shaping -> task-planning
+  story points, sizing, or forecast ranges -> task-estimation
+  completed-work reflection or process change -> sprint-retrospective
+
+S[5]{n,action}:
+  1,Identify the standup mode
+  2,Choose the lightest useful standup format
+  3,Center the sync on work in motion and blockers
+  4,Capture blocker owners and follow-ups
+  5,Return a concise standup packet
+
+R[5]:
+  keep the sync tied to active work rather than personal theater
+  make blockers and owners visible
+  avoid turning the standup into planning or estimation
+  keep problem-solving outside the main ritual unless blocker triage is explicit
+  end with a recommended next move
