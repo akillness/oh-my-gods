@@ -91,9 +91,9 @@ Date: 2026-04-21
 ## Current state
 
 - Current state: `standup-meeting` is the active recurring lane and now has a
-  bounded packaging diff ready for PR registration
-- PR: not opened yet on this file update; open the PR for the new branch after
-  validation passes
+  bounded packaging diff opened for review
+- PR: https://github.com/akillness/oh-my-gods/pull/77
 - Blocker: none
-- Next owner: open and review the `standup-meeting` packaging PR
-- Stage: `improvement`
+- Next owner: review branch `chore/standup-meeting-standardization-20260421-r84`
+  for duplicate work, missing improvements, or lingering standardization gaps
+- Stage: `pr-open`
