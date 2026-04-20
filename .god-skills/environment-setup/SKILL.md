@@ -1,360 +1,197 @@
 ---
 name: environment-setup
-description: Configure and manage development, staging, and production environments. Use when setting up environment variables, managing configurations, or separating environments. Handles .env files, config management, and environment-specific settings.
+description: >
+  Organize application environment configuration: `.env` files, env
+  precedence, typed env validation, secret handoff, framework-specific env
+  rules, and config drift between local, staging, CI, and production. Use when
+  the user needs help structuring environment variables, validating required
+  config, separating public and private env values, or cleaning up env-file
+  sprawl. Route broader machine, Docker, devcontainer, or toolchain setup to
+  `system-environment-setup`.
 allowed-tools: Read Write Edit Bash
 metadata:
-  tags: environment, configuration, env-variables, dotenv, config-management
-  platforms: Claude, ChatGPT, Gemini
+  tags: environment-setup, env, dotenv, config, secrets, validation, ci
+  platforms: Claude, ChatGPT, Gemini, Codex
+  version: "2.0.0"
 ---
 
+# Environment Setup
 
-# Environment Configuration
+Environment setup is a configuration-boundary job. Keep the main skill focused
+on env ownership, precedence, validation, and safe secret handoff instead of
+turning it into generic machine setup or deployment automation.
 
+Read `references/env-precedence-and-visibility.md` when env-file layering,
+public/private split, or framework visibility rules are the main risk. Read
+`references/validation-and-secret-handoff.md` when the problem is required
+variable validation, `.env.example` discipline, CI/prod secret injection, or
+rotation handoff.
 
 ## When to use this skill
 
-- **New Projects**: Initial environment setup
-- **Multiple Environments**: Separate dev, staging, production
-- **Team Collaboration**: Share consistent environments
+- Structure `.env`, `.env.local`, `.env.example`, CI, and production config
+- Separate public, private, secret, and runtime-only environment values
+- Add typed env validation and fail-fast startup checks
+- Clean up config drift between local, staging, preview, CI, and production
+- Decide what should live in env vars versus checked-in config files
+
+## When not to use this skill
+
+- The main task is machine bootstrap, runtime versions, Docker Compose, or devcontainers: use `system-environment-setup`
+- The main task is authentication architecture rather than env distribution: use `authentication-setup`
+- The main task is provider-neutral deployment rollout or promotion rules: use `deployment-automation`
+- The main task is broader secret governance, hardening, or abuse controls: use `security-best-practices`
 
 ## Instructions
 
-### Step 1: .env File Structure
+### Step 1: Map the env surface before choosing files
 
-**.env.example** (template):
-```bash
-# Application
-NODE_ENV=development
-PORT=3000
-APP_URL=http://localhost:3000
+Capture the minimum boundary first:
 
-# Database
-DATABASE_URL=postgresql://user:password@localhost:5432/myapp
-DATABASE_POOL_MIN=2
-DATABASE_POOL_MAX=10
+- runtime surface: browser, server, worker, CLI, edge, or mixed
+- environments: local, preview, CI, staging, production
+- config classes: public, private, secret, runtime-only, or optional
+- current failure: missing var, drift, secret leak risk, broken preview, or env-file sprawl
+- framework/runtime rules: Next.js, Vite, Docker, Rails, FastAPI, or generic app
 
-# Redis
-REDIS_URL=redis://localhost:6379
-REDIS_TTL=3600
+If the user is really blocked on local toolchains, containers, or machine
+bootstrap, route to `system-environment-setup` before designing `.env` policy.
 
-# Authentication
-JWT_ACCESS_SECRET=change-me-in-production-min-32-characters
-JWT_REFRESH_SECRET=change-me-in-production-min-32-characters
-JWT_ACCESS_EXPIRY=15m
-JWT_REFRESH_EXPIRY=7d
+### Step 2: Define precedence and visibility explicitly
 
-# Email
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your-email@gmail.com
-SMTP_PASSWORD=your-app-password
+Choose the smallest clear layering model:
 
-# External APIs
-STRIPE_SECRET_KEY=sk_test_xxx
-STRIPE_PUBLISHABLE_KEY=pk_test_xxx
-AWS_ACCESS_KEY_ID=AKIAXXXXXXXX
-AWS_SECRET_ACCESS_KEY=xxxxxxxx
-AWS_REGION=us-east-1
-AWS_S3_BUCKET=myapp-uploads
+- checked-in defaults: `.env.example`, typed config docs, or non-secret constants
+- developer-local overrides: `.env.local`, direnv, or shell exports
+- CI/preview values: pipeline or provider-managed secrets
+- production values: runtime or platform secret store
 
-# Monitoring
-SENTRY_DSN=https://xxx@sentry.io/xxx
-LOG_LEVEL=info
+For each variable, decide:
 
-# Feature Flags
-ENABLE_2FA=false
-ENABLE_ANALYTICS=true
-```
+- who can read it
+- where it is injected
+- whether it may ship to the client
+- whether it must exist at boot time
 
-**.env.local** (per developer):
-```bash
-# Developer personal settings (add to .gitignore)
-DATABASE_URL=postgresql://localhost:5432/myapp_dev
-LOG_LEVEL=debug
-```
+Read `references/env-precedence-and-visibility.md` if the public/private split
+or file precedence is unclear.
 
-**.env.production**:
-```bash
-NODE_ENV=production
-PORT=8080
-APP_URL=https://myapp.com
+### Step 3: Validate required config early
 
-DATABASE_URL=${DATABASE_URL}  # Injected from environment variables
-REDIS_URL=${REDIS_URL}
+Prefer one typed validation boundary at startup:
 
-JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
-JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+- parse env once
+- coerce types once
+- fail fast on missing or malformed required values
+- keep derived config in code, not duplicated across many env files
 
-LOG_LEVEL=warn
-ENABLE_2FA=true
-```
+Read `references/validation-and-secret-handoff.md` when deciding how to pair
+`.env.example`, schema validation, CI checks, and production secret handoff.
 
-### Step 2: Type-Safe Environment Variables (TypeScript)
+### Step 4: Keep the boundary clean
 
-**config/env.ts**:
-```typescript
-import { z } from 'zod';
-import dotenv from 'dotenv';
+- Route machine setup, Docker Compose, devcontainers, and runtime installs to `system-environment-setup`
+- Route auth/session architecture to `authentication-setup` when env vars are not the real decision
+- Route deployment promotion and release rollout to `deployment-automation`
+- Route secret hardening or broad app security review to `security-best-practices`
 
-// Load .env file
-dotenv.config();
+Do not turn this skill into a generic infrastructure, auth, or deployment lane.
 
-// Define schema
-const envSchema = z.object({
-  NODE_ENV: z.enum(['development', 'production', 'test']),
-  PORT: z.coerce.number().default(3000),
+### Step 5: End with the smallest safe next check
 
-  DATABASE_URL: z.string().url(),
+Before finishing, state:
 
-  JWT_ACCESS_SECRET: z.string().min(32),
-  JWT_REFRESH_SECRET: z.string().min(32),
-
-  SMTP_HOST: z.string(),
-  SMTP_PORT: z.coerce.number(),
-  SMTP_USER: z.string().email(),
-  SMTP_PASSWORD: z.string(),
-
-  STRIPE_SECRET_KEY: z.string().startsWith('sk_'),
-
-  LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
-});
-
-// Validate and export
-export const env = envSchema.parse(process.env);
-
-// Usage:
-// import { env } from './config/env';
-// console.log(env.DATABASE_URL); // Type-safe!
-```
-
-**Error Handling**:
-```typescript
-try {
-  const env = envSchema.parse(process.env);
-} catch (error) {
-  if (error instanceof z.ZodError) {
-    console.error('❌ Invalid environment variables:');
-    error.errors.forEach((err) => {
-      console.error(`  - ${err.path.join('.')}: ${err.message}`);
-    });
-    process.exit(1);
-  }
-}
-```
-
-### Step 3: Per-Environment Config Files
-
-**config/index.ts**:
-```typescript
-interface Config {
-  env: string;
-  port: number;
-  database: {
-    url: string;
-    pool: { min: number; max: number };
-  };
-  jwt: {
-    accessSecret: string;
-    refreshSecret: string;
-    accessExpiry: string;
-    refreshExpiry: string;
-  };
-  features: {
-    enable2FA: boolean;
-    enableAnalytics: boolean;
-  };
-}
-
-const config: Config = {
-  env: process.env.NODE_ENV || 'development',
-  port: parseInt(process.env.PORT || '3000'),
-
-  database: {
-    url: process.env.DATABASE_URL!,
-    pool: {
-      min: parseInt(process.env.DATABASE_POOL_MIN || '2'),
-      max: parseInt(process.env.DATABASE_POOL_MAX || '10'),
-    },
-  },
-
-  jwt: {
-    accessSecret: process.env.JWT_ACCESS_SECRET!,
-    refreshSecret: process.env.JWT_REFRESH_SECRET!,
-    accessExpiry: process.env.JWT_ACCESS_EXPIRY || '15m',
-    refreshExpiry: process.env.JWT_REFRESH_EXPIRY || '7d',
-  },
-
-  features: {
-    enable2FA: process.env.ENABLE_2FA === 'true',
-    enableAnalytics: process.env.ENABLE_ANALYTICS !== 'false',
-  },
-};
-
-// Validate required fields
-const requiredEnvVars = [
-  'DATABASE_URL',
-  'JWT_ACCESS_SECRET',
-  'JWT_REFRESH_SECRET',
-];
-
-for (const envVar of requiredEnvVars) {
-  if (!process.env[envVar]) {
-    throw new Error(`Missing required environment variable: ${envVar}`);
-  }
-}
-
-export default config;
-```
-
-### Step 4: Environment-Specific Configuration Files
-
-**config/environments/development.ts**:
-```typescript
-export default {
-  logging: {
-    level: 'debug',
-    prettyPrint: true,
-  },
-  cors: {
-    origin: '*',
-    credentials: true,
-  },
-  rateLimit: {
-    enabled: false,
-  },
-};
-```
-
-**config/environments/production.ts**:
-```typescript
-export default {
-  logging: {
-    level: 'warn',
-    prettyPrint: false,
-  },
-  cors: {
-    origin: process.env.ALLOWED_ORIGINS?.split(',') || [],
-    credentials: true,
-  },
-  rateLimit: {
-    enabled: true,
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-  },
-};
-```
-
-**config/index.ts** (unified):
-```typescript
-import development from './environments/development';
-import production from './environments/production';
-
-const env = process.env.NODE_ENV || 'development';
-
-const configs = {
-  development,
-  production,
-  test: development,
-};
-
-export const environmentConfig = configs[env];
-```
-
-### Step 5: Docker Environment Variables
-
-**docker-compose.yml**:
-```yaml
-version: '3.8'
-
-services:
-  app:
-    build: .
-    environment:
-      - NODE_ENV=development
-      - DATABASE_URL=postgresql://postgres:password@db:5432/myapp
-      - REDIS_URL=redis://redis:6379
-    env_file:
-      - .env.local
-    depends_on:
-      - db
-      - redis
-
-  db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: myapp
-
-  redis:
-    image: redis:7-alpine
-```
+- the env ownership model
+- precedence order and file/platform split
+- required validation gate
+- which values are public vs private vs secret
+- the next smallest verification step, such as startup validation, CI check, or preview smoke test
 
 ## Output format
 
-```
-project/
-├── .env.example           # Template (commit)
-├── .env                   # Local (gitignore)
-├── .env.local             # Per developer (gitignore)
-├── .env.production        # Production (gitignore or vault)
-├── config/
-│   ├── index.ts           # Main configuration
-│   ├── env.ts             # Environment variable validation
-│   └── environments/
-│       ├── development.ts
-│       ├── production.ts
-│       └── test.ts
-└── .gitignore
-```
+Expected response shape:
 
-**.gitignore**:
-```
-.env
-.env.local
-.env.*.local
-.env.production
-```
-
-## Constraints
-
-### Required Rules (MUST)
-
-1. **Provide .env.example**: List of required environment variables
-2. **Validation**: Error when required environment variables are missing
-3. **.gitignore**: Never commit .env files
-
-### Prohibited (MUST NOT)
-
-1. **Commit Secrets**: Never commit .env files
-2. **Hardcoding**: Do not hardcode environment-specific settings in code
-
-## Best practices
-
-1. **12 Factor App**: Manage configuration via environment variables
-2. **Type Safety**: Runtime validation with Zod
-3. **Secrets Management**: Use AWS Secrets Manager, Vault
-
-## References
-
-- [dotenv](https://github.com/motdotla/dotenv)
-- [Zod](https://zod.dev/)
-- [12 Factor App - Config](https://12factor.net/config)
-
-## Metadata
-
-### Version
-- **Current Version**: 1.0.0
-- **Last Updated**: 2025-01-01
-- **Compatible Platforms**: Claude, ChatGPT, Gemini
-
-### Tags
-`#environment` `#configuration` `#env-variables` `#dotenv` `#config-management` `#utilities`
+- `Env surface`: runtimes, environments, and current pain
+- `Ownership model`: what lives in repo, local overrides, CI, and production
+- `Visibility rules`: public vs private vs secret values
+- `Validation gate`: how required config is checked and where it fails fast
+- `Drift risks`: what commonly diverges across local, CI, and production
+- `Next check`: the smallest verification or handoff step
+- `Route-outs`: sibling skills that should own any broader follow-up
 
 ## Examples
 
-### Example 1: Basic usage
-<!-- Add example content here -->
+### Example 1: Env-file sprawl cleanup
 
-### Example 2: Advanced usage
-<!-- Add advanced example content here -->
+Input:
+
+```text
+We have `.env`, `.env.local`, `.env.staging`, provider secrets, and random
+shell exports. Help me clean up the config model without breaking local or CI.
+```
+
+Expected shape:
+
+- keeps the request on `environment-setup`
+- defines precedence and ownership before suggesting files
+- ends with validation and drift checks
+
+### Example 2: Public vs private split
+
+Input:
+
+```text
+Which values should stay server-only, which can go in `NEXT_PUBLIC_*`, and how
+should I document them for the team?
+```
+
+Expected shape:
+
+- keeps the request on `environment-setup`
+- distinguishes visibility rules clearly
+- names the documentation and validation boundary
+
+### Example 3: Route machine setup outward
+
+Input:
+
+```text
+My repo fails because Docker, Node, and Postgres versions are inconsistent
+across laptops. Fix the developer setup.
+```
+
+Expected shape:
+
+- recognizes the primary problem as machine or runtime setup
+- routes to `system-environment-setup`
+- keeps env-file policy as secondary
+
+### Example 4: Route rollout outward
+
+Input:
+
+```text
+I need a staging-to-production release process with preview deploys, health
+checks, and rollback steps.
+```
+
+Expected shape:
+
+- recognizes rollout automation as the main task
+- routes to `deployment-automation`
+- does not keep `environment-setup` as the primary owner
+
+## Best practices
+
+1. Document every required variable in one place.
+2. Keep secrets out of checked-in env files.
+3. Validate env once at startup rather than reading raw `process.env` everywhere.
+4. Minimize the number of env layers and make precedence explicit.
+5. Keep public and server-only variables clearly separated.
+6. Add references and evals before any `skill-autoresearch` loop on this skill.
+
+## References
+
+- Local: `references/env-precedence-and-visibility.md`
+- Local: `references/validation-and-secret-handoff.md`
+- Twelve-Factor config: https://12factor.net/config

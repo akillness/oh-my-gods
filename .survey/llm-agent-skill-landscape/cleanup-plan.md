@@ -1,38 +1,38 @@
-# Cleanup Plan: `log-analysis` packaging lane
+# Cleanup Plan: `environment-setup` packaging lane
 
 ## Goal
 
-Advance the recurring improvement loop after PR `#69` merged by packaging
-`log-analysis` as the next bounded skill. Keep the work focused on trigger and
-boundary repair, concise references, eval coverage, and a compact companion
-`SKILL.toon`. Defer `skill-autoresearch` until the packaged lane still shows
-measured failures after review.
+Advance the recurring improvement loop after PR `#70` merged by packaging
+`environment-setup` as the next bounded skill. Keep the work focused on env
+ownership boundaries, concise references, eval coverage, and a compact
+companion `SKILL.toon`. Defer `skill-autoresearch` until the packaged lane
+still shows measured failures after review.
 
 ## Why this lane is next
 
-- PR `#69` merged, so reopening `monitoring-observability` would duplicate
-  already-closed work.
+- PR `#70` merged, so reopening `log-analysis` would duplicate already-closed
+  work.
 - External survey signal still favors portable, standards-clean skill
   directories with progressive disclosure over oversized inline entrypoints.
-- `log-analysis` is now the strongest remaining repo-local contradiction
-  because it still ships as a generic recipe sheet with weak route-outs and no
+- `environment-setup` is now the strongest remaining repo-local contradiction
+  because it still ships as a large generic recipe sheet with no focused
   `references/`, `evals/`, or compact companion surface.
 
 ## Behavior lock
 
-- Keep this run focused on `log-analysis` only.
+- Keep this run focused on `environment-setup` only.
 - Do not reopen already-merged unrelated lanes.
 - Keep the support package decision explicit:
   - `assets`: no
   - `scripts`: no
-  - `references`: yes, add focused triage and handoff guidance
+  - `references`: yes, add focused precedence and validation guidance
   - `evals`: yes, add trigger and route-out checks
 - Keep `skill-autoresearch` deferred until a packaged, review-clean target
   still shows measured failures.
 
 ## Planned checks
 
-1. Replace the generic inline recipe content with a compact routing-first
+1. Replace the generic inline recipe content with a compact boundary-first
    entrypoint.
 2. Add only the references, evals, and `SKILL.toon` surface needed to make the
    skill measurable.
