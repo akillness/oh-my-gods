@@ -1,0 +1,35 @@
+{
+  "skill_name": "vercel-deploy",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Deploy this linked Next.js app on Vercel, then tell me how to inspect the preview and promote it if the smoke test passes.",
+      "expected_output": "Keeps the work in the Vercel lane, distinguishes preview deploy from promotion, and includes verification before promotion.",
+      "assertions": [
+        "Response keeps the task in vercel-deploy rather than routing immediately to deployment-automation",
+        "Response distinguishes preview deployment from promotion to production",
+        "Response includes verification or inspection before promotion"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our AI tool created a Vercel deployment for a customer. We need a claim URL so they can take ownership.",
+      "expected_output": "Uses the claim-deployment lane, mentions preview plus claim handoff, and does not present that path as ordinary linked-project deployment.",
+      "assertions": [
+        "Response mentions claim deployment or claim URL explicitly",
+        "Response treats this as a distinct handoff flow rather than a generic deploy",
+        "Response preserves the bundled helper or claim-flow reference as the execution path"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Help me design a deployment pipeline with Docker images, GitHub Actions, rollback strategy, and staging environments.",
+      "expected_output": "Routes the request out to deployment-automation instead of keeping it in Vercel-specific execution.",
+      "assertions": [
+        "Response routes this generic deployment-design request to deployment-automation",
+        "Response does not frame vercel-deploy as the primary skill for Docker or GitHub Actions pipeline design",
+        "Response preserves Vercel-specific scope rather than acting as a catch-all deployment skill"
+      ]
+    }
+  ]
+}
