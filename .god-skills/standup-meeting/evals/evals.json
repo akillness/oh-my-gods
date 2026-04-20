@@ -1,0 +1,54 @@
+{
+  "skill_name": "standup-meeting",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run today's engineering standup. Our sprint goal is invoice export, we have two backend tasks in progress, one blocked QA environment issue, and one PR waiting for review.",
+      "expected_output": "Returns a standup packet that chooses a live coordination format, summarizes work in motion, surfaces the blocker with ownership, and recommends concrete follow-up after the standup.",
+      "assertions": [
+        "Output includes a 'Standup mode' section",
+        "Output includes a 'Work in motion' section",
+        "Output includes blockers with an owner or next action",
+        "Output includes a recommended next move",
+        "Output does not read like a retrospective"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Design an async standup format for our remote team across Seoul, London, and New York. We need updates to stay short and blockers to stand out.",
+      "expected_output": "Chooses async-check-in mode and returns a concise reusable format that makes blockers and follow-up ownership obvious.",
+      "assertions": [
+        "Output identifies async check-in or an equivalent asynchronous standup mode",
+        "Output includes a reusable short-format template or packet structure",
+        "Output explicitly emphasizes blockers or follow-up ownership"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Break down our onboarding overhaul into sprint-ready tasks and acceptance criteria before next week's planning meeting.",
+      "expected_output": "Recognizes the request is primarily backlog decomposition and routes it to task-planning instead of forcing a standup ritual.",
+      "assertions": [
+        "Output routes or recommends routing to `task-planning`",
+        "Output does not pretend the main answer is a daily standup packet"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Give me story points for controller support and cloud saves so we can decide what fits in the sprint.",
+      "expected_output": "Recognizes the request as estimation work and routes it to task-estimation.",
+      "assertions": [
+        "Output routes or recommends routing to `task-estimation`",
+        "Output does not present a standup agenda as the main answer"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Our sprint just ended. Help us reflect on what went well, what did not, and what process changes to make next sprint.",
+      "expected_output": "Recognizes the request as retrospective work and routes it to sprint-retrospective.",
+      "assertions": [
+        "Output routes or recommends routing to `sprint-retrospective`",
+        "Output does not frame the answer as a daily standup"
+      ]
+    }
+  ]
+}
