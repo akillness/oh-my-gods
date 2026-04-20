@@ -1,16 +1,30 @@
 N:environment-setup
-D:Configure and manage development, staging, and production environments. Use when setting up envir...
-G:environment configuration env-variables dotenv config-management
-U[3]:
-  **New Projects**: Initial environment setup
-  **Multiple Environments**: Separate dev, staging, production
-  **Team Collaboration**: Share consistent environments
-S[5]{n,action}:
-  1,.env File Structure
-  2,Type-Safe Environment Variables (TypeScript)
-  3,Per-Environment Config Files
-  4,Environment-Specific Configuration Files
-  5,Docker Environment Variables
-R[2]:
-  DATABASE_URL=postgresql
-  REDIS_URL=redis
+D:Organize application environment configuration including env-file layering precedence typed validation public-versus-private visibility rules and secret handoff across local CI staging preview and production. Use this skill when the user needs to clean up env sprawl validate required config or separate browser-safe values from server-only secrets.
+G:environment-setup env dotenv config secrets validation ci preview staging production nextjs vite fastapi
+
+U[5]:
+  Structure env files and platform-injected configuration across local CI preview staging and production
+  Separate public private secret and runtime-only values before changing files
+  Add typed startup validation and fail-fast checks for required config
+  Reduce drift between checked-in defaults local overrides and deployed secrets
+  Route machine bootstrap deployment rollout or auth architecture to sibling skills when env policy is not the main job
+
+S[5]{n,action,details}:
+  1,Map-Surface,Capture runtimes environments config classes current failure mode and any framework-specific visibility rules
+  2,Define-Precedence,Choose the smallest clear layering model for repo defaults local overrides CI values and production secret stores
+  3,Validate-Early,Parse env once coerce types once and fail fast on missing or malformed required values
+  4,Route-Cleanly,Send machine setup to system-environment-setup rollout automation to deployment-automation auth architecture to authentication-setup and broader hardening to security-best-practices
+  5,Name-Next-Check,End with the ownership model visibility rules validation gate drift risks and the next smallest verification step
+
+R[5]:
+  Keep secrets out of checked-in env files
+  Keep public and server-only variables clearly separated
+  Minimize env layers and make precedence explicit
+  Validate env once at startup instead of scattering raw env reads
+  Add references and evals before any skill-autoresearch loop
+
+E[4]{desc,in,out}:
+  "Env-file sprawl cleanup","We have .env files provider secrets and shell exports everywhere. Help me clean up the config model.","Defines precedence ownership visibility and a validation gate while keeping the task on environment-setup"
+  "Public versus private split","Which values should be NEXT_PUBLIC and which must stay server-only?","Keeps the request on environment-setup and names visibility rules and documentation boundaries"
+  "Route machine setup outward","Docker Node and Postgres versions differ across laptops and the repo will not boot.","Routes to system-environment-setup because machine bootstrap is the primary task"
+  "Route rollout outward","I need preview deploys staging promotion and rollback rules.","Routes to deployment-automation because rollout mechanics are the main job"

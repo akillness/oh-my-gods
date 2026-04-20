@@ -1,0 +1,46 @@
+{
+  "skill_name": "environment-setup",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We have `.env`, `.env.local`, provider secrets, and random shell exports across local, CI, and staging. Help me clean up the environment configuration model.",
+      "expected_output": "An environment-setup response that defines ownership, precedence, and validation instead of dumping generic setup snippets.",
+      "assertions": [
+        "Output keeps the request on `environment-setup`",
+        "Output defines an ownership or precedence model across local, CI, and deployed environments",
+        "Output includes a validation gate or fail-fast check",
+        "Output ends with a next verification or drift-reduction step"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Which values should stay server-only, which can go in `NEXT_PUBLIC_*`, and how should I document them for the team?",
+      "expected_output": "A boundary-clean environment-setup response that separates public and private values and recommends documentation and validation discipline.",
+      "assertions": [
+        "Output keeps the request on `environment-setup`",
+        "Output distinguishes public values from private or secret values",
+        "Output mentions documentation or `.env.example` discipline"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "My repo fails because Docker, Node, and Postgres versions are inconsistent across developer laptops. Fix the setup.",
+      "expected_output": "A route-out response that recognizes the primary issue as machine or runtime setup rather than env-file policy.",
+      "assertions": [
+        "Output recognizes runtime or machine setup as the primary problem",
+        "Output routes the task to `system-environment-setup`",
+        "Output does not present `environment-setup` as the primary owner"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I need preview deploys, staging promotion, health checks, and rollback steps for releases. What should the process be?",
+      "expected_output": "A route-out response that recognizes deployment rollout automation as the main task.",
+      "assertions": [
+        "Output recognizes rollout or release automation as the primary problem",
+        "Output routes the task to `deployment-automation`",
+        "Output does not keep `environment-setup` as the primary owner"
+      ]
+    }
+  ]
+}
