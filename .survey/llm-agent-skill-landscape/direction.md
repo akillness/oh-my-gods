@@ -47,10 +47,10 @@ The landscape signal remains stable as of April 21, 2026:
    https://github.com/microsoft/skills
 6. Repo-local audit matters more than reopening merged lanes, because those
    lanes are already closed on `main`.
-7. The strongest active bounded lane is now `task-estimation`, because the repo
-   audit still shows broad overlap with `task-planning`,
-   `standup-meeting`, `sprint-retrospective`, and roadmap/scheduling asks, but
-   the skill still has no local `references/` or `evals/`.
+7. `task-estimation` remains the strongest active bounded lane because its
+   newly packaged branch still sits on a crowded PM boundary, so the next
+   highest-value move is clearing the reviewed PR instead of starting a stale
+   duplicate improvement pass.
 
 ## Locked direction
 
@@ -65,8 +65,8 @@ Advance one bounded lane per run, in this order:
 7. Keep `data-analysis` closed after PR `#73` merged
 8. Keep `pattern-detection` closed after PR `#74` merged
 9. Keep `task-planning` closed after PR `#75` merged
-10. Move the active lane to `task-estimation`, then open its PR after the
-    first bounded packaging pass
+10. Move the active lane to `task-estimation`, then clear its reviewed PR
+    before surveying a new lane
 11. Revisit `skill-autoresearch` only after a packaged, reviewed target still
     shows measured failures
 
@@ -79,9 +79,9 @@ This order is locked because:
 - `pattern-detection` is now closed because PR `#74` merged, so reopening it
   now would duplicate already-finished work.
 - `task-planning` is now closed because PR `#75` merged.
-- `task-estimation` is the strongest still-open bounded packaging move after
-  the latest repo audit because it remains generic, PM-adjacent, and unpackaged
-  relative to its neighboring surfaces.
+- `task-estimation` is still the strongest active bounded move after the latest
+  repo audit because the branch is already packaged, validated, and now only
+  needs merge-path progression instead of another content rewrite.
 
 ## Skill-autoresearch triage
 
@@ -96,7 +96,7 @@ This order is locked because:
 | `data-analysis` | Closed merged lane | No | No | No | Added | Added | Keep closed unless post-merge evidence reopens it |
 | `pattern-detection` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
 | `task-planning` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
-| `task-estimation` | High and active | No | No | No | Yes | Yes | Package it, open the PR, then run a clean branch review on the next cycle |
+| `task-estimation` | High and active | No | No | No | Yes | Yes | The PR is now reviewed clean; merge it, then survey for the next bounded lane |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
@@ -107,14 +107,14 @@ This order is locked because:
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because the skill still lacks the packaged baseline
-    needed to justify a mutation loop
+  - Skill-autoresearch: no, because repo validation, support-file sync, and
+    branch review did not expose a residual failure worth a mutation loop
 
 ## Current state
 
-- State: `task-planning` is closed on `main`; `task-estimation` is now the
-  active lane and has advanced from `survey` to `pr-open`
+- State: `task-estimation` remains the active lane, but the open PR has now
+  been re-reviewed clean with no bounded follow-up diff justified
 - PR: https://github.com/akillness/oh-my-gods/pull/76
 - Blocker: none
-- Next owner: re-review that branch on the next run
-- Stage: `pr-open`
+- Next owner: merge PR `#76`, then return to survey on the following run
+- Stage: `merge`

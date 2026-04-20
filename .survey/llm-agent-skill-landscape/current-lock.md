@@ -35,6 +35,9 @@ Date: 2026-04-21
   https://github.com/akillness/oh-my-gods/pull/74
 - PR `#75` for `task-planning` merged on April 21, 2026:
   https://github.com/akillness/oh-my-gods/pull/75
+- Draft PR `#76` for `task-estimation` is open and re-reviewed clean on
+  April 21, 2026:
+  https://github.com/akillness/oh-my-gods/pull/76
 
 ## Audit snapshot
 
@@ -48,8 +51,10 @@ Date: 2026-04-21
 - `pattern-detection` is now closed because PR `#74` is merged on
   `origin/main`.
 - `task-planning` is now closed because PR `#75` is merged on `origin/main`.
-- The next bounded packaging gap is now `task-estimation`, because it remains a
-  generic PM-adjacent surface with no local `references/` or `evals/`.
+- `task-estimation` remains the active recurring lane, but branch review did
+  not reveal duplicate work, spec drift, or a missing bounded follow-up patch.
+- The next bounded packaging gap should be chosen on the next survey run after
+  PR `#76` merges.
 - Current repo inference: the highest-value remaining work is still packaging
   workflow-adjacent generic skills that lack route-clean support files and
   reproducible trigger checks.
@@ -67,7 +72,7 @@ Date: 2026-04-21
 | `data-analysis` | Merged via PR `#73` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `pattern-detection` | Merged via PR `#74` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `task-planning` | Merged via PR `#75` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `task-estimation` | New active lane | No | No | Yes | Yes | No | Package it, open the PR, then review the branch on the next run |
+| `task-estimation` | PR `#76` reviewed clean | No | No | Yes | Yes | No | Merge PR `#76`, then choose the next bounded generic skill gap on the next run |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
 
@@ -79,10 +84,9 @@ Date: 2026-04-21
   closed because PRs `#71`, `#72`, and `#73` are merged.
 - Treat `pattern-detection` as closed because PR `#74` is merged.
 - Treat `task-planning` as closed because PR `#75` is merged.
-- Treat `task-estimation` as the new active bounded lane for the next PR-open
-  pass.
-- Defer `skill-autoresearch` again because `task-estimation` first needs the
-  basic packaging surface before any mutation loop is justified.
+- Treat `task-estimation` as reviewed clean on this run and ready for merge.
+- Defer `skill-autoresearch` again because the packaged skill passes the
+  bounded review gate without a measured residual failure.
 
 ## Packaging decision for the active lane
 
@@ -91,15 +95,16 @@ Date: 2026-04-21
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because the skill does not yet have a packaged
-    baseline or measured residual failure worth a mutation loop
+  - Skill-autoresearch: no, because repo validation, support-file sync, and
+    branch review did not expose a residual failure worth a mutation loop
 
 ## Current state
 
-- Current state: `task-planning` is closed on `main`; `task-estimation` is now
-  the active bounded lane and has advanced to PR-open.
+- Current state: `task-estimation` remains the active lane, but the open PR has
+  now been re-reviewed with clean validation and no bounded follow-up diff
+  justified.
 - PR: https://github.com/akillness/oh-my-gods/pull/76
 - Blocker: none
-- Next owner: on the next run, review the `task-estimation` branch for
-  duplicate work, missing improvements, or standardization gaps
-- Stage: `pr-open`
+- Next owner: merge PR `#76`; on the next run, survey the remaining landscape
+  for the next bounded packaging lane
+- Stage: `merge`
