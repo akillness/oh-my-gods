@@ -29,7 +29,7 @@ Date: 2026-04-20
   https://github.com/akillness/oh-my-gods/pull/71
 - PR `#72` for `user-guide-writing` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/72
-- PR `#73` for `data-analysis` is open:
+- PR `#73` for `data-analysis` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/73
 
 ## Audit snapshot
@@ -40,16 +40,14 @@ Date: 2026-04-20
   review feedback or measured failures.
 - `user-guide-writing` is a closed lane and should not be reopened without
   review feedback or measured failures because PR `#72` is merged on `main`.
-- The current repo audit found `data-analysis` to be the strongest remaining
-  bounded packaging gap because it was still a generic single-file skill with
-  no local `references/`, no `evals/`, and weak route-outs across overlapping
-  BI, logging, anomaly, and observability skills.
-- Review pass on April 20, 2026 found one bounded consistency issue in the
-  packaged `data-analysis` lane: it routed dashboard work directly to
-  `looker-studio-bigquery`, but that skill is not present in this repo. The
-  lane now routes to a dashboard or BI-specific skill such as
-  `looker-studio-bigquery` only when one is installed, which keeps the local
-  catalog consistent without losing the intended boundary.
+- `data-analysis` is now closed because PR `#73` is merged on `origin/main`.
+- The next bounded packaging gap is `pattern-detection`, which is still a
+  generic single-file skill with no local `references/`, no `evals/`, and weak
+  route-outs across overlapping code-review, security, log, debugging, and
+  structured-data lanes.
+- Current repo inference: the highest-value remaining work is still packaging
+  workflow-adjacent generic skills that lack route-clean support files and
+  reproducible trigger checks.
 
 ## Target decisions
 
@@ -61,7 +59,8 @@ Date: 2026-04-20
 | `log-analysis` | Merged via PR `#70` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures appear |
 | `environment-setup` | Merged via PR `#71` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `user-guide-writing` | Merged via PR `#72` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `data-analysis` | PR `#73` updated in review | No | No | Added | Added | No | Re-check PR `#73` after the bounded route-out fix, then merge if review stays clean |
+| `data-analysis` | Merged via PR `#73` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
+| `pattern-detection` | Active lane | No | No | Add | Add | Not yet | Package it as the next bounded route-clean scan lane |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
 
@@ -69,15 +68,15 @@ Date: 2026-04-20
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Treat `environment-setup` and `user-guide-writing` as closed because PRs
-  `#71` and `#72` are merged.
-- Treat `data-analysis` as the active lane for this run.
+- Treat `environment-setup`, `user-guide-writing`, and `data-analysis` as
+  closed because PRs `#71`, `#72`, and `#73` are merged.
+- Treat `pattern-detection` as the active lane for this run.
 - Defer `skill-autoresearch` until the packaged skill is reviewed and still
   shows measured failures.
 
 ## Packaging decision for the active lane
 
-- Active lane on this run: `data-analysis`
+- Active lane on this run: `pattern-detection`
   - Assets: no
   - Scripts: no
   - References: yes
@@ -87,11 +86,11 @@ Date: 2026-04-20
 
 ## Current state
 
-- Current state: `user-guide-writing` is merged on `main`, `data-analysis` is
-  packaged, validated, and updated once during PR review to remove a route-out
-  mismatch with the local skill catalog.
-- PR: https://github.com/akillness/oh-my-gods/pull/73
+- Current state: `data-analysis` is merged on `origin/main`, the prior review
+  lane is closed, and this run has moved the loop to a fresh
+  `pattern-detection` packaging pass.
+- PR: not opened yet for `pattern-detection`
 - Blocker: none
-- Next owner: this branch should be pushed and PR `#73` re-checked for clean
-  mergeability; if nothing else appears, the next owner can merge
-- Stage: `pr-review`
+- Next owner: package `pattern-detection`, validate it, then register the new
+  PR path on this branch
+- Stage: `improvement`

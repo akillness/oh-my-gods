@@ -1,0 +1,57 @@
+{
+  "skill_name": "pattern-detection",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Search this TypeScript repo for repeated null-check anti-patterns and show me which one is most worth refactoring first.",
+      "expected_output": "A pattern-detection response that chooses a code-pattern scan mode, ranks repeated shapes, and recommends a narrow next check.",
+      "assertions": [
+        "Output keeps the request on `pattern-detection`",
+        "Output chooses or describes a code-pattern scan mode",
+        "Output ranks repeated shapes instead of listing every match equally",
+        "Output includes a next verification step"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "This checkout export has a weird spike in one payment error and I need to know whether it is isolated to one region, device class, or provider.",
+      "expected_output": "A pattern-detection response that treats the job as anomaly triage on structured data rather than a full stakeholder readout.",
+      "assertions": [
+        "Output keeps the request on `pattern-detection`",
+        "Output recognizes a metric or event anomaly triage mode",
+        "Output looks for scope across region, device class, or provider",
+        "Output avoids turning the task into a generic business summary"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "These Kubernetes logs are huge. Find the first real error and tell me what matters.",
+      "expected_output": "A route-out response that recognizes raw log triage as the first job.",
+      "assertions": [
+        "Output recognizes the request as first-error log triage",
+        "Output routes the task to `log-analysis`",
+        "Output does not keep `pattern-detection` as the primary owner"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Audit our app for missing CSP, weak cookie settings, and lack of rate limits.",
+      "expected_output": "A route-out response that recognizes broad security hardening as the primary task.",
+      "assertions": [
+        "Output recognizes broader security hardening or remediation as the main job",
+        "Output routes the task to `security-best-practices`",
+        "Output does not treat the task as generic pattern hunting"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Summarize which subscription cohorts drove the revenue change and what the finance lead should do next.",
+      "expected_output": "A route-out response that recognizes stakeholder KPI analysis as the primary deliverable.",
+      "assertions": [
+        "Output recognizes a stakeholder-oriented KPI or cohort readout request",
+        "Output routes the task to `data-analysis`",
+        "Output does not keep `pattern-detection` as the primary owner"
+      ]
+    }
+  ]
+}

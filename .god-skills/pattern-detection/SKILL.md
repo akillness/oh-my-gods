@@ -1,230 +1,198 @@
 ---
 name: pattern-detection
-description: Detect patterns, anomalies, and trends in code and data. Use when identifying code smells, finding security vulnerabilities, or discovering recurring patterns. Handles regex patterns, AST analysis, and statistical anomaly detection.
-allowed-tools: Read Grep Glob
+description: >
+  Hunt for repeated rules, suspicious shapes, and anomalies across code, logs,
+  telemetry, and structured datasets. Use when the user wants reusable pattern
+  scans, outlier triage, or recurring-issue detection, even if they ask in
+  domain language like smell, anti-pattern, suspicious spike, repeated bug,
+  odd cohort, noisy event, fraud signal, duplicate shape, or anomaly. Route
+  raw log triage to `log-analysis`, stakeholder metric readouts to
+  `data-analysis`, full security remediation to `security-best-practices`, and
+  code-level root-cause isolation to `debugging`.
+allowed-tools: Read Grep Glob Bash
 metadata:
-  tags: patterns, anomalies, regex, code-analysis, security, trends
-  platforms: Claude, ChatGPT, Gemini
+  tags: pattern-detection, anomalies, repeated-issues, regex, ast, outliers
+  platforms: Claude, ChatGPT, Gemini, Codex
+  version: "2.0.0"
 ---
-
 
 # Pattern Detection
 
+Pattern-detection is the repeated-shape lane. Keep it focused on finding rules,
+clusters, suspicious repetitions, and outliers across code, logs, telemetry,
+and structured datasets instead of collapsing into raw log triage, broad
+security hardening, or stakeholder-facing KPI analysis.
+
+Read `references/detection-modes-and-thresholds.md` when the first problem is
+choosing between code-pattern search, log/event clustering, or metric anomaly
+triage. Read `references/route-outs-and-confidence.md` when the task needs
+tighter ownership boundaries, false-positive handling, or a cleaner handoff to
+`log-analysis`, `debugging`, `security-best-practices`, or `data-analysis`.
 
 ## When to use this skill
 
-- **Code review**: Proactively detect problematic patterns
-- **Security review**: Scan for vulnerability patterns
-- **Refactoring**: Identify duplicate code
-- **Monitoring**: Alert on anomalies
+- Hunt for repeated code smells, duplicated logic, suspicious API usage, or
+  rule-shaped bugs
+- Scan logs, telemetry, or event exports for repeated error classes, odd spikes,
+  or recurring failure signatures after the first raw triage is done
+- Find structured-data anomalies, outlier segments, or suspicious repeated
+  shapes that need a focused pattern pass rather than a full business analysis
+- Turn vague requests like "what keeps repeating here?" into a concrete
+  pattern-scan plan
+- Produce a ranked set of patterns plus confidence and next checks
+
+## When not to use this skill
+
+- The first job is finding the first actionable error in raw logs or stack
+  traces: use `log-analysis`
+- The main task is code-level debugging after the failing boundary is known: use
+  `debugging`
+- The main task is hardening auth, headers, validation, CSP, rate limits, or
+  broader web security policy: use `security-best-practices`
+- The main deliverable is a KPI summary, funnel readout, finance memo, or
+  stakeholder data packet: use `data-analysis`
 
 ## Instructions
 
-### Step 1: Detect code smell patterns
+### Step 1: Frame the pattern hunt before scanning
 
-**Detect long functions**:
-```bash
-# Find functions with 50+ lines
-grep -n "function\|def\|func " **/*.{js,ts,py,go} | \
-  while read line; do
-    file=$(echo $line | cut -d: -f1)
-    linenum=$(echo $line | cut -d: -f2)
-    # Function length calculation logic
-  done
-```
+Capture the minimum useful brief:
 
-**Duplicate code patterns**:
-```bash
-# Search for similar code blocks
-grep -rn "if.*==.*null" --include="*.ts" .
-grep -rn "try\s*{" --include="*.java" . | wc -l
-```
+- corpus: codebase, log slice, event export, query result, metric table, or mixed inputs
+- unit of repetition: function, callsite, error class, endpoint, row, user, or cohort
+- target shape: anti-pattern, suspicious spike, duplicate block, rare outlier, or recurring failure
+- scope question: what must be explained or narrowed
+- tolerance: how much false-positive noise is acceptable
 
-**Magic numbers**:
-```bash
-# Search for hard-coded numbers
-grep -rn "[^a-zA-Z][0-9]{2,}[^a-zA-Z]" --include="*.{js,ts}" .
-```
+If the task is still really first-error log triage or business-analysis
+readout, route it out before scanning.
 
-### Step 2: Security vulnerability patterns
+### Step 2: Choose one primary detection mode
 
-**SQL Injection risks**:
-```bash
-# SQL query built via string concatenation
-grep -rn "query.*+.*\$\|execute.*%s\|query.*f\"" --include="*.py" .
-grep -rn "SELECT.*\+.*\|\|" --include="*.{js,ts}" .
-```
+Pick one dominant mode:
 
-**Hard-coded secrets**:
-```bash
-# Password, API key patterns
-grep -riE "(password|secret|api_key|apikey)\s*=\s*['\"][^'\"]+['\"]" --include="*.{js,ts,py,java}" .
+- text prefilter: fast regex or grep pass to narrow likely matches
+- structural code rule: syntax-aware search for repeated code shapes, API misuse, or duplicate logic
+- log or event pattern: repeated signature, endpoint, status, or error-class clustering
+- metric anomaly triage: suspicious spikes, outlier slices, or odd cohorts in structured data
 
-# AWS key patterns
-grep -rE "AKIA[0-9A-Z]{16}" .
-```
+Prefer one primary mode even if you use a second one briefly to confirm it.
 
-**Dangerous function usage**:
-```bash
-# eval, exec usage
-grep -rn "eval\(.*\)\|exec\(.*\)" --include="*.{py,js}" .
+### Step 3: Rank the strongest repeated shapes
 
-# innerHTML usage
-grep -rn "innerHTML\s*=" --include="*.{js,ts}" .
-```
+For each candidate pattern, capture:
 
-### Step 3: Code structure patterns
+- what repeats or stands out
+- how often it appears
+- where it appears
+- what makes it suspicious instead of merely common
+- what evidence quality or false-positive risk remains
 
-**Import analysis**:
-```bash
-# Candidates for unused imports
-grep -rn "^import\|^from.*import" --include="*.py" . | \
-  awk -F: '{print $3}' | sort | uniq -c | sort -rn
-```
+Do not dump a raw match list without labeling which patterns matter most.
 
-**TODO/FIXME patterns**:
-```bash
-# Find unfinished code
-grep -rn "TODO\|FIXME\|HACK\|XXX" --include="*.{js,ts,py}" .
-```
+### Step 4: Keep route-outs explicit
 
-**Error handling patterns**:
-```bash
-# Empty catch blocks
-grep -rn "catch.*{[\s]*}" --include="*.{js,ts,java}" .
+- Route first-error runtime triage to `log-analysis`
+- Route code-level reproduction and root-cause isolation to `debugging`
+- Route broader security hardening and remediation planning to `security-best-practices`
+- Route stakeholder KPI, cohort, or finance-style readouts to `data-analysis`
 
-# Ignored errors
-grep -rn "except:\s*pass" --include="*.py" .
-```
+### Step 5: End with the smallest next verification
 
-### Step 4: Data anomaly patterns
+Before finishing, state:
 
-**Regex patterns**:
-```python
-import re
-
-patterns = {
-    'email': r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}',
-    'phone': r'\d{3}[-.\s]?\d{4}[-.\s]?\d{4}',
-    'ip_address': r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}',
-    'credit_card': r'\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}',
-    'ssn': r'\d{3}-\d{2}-\d{4}',
-}
-
-def detect_sensitive_data(text):
-    found = {}
-    for name, pattern in patterns.items():
-        matches = re.findall(pattern, text)
-        if matches:
-            found[name] = len(matches)
-    return found
-```
-
-**Statistical anomaly detection**:
-```python
-import numpy as np
-from scipy import stats
-
-def detect_anomalies_zscore(data, threshold=3):
-    """Z-score-based outlier detection"""
-    z_scores = np.abs(stats.zscore(data))
-    return np.where(z_scores > threshold)[0]
-
-def detect_anomalies_iqr(data, k=1.5):
-    """IQR-based outlier detection"""
-    q1, q3 = np.percentile(data, [25, 75])
-    iqr = q3 - q1
-    lower = q1 - k * iqr
-    upper = q3 + k * iqr
-    return np.where((data < lower) | (data > upper))[0]
-```
-
-### Step 5: Trend analysis
-
-```python
-import pandas as pd
-
-def analyze_trend(df, date_col, value_col):
-    """Time-series trend analysis"""
-    df[date_col] = pd.to_datetime(df[date_col])
-    df = df.sort_values(date_col)
-
-    # Moving averages
-    df['ma_7'] = df[value_col].rolling(window=7).mean()
-    df['ma_30'] = df[value_col].rolling(window=30).mean()
-
-    # Growth rate
-    df['growth'] = df[value_col].pct_change() * 100
-
-    # Trend direction
-    recent_trend = df['ma_7'].iloc[-1] > df['ma_30'].iloc[-1]
-
-    return {
-        'trend_direction': 'up' if recent_trend else 'down',
-        'avg_growth': df['growth'].mean(),
-        'volatility': df[value_col].std()
-    }
-```
+- the strongest pattern or anomaly
+- confidence and false-positive risk
+- what is known versus inferred
+- the next narrow check that would confirm or eliminate it
+- whether another skill should own the next stage
 
 ## Output format
 
-### Pattern detection report
+Expected response shape:
 
-```markdown
-# Pattern Detection Report
-
-## Summary
-- Files scanned: XXX
-- Patterns detected: XX
-- High severity: X
-- Medium severity: X
-- Low severity: X
-
-## Detected patterns
-
-### Security vulnerabilities (HIGH)
-| File | Line | Pattern | Description |
-|------|------|------|------|
-| file.js | 42 | hardcoded-secret | Hard-coded API key |
-
-### Code smells (MEDIUM)
-| File | Line | Pattern | Description |
-|------|------|------|------|
-| util.py | 100 | long-function | Function length: 150 lines |
-
-## Recommended actions
-1. [Action 1]
-2. [Action 2]
-```
-
-## Best practices
-
-1. **Incremental analysis**: Start with simple patterns
-2. **Minimize false positives**: Use precise regex
-3. **Check context**: Understand the context around a match
-4. **Prioritize**: Sort by severity
-
-## Constraints
-
-### Required rules (MUST)
-1. Read-only operation
-2. Perform result verification
-3. State the possibility of false positives
-
-### Prohibited (MUST NOT)
-1. Do not auto-modify code
-2. Do not log sensitive information
-
-## References
-
-- [Regex101](https://regex101.com/)
-- [OWASP Cheat Sheet](https://cheatsheetseries.owasp.org/)
-- [Code Smell Catalog](https://refactoring.guru/refactoring/smells)
+- `Corpus and target`: what was scanned and what pattern was sought
+- `Detection mode`: the scan strategy and why it fits
+- `Top patterns`: the ranked repeated shapes or anomalies that matter most
+- `Evidence`: counts, clusters, or examples behind each pattern
+- `Confidence`: what is confirmed versus tentative
+- `Next check`: the smallest follow-up that reduces uncertainty
+- `Route-out`: sibling skill if the task belongs elsewhere now
 
 ## Examples
 
-### Example 1: Basic usage
-<!-- Add example content here -->
+### Example 1: Repeated code smell
 
-### Example 2: Advanced usage
-<!-- Add advanced example content here -->
+Input:
+
+```text
+Search this TypeScript repo for repeated null-check anti-patterns and show me
+which one is most worth refactoring first.
+```
+
+Expected shape:
+
+- keeps the work on `pattern-detection`
+- chooses a code-pattern scan mode
+- ranks repeated shapes instead of listing every match
+
+### Example 2: Suspicious event spike
+
+Input:
+
+```text
+This checkout export has a weird spike in one payment error and I need to know
+whether it is isolated to one region, device class, or provider.
+```
+
+Expected shape:
+
+- keeps the task on `pattern-detection`
+- treats the job as anomaly triage instead of a full stakeholder report
+- ends with the next narrow check to confirm scope
+
+### Example 3: Raw log route-out
+
+Input:
+
+```text
+These Kubernetes logs are huge. Find the first real error and tell me what
+matters.
+```
+
+Expected shape:
+
+- recognizes raw log triage as the first job
+- routes to `log-analysis`
+- does not keep `pattern-detection` as the primary owner
+
+### Example 4: Security hardening route-out
+
+Input:
+
+```text
+Audit our app for missing CSP, weak cookie settings, and lack of rate limits.
+```
+
+Expected shape:
+
+- recognizes broad web-security hardening as the primary task
+- routes to `security-best-practices`
+- does not treat the task as generic pattern hunting
+
+## Best practices
+
+1. Start with the repeated shape you are trying to detect, not the tool.
+2. Prefer one primary detection mode over a mixed bag of scans.
+3. Rank patterns by risk or leverage instead of dumping all matches equally.
+4. Separate confirmed repeats from tentative anomalies.
+5. Keep route-outs explicit when the real job is logs, debugging, security, or
+   stakeholder analysis.
+6. Add focused references and evals before any `skill-autoresearch` loop on
+   this skill.
+
+## References
+
+- Local: `references/detection-modes-and-thresholds.md`
+- Local: `references/route-outs-and-confidence.md`
+- GNU grep manual: https://www.gnu.org/software/grep/manual/
