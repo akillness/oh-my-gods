@@ -1,170 +1,228 @@
 ---
 name: sprint-retrospective
-description: Facilitate effective sprint retrospectives for continuous team improvement. Use when conducting team retrospectives, identifying improvements, or fostering team collaboration. Handles retrospective formats, action items, and facilitation techniques.
+description: >
+  Facilitate sprint retrospectives, milestone postmortems, or iteration reviews
+  that turn completed work into a few owned process improvements instead of
+  another stale template exercise. Use when the user needs a retro format,
+  async or hybrid retro flow, retrospective facilitation script, action-item
+  follow-through, or help reviewing what the team should change after a sprint,
+  release, milestone, or rough delivery cycle. Not for backlog planning,
+  story-point sizing, daily standups, or deep incident root-cause analysis.
 allowed-tools: Read Write Grep Glob
+compatibility: >
+  Best for teams reviewing completed work with access to notes, delivery data,
+  tickets, bug lists, release notes, or prior retro actions. Works as a retro
+  and action-follow-through workflow, not as an incident forensics surface.
 metadata:
-  tags: retrospective, agile, scrum, team-improvement, facilitation
-  platforms: Claude, ChatGPT, Gemini
+  tags: sprint-retrospective, retrospective, milestone-review, postmortem-lite, team-improvement, facilitation
+  platforms: Claude, ChatGPT, Gemini, Codex
+  version: "2.0.0"
 ---
-
 
 # Sprint Retrospective
 
+Use this skill to turn completed work into a small, honest improvement packet.
+
+The goal is not to run ceremony for its own sake. The goal is to:
+
+- choose the right retrospective mode for the work that just finished
+- review prior commitments before creating new ones
+- separate evidence, themes, and actions instead of mixing them together
+- keep the action list brutally small and owner-backed
+- route planning, sizing, daily-sync, or incident-forensics work to the right
+  neighboring skill
+
+Read `references/operating-modes-and-route-outs.md` and
+`references/action-review-and-packet-shapes.md` before handling unusual review
+or follow-through cases.
+
+If the user mainly needs:
+
+- backlog shaping, decomposition, or future-work slicing: route to
+  `task-planning`
+- story points, t-shirt sizing, or forecast confidence: route to
+  `task-estimation`
+- daily status cadence, walk-the-board syncs, or blocker rounds: route to
+  `standup-meeting`
+- deep outage forensics, regression isolation, or log-led incident triage:
+  route to `debugging` or `log-analysis` first
 
 ## When to use this skill
 
-- **End of sprint**: at the end of each sprint
-- **Project milestone**: after major releases
-- **Team issues**: when an immediate retrospective is needed
+- Run a sprint retrospective after a completed sprint or iteration
+- Review a milestone, launch push, release cycle, or rough delivery period
+- Facilitate an async or hybrid retro for a distributed team
+- Check whether the last retro's action items were actually completed
+- Turn a pile of notes, complaints, wins, bugs, and metrics into a few process
+  changes
+- Reset a retro habit that has become repetitive, blame-heavy, or actionless
+
+## When not to use this skill
+
+- The main job is planning upcoming work, grooming backlog, or slicing scope:
+  use `task-planning`
+- The main job is sizing work or debating estimate confidence: use
+  `task-estimation`
+- The main job is a daily sync, blocker roundup, or execution cadence reset:
+  use `standup-meeting`
+- The main job is root-cause forensics for a live incident or technical
+  failure: use `debugging` or `log-analysis`
 
 ## Instructions
 
-### Step 1: Start-Stop-Continue
+### Step 1: Identify the retrospective mode
+
+Label the request before writing the retro.
+
+Possible modes:
+
+- `sprint-retro`
+- `milestone-retro`
+- `release-retro`
+- `async-retro`
+- `team-reset`
+- `mixed-needs-clarification`
+
+Capture the minimum inputs:
+
+- timeframe or delivery window being reviewed
+- participants or team shape
+- evidence available: board, changelog, issue list, metrics, notes, survey
+  comments, incidents, or feedback
+- whether prior retro actions exist
+- whether the team needs a one-off packet or a reusable facilitation format
+
+If the request is mostly about future planning, sizing, daily cadence, or
+incident forensics, route it before forcing a retro answer.
+
+### Step 2: Review prior actions before inventing new ones
+
+Start by checking the status of existing commitments when any prior retro
+exists.
+
+For each prior action, classify it as:
+
+- `done`
+- `partial`
+- `stalled`
+- `superseded`
+- `never-started`
+
+If actions are repeatedly stalled, name that pattern directly before adding new
+ones. Do not create a fresh retro packet that pretends the previous one never
+happened.
+
+Read `references/action-review-and-packet-shapes.md` when follow-through is the
+main pain point.
+
+### Step 3: Choose the lightest useful retrospective format
+
+Use the simplest format that matches the review need:
+
+| Format | Use when | Typical output |
+|------|----------|----------------|
+| Start / Stop / Continue | Team needs a fast general-purpose retro | signals plus 2-3 actions |
+| 4Ls | Team wants learning-oriented reflection | liked, learned, lacked, longed-for themes |
+| Mad / Sad / Glad | Emotion and morale matter | emotional signals plus process fixes |
+| Timeline + themes | Release or milestone was complex | sequence of events plus repeated patterns |
+| Action-review reset | Main pain is dead retro actions | review of prior actions plus fewer new actions |
+
+Read `references/operating-modes-and-route-outs.md` when the mode or format is
+unclear.
+
+### Step 4: Distill evidence into themes and a tiny action set
+
+Build the retrospective around:
+
+- what helped delivery
+- what hurt delivery
+- what repeated across the period
+- what should change next
+
+Rules:
+
+- separate observations from interpretations
+- do not turn every complaint into an action item
+- prefer 2-3 actions with owners over a long wish list
+- make actions process- or workflow-shaped, not blame-shaped
+- keep unresolved technical forensics as follow-up work, not fake retro
+  conclusions
+
+### Step 5: Return the retrospective packet
+
+Return a concise packet with this exact structure:
 
 ```markdown
-## Retrospective Template: Start-Stop-Continue
+# Retrospective Packet
 
-### START (Start doing)
-- Make daily standups shorter (within 5 minutes)
-- Use a code review checklist
-- Introduce pair programming
+## Retrospective mode
+- Mode: ...
+- Why this format: ...
 
-### STOP (Stop doing)
-- Deploying on Friday afternoons (rollback risk)
-- Overusing emergency meetings
-- Adding features without documentation
+## Review scope
+- Timeframe: ...
+- Participants: ...
+- Evidence used: ...
 
-### CONTINUE (Keep doing)
-- Weekly tech sharing session
-- Automated tests
-- Transparent communication
+## Prior action review
+- ...
 
-### Action Items
-1. [ ] Change standup time from 9:00 → 9:30 (Team Lead)
-2. [ ] Write a code review checklist document (Developer A)
-3. [ ] Announce the "no Friday deployments" rule (Team Lead)
+## Signals to keep
+- ...
+
+## Signals to change
+- ...
+
+## Next actions
+- ...
+
+## Recommended next move
+- ...
 ```
-
-### Step 2: Mad-Sad-Glad
-
-```markdown
-## Retrospective: Mad-Sad-Glad
-
-### MAD (What made us mad)
-- Urgent bugs after deployment (twice)
-- Requirements changed frequently
-- Unstable test environment
-
-### SAD (What we wished went better)
-- Not enough time for code reviews
-- Documentation lagged behind
-- Accumulating tech debt
-
-### GLAD (What made us glad)
-- New team members onboarded quickly
-- CI/CD pipeline stabilized
-- Positive customer feedback
-
-### Action Items
-- Strengthen the deployment checklist
-- Improve the requirements change process
-- Reserve documentation time every Friday
-```
-
-### Step 3: 4Ls (Liked-Learned-Lacked-Longed For)
-
-```markdown
-## Retrospective: 4Ls
-
-### LIKED (What we liked)
-- Great teamwork
-- Successfully adopted a new tech stack
-
-### LEARNED (What we learned)
-- Standardize the local environment with Docker Compose
-- Improve server state management with React Query
-
-### LACKED (What we lacked)
-- Performance testing
-- Mobile support
-
-### LONGED FOR (What we longed for)
-- Better developer tools
-- External training opportunities
-
-### Action Items
-- Automatically measure performance by introducing Lighthouse CI
-- Write responsive design guidelines
-```
-
-## Output format
-
-### Retrospective document
-
-```markdown
-# Sprint [N] Retrospective
-**Date**: 2025-01-15
-**Participants**: Team Member A, B, C, D
-**Format**: Start-Stop-Continue
-
-## What Went Well
-- Completed all stories (Velocity: 25 points)
-- 0 bugs
-- Great team morale
-
-## What Didn't Go Well
-- Tech spike took longer than expected
-- Rework due to design changes
-
-## Action Items
-1. [ ] Assign tech spikes to a dedicated sprint (Team Lead, ~01/20)
-2. [ ] Introduce a pre-review process for designs (Designer, ~01/18)
-3. [ ] Share the velocity chart (Scrum Master, weekly)
-
-## Key Metrics
-- Velocity: 25 points
-- Bugs Found: 0
-- Sprint Goal Achievement: 100%
-```
-
-## Constraints
-
-### Required Rules (MUST)
-
-1. **Safe Space**: a blame-free environment
-2. **Action Items**: must be specific and actionable
-3. **Follow-up**: check progress in the next retrospective
-
-### Prohibited (MUST NOT)
-
-1. **Personal attacks**: improve the process, not the person
-2. **Too many actions**: limit to 2-3
-
-## Best practices
-
-1. **Time-box**: within 1 hour
-2. **Rotate Facilitator**: team members take turns facilitating
-3. **Celebrate Wins**: celebrate successes too
-
-## References
-
-- [Retrospective Formats](https://retromat.org/)
-- [Agile Retrospectives](https://www.amazon.com/Agile-Retrospectives-Making-Teams-Great/dp/0977616649)
-
-## Metadata
-
-### Version
-- **Current version**: 1.0.0
-- **Last updated**: 2025-01-01
-- **Supported platforms**: Claude, ChatGPT, Gemini
-
-### Tags
-`#retrospective` `#agile` `#scrum` `#team-improvement` `#project-management`
 
 ## Examples
 
-### Example 1: Basic usage
-<!-- Add example content here -->
+### Example 1: Sprint retro with stale action items
 
-### Example 2: Advanced usage
-<!-- Add advanced example content here -->
+Input:
+
+```text
+Help me run our sprint retrospective. Last sprint we said we'd tighten code
+review turnaround and stop carrying bugs across the finish line, but I don't
+think either action actually happened.
+```
+
+Expected behavior:
+
+- chooses a sprint-retro or action-review-reset mode
+- reviews the previous actions before proposing new ones
+- keeps the new action list short and owner-backed
+
+### Example 2: Async milestone review
+
+Input:
+
+```text
+We just finished a milestone and the team is split across time zones. Give me
+an async retro format that helps us review what worked, what slipped, and what
+we should change next cycle.
+```
+
+Expected behavior:
+
+- chooses async-retro or milestone-retro mode
+- recommends a lightweight facilitation structure
+- ends with a concise packet and next move
+
+## Best practices
+
+1. Review prior retro actions before drafting new ones whenever earlier commitments exist.
+2. Keep the action set small, owner-backed, and tied to repeated delivery signals instead of generic complaints.
+3. Choose the lightest retro format that fits the scope rather than forcing a full workshop template.
+4. Route planning, estimation, standup, and incident-forensics work to the neighboring skill before it dilutes the packet.
+5. Keep unresolved technical investigation as explicit follow-up work, not a fake retrospective conclusion.
+
+## References
+
+- `references/operating-modes-and-route-outs.md`
+- `references/action-review-and-packet-shapes.md`

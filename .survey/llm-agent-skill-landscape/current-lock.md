@@ -13,10 +13,12 @@ Date: 2026-04-21
 - Agent Skills still centers directory structure, progressive disclosure, and
   optional `references/`, `scripts/`, `assets/`, and `evals/` support files:
   https://agentskills.io/specification
-- Official platform docs continue to reinforce skills as cross-host routing
-  surfaces:
+- GitHub Docs still frames agent skills as portable folders of instructions,
+  scripts, and resources that load when relevant across multiple hosts:
   https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
-  https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills
+- Gemini CLI now exposes built-in skills, hooks, subagents, and memory
+  surfaces, which reinforces the value of compact reusable workflows:
+  https://github.com/google-gemini/gemini-cli/discussions/17790
 - OpenAI's eval guidance still reinforces reproducible evaluation gates before
   deeper optimization loops:
   https://developers.openai.com/api/docs/guides/agent-evals
@@ -27,35 +29,32 @@ Date: 2026-04-21
 - PR `#68` for `performance-optimization` is merged.
 - PR `#69` for `monitoring-observability` is merged.
 - PR `#70` for `log-analysis` is merged.
-- PR `#71` for `environment-setup` merged on April 20, 2026:
-  https://github.com/akillness/oh-my-gods/pull/71
-- PR `#72` for `user-guide-writing` merged on April 20, 2026:
-  https://github.com/akillness/oh-my-gods/pull/72
-- PR `#73` for `data-analysis` merged on April 20, 2026:
-  https://github.com/akillness/oh-my-gods/pull/73
-- PR `#74` for `pattern-detection` merged on April 20, 2026:
-  https://github.com/akillness/oh-my-gods/pull/74
-- PR `#75` for `task-planning` merged on April 21, 2026:
-  https://github.com/akillness/oh-my-gods/pull/75
-- PR `#76` for `task-estimation` merged on April 21, 2026:
-  https://github.com/akillness/oh-my-gods/pull/76
-- PR `#77` for `standup-meeting` is open and re-reviewed clean on
-  April 21, 2026:
+- PR `#71` for `environment-setup` is merged.
+- PR `#72` for `user-guide-writing` is merged.
+- PR `#73` for `data-analysis` is merged.
+- PR `#74` for `pattern-detection` is merged.
+- PR `#75` for `task-planning` is merged.
+- PR `#76` for `task-estimation` is merged.
+- PR `#77` for `standup-meeting` is merged on April 21, 2026:
   https://github.com/akillness/oh-my-gods/pull/77
+- PR `#78` for `sprint-retrospective` is now open:
+  https://github.com/akillness/oh-my-gods/pull/78
 
 ## Audit snapshot
 
 - Repo-wide validation passes at `80/80` skills with `0` spec violations when
   run via `python3 validate_frontmatter.py`.
-- `task-estimation` is now a closed lane because PR `#76` is merged on
+- `standup-meeting` is now a closed lane because PR `#77` is merged on
   `origin/main`.
-- `standup-meeting` remains the active recurring lane, but branch review did
-  not reveal duplicate work, spec drift, or a missing bounded follow-up patch.
-- The next bounded packaging gap should be chosen on the next survey run after
-  PR `#77` merges.
-- Current repo inference: the highest-value remaining work is still packaging
-  workflow-adjacent generic PM skills that lack route-clean support files and
-  reproducible trigger checks.
+- `sprint-retrospective` is the active recurring lane because it was the
+  highest-leverage remaining PM boundary gap after `standup-meeting` closed.
+- The first pass packaged the lane with route-clean references, trigger evals,
+  and a synced `SKILL.toon`.
+- This review run found one remaining standards gap: the main `SKILL.md` still
+  missed the recommended `Best practices` and `References` sections, even
+  though the support files already existed. That bounded follow-up is now fixed.
+- `skill-autoresearch` is still deferred because there is not yet a residual
+  measured failure after the packaging pass.
 
 ## Target decisions
 
@@ -71,35 +70,36 @@ Date: 2026-04-21
 | `pattern-detection` | Merged via PR `#74` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `task-planning` | Merged via PR `#75` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `task-estimation` | Merged via PR `#76` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `standup-meeting` | PR `#77` reviewed clean | No | No | Yes | Yes | No | Merge PR `#77`, then choose the next bounded generic PM skill gap on the next run |
+| `standup-meeting` | Merged via PR `#77` | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
+| `sprint-retrospective` | PR `#78` reviewed with bounded follow-up applied | No | No | Yes | Yes | No | Merge PR `#78`, then return to survey mode for the next bounded lane |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
-| `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
+| `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a packaged reviewed target still misses objective checks |
 
 ## Locked direction
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Treat `task-estimation` as closed because PR `#76` is merged.
-- Treat `standup-meeting` as reviewed clean on this run and ready for merge.
-- Defer `skill-autoresearch` again because the packaged skill passes the
-  bounded review gate without a measured residual failure.
+- Treat `standup-meeting` as closed because PR `#77` is merged.
+- Treat `sprint-retrospective` as the active lane and move it to merge after
+  this clean review pass plus the bounded standards fix.
+- Defer `skill-autoresearch` again because the target needed support-surface
+  hardening before any mutation loop would be credible.
 
 ## Packaging decision for the active lane
 
-- Active lane on this run: `standup-meeting`
+- Active lane on this run: `sprint-retrospective`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because repo validation, support-file sync, and
-    branch review did not expose a residual failure worth a mutation loop
+  - Skill-autoresearch: no, because the branch review exposed a standards gap,
+    not a residual measured failure after packaging
 
 ## Current state
 
-- Current state: `standup-meeting` remains the active lane, but the open PR has
-  now been re-reviewed clean with no bounded follow-up diff justified
-- PR: https://github.com/akillness/oh-my-gods/pull/77
+- Current state: `sprint-retrospective` has completed packaging, passed review,
+  and received a bounded standards follow-up on this run
+- PR: https://github.com/akillness/oh-my-gods/pull/78
 - Blocker: none
-- Next owner: merge PR `#77`; on the next run, survey the remaining landscape
-  for the next bounded generic PM skill gap
+- Next owner: merge PR `#78`, then survey the next bounded lane on the next run
 - Stage: `merge`
