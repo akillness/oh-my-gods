@@ -1,357 +1,192 @@
 ---
 name: user-guide-writing
-description: Write clear and helpful user guides and tutorials for end users. Use when creating onboarding docs, how-to guides, or FAQ pages. Handles user-focused documentation, screenshots, step-by-step instructions.
+description: >
+  Write user-facing documentation for onboarding, tutorials, how-to guides,
+  FAQs, help-center articles, release-facing help updates, and task-based
+  support content. Use when the main job is helping end users or admins
+  complete product tasks, recover from confusion, or learn a workflow through
+  clear prerequisites, screenshot placeholders, and step-by-step guidance.
+  Route internal specs, runbooks, and engineering-only docs to
+  `technical-writing`; API reference and integration docs to
+  `api-documentation`; release notes and version histories to
+  `changelog-maintenance`.
 allowed-tools: Read Write Grep Glob
 metadata:
-  tags: user-guides, tutorials, documentation, onboarding, how-to, FAQ
-  platforms: Claude, ChatGPT, Gemini
+  tags: user-guides, tutorials, help-center, onboarding, faq, support-docs
+  platforms: Claude, ChatGPT, Gemini, Codex
+  version: "2.0.0"
 ---
-
 
 # User Guide Writing
 
+User-guide writing is a task-completion lane for end users and admins. Keep the
+main skill focused on helping someone complete a product task safely and
+clearly instead of drifting into internal specs, API reference, or changelog
+work.
+
+Read `references/doc-surface-selection.md` when the first problem is choosing
+between a getting-started guide, how-to, tutorial, FAQ, or troubleshooting
+article. Read `references/steps-screenshots-and-troubleshooting.md` when the
+workflow, screenshot placeholders, success checks, or recovery steps need more
+structure.
 
 ## When to use this skill
 
-- **New Features**: Introduce new features to users
-- **Onboarding**: Train new users
-- **FAQ**: Organize frequently asked questions
+- Write onboarding, getting-started, how-to, and tutorial content for end users
+- Draft help-center articles, support docs, and product walkthroughs
+- Update customer-facing guidance after UI or workflow changes
+- Turn a support issue into a reusable troubleshooting or FAQ article
+- Help admins complete operational product tasks through clear prerequisites and steps
+
+## When not to use this skill
+
+- The main document is an internal spec, ADR, migration plan, or engineer-facing runbook: use `technical-writing`
+- The main deliverable is API reference, SDK docs, webhook docs, or integration setup: use `api-documentation`
+- The main deliverable is release notes, patch notes, or semantic-version history: use `changelog-maintenance`
+- The main job is contract design, auth architecture, or implementation planning rather than end-user guidance: route to the owning specialist skill
 
 ## Instructions
 
-### Step 1: Quick Start Guide
+### Step 1: Choose the right user-doc shape first
 
-```markdown
-# Getting Started with MyApp
+Identify the primary user outcome before writing:
 
-Welcome to MyApp! This guide will help you get up and running in 5 minutes.
+- getting started: first successful setup or first run
+- how-to: one concrete task or admin action
+- tutorial: guided learning flow with explanation plus practice
+- FAQ: short answers to repeated questions
+- troubleshooting: recover from a known failure or confusion point
 
-## Step 1: Create an Account
+If the request is really an internal implementation guide or release summary,
+route it out before drafting the body.
 
-1. Go to [https://myapp.com/signup](https://myapp.com/signup)
-2. Enter your email and create a password
-   - Password must be at least 8 characters
-   - Include uppercase, lowercase, and numbers
-3. Click "Sign Up"
-4. Check your email for verification link
-5. Click the link to verify your account
+### Step 2: Capture the user context that affects the steps
 
-![Sign Up Form](images/signup.png)
+Document the minimum context:
 
-## Step 2: Complete Your Profile
+- audience: end user, admin, support operator, or team lead
+- goal: the exact task they must finish
+- prerequisites: account state, permissions, environment, or required files
+- starting point: page, menu, URL, or product area
+- success condition: what the user should see or have when finished
 
-1. Click on your avatar in the top-right corner
-2. Select "Profile Settings"
-3. Add your name and profile picture
-4. Click "Save Changes"
+Avoid mixing multiple task flows into one article unless the user explicitly
+wants a hub or overview page.
 
-## Step 3: Create Your First Project
+### Step 3: Write the task path in action order
 
-1. Click the "+ New Project" button
-2. Enter a project name
-3. Choose a template (or start from scratch)
-4. Click "Create"
+Prefer a simple, scannable structure:
 
-🎉 Congratulations! You're ready to start using MyApp.
+1. short purpose statement
+2. prerequisites or before-you-start section
+3. numbered steps in the order the user performs them
+4. screenshot placeholders or UI callouts where a visual cue matters
+5. success check so the user knows they are done
 
-## Next Steps
+Use screenshot placeholders like `[Screenshot: Billing settings page showing Export button]` when the image is needed but not available yet.
 
-- [Watch the video tutorial](https://youtube.com/watch?v=xxx)
-- [Explore features](docs/features.md)
-- [Join our community](https://community.myapp.com)
+### Step 4: Add recovery and follow-through guidance
 
-## Need Help?
+After the main path, include only the smallest useful support layer:
 
-- 📧 Email: support@myapp.com
-- 💬 Live chat: Available 9 AM - 5 PM EST
-- 📚 [Help Center](https://help.myapp.com)
-```
+- troubleshooting for likely failure points
+- FAQ entries for common confusion
+- related docs for the next likely task
+- support escalation path if self-serve recovery is insufficient
 
-### Step 2: How-To Guide (Task-Focused)
+Do not turn the article into a full product spec or marketing page.
 
-```markdown
-# How to Export Your Data
+### Step 5: Keep route-outs explicit
 
-This guide shows you how to export all your data from MyApp.
-
-## Before You Start
-
-- Exporting data may take 5-10 minutes depending on size
-- You'll receive an email when the export is ready
-- Exported data is in JSON format
-
-## Step-by-Step Instructions
-
-### 1. Navigate to Settings
-
-Click on your profile picture in the top-right corner and select **Settings**.
-
-![Settings Menu](images/settings-menu.png)
-
-### 2. Go to Data Export
-
-In the left sidebar, click on **Privacy & Data**.
-
-Then scroll down to the **Export Data** section.
-
-![Privacy & Data Page](images/privacy-data.png)
-
-### 3. Request Export
-
-Click the **Request Export** button.
-
-A confirmation dialog will appear:
-
-> **Export Your Data**
->
-> We'll send you an email with a download link when your export is ready.
-> This usually takes 5-10 minutes.
->
-> [Cancel] [Confirm]
-
-Click **Confirm** to proceed.
-
-### 4. Check Your Email
-
-You'll receive an email at your registered address with subject:
-**"Your Data Export is Ready"**
-
-The email contains a secure download link that expires in 7 days.
-
-### 5. Download Your Data
-
-Click the download link in the email.
-
-A ZIP file will be downloaded containing:
-- `profile.json` - Your profile information
-- `projects.json` - All your projects
-- `files/` - Uploaded files
-
-## Troubleshooting
-
-**Problem**: I didn't receive the email
-- Check your spam folder
-- Make sure your email is correct in Settings
-- Try requesting again (you can request once per day)
-
-**Problem**: Download link expired
-- Request a new export from Settings
-
-**Problem**: Export file is corrupted
-- Try downloading again
-- If issue persists, contact support@myapp.com
-
-## Related Guides
-
-- [How to Delete Your Account](delete-account.md)
-- [Privacy Policy](privacy-policy.md)
-- [Data Security](data-security.md)
-```
-
-### Step 3: FAQ (Frequently Asked Questions)
-
-```markdown
-# Frequently Asked Questions (FAQ)
-
-## Account & Billing
-
-### How do I change my email address?
-
-1. Go to **Settings** > **Account**
-2. Click **Change Email**
-3. Enter your new email and password
-4. Click **Update**
-5. Verify your new email
-
-### Can I use MyApp for free?
-
-Yes! MyApp has a free tier that includes:
-- Up to 3 projects
-- 1 GB storage
-- Basic features
-
-[Compare plans](https://myapp.com/pricing)
-
-### How do I cancel my subscription?
-
-1. Go to **Settings** > **Billing**
-2. Click **Cancel Subscription**
-3. Follow the prompts
-
-Your subscription will remain active until the end of the billing period.
-
-## Features
-
-### How do I collaborate with team members?
-
-1. Open your project
-2. Click the **Share** button
-3. Enter team member's email
-4. Choose their permission level (View, Edit, Admin)
-5. Click **Send Invite**
-
-They'll receive an email invitation.
-
-### Can I export my projects?
-
-Yes, see our [Export Guide](export-data.md).
-
-### What file formats are supported?
-
-- Images: JPG, PNG, GIF, SVG
-- Documents: PDF, DOCX, TXT, MD
-- Code: All text files
-
-## Technical
-
-### Is my data secure?
-
-Yes! We use:
-- 256-bit SSL encryption
-- Regular security audits
-- SOC 2 Type II certified
-- GDPR compliant
-
-[Read our Security Page](security.md)
-
-### Can I use MyApp offline?
-
-Currently, MyApp requires an internet connection. Offline mode is planned for Q2 2025.
-
-### Browser compatibility?
-
-MyApp works best on:
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## Still Have Questions?
-
-- 📧 Email: support@myapp.com
-- 💬 Live Chat (9 AM - 5 PM EST)
-- 🎓 [Video Tutorials](tutorials.md)
-- 👥 [Community Forum](https://community.myapp.com)
-```
-
-### Step 4: Tutorial (Learning-Focused)
-
-```markdown
-# Tutorial: Build Your First Dashboard
-
-In this tutorial, you'll learn how to create a beautiful dashboard with charts and widgets.
-
-**Time**: 15 minutes
-**Difficulty**: Beginner
-**Prerequisites**: MyApp account
-
-## What You'll Build
-
-![Final Dashboard](images/tutorial-dashboard.png)
-
-## Step 1: Create a New Dashboard
-
-Click **+ New Dashboard** and name it "Sales Dashboard".
-
-## Step 2: Add a Chart Widget
-
-1. Click **Add Widget** → **Chart**
-2. Select **Bar Chart**
-3. Configure data source:
-   - Data: Monthly Sales
-   - X-axis: Month
-   - Y-axis: Revenue
-4. Click **Add to Dashboard**
-
-![Adding Chart Widget](images/add-chart.gif)
-
-## Step 3: Add a Stats Widget
-
-1. Click **Add Widget** → **Stat Card**
-2. Choose metric: Total Revenue
-3. Set comparison: vs. Last Month
-4. Click **Add to Dashboard**
-
-## Step 4: Arrange Widgets
-
-Drag and drop widgets to arrange them.
-
-**Pro Tip**: Hold Shift while resizing for precise control.
-
-## Step 5: Save and Share
-
-1. Click **Save Dashboard**
-2. Click **Share** to invite team members
-
-## Next Steps
-
-Now that you've created your first dashboard, try:
-
-- [Adding filters](filters.md)
-- [Scheduling reports](reports.md)
-- [Customizing themes](themes.md)
-
-## Congratulations!
-
-You've completed the tutorial. Happy dashboard building! 🎉
-```
+- Route engineer-facing implementation details to `technical-writing`
+- Route endpoint schemas, authentication headers, or SDK examples to `api-documentation`
+- Route release note or version-history requests to `changelog-maintenance`
+- Keep this skill on user success, task completion, and support clarity
 
 ## Output format
 
-```
-docs/
-├── getting-started.md      # Quick start
-├── how-to/
-│   ├── export-data.md
-│   ├── invite-team.md
-│   └── create-project.md
-├── tutorials/
-│   ├── first-dashboard.md
-│   └── advanced-features.md
-├── faq.md
-└── images/
-    ├── signup.png
-    └── dashboard.png
-```
+Expected response shape:
 
-## Constraints
-
-### Required Rules (MUST)
-
-1. **Include Screenshots**: Visual guides
-2. **Step-by-Step Instructions**: 1, 2, 3 format
-3. **User Language**: Avoid technical jargon
-
-### Forbidden (MUST NOT)
-
-1. **Technical Jargon Overload**: API, endpoint, etc.
-2. **Long Paragraphs**: Keep short and clear
-
-## Best practices
-
-1. **User-Centric**: Write from the user's perspective
-2. **Show, Don't Tell**: Screenshots, GIFs, videos
-3. **Update Regularly**: Update docs when UI changes
-
-## References
-
-- [Docs as Code](https://www.writethedocs.org/guide/docs-as-code/)
-- [Good Docs Project](https://thegooddocsproject.dev/)
-
-## Metadata
-
-### Version
-- **Current Version**: 1.0.0
-- **Last Updated**: 2025-01-01
-- **Compatible Platforms**: Claude, ChatGPT, Gemini
-
-### Tags
-`#user-guides` `#tutorials` `#documentation` `#onboarding` `#how-to` `#FAQ`
+- `Audience and goal`: who the doc is for and what task it completes
+- `Prerequisites`: permissions, setup, or required inputs
+- `Steps`: numbered task flow with screenshot placeholders where needed
+- `Success check`: how the user confirms completion
+- `Troubleshooting or FAQ`: only the likely blockers
+- `Related docs`: the next likely article or support path
+- `Route-out`: sibling skill if the request belongs elsewhere
 
 ## Examples
 
-### Example 1: Basic usage
-<!-- Add example content here -->
+### Example 1: Getting started guide
 
-### Example 2: Advanced usage
-<!-- Add advanced example content here -->
+Input:
+
+```text
+Write a getting-started guide for new workspace admins setting up SSO for the
+first time.
+```
+
+Expected shape:
+
+- keeps the work on `user-guide-writing`
+- establishes admin audience, prerequisites, and first-success outcome
+- writes a numbered setup flow with success checks
+
+### Example 2: Help-center task article
+
+Input:
+
+```text
+Create a help-center article for exporting invoices from the billing page.
+```
+
+Expected shape:
+
+- keeps the work on `user-guide-writing`
+- focuses on one task path
+- includes troubleshooting and screenshot placeholders only where they help
+
+### Example 3: Route internal docs outward
+
+Input:
+
+```text
+Write an internal migration guide for moving our jobs service from Redis queues
+to Postgres-backed workers.
+```
+
+Expected shape:
+
+- recognizes the request as engineer-facing implementation guidance
+- routes to `technical-writing`
+- does not keep `user-guide-writing` as the primary owner
+
+### Example 4: Route API docs outward
+
+Input:
+
+```text
+Document our webhook authentication headers and provide curl examples for
+integrators.
+```
+
+Expected shape:
+
+- recognizes API-consumer documentation as the primary job
+- routes to `api-documentation`
+- does not treat the task as a user-guide article
+
+## Best practices
+
+1. One article should solve one user goal cleanly.
+2. Prefer task language and UI labels over internal architecture terms.
+3. State prerequisites before the first click.
+4. Use screenshot placeholders only where visuals materially reduce confusion.
+5. End with the smallest useful troubleshooting and next-step guidance.
+6. Add references and evals before any `skill-autoresearch` loop on this skill.
+
+## References
+
+- Local: `references/doc-surface-selection.md`
+- Local: `references/steps-screenshots-and-troubleshooting.md`
+- Google developer documentation style guide: https://developers.google.com/style

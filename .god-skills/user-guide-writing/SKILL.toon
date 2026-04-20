@@ -1,9 +1,30 @@
 N:user-guide-writing
-D:Write clear and helpful user guides and tutorials for end users. Use when creating onboarding doc...
-G:user-guides tutorials documentation onboarding how-to
-U[3]:
-  **New Features**: Introduce new features to users
-  **Onboarding**: Train new users
-  **FAQ**: Organize frequently asked questions
-S[1]{n,action}:
-  1,Quick Start Guide
+D:Write user-facing documentation for onboarding tutorials how-to guides FAQs help-center articles release-facing help updates and support content. Use when the main job is helping end users or admins complete a product task through prerequisites steps screenshot placeholders and troubleshooting. Route internal engineering docs to technical-writing API docs to api-documentation and release notes to changelog-maintenance.
+G:user-guide-writing user-guide tutorial onboarding getting-started help-center faq support-docs troubleshooting product-walkthrough
+
+U[5]:
+  Write onboarding how-to tutorial FAQ and troubleshooting content for end users or admins
+  Capture audience goal prerequisites and success condition before drafting the body
+  Structure the task path as numbered steps with screenshot placeholders only where visuals reduce confusion
+  Add only the smallest useful troubleshooting FAQ and related-doc layer after the main flow
+  Route internal specs and runbooks to technical-writing API docs to api-documentation and release notes to changelog-maintenance
+
+S[5]{n,action,details}:
+  1,Choose-Doc-Shape,Pick the primary surface such as getting-started how-to tutorial FAQ or troubleshooting before writing
+  2,Capture-User-Context,Identify audience goal prerequisites starting point and success condition
+  3,Write-Task-Flow,Draft a short purpose statement prerequisites and numbered steps in action order with screenshot placeholders only where needed
+  4,Add-Recovery-Layer,Include troubleshooting FAQ support escalation or related docs for the most likely blockers
+  5,Route-Cleanly,Send internal engineering docs to technical-writing API consumer docs to api-documentation and version-history work to changelog-maintenance
+
+R[5]:
+  Keep one article focused on one user goal
+  Use task language and product UI labels instead of internal architecture terms
+  State prerequisites before the first step
+  Use screenshot placeholders only when visuals materially reduce confusion
+  Add references and evals before any skill-autoresearch loop
+
+E[4]{desc,in,out}:
+  "Getting-started guide","Write a getting-started guide for new workspace admins enabling SSO for the first time.","Keeps the request on user-guide-writing and produces prerequisites steps and a success check"
+  "Help-center article","Create a help-center article for exporting invoices from the billing page.","Keeps the request on user-guide-writing and focuses on one task flow plus troubleshooting"
+  "Route internal migration doc outward","Write an internal migration guide for moving our jobs service from Redis to Postgres-backed workers.","Routes to technical-writing because the request is engineer-facing"
+  "Route API docs outward","Document our webhook authentication headers and provide curl examples for integrators.","Routes to api-documentation because the primary deliverable is API-consumer documentation"

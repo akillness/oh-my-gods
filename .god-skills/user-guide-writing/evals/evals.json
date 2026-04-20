@@ -1,0 +1,57 @@
+{
+  "skill_name": "user-guide-writing",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a getting-started guide for new workspace admins setting up SSO for the first time.",
+      "expected_output": "A user-guide-writing response that frames the admin audience, lists prerequisites, and provides a numbered setup flow with a success check.",
+      "assertions": [
+        "Output keeps the request on `user-guide-writing`",
+        "Output identifies the audience or administrator context",
+        "Output includes prerequisites or a before-you-start section",
+        "Output includes numbered steps and a success check"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a help-center article for exporting invoices from the billing page and include where screenshots would help.",
+      "expected_output": "A focused task article that uses screenshot placeholders only where they reduce confusion and ends with likely troubleshooting guidance.",
+      "assertions": [
+        "Output keeps the request on `user-guide-writing`",
+        "Output focuses on one concrete billing task",
+        "Output includes screenshot placeholders or explicit screenshot guidance",
+        "Output includes troubleshooting, FAQ, or support escalation guidance"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write an internal migration guide for moving our jobs service from Redis queues to Postgres-backed workers.",
+      "expected_output": "A route-out response that recognizes the request as engineer-facing internal documentation.",
+      "assertions": [
+        "Output recognizes the request as internal engineering documentation",
+        "Output routes the task to `technical-writing`",
+        "Output does not present `user-guide-writing` as the primary owner"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Document our webhook authentication headers and provide curl examples for integrators.",
+      "expected_output": "A route-out response that recognizes API-consumer documentation as the main job.",
+      "assertions": [
+        "Output recognizes the request as API or integration documentation",
+        "Output routes the task to `api-documentation`",
+        "Output does not keep `user-guide-writing` as the primary owner"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Write release notes for version 3.4.0 and summarize the breaking changes for customers.",
+      "expected_output": "A route-out response that recognizes release-note hygiene as the main task.",
+      "assertions": [
+        "Output recognizes release notes or version history as the main deliverable",
+        "Output routes the task to `changelog-maintenance`",
+        "Output does not keep `user-guide-writing` as the primary owner"
+      ]
+    }
+  ]
+}
