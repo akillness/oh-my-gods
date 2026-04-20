@@ -1,16 +1,23 @@
 N:task-planning
-D:Plan and organize software development tasks effectively. Use when breaking down features, creati...
-G:task-planning user-stories backlog sprint-planning agile
-U[3]:
-  **Feature development**: Break down a new feature into small tasks
-  **Sprint Planning**: Select work to include in the sprint
-  **Backlog Grooming**: Clean up the backlog and set priorities
-S[1]{n,action}:
-  1,Write User Stories (INVEST)
-R[6]:
-  **I**ndependent
-  **N**egotiable
-  **V**aluable
-  **E**stimable
-  **S**mall
-  **T**estable
+D:Turn vague features, bugs, roadmap items, or playtest findings into execution-ready tasks, sprint...
+G:task-planning backlog-grooming sprint-planning roadmap-slicing feature-breakdown
+U[4]:
+  Break features, bug clusters, roadmap items, or ideas into actionable work
+  Groom a backlog before sprint or milestone planning
+  Turn scattered notes, PRDs, specs, or playtest findings into execution slices
+  Separate discovery from implementation when work is not ready
+X[3]:
+  sizing-only or story-point requests -> task-estimation
+  daily cadence or blocker roundups -> standup-meeting
+  completed-work reflection -> sprint-retrospective
+S[4]{n,action}:
+  1,Identify the planning horizon
+  2,Define the planning packet
+  3,Break work into execution-ready slices
+  4,Surface sequencing blockers and recommended next move
+R[5]:
+  planning horizon labeled
+  dependencies and missing inputs visible
+  discovery separated from implementation when uncertainty is material
+  every slice has acceptance criteria or a not-ready reason
+  output ends with a recommended next move

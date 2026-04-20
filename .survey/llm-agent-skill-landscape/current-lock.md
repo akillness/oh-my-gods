@@ -33,6 +33,9 @@ Date: 2026-04-20
   https://github.com/akillness/oh-my-gods/pull/73
 - PR `#74` for `pattern-detection` merged on April 20, 2026:
   https://github.com/akillness/oh-my-gods/pull/74
+- Draft PR `#75` for `task-planning` is open and re-reviewed clean on April 20,
+  2026:
+  https://github.com/akillness/oh-my-gods/pull/75
 
 ## Audit snapshot
 
@@ -45,8 +48,10 @@ Date: 2026-04-20
 - `data-analysis` is now closed because PR `#73` is merged on `origin/main`.
 - `pattern-detection` is now closed because PR `#74` is merged on
   `origin/main`.
-- The next bounded packaging gap should be chosen on the next survey run from
-  the remaining generic or under-packaged skills.
+- `task-planning` remains the active recurring lane, but branch review did not
+  reveal duplicate work, spec drift, or a missing bounded follow-up patch.
+- The next bounded packaging gap should be chosen on the next survey run after
+  PR `#75` merges.
 - Current repo inference: the highest-value remaining work is still packaging
   workflow-adjacent generic skills that lack route-clean support files and
   reproducible trigger checks.
@@ -63,6 +68,7 @@ Date: 2026-04-20
 | `user-guide-writing` | Merged via PR `#72` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `data-analysis` | Merged via PR `#73` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `pattern-detection` | Merged via PR `#74` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
+| `task-planning` | PR `#75` reviewed clean | No | No | Added | Added | No | Merge PR `#75`, then pick the next bounded generic skill gap on the next run |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a reviewed packaged target still misses objective checks |
 
@@ -73,26 +79,27 @@ Date: 2026-04-20
 - Treat `environment-setup`, `user-guide-writing`, and `data-analysis` as
   closed because PRs `#71`, `#72`, and `#73` are merged.
 - Treat `pattern-detection` as closed because PR `#74` is merged.
-- Defer `skill-autoresearch` again because the packaged skill merged without a
-  measured residual failure.
+- Treat `task-planning` as reviewed clean on this run and ready for merge.
+- Defer `skill-autoresearch` again because the packaged skill passes the
+  bounded review gate without a measured residual failure.
 
 ## Packaging decision for the active lane
 
-- Closed lane on this run: `pattern-detection`
+- Active lane on this run: `task-planning`
   - Assets: no
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because repo validation, per-skill validation,
-    review, and merge did not expose a residual failure worth a mutation loop
+  - Skill-autoresearch: no, because repo validation, support-file sync, and
+    branch review did not expose a residual failure worth a mutation loop
 
 ## Current state
 
-- Current state: `pattern-detection` is merged on `origin/main`, so the active
-  lane is closed and the next run should return to survey mode to choose a new
-  bounded target.
-- PR: https://github.com/akillness/oh-my-gods/pull/74
+- Current state: `task-planning` remains the active lane, but the open PR has
+  now been re-reviewed with clean validation and no bounded follow-up diff
+  justified.
+- PR: https://github.com/akillness/oh-my-gods/pull/75
 - Blocker: none
-- Next owner: survey the remaining landscape and choose the next bounded
-  packaging lane
+- Next owner: merge PR `#75`; on the next run, survey the remaining landscape
+  for the next bounded packaging lane
 - Stage: `merge`
