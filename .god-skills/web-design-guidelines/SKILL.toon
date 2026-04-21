@@ -1,21 +1,25 @@
 N:web-design-guidelines
-D:UI code review based on the Vercel Web Interface Guidelines. When asked "review my UI", "check accessibility", "audit design", or "review UX", fetch the latest guidelines and report violations in `file:line` format.
-G:UI review web-interface guidelines vercel design-audit UX accessibility
+D:Run a broad web UI review for pages, flows, or component surfaces using layout, content, interaction, responsiveness, performance-signal, and accessibility-basics checks based on the current Vercel Web Interface Guidelines.
+G:ui review web-interface guidelines vercel design-audit ux polish usability
 
-U[5]:
-  UI code review — check compliance with Web Interface Guidelines
-  Accessibility check — when asked "check accessibility"
-  Design audit — when asked "audit design"
-  UX review — when asked "review UX"
-  Best practices review — when asked "check my site against best practices"
-S[3]{n,action,details}:
-  1,Fetch Guidelines,WebFetch URL:https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md - extract latest rules
-  2,Analyze Files,Read user-provided files/patterns (React/Vue/Svelte, HTML, CSS/SCSS, TypeScript/JavaScript)
-  3,Report Violations,Apply all rules from fetched guidelines -> output location, issue, and fix suggestions in `file:line` format
-R[3]:
-  Fetch latest guidelines from the source URL on every review (no cache)
-  Check every rule from the fetched guidelines (no partial checks)
-  Always specify violation locations in `file:line` format
-E[2]{desc,in,out}:
-  "Button component review","Review my UI code: src/components/Button.tsx","src/components/Button.tsx:15 - Button should have aria-label for icon-only buttons\nsrc/components/Button.tsx:32 - Focus indicator missing"
-  "Full component audit","Check accessibility: src/**/*.tsx","src/components/Modal.tsx:42 - Modal should trap focus\nsrc/pages/Home.tsx:8 - Main content should be wrapped in <main>"
+U[4]:
+  Broad UI audit for a page, flow, or component surface
+  Landing page, dashboard, or form review before launch
+  Structured response to vague UI or UX critique requests
+  File- or pattern-scoped review against the latest Vercel guideline command
+S[5]{n,action,details}:
+  1,Confirm Scope,Lock the audit target and route out early if the task is accessibility-only, component-API design, or runtime browser validation
+  2,Fetch Guidelines,Retrieve the latest Vercel Web Interface Guidelines command before each real audit
+  3,Read Files,Review only the provided file or pattern instead of widening scope automatically
+  4,Review By Category,Apply layout, accessibility basics, focus, forms, motion, responsiveness, performance-signal, and navigation/state checks
+  5,Report Findings,Return concise file:line findings and note when rendered-browser validation is still required
+R[5]:
+  Fetch the latest upstream guideline command for every real audit
+  Keep this skill as a broad UI review lane, not an accessibility-only catch-all
+  Route WCAG-first remediation to web-accessibility
+  Route reusable component API design to ui-component-patterns
+  Route runtime browser validation to playwriter when stateful inspection matters
+E[3]{desc,in,out}:
+  "Landing page audit","Review this landing page UI before launch: src/app/page.tsx","Fetches the live guideline command and returns concise findings across layout, CTA clarity, interaction, and basics-level accessibility"
+  "Accessibility-only ask","Audit this modal for keyboard traps and screen-reader issues","Routes to web-accessibility instead of keeping web-design-guidelines as the main lane"
+  "Logged-in browser validation","Check this deployed dashboard in my logged-in browser and tell me what looks broken","Routes the runtime browser phase to playwriter"

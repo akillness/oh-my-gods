@@ -16,12 +16,14 @@
   https://github.com/akillness/oh-my-gods/pull/77
 - PR `#78` for `sprint-retrospective` is merged into `main`:
   https://github.com/akillness/oh-my-gods/pull/78
-- PR `#79` for `vercel-deploy` is now open:
+- PR `#79` for `vercel-deploy` is merged into `main`:
   https://github.com/akillness/oh-my-gods/pull/79
-- PR `#79` has now passed its first post-open review cycle with one bounded
-  follow-up for rollout-reference accuracy and support-surface sync.
+- PR `#80` for `web-design-guidelines` is now open:
+  https://github.com/akillness/oh-my-gods/pull/80
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
+- The first review pass on PR `#80` is clean: no duplicate work, no missing
+  support surfaces, and no standards gap that justifies another bounded patch.
 
 ## Survey refresh
 
@@ -49,10 +51,13 @@ The landscape signal remains stable as of April 21, 2026:
 7. Repo-local audit matters more than reopening merged lanes, because those
    lanes are already closed on `main`.
 8. `sprint-retrospective` is now closed because PR `#78` merged.
-9. `vercel-deploy` is now the strongest active bounded lane because it still
-   had stale one-shot deploy framing, no route-clean references, and no
-   eval-backed boundary between direct Vercel operations and broader
-   `deployment-automation` work.
+9. `vercel-deploy` is now closed because PR `#79` merged.
+10. `web-design-guidelines` is now the strongest active bounded lane because it
+    still had a thin review entrypoint, no packaged references or evals, and
+    broad overlap with neighboring frontend review skills despite relying on a
+    live external Vercel guideline command.
+11. The PR-review check on April 21, 2026 found the packaged lane clean, so
+    merge is higher leverage than adding churn-only follow-up edits.
 
 ## Locked direction
 
@@ -70,10 +75,11 @@ Advance one bounded lane per run, in this order:
 10. Keep `task-estimation` closed after PR `#76` merged
 11. Keep `standup-meeting` closed after PR `#77` merged
 12. Keep `sprint-retrospective` closed after PR `#78` merged
-13. Move the active lane to `vercel-deploy`, package the Vercel-specific
-    boundary with references and evals, then merge PR `#79` after the first
-    bounded review follow-up validates cleanly
-14. Revisit `skill-autoresearch` only after a packaged, reviewed target still
+13. Keep `vercel-deploy` closed after PR `#79` merged
+14. Move the active lane to `web-design-guidelines`, package the broad UI audit
+    boundary with references and evals, then merge PR `#80` after the first
+    clean review pass
+15. Revisit `skill-autoresearch` only after a packaged, reviewed target still
     shows measured failures
 
 This order is locked because:
@@ -81,10 +87,14 @@ This order is locked because:
 - Reopening merged lanes would duplicate already-closed work.
 - `standup-meeting` is now closed because PR `#77` merged.
 - `sprint-retrospective` is now closed because PR `#78` merged.
-- `vercel-deploy` still had a live behavior gap, not just a style gap: it
-  overclaimed a one-shot no-auth flow and lacked packaged route-outs and evals.
-- Repairing that Vercel boundary is higher leverage than opening a broader
-  deployment rewrite or starting `skill-autoresearch` early.
+- `vercel-deploy` is already closed on `main`, so keeping it active would only
+  duplicate closed work.
+- `web-design-guidelines` still had a live packaging gap, not just a style gap:
+  it depended on a mutable external ruleset without local review scaffolding,
+  route-outs, or eval-backed boundaries.
+- That review boundary is now packaged and the PR review stayed clean, so merge
+  is higher leverage than reopening merged lanes or starting
+  `skill-autoresearch` early.
 
 ## Skill-autoresearch triage
 
@@ -102,25 +112,26 @@ This order is locked because:
 | `task-estimation` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
 | `standup-meeting` | Closed merged lane | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
 | `sprint-retrospective` | Closed merged lane | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
-| `vercel-deploy` | High and active | No | Existing helper retained | Yes | Yes | No | Merge PR `#79` after pushing the bounded review follow-up |
+| `vercel-deploy` | Closed merged lane | No | Existing helper retained | Yes | Yes | No | Keep closed unless post-merge evidence reopens it |
+| `web-design-guidelines` | High and active | No | No | Yes | Yes | No | Merge PR `#80` after the clean review pass; survey the next lane on the following run |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
 ## Packaging decision for the active lane
 
-- Active lane on this run: `vercel-deploy`
+- Active lane on this run: `web-design-guidelines`
   - Assets: no
-  - Scripts: existing `scripts/deploy.sh` retained; no new scripts
+  - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because the lane needed boundary repair and
-    support packaging before any mutation loop would be credible
+  - Skill-autoresearch: no, because the review stayed clean and did not expose
+    a residual measured failure after packaging
 
 ## Current state
 
-- State: `vercel-deploy` is the active lane, its bounded review follow-up is
-  applied, and PR `#79` is ready to merge once the follow-up commit is pushed
-- PR: https://github.com/akillness/oh-my-gods/pull/79
+- State: `web-design-guidelines` is the active lane, its packaging PR has
+  passed the first review cleanly, and it is ready to merge
+- PR: https://github.com/akillness/oh-my-gods/pull/80
 - Blocker: none
-- Next owner: push the follow-up and merge PR `#79`
+- Next owner: merge PR `#80`, then return to survey mode on the next run
 - Stage: `merge`
