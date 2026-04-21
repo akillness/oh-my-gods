@@ -41,6 +41,9 @@ Date: 2026-04-21
   https://github.com/akillness/oh-my-gods/pull/78
 - PR `#79` for `vercel-deploy` is now open:
   https://github.com/akillness/oh-my-gods/pull/79
+- PR `#79` received its first post-open review pass on April 21, 2026; the
+  bounded follow-up corrected rollout-reference drift around beta verification
+  helpers and rollback guidance.
 
 ## Audit snapshot
 
@@ -76,7 +79,7 @@ Date: 2026-04-21
 | `task-estimation` | Merged via PR `#76` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
 | `standup-meeting` | Merged via PR `#77` | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
 | `sprint-retrospective` | Merged via PR `#78` | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
-| `vercel-deploy` | PR `#79` open with bounded packaging pass applied | No | Existing helper retained | Yes | Yes | No | Review PR `#79` for duplicate work or missing Vercel route-outs |
+| `vercel-deploy` | PR `#79` open with bounded review follow-up applied | No | Existing helper retained | Yes | Yes | No | Merge PR `#79` after pushing the review follow-up |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a packaged reviewed target still misses objective checks |
 
@@ -86,8 +89,9 @@ Date: 2026-04-21
   evidence reopens them.
 - Treat `standup-meeting` as closed because PR `#77` is merged.
 - Treat `sprint-retrospective` as closed because PR `#78` is merged.
-- Treat `vercel-deploy` as the active lane and keep the work in PR review until
-  the new bounded package is checked for duplicate work or missing route-outs.
+- Treat `vercel-deploy` as the active lane and keep the work on the merge path
+  now that the first PR review blockers have been fixed and validation is
+  clean.
 - Defer `skill-autoresearch` again because the target needed support-surface
   hardening before any mutation loop would be credible.
 
@@ -103,10 +107,9 @@ Date: 2026-04-21
 
 ## Current state
 
-- Current state: `vercel-deploy` has completed its first bounded packaging pass
-  and is ready for branch review at PR `#79`
+- Current state: `vercel-deploy` has completed its post-open review follow-up
+  and is ready for merge at PR `#79`
 - PR: https://github.com/akillness/oh-my-gods/pull/79
 - Blocker: none
-- Next owner: review PR `#79`, then either apply one bounded follow-up or
-  advance it to merge on the next clean run
-- Stage: `pr-open`
+- Next owner: push the bounded review follow-up, then merge PR `#79`
+- Stage: `merge`

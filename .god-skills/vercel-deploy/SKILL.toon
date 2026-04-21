@@ -17,7 +17,7 @@ R[5]:
   Route provider-neutral deployment design to deployment-automation
   Verify preview before promotion
   Verify production after promotion or rollback
-  Use playwriter when deployment verification needs a real logged-in browser
+  Use playwriter or agent-browser when deployment verification needs a real browser session
 E[3]{desc,in,out}:
   "Preview deployment","Deploy this linked Next.js app on Vercel and give me the preview URL","Uses the linked-project or claim lane, returns preview details, and names the verification follow-up"
   "Promote after testing","Promote this Vercel preview deployment to production","Verifies the preview target, promotes, and then re-checks production"

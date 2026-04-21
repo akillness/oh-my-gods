@@ -18,6 +18,8 @@
   https://github.com/akillness/oh-my-gods/pull/78
 - PR `#79` for `vercel-deploy` is now open:
   https://github.com/akillness/oh-my-gods/pull/79
+- PR `#79` has now passed its first post-open review cycle with one bounded
+  follow-up for rollout-reference accuracy and support-surface sync.
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
 
@@ -69,7 +71,8 @@ Advance one bounded lane per run, in this order:
 11. Keep `standup-meeting` closed after PR `#77` merged
 12. Keep `sprint-retrospective` closed after PR `#78` merged
 13. Move the active lane to `vercel-deploy`, package the Vercel-specific
-    boundary with references and evals, then review PR `#79`
+    boundary with references and evals, then merge PR `#79` after the first
+    bounded review follow-up validates cleanly
 14. Revisit `skill-autoresearch` only after a packaged, reviewed target still
     shows measured failures
 
@@ -99,7 +102,7 @@ This order is locked because:
 | `task-estimation` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
 | `standup-meeting` | Closed merged lane | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
 | `sprint-retrospective` | Closed merged lane | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
-| `vercel-deploy` | High and active | No | Existing helper retained | Yes | Yes | No | Review PR `#79` for duplicate work or missing Vercel route-outs |
+| `vercel-deploy` | High and active | No | Existing helper retained | Yes | Yes | No | Merge PR `#79` after pushing the bounded review follow-up |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
@@ -115,10 +118,9 @@ This order is locked because:
 
 ## Current state
 
-- State: `vercel-deploy` is the active lane, its first bounded packaging pass
-  is pushed, and PR `#79` is open for review
+- State: `vercel-deploy` is the active lane, its bounded review follow-up is
+  applied, and PR `#79` is ready to merge once the follow-up commit is pushed
 - PR: https://github.com/akillness/oh-my-gods/pull/79
 - Blocker: none
-- Next owner: review PR `#79`, then either apply one bounded follow-up or
-  advance the lane to merge on the next clean run
-- Stage: `pr-open`
+- Next owner: push the follow-up and merge PR `#79`
+- Stage: `merge`

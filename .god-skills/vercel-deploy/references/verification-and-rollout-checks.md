@@ -18,6 +18,9 @@ Useful command surface:
 ```bash
 vercel inspect <deployment-url-or-id>
 vercel logs <deployment-url-or-id> --limit 50
+# Optional beta helpers when Vercel CLI and local tooling are available:
+# - vercel curl requires Vercel CLI v48.8.0+
+# - vercel httpstat requires Vercel CLI v48.9.0+ and local httpstat installed
 vercel curl /api/health --deployment <deployment-url-or-id>
 vercel httpstat / --deployment <deployment-url-or-id>
 ```
@@ -48,10 +51,15 @@ Relevant docs:
 If the promoted deployment is unhealthy, use Vercel rollback instead of
 inventing an ad hoc redeploy flow.
 
-Typical command:
+Typical commands:
 
 ```bash
+# Fastest restore path: roll back to the previous production deployment
 vercel rollback
+
+# Explicit target path when you need a specific eligible deployment
+vercel rollback <deployment-url-or-id>
+vercel rollback status
 ```
 
 After rollback:
