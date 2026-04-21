@@ -1,178 +1,179 @@
 ---
 name: vercel-deploy
-description: "Deploy applications and websites to Vercel instantly. Use when asked to \"Deploy my app\", \"Deploy this to production\", \"Create a preview deployment\", or \"Push this live\". No authentication required - returns preview URL and claimable deployment link."
+description: >
+  Handle Vercel-specific deployment operations for linked web or fullstack
+  projects: preview deploys, production deploys, preview-to-production
+  promotion, stable preview aliases, domain assignment, environment-variable
+  sync, rollback checks, and claim-deployment handoff. Use when the request is
+  specifically about deploying on Vercel, promoting a Vercel preview build,
+  fixing Vercel env or domain workflow problems, or rolling back a Vercel
+  deployment. Triggers on: Vercel deploy, Vercel preview URL, Vercel alias,
+  vercel promote, Vercel domain, Vercel env, Vercel rollback, Vercel claim
+  deployment.
 allowed-tools: Bash Read Write Grep Glob
 metadata:
   author: vercel
-  version: 1.0.0
-  tags: deployment, vercel, preview, production, hosting, serverless
-  platforms: Claude
+  version: "2.0.0"
+  tags: deployment, vercel, preview, production, domains, rollback
+  platforms: Claude, ChatGPT, Gemini, Codex
 ---
-
 
 # Vercel Deploy
 
-Deploy any project to Vercel instantly. No authentication required.
+This skill owns Vercel-specific deployment execution. Keep it focused on the
+hosting lane, not generic CI/CD design or provider-neutral rollout strategy.
 
 ## When to use this skill
 
-- **App deployment**: when asked "Deploy my app"
-- **Preview deployment**: when asked "Create a preview deployment"
-- **Production deployment**: when asked "Deploy this to production"
-- **Share link**: when asked "Deploy and give me the link"
+- Create or inspect a Vercel preview deployment for a linked project
+- Promote a tested preview deployment to production
+- Diagnose Vercel environment-variable, domain, alias, or rollback workflow
+  issues
+- Use a claim-deployment flow for an AI-generated deployment that should be
+  handed to a user's Vercel account
+- Review whether a request is actually Vercel-specific before running commands
 
-## How It Works
+Prefer a narrower neighboring skill when the main job is not direct Vercel
+operations:
 
-1. Packages your project into a tarball (excludes `node_modules` and `.git`)
-2. Auto-detects framework from `package.json`
-3. Uploads to deployment service
-4. Returns **Preview URL** (live site) and **Claim URL** (transfer to your Vercel account)
+- `deployment-automation` for provider-neutral CI/CD, container, Kubernetes, or
+  rollout-strategy design
+- `system-environment-setup` for broader machine or local environment setup
+- `playwriter` or `agent-browser` for browser validation of a deployed site
 
 ## Instructions
 
-### Step 1: Prepare Project
+### Step 1: Triage the Vercel lane before proposing commands
 
-Confirm the project directory to deploy.
+Confirm which Vercel path the user actually needs:
 
-**Supported frameworks**:
-- **React**: Next.js, Gatsby, Create React App, Remix, React Router
-- **Vue**: Nuxt, Vitepress, Vuepress, Gridsome
-- **Svelte**: SvelteKit, Svelte, Sapper
-- **Other Frontend**: Astro, Solid Start, Angular, Ember, Preact, Docusaurus
-- **Backend**: Express, Hono, Fastify, NestJS, Elysia, h3, Nitro
-- **Build Tools**: Vite, Parcel
-- **And more**: Blitz, Hydrogen, RedwoodJS, Storybook, Sanity, etc.
+- linked-project CLI flow: deploy, inspect, env sync, domains, logs, promote,
+  rollback
+- claim-deployment flow: AI-generated deployment that will be transferred to a
+  user's Vercel account
+- broader release-design question: route out to `deployment-automation`
 
-### Step 2: Run Deployment
+Capture the minimum facts first:
 
-**Use the script** (claude.ai environment):
-```bash
-bash /mnt/skills/user/vercel-deploy/scripts/deploy.sh [path]
+- project path or linked project name
+- desired environment: preview or production
+- whether the project is already linked to Vercel
+- whether the ask is a fresh deploy, a promote, a rollback, or an env/domain
+  fix
+- whether browser verification is needed after deployment
+
+### Step 2: Choose the smallest Vercel flow that fits
+
+Use the correct execution surface instead of forcing every request into one
+path:
+
+- linked project deploys: use the Vercel CLI flow from
+  `references/vercel-cli-and-claim-flows.md`
+- preview-to-production promotion: use the promote and verification lane from
+  `references/verification-and-rollout-checks.md`
+- claimable deployment handoff: use the bundled `scripts/deploy.sh` helper when
+  a runtime exposes the skill directory locally and the goal is to generate a
+  preview plus claim URL
+- deploy hooks: use only when the project already has an existing hook and the
+  user wants hook-based triggering
+
+Do not describe claim deployments as the default Vercel path. They are one
+specific handoff flow.
+
+### Step 3: Run Vercel operations with explicit verification
+
+Keep the execution sequence reviewable:
+
+- inspect or deploy the target environment explicitly
+- check the resulting deployment URL or deployment ID
+- verify logs or health before calling a preview ready
+- promote only after the preview deployment is known good
+- verify production again after promote or rollback
+
+If the user needs browser/runtime verification, route to `playwriter` for
+stateful browser checks rather than trying to fake that inside the skill.
+
+### Step 4: Handle common operational gaps
+
+When the request is not just "deploy":
+
+- environment variables: sync or inspect preview vs production differences
+- domains or aliases: confirm the target deployment and assigned domain before
+  changing traffic
+- rollback: use the Vercel rollback path instead of improvising a generic redeploy
+- claim handoff: return the preview URL and claim URL clearly, and note that
+  claim codes expire
+
+### Step 5: Pull supporting files only when they add leverage
+
+Load only the reference that matches the current ask:
+
+- `references/vercel-cli-and-claim-flows.md` for linked-project deploys, claim
+  handoff, domains, env sync, and deploy hooks
+- `references/verification-and-rollout-checks.md` for preview verification,
+  promotion, rollback, and post-deploy checks
+
+Use the bundled script only when the claim-deployment lane is actually needed:
+
+- `scripts/deploy.sh`
+
+## Examples
+
+### Example 1: Preview deployment
+
+Input:
+
+```text
+Deploy this Next.js app to Vercel and give me the preview URL.
 ```
 
-**Arguments:**
-- `path` - Directory to deploy, or a `.tgz` file (defaults to current directory)
+Expected behavior:
 
-**Examples:**
-```bash
-# Deploy current directory
-bash /mnt/skills/user/vercel-deploy/scripts/deploy.sh
+- confirms the project path and whether the repo is already linked
+- uses the linked-project deploy lane or the claim-deployment helper
+- returns the preview URL and the exact verification follow-up
 
-# Deploy specific project
-bash /mnt/skills/user/vercel-deploy/scripts/deploy.sh /path/to/project
+### Example 2: Promote after testing
 
-# Deploy existing tarball
-bash /mnt/skills/user/vercel-deploy/scripts/deploy.sh /path/to/project.tgz
+Input:
+
+```text
+This preview deployment looks good. Promote it to production on Vercel.
 ```
 
-### Step 3: Verify Result
+Expected behavior:
 
-On successful deployment, two URLs are returned:
-- **Preview URL**: live site you can access immediately
-- **Claim URL**: transfer this deployment to your Vercel account
+- treats this as a preview-to-production operation, not a fresh generic deploy
+- verifies the preview target first
+- promotes and then re-checks production health or logs
 
-## Output Format
+### Example 3: Generic deployment design question
 
-### Console Output
+Input:
 
-```
-Preparing deployment...
-Detected framework: nextjs
-Creating deployment package...
-Deploying...
-✓ Deployment successful!
-
-Preview URL: https://skill-deploy-abc123.vercel.app
-Claim URL:   https://vercel.com/claim-deployment?code=...
+```text
+Help me design a CI/CD deployment pipeline for our app.
 ```
 
-### JSON Output (for automation)
+Expected behavior:
 
-```json
-{
-  "previewUrl": "https://skill-deploy-abc123.vercel.app",
-  "claimUrl": "https://vercel.com/claim-deployment?code=...",
-  "deploymentId": "dpl_...",
-  "projectId": "prj_..."
-}
-```
-
-## Static HTML Projects
-
-For projects without a `package.json`:
-- If there's a single `.html` file not named `index.html`, it gets renamed automatically
-- This ensures the page is served at the root URL (`/`)
-
-## Present Results to User
-
-Always show both URLs:
-
-```
-✓ Deployment successful!
-
-Preview URL: https://skill-deploy-abc123.vercel.app
-Claim URL:   https://vercel.com/claim-deployment?code=...
-
-View your site at the Preview URL.
-To transfer this deployment to your Vercel account, visit the Claim URL.
-```
-
-## Troubleshooting
-
-### Network Egress Error
-
-If deployment fails due to network restrictions (common on claude.ai), tell the user:
-
-```
-Deployment failed due to network restrictions. To fix this:
-
-1. Go to https://claude.ai/settings/capabilities
-2. Add *.vercel.com to the allowed domains
-3. Try deploying again
-```
-
-### Framework Not Detected
-
-If the framework is not detected:
-1. Check that `package.json` exists
-2. Check that your dependencies include the framework package
-3. Manually set the `framework` parameter
-
-## Constraints
-
-### Required Rules (MUST)
-
-1. **Show both URLs**: show both the Preview URL and Claim URL to the user
-2. **Framework detection**: auto-detect from package.json
-3. **Show error messages**: show a clear error message if deployment fails
-
-### Prohibited (MUST NOT)
-
-1. **Include node_modules**: do not include node_modules in the tarball
-2. **Include .git**: do not include the .git directory in the tarball
-3. **Hardcode credentials**: no authentication required (claimable deploy)
+- routes out to `deployment-automation`
+- does not keep the work in `vercel-deploy` unless the user makes Vercel the
+  actual hosting target
 
 ## Best practices
 
-1. **Automatic framework detection**: pick optimal settings by analyzing package.json
-2. **Clean Tarball**: exclude node_modules and .git for faster uploads
-3. **Clear output**: clearly distinguish the Preview URL and Claim URL
+- Choose linked-project CLI, claim-deployment, or promote lane before writing
+  commands
+- Keep Vercel-specific operations separate from general deployment strategy
+- Verify preview state before promotion and verify production after promotion or
+  rollback
+- Treat domain, alias, and env changes as deployment-scope actions that need
+  explicit confirmation of the target deployment
+- Keep detailed command examples in references so the main entrypoint stays
+  triggerable
 
 ## References
 
-- [Vercel Documentation](https://vercel.com/docs)
-- [Vercel CLI](https://vercel.com/docs/cli)
-
-## Metadata
-
-### Version
-- **Current version**: 1.0.0
-- **Last updated**: 2026-01-22
-- **Supported platforms**: Claude (claude.ai)
-- **Source**: vercel/agent-skills
-
-### Related Skills
-- [deployment-automation](../deployment-automation/SKILL.md): CI/CD and Docker/K8s deployments
-
-### Tags
-`#deployment` `#vercel` `#preview` `#production` `#hosting` `#serverless` `#infrastructure`
+- `references/vercel-cli-and-claim-flows.md`
+- `references/verification-and-rollout-checks.md`

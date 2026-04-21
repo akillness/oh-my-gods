@@ -14,8 +14,12 @@
 - PR `#76` for `task-estimation` is merged into `main`.
 - PR `#77` for `standup-meeting` is merged into `main`:
   https://github.com/akillness/oh-my-gods/pull/77
-- PR `#78` for `sprint-retrospective` is now open:
+- PR `#78` for `sprint-retrospective` is merged into `main`:
   https://github.com/akillness/oh-my-gods/pull/78
+- PR `#79` for `vercel-deploy` is now open:
+  https://github.com/akillness/oh-my-gods/pull/79
+- PR `#79` has now passed its first post-open review cycle with one bounded
+  follow-up for rollout-reference accuracy and support-surface sync.
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
 
@@ -44,10 +48,11 @@ The landscape signal remains stable as of April 21, 2026:
    https://github.com/microsoft/skills
 7. Repo-local audit matters more than reopening merged lanes, because those
    lanes are already closed on `main`.
-8. `sprint-retrospective` is now the strongest active bounded lane because it
-   sits on the same crowded PM boundary as `standup-meeting`, `task-planning`,
-   and `task-estimation`, and now has a real PR to review instead of a stale
-   local-only draft.
+8. `sprint-retrospective` is now closed because PR `#78` merged.
+9. `vercel-deploy` is now the strongest active bounded lane because it still
+   had stale one-shot deploy framing, no route-clean references, and no
+   eval-backed boundary between direct Vercel operations and broader
+   `deployment-automation` work.
 
 ## Locked direction
 
@@ -64,22 +69,22 @@ Advance one bounded lane per run, in this order:
 9. Keep `task-planning` closed after PR `#75` merged
 10. Keep `task-estimation` closed after PR `#76` merged
 11. Keep `standup-meeting` closed after PR `#77` merged
-12. Move the active lane to `sprint-retrospective`, apply one bounded review
-    fix if needed, then clear the PR for merge
-13. Revisit `skill-autoresearch` only after a packaged, reviewed target still
+12. Keep `sprint-retrospective` closed after PR `#78` merged
+13. Move the active lane to `vercel-deploy`, package the Vercel-specific
+    boundary with references and evals, then merge PR `#79` after the first
+    bounded review follow-up validates cleanly
+14. Revisit `skill-autoresearch` only after a packaged, reviewed target still
     shows measured failures
 
 This order is locked because:
 
 - Reopening merged lanes would duplicate already-closed work.
 - `standup-meeting` is now closed because PR `#77` merged.
-- `sprint-retrospective` needed packaging hardening before any optimization loop
-  would be defensible.
-- A clean PR-review pass on `#78` is still higher leverage than starting
-  another unrelated lane.
-- The only review gap found on this run was standards-shaped and bounded:
-  missing recommended `Best practices` and `References` sections in the main
-  `SKILL.md`.
+- `sprint-retrospective` is now closed because PR `#78` merged.
+- `vercel-deploy` still had a live behavior gap, not just a style gap: it
+  overclaimed a one-shot no-auth flow and lacked packaged route-outs and evals.
+- Repairing that Vercel boundary is higher leverage than opening a broader
+  deployment rewrite or starting `skill-autoresearch` early.
 
 ## Skill-autoresearch triage
 
@@ -96,25 +101,26 @@ This order is locked because:
 | `task-planning` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
 | `task-estimation` | Closed merged lane | No | No | No | Yes | Yes | Keep closed unless post-merge evidence reopens it |
 | `standup-meeting` | Closed merged lane | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
-| `sprint-retrospective` | High and active | No | No | No | Yes | Yes | Merge PR `#78` after this run's bounded standards fix and clean validation |
+| `sprint-retrospective` | Closed merged lane | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
+| `vercel-deploy` | High and active | No | Existing helper retained | Yes | Yes | No | Merge PR `#79` after pushing the bounded review follow-up |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
 ## Packaging decision for the active lane
 
-- Active lane on this run: `sprint-retrospective`
+- Active lane on this run: `vercel-deploy`
   - Assets: no
-  - Scripts: no
+  - Scripts: existing `scripts/deploy.sh` retained; no new scripts
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because the review gap was standards debt, not a
-    residual measured failure after packaging
+  - Skill-autoresearch: no, because the lane needed boundary repair and
+    support packaging before any mutation loop would be credible
 
 ## Current state
 
-- State: `sprint-retrospective` is the active lane, its review found one
-  bounded standards gap, and that gap is now fixed
-- PR: https://github.com/akillness/oh-my-gods/pull/78
+- State: `vercel-deploy` is the active lane, its bounded review follow-up is
+  applied, and PR `#79` is ready to merge once the follow-up commit is pushed
+- PR: https://github.com/akillness/oh-my-gods/pull/79
 - Blocker: none
-- Next owner: merge PR `#78`, then return to survey mode on the next run
+- Next owner: push the follow-up and merge PR `#79`
 - Stage: `merge`
