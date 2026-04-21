@@ -22,6 +22,8 @@
   https://github.com/akillness/oh-my-gods/pull/80
 - Repo-wide validation still passes at `80/80` skills with `0` spec violations
   when run via `python3 validate_frontmatter.py`.
+- The first review pass on PR `#80` is clean: no duplicate work, no missing
+  support surfaces, and no standards gap that justifies another bounded patch.
 
 ## Survey refresh
 
@@ -54,6 +56,8 @@ The landscape signal remains stable as of April 21, 2026:
     still had a thin review entrypoint, no packaged references or evals, and
     broad overlap with neighboring frontend review skills despite relying on a
     live external Vercel guideline command.
+11. The PR-review check on April 21, 2026 found the packaged lane clean, so
+    merge is higher leverage than adding churn-only follow-up edits.
 
 ## Locked direction
 
@@ -73,8 +77,8 @@ Advance one bounded lane per run, in this order:
 12. Keep `sprint-retrospective` closed after PR `#78` merged
 13. Keep `vercel-deploy` closed after PR `#79` merged
 14. Move the active lane to `web-design-guidelines`, package the broad UI audit
-    boundary with references and evals, then review PR `#80` for one bounded
-    follow-up if needed
+    boundary with references and evals, then merge PR `#80` after the first
+    clean review pass
 15. Revisit `skill-autoresearch` only after a packaged, reviewed target still
     shows measured failures
 
@@ -88,8 +92,9 @@ This order is locked because:
 - `web-design-guidelines` still had a live packaging gap, not just a style gap:
   it depended on a mutable external ruleset without local review scaffolding,
   route-outs, or eval-backed boundaries.
-- Repairing that review boundary is higher leverage than reopening merged lanes
-  or starting `skill-autoresearch` early.
+- That review boundary is now packaged and the PR review stayed clean, so merge
+  is higher leverage than reopening merged lanes or starting
+  `skill-autoresearch` early.
 
 ## Skill-autoresearch triage
 
@@ -108,7 +113,7 @@ This order is locked because:
 | `standup-meeting` | Closed merged lane | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
 | `sprint-retrospective` | Closed merged lane | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
 | `vercel-deploy` | Closed merged lane | No | Existing helper retained | Yes | Yes | No | Keep closed unless post-merge evidence reopens it |
-| `web-design-guidelines` | High and active | No | No | Yes | Yes | No | Review PR `#80` and apply one bounded follow-up only if duplicate work or support-surface drift appears |
+| `web-design-guidelines` | High and active | No | No | Yes | Yes | No | Merge PR `#80` after the clean review pass; survey the next lane on the following run |
 | `skill-standardization` | Repo audit gate | Not yet | No | Existing validator is enough | No | Already present | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | No | Already present | Already present | Revisit only after a reviewed packaged lane still misses objective checks |
 
@@ -119,16 +124,14 @@ This order is locked because:
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because the lane needed boundary repair and
-    support packaging before any mutation loop would be credible
+  - Skill-autoresearch: no, because the review stayed clean and did not expose
+    a residual measured failure after packaging
 
 ## Current state
 
-- State: `vercel-deploy` is closed because PR `#79` merged, and
-  `web-design-guidelines` is the active lane with PR `#80` open
+- State: `web-design-guidelines` is the active lane, its packaging PR has
+  passed the first review cleanly, and it is ready to merge
 - PR: https://github.com/akillness/oh-my-gods/pull/80
 - Blocker: none
-- Next owner: run the first PR-review pass on `web-design-guidelines`, check
-  for duplicate work or support-surface drift, and apply one bounded follow-up
-  only if needed
-- Stage: `pr-open`
+- Next owner: merge PR `#80`, then return to survey mode on the next run
+- Stage: `merge`

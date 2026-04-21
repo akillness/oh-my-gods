@@ -58,9 +58,12 @@ Date: 2026-04-21
   thin 1.0 entrypoint, broad trigger overlap with neighboring frontend skills,
   and no packaged references or eval-backed route-outs despite depending on a
   live external Vercel guideline command.
-- The current pass repackaged the lane around broad UI audit routing, live
+- The first pass repackaged the lane around broad UI audit routing, live
   guideline fetches, neighboring-skill route-outs, and eval-backed boundary
   checks.
+- This review run found no duplicate work, no missing support files, and no
+  new standards gap on the branch; the packaged lane is clean enough to merge
+  without another content patch.
 - `skill-autoresearch` is still deferred because the target first needed a
   truthful boundary and support package before a mutation loop would be
   credible.
@@ -82,7 +85,7 @@ Date: 2026-04-21
 | `standup-meeting` | Merged via PR `#77` | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
 | `sprint-retrospective` | Merged via PR `#78` | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
 | `vercel-deploy` | Merged via PR `#79` | No | Existing helper retained | Yes | Yes | No | Keep closed unless post-merge review or measured failures appear |
-| `web-design-guidelines` | PR `#80` open | No | No | Yes | Yes | No | Review PR `#80` for duplicate work, missing route-outs, or support-surface drift |
+| `web-design-guidelines` | PR `#80` reviewed clean | No | No | Yes | Yes | No | Merge PR `#80`, then return to survey mode for the next bounded lane |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
 | `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a packaged reviewed target still misses objective checks |
 
@@ -93,8 +96,8 @@ Date: 2026-04-21
 - Treat `standup-meeting` as closed because PR `#77` is merged.
 - Treat `sprint-retrospective` as closed because PR `#78` is merged.
 - Treat `vercel-deploy` as closed because PR `#79` is merged.
-- Treat `web-design-guidelines` as the active lane and keep the next run on the
-  PR-review path for PR `#80`.
+- Treat `web-design-guidelines` as the active lane and move it to merge after
+  this clean PR review.
 - Defer `skill-autoresearch` again because the target needed support-surface
   hardening before any mutation loop would be credible.
 
@@ -105,15 +108,14 @@ Date: 2026-04-21
   - Scripts: no
   - References: yes
   - Evals: yes
-  - Skill-autoresearch: no, because the lane needed support-surface packaging
-    and route-clean evals before any frozen mutation loop would be credible
+  - Skill-autoresearch: no, because the review stayed clean and did not expose
+    a residual measured failure that would justify a mutation loop
 
 ## Current state
 
-- Current state: `vercel-deploy` is closed because PR `#79` merged, and
-  `web-design-guidelines` is now the active packaged lane with PR `#80` open
+- Current state: `web-design-guidelines` has completed packaging, passed the
+  first PR review cleanly, and is ready for merge
 - PR: https://github.com/akillness/oh-my-gods/pull/80
 - Blocker: none
-- Next owner: review PR `#80` for duplicate work, missing improvements, or
-  standardization gaps, then apply one bounded follow-up if needed
-- Stage: `pr-open`
+- Next owner: merge PR `#80`, then return to survey mode on the next run
+- Stage: `merge`
