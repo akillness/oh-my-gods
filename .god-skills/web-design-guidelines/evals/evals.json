@@ -1,0 +1,35 @@
+{
+  "skill_name": "web-design-guidelines",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review this landing page UI before launch and tell me what feels off: src/app/page.tsx",
+      "expected_output": "Keeps the task in a broad UI audit lane, fetches the current Vercel guidelines, and reports concise location-based findings.",
+      "assertions": [
+        "Response keeps the task in web-design-guidelines rather than immediately routing it away",
+        "Response fetches or explicitly plans to fetch the latest Vercel Web Interface Guidelines command",
+        "Response uses concise location-based findings or an equivalent concrete review format"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Audit this modal for keyboard traps, screen-reader labels, and focus return behavior.",
+      "expected_output": "Routes the task to web-accessibility instead of keeping broad UI review as the main lane.",
+      "assertions": [
+        "Response routes the task to web-accessibility",
+        "Response does not present web-design-guidelines as the primary skill for WCAG-focused remediation",
+        "Response preserves the distinction between broad UI review and accessibility-first implementation work"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Open my logged-in dashboard in the browser and tell me which states are visually broken after I click around.",
+      "expected_output": "Routes runtime browser validation to playwriter instead of pretending a static code review is sufficient.",
+      "assertions": [
+        "Response routes the browser-validation phase to playwriter",
+        "Response does not claim that static code review alone is enough for this runtime request",
+        "Response preserves web-design-guidelines as a code or audit surface rather than a browser automation surface"
+      ]
+    }
+  ]
+}
