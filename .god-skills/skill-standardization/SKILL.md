@@ -82,6 +82,12 @@ The script checks:
 - Recommended sections present
 - File length: warns if over 500 lines
 
+For OSS-backed skills, add an intake gate before finalizing:
+- License clarity (SPDX or explicit license text)
+- Upstream maintenance signal (recent updates, non-archived)
+- Evidence links for non-obvious claims
+- Explicit risk notes for experimental or unstable dependencies
+
 ### Step 2: Write an effective description
 
 The `description` field determines when a skill triggers. A weak description means the skill never activates; an over-broad one triggers at wrong times.
