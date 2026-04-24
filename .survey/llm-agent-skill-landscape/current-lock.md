@@ -4,131 +4,108 @@ Date: 2026-04-18
 
 ## Survey refresh
 
-- Agent Skills still recommends compact `SKILL.md` entrypoints with
-  progressive disclosure through `references/`, `scripts/`, `assets/`, and
-  `evals/`, which keeps standards-clean packaging higher leverage than broad
-  rewrites:
-  https://agentskills.io/skill-creation/best-practices
-- LangChain Deep Agents still documents progressive disclosure as the intended
-  skills pattern, which continues to favor compact bridge skills over inline
-  catalogs:
-  https://docs.langchain.com/oss/javascript/deepagents/skills
-- LangChain's 2026 skills launch still reports large eval gains from
-  well-packaged skills, which keeps eval-backed cleanup a better next step
-  than speculative mutation loops:
-  https://blog.langchain.com/langchain-skills/
-- GitHub launched `gh skill` on 2026-04-16, which increases the value of
-  portable, discoverable, provenance-friendly skill directories:
-  https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
-- No new ecosystem signal in this refresh justifies reopening `langchain-bmad`
-  for another content pass; the higher-value move after the review is to close
-  the live PR and queue the next bounded standards lane.
+- No newer ecosystem signal displaced the packaging direction already locked in
+  this survey: portable, standards-clean skill directories with progressive
+  disclosure still outrank broad rewrites.
+- The `video-production` cleanup lane is closed; PR `#50` is merged:
+  https://github.com/akillness/oh-my-gods/pull/50
+- `langextract` remained the best next lane because it still had 2 validator
+  warnings, already shipped `evals/` plus a helper script, and could be fixed
+  without widening to a broader umbrella skill.
+- The standards pass on `langextract` is now complete and the PR path is open:
+  https://github.com/akillness/oh-my-gods/pull/51
 
 Source links:
 
 - https://agentskills.io/specification
 - https://agentskills.io/skill-creation/best-practices
-- https://agentskills.io/skill-creation/optimizing-descriptions
 - https://docs.langchain.com/oss/javascript/deepagents/skills
 - https://blog.langchain.com/langchain-skills/
 - https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli
-- https://docs.bmad-method.org/explanation/creative-intelligence/
-- https://bmadcodes.com/v6-alpha/
+- https://developers.openai.com/codex/skills
+- https://developers.openai.com/codex/hooks
+- https://developers.openai.com/codex/subagents
+- https://developers.google.com/health-ai-developer-foundations/libraries/langextract
+- https://github.com/google/langextract
 
 ## Live GitHub state
 
-- PR `#37` for `git-workflow` merged at `2026-04-15T11:09:19Z`:
-  https://github.com/akillness/oh-my-gods/pull/37
-- PR `#38` for `responsive-design` merged at `2026-04-15T13:09:48Z`:
-  https://github.com/akillness/oh-my-gods/pull/38
-- PR `#39` for `agent-workflow` merged at `2026-04-17T12:04:16Z`:
+- PR `#39` for `agent-workflow` is merged:
   https://github.com/akillness/oh-my-gods/pull/39
-- PR `#40` for `agent-configuration` merged at `2026-04-17T14:06:40Z`:
+- PR `#40` for `agent-configuration` is merged:
   https://github.com/akillness/oh-my-gods/pull/40
-- PR `#41` for the principles canonicalization lane merged at `2026-04-17T16:02:27Z`:
+- PR `#41` for the principles canonicalization lane is merged:
   https://github.com/akillness/oh-my-gods/pull/41
-- PR `#42` for the merge-checkpoint lane merged at `2026-04-17T17:02:29Z`:
+- PR `#42` for the merge-checkpoint lane is merged:
   https://github.com/akillness/oh-my-gods/pull/42
-- PR `#43` for the `opencontext` standards lane merged at `2026-04-17T18:02:46Z`:
+- PR `#43` for the `opencontext` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/43
 - PR `#44` for the `bmad` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/44
 - PR `#45` for the `bmad-idea` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/45
-- PR `#46` for the `langchain-bmad` standards lane is open and ready for
-  review. `gh pr view` reports it as `MERGEABLE` with `mergeStateStatus:
-  CLEAN` and no review or status-check blockers:
+- PR `#46` for the `langchain-bmad` standards lane is merged:
   https://github.com/akillness/oh-my-gods/pull/46
+- PR `#47` for the `clawteam` standards lane is merged:
+  https://github.com/akillness/oh-my-gods/pull/47
+- PR `#48` for the `presentation-builder` standards lane is merged:
+  https://github.com/akillness/oh-my-gods/pull/48
+- PR `#49` for the `design-system` standards lane is merged:
+  https://github.com/akillness/oh-my-gods/pull/49
+- PR `#50` for the video lane is merged:
+  https://github.com/akillness/oh-my-gods/pull/50
+- PR `#51` for the `langextract` standards lane is open:
+  https://github.com/akillness/oh-my-gods/pull/51
 
 ## Audit snapshot
 
-- Focused validation for `.god-skills/langchain-bmad/` now passes at `0`
-  errors and `0` warnings.
-- Repo-wide validation on the active review branch now sits at `0` errors and
-  `26` warnings across `.god-skills/`.
-- The branch diff remains bounded to:
-  - `.god-skills/langchain-bmad/*`
-  - `.survey/llm-agent-skill-landscape/{cleanup-plan,current-lock,direction,solutions}.md`
-- `langchain-bmad` now has the intended support surface for this lane:
-  compact entrypoint, `references/`, and `evals/`, with no evidence that
-  assets or repo-local scripts are needed.
-- `skill-autoresearch` is still not justified for `langchain-bmad`; the review
-  pass found no measured failures after the standards packaging.
-- The unresolved warning leaders after this lane are now:
-  - `clawteam` (`3`)
-  - `presentation-builder` (`3`)
-- `clawteam` is the stronger next survey target after PR `#46` merges because
-  it is central to multi-agent coordination and already has supporting
-  surfaces (`references/`, `scripts/`, `evals/`), so the next bounded pass can
-  stay small and reviewable.
-- `presentation-builder` remains queued behind `clawteam`; it is still a real
-  standards gap, but it is narrower and lacks the same orchestration leverage
-  in the current LLM-agent skill landscape.
+- Repo-wide validation still passes at `80/80` skills.
+- Total repo warnings dropped from `12` to `10` after the `langextract`
+  standards pass.
+- `langextract` now validates cleanly and no longer appears among the warning
+  leaders.
+- The remaining warning leaders are:
+  - `marketing-automation` (`2`)
+  - `agent-evaluation` (`1`)
+  - `fabric` (`1`)
+  - `pm-skills` (`1`)
+  - `ralphmode` (`1`)
+  - `react-best-practices` (`1`)
+  - `vercel-deploy` (`1`)
+  - `vercel-react-best-practices` (`1`)
+  - `web-design-guidelines` (`1`)
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `agent-workflow` | Merged lane | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `agent-configuration` | Merged lane via PR `#40` | No | No | Added | Added, including conflict-set coverage | Not yet | Keep closed unless measured routing failures or review feedback reopen it |
-| `agent-principles` | Merged canonical lane via PR `#41` | No | No | Added | Added | Not yet | Keep closed unless measured failures or review feedback reopen it |
-| `agent-development-principles` | Merged alias lane via PR `#41` | No | No | No | Added | Not yet | Keep closed as a compatibility alias unless routing failures appear |
-| `opencontext` | Merged standards lane via PR `#43` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `bmad` | Merged standards lane via PR `#44` | No | Existing scripts were enough | Existing setup/reference files were enough | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `bmad-idea` | Merged via PR `#45` | No | No | Added | Added | Not yet | Keep closed unless review feedback or failing evals reopen it |
-| `langchain-bmad` | Review-clean PR lane with packaged support surface | No | No | Added | Added | No; no measured failures remain after the standards pass | Move PR `#46` onto the merge path |
-| `clawteam` | Highest-leverage remaining warning-cluster lane after `langchain-bmad` | No | Existing `scripts/setup.sh` is enough | Existing references are enough | Existing evals are enough | Not yet | Start the next run with survey triage on `clawteam` after PR `#46` merges |
-| `presentation-builder` | Remaining warning-cluster lane, but lower leverage than `clawteam` | No | No | Not yet | Not yet | Not yet | Keep queued behind `clawteam` unless new survey evidence changes priority |
+| `video-production` | Merged canonical lane via PR `#50` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
+| `remotion-video-production` | Merged alias lane via PR `#50` | No | No | Points to canonical references | No separate package | No | Keep thin unless later evidence proves a distinct workflow |
+| `langextract` | PR `#51` open as active standards lane | No | Existing helper refreshed | Added | Refreshed | No; the standards pass removed the validator misses without leaving a measured gap | Review PR `#51` for duplicate work, missing route-outs, or support-surface drift |
+| `marketing-automation` | Remaining 2-warning follow-up | No | No | Missing | Present | Not yet | Hold until PR `#51` review is complete |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
-| `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean, eval-backed target shows real misses |
+| `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
 
 ## Locked direction
 
-- The active `langchain-bmad` lane is review-clean; do not reopen it on this
-  branch unless new review feedback or failing eval evidence appears.
-- The next action for this branch is to merge PR `#46`, not to widen scope into
-  `clawteam` or `presentation-builder`.
-- After PR `#46` merges, start the next bounded run with survey triage on
-  `clawteam`.
-- Explicit support-surface decision for `clawteam`:
+- Keep already-merged lanes closed unless new review feedback or failing eval
+  evidence reopens them.
+- Do not widen the next run into `marketing-automation` until PR `#51` is
+  reviewed.
+- Support-surface decision for the active `langextract` lane:
   - `assets`: no
-  - `scripts`: no new scripts; existing `scripts/setup.sh` is enough
-  - `references`: no new references by default; existing reference coverage is
-    already present
-  - `evals`: no new evals by default; the next pass should first standardize
-    missing recommended sections and review trigger precision
-- Keep `presentation-builder` queued behind `clawteam` unless new survey
-  evidence changes the priority order.
-- Do not start a mutation loop for `langchain-bmad` or `clawteam` unless a
-  later review or eval pass exposes measured failures that standards cleanup
-  alone does not fix.
+  - `scripts`: keep the helper script and no more than one bounded behavioral
+    improvement per run
+  - `references`: yes, now added
+  - `evals`: yes, refreshed in the same change
+- Do not start a `skill-autoresearch` mutation loop for `langextract` unless
+  PR review or later eval evidence exposes a real measured miss.
 
-## Status
+## Current state
 
-- Current state: `langchain-bmad` is review-clean and merge-ready on branch
-  `chore/skill-loop-pr-open-20260418-r48`
-- PR: https://github.com/akillness/oh-my-gods/pull/46
+- Current state: `langextract` standards lane is committed, pushed, and waiting
+  for PR review
+- PR: https://github.com/akillness/oh-my-gods/pull/51
 - Blocker: none
-- Next owner: merge owner for PR `#46`, then survey owner for the queued
-  `clawteam` lane
-- Stage: `merge`
+- Next owner: next scheduled `nanoclaw_pd` PR-review pass for `langextract`
+- Stage: `pr-open`
