@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **90개 이상의 스킬** — 신규 추가: `obsidian-cli` — 터미널 기반 Obsidian 노트 자동화 (CLI, TUI, URI 워크플로우) · `strix` — AI 기반 appsec 테스트
+> **92개 이상의 스킬** — 신규 추가: `openclone` — AI 페르소나 클론 대화 (로컬, 서버 불필요) · `scrapling` — 라우팅 우선 적응형 웹 스크래핑 (파서→HTTP→브라우저→스텔스→스파이더) · `agents-cli` — Google Cloud 에이전트 생명주기 (스캐폴드, 평가, 배포, Gemini Enterprise) · `obsidian-cli` — 터미널 기반 Obsidian 자동화 · `strix` — AI 기반 appsec 테스트
 
 [빠른 시작](#-빠른-시작) · [OMG 핵심](#-omg--핵심-오케스트레이션-스킬) · [숨겨진 기능](#-숨겨진-강력-기능) · [LangChain](#-langchain-통합) · [전체 카탈로그](#-전체-스킬-카탈로그) · [English](README.md)
 
@@ -191,6 +191,8 @@ stateDiagram-v2
 ║  ai-research-skills║ AI 연구 86개 스킬 — 아이디어에서 논문까지 자율 연구║
 ║  strix       ║  AI 기반 appsec CLI — 로컬/저장소/URL 스캔, CI/CD, Docker 샌드박스║
 ║  obsidian-cli║  터미널 기반 Obsidian 자동화 — CLI/TUI, 보관함·파일 타게팅         ║
+║  scrapling   ║  라우팅 우선 적응형 웹 스크래핑 — 파서→HTTP→브라우저→스텔스      ║
+║  agents-cli  ║  Google Cloud 에이전트 생명주기 — 스캐폴드, 평가, 배포, Gemini Ent║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -217,6 +219,8 @@ stateDiagram-v2
 | `ai-research-skills` | `ai-research-skills`, `autoresearch`, `ml experiments`, `fine-tuning`, `grpo`, `vllm`, `rlhf` | AI 연구 86개 스킬 (22개 카테고리) — 파인튜닝, RLHF, GRPO, vLLM, RAG, 멀티모달, ML 논문 작성 자율 연구 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
 | `strix` | `strix`, `ai pentest`, `vulnerability scan cli`, `appsec scan`, `strix ci` | AI 기반 애플리케이션 보안 CLI — 로컬 디렉토리·GitHub 저장소·라이브 URL 대상 인가된 스캔; quick/standard/deep 모드; Docker 샌드박스; CI/CD 헤드리스 모드 | [usestrix/strix](https://github.com/usestrix/strix) |
 | `obsidian-cli` | `obsidian cli`, `obsidian uri`, `obsidian daily note command`, `obsidian plugin reload cli`, `obsidian vault command` | Obsidian 공식 터미널 CLI — 단일 명령·인터랙티브 TUI, 보관함/파일 타게팅, 데일리 노트, 검색, 태그, 태스크, 개발자 명령어(플러그인 리로드·스크린샷·eval), `obsidian://` URI 워크플로우 | [obsidian.md/help/cli](https://obsidian.md/help/cli) |
+| `scrapling` | `scrapling`, `scrape website`, `crawl site`, `adaptive scraping`, `selector drift`, `stealthy fetch`, `browser scraping`, `scrapling mcp`, `scrapling spider` | 라우팅 우선 적응형 웹 스크래핑 — 파서→HTTP→동적 브라우저→스텔스→스파이더 최적 모드 선택; 적응형 셀렉터 복구, MCP 서버, CLI 쉘, 멀티 페이지 크롤 | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) |
+| `agents-cli` | `agents-cli`, `google agents cli`, `agent scaffold`, `agents-cli eval`, `deploy agent`, `gemini enterprise agent`, `adk`, `google adk`, `uvx google-agents-cli` | Google Cloud 에이전트 생명주기 툴킷 — 프로젝트 스캐폴드, LLM 점수 평가, Agent Runtime/Cloud Run/GKE 배포, Gemini Enterprise 등록, CI/CD 파이프라인, Cloud Trace 관찰성 | [google/agents-cli](https://github.com/google/agents-cli) |
 
 ---
 
@@ -386,6 +390,8 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `pollinations-ai` | API 키 없이 무료 이미지 생성 |
 | `marketing-automation` | 23개 서브스킬: CRO, 카피라이팅, SEO, 성장 |
 | `obsidian-cli` | Obsidian 공식 터미널 CLI — 단일 명령·TUI, 보관함/파일 타게팅, 데일리 노트, 검색, 태그, 태스크, `obsidian://` URI, 개발자 명령어 |
+| `scrapling` | 라우팅 우선 적응형 웹 스크래핑 — 파서→HTTP→동적 브라우저→스텔스→스파이더; 적응형 셀렉터 복구, CLI, MCP 서버, 멀티 페이지 크롤 |
+| `agents-cli` | Google Cloud 에이전트 생명주기 — 스캐폴드, 로컬 개발, LLM 점수 평가, 배포 (Agent Runtime/Cloud Run/GKE), Gemini Enterprise 등록, Cloud Trace |
 
 ---
 
@@ -440,7 +446,9 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill agent-manager --skill pm-skills \
   --skill ai-research-skills \
   --skill strix \
-  --skill obsidian-cli
+  --skill obsidian-cli \
+  --skill scrapling \
+  --skill agents-cli
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -519,6 +527,9 @@ oh-my-gods가 도움이 되셨다면 프로젝트를 후원해 주세요!
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | `strix` | [usestrix/strix](https://github.com/usestrix/strix) | Apache-2.0 |
 | `obsidian-cli` | [obsidian.md/help/cli](https://obsidian.md/help/cli) | Proprietary |
+| `openclone` | [open-clone/openclone](https://github.com/open-clone/openclone) | MIT |
+| `scrapling` | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) | BSD-3-Clause |
+| `agents-cli` | [google/agents-cli](https://github.com/google/agents-cli) | Apache-2.0 |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
 ---

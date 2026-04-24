@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **90+ skills** — new: `obsidian-cli` — terminal-driven Obsidian note automation (CLI, TUI, URI workflows) · `strix` — AI-driven appsec testing
+> **92+ skills** — new: `openclone` — AI persona clone conversations (local, no server) · `scrapling` — routing-first adaptive web scraping (parser→HTTP→browser→stealth→spiders) · `agents-cli` — Google Cloud agent lifecycle (scaffold, eval, deploy, Gemini Enterprise) · `obsidian-cli` — terminal-driven Obsidian automation · `strix` — AI-driven appsec testing
 
 [Quick Start](#-quick-start) · [OMG Core](#-omg--core-orchestration-skill) · [Hidden Features](#-hidden-power-features) · [LangChain](#-langchain-integration) · [Full Catalog](#-full-skill-catalog) · [한국어](README.ko.md)
 
@@ -187,6 +187,8 @@ stateDiagram-v2
 ║  ai-research-skills║ 86 AI research skills — from ideation to paper (autonomous)║
 ║  strix       ║  AI-driven appsec CLI — local/repo/URL scans, CI/CD, Docker sandbox║
 ║  obsidian-cli║  Terminal-driven Obsidian automation — CLI/TUI, vault/file targeting  ║
+║  scrapling   ║  Routing-first adaptive web scraping — parser→HTTP→browser→stealth  ║
+║  agents-cli  ║  Google Cloud agent lifecycle — scaffold, eval, deploy, Gemini Ent. ║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -213,6 +215,8 @@ stateDiagram-v2
 | `ai-research-skills` | `ai-research-skills`, `autoresearch`, `ml experiments`, `fine-tuning`, `grpo`, `vllm`, `rlhf` | 86 AI research skills (22 categories) for autonomous research — fine-tuning, RLHF, GRPO, vLLM, RAG, multimodal, ML papers | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
 | `strix` | `strix`, `ai pentest`, `vulnerability scan cli`, `appsec scan`, `strix ci` | AI-driven application security CLI — authorized scans against local dirs, GitHub repos, live URLs; quick/standard/deep modes; Docker sandbox; CI/CD headless mode | [usestrix/strix](https://github.com/usestrix/strix) |
 | `obsidian-cli` | `obsidian cli`, `obsidian uri`, `obsidian daily note command`, `obsidian plugin reload cli`, `obsidian vault command` | Official terminal CLI for Obsidian — single commands, interactive TUI, vault/file targeting, daily notes, search, tags, tasks, developer commands (plugin reload, screenshot, eval), `obsidian://` URI workflows | [obsidian.md/help/cli](https://obsidian.md/help/cli) |
+| `scrapling` | `scrapling`, `scrape website`, `crawl site`, `adaptive scraping`, `selector drift`, `stealthy fetch`, `browser scraping`, `scrapling mcp`, `scrapling spider` | Routing-first adaptive web scraping — choose the lightest mode (parser → HTTP → dynamic browser → stealth → spiders); adaptive selector recovery, MCP server, CLI shell, multi-page crawl with checkpointing | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) |
+| `agents-cli` | `agents-cli`, `google agents cli`, `agent scaffold`, `agents-cli eval`, `deploy agent`, `gemini enterprise agent`, `adk`, `google adk`, `uvx google-agents-cli` | Google Cloud agent lifecycle toolkit — scaffold new agent projects, run LLM-scored evaluations, deploy to Agent Runtime/Cloud Run/GKE, register with Gemini Enterprise, CI/CD pipelines, Cloud Trace observability | [google/agents-cli](https://github.com/google/agents-cli) |
 
 ---
 
@@ -382,6 +386,9 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `pollinations-ai` | Free image generation (no API key needed) |
 | `marketing-automation` | 23 sub-skills: CRO, copywriting, SEO, growth |
 | `obsidian-cli` | Official Obsidian terminal CLI — single commands, TUI, vault/file targeting, daily notes, search, tags, tasks, `obsidian://` URI, developer commands |
+| `scrapling` | Routing-first adaptive web scraping — parser→HTTP→dynamic browser→stealth→spiders; adaptive selector recovery, CLI, MCP server, multi-page crawl |
+| `agents-cli` | Google Cloud agent lifecycle — scaffold, local dev, LLM-scored eval, deploy (Agent Runtime/Cloud Run/GKE), Gemini Enterprise registration, Cloud Trace |
+| `openclone` | AI persona clone conversations — create/activate clones from public interviews, group chats, panel broadcasts, knowledge injection; local markdown storage, no server |
 
 ---
 
@@ -437,7 +444,10 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill ai-research-skills \
   --skill langchain-bmad \
   --skill strix \
-  --skill obsidian-cli
+  --skill obsidian-cli \
+  --skill scrapling \
+  --skill agents-cli \
+  --skill openclone
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -516,6 +526,9 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | `strix` | [usestrix/strix](https://github.com/usestrix/strix) | Apache-2.0 |
 | `obsidian-cli` | [obsidian.md/help/cli](https://obsidian.md/help/cli) | Proprietary |
+| `openclone` | [open-clone/openclone](https://github.com/open-clone/openclone) | MIT |
+| `scrapling` | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) | BSD-3-Clause |
+| `agents-cli` | [google/agents-cli](https://github.com/google/agents-cli) | Apache-2.0 |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
 ---

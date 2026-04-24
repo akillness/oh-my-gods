@@ -58,7 +58,7 @@ fi
 
 ## Step 1 — Install All Shared Skills (Batch)
 
-Install all 77 skills to the global location, then link shared skills to all detected agents.
+Install all 79 skills to the global location, then link shared skills to all detected agents.
 Re-running this step safely overwrites existing skills (symlinks are updated in place).
 
 > **Do not skip Step 2** — it re-links platform-specific skills to their correct agents only.
@@ -76,7 +76,7 @@ npm install -g skills
 #   --copy      : copy files instead of symlinks (robust overwrite)
 # ────────────────────────────────────────────────────────
 
-# Install ALL 77 skills to global store, link shared skills to all detected agents
+# Install ALL 79 skills to global store, link shared skills to all detected agents
 # Platform-specific skills (omc, ohmg, omx, ralphmode) are corrected in Step 2
 skills add -g "$REPO_URL" \
   --skill agent-browser \
@@ -158,6 +158,8 @@ skills add -g "$REPO_URL" \
   --skill langchain-bmad \
   --skill strix \
   --skill obsidian-cli \
+  --skill scrapling \
+  --skill agents-cli \
   -a '*' --yes --copy
 
 # Also install the official LangChain skills
@@ -456,7 +458,7 @@ The OMG workflow automatically:
 
 ---
 
-## Skill Inventory (77 skills)
+## Skill Inventory (79 skills)
 
 | Category | Skills | Agent Target |
 |----------|--------|--------------|
@@ -472,7 +474,7 @@ The OMG workflow automatically:
 | **Creative & Content** | video-production, remotion-video-production, presentation-builder, marketing-automation, technical-writing, user-guide-writing, web-design-guidelines, prompt-repetition | All (`*`) |
 | **Agent Frameworks** | deepagents, clawteam, agent-manager, agent-browser, agent-development-principles, agent-principles, agent-workflow, agent-configuration, agent-evaluation | All (`*`) |
 | **Productivity** | task-planning, task-estimation, sprint-retrospective, standup-meeting, pm-skills, skill-standardization, opencontext, fabric, playwriter, frouter | All (`*`) |
-| **Integrations** | langextract, langchain-bmad, strix, obsidian-cli | All (`*`) |
+| **Integrations** | langextract, langchain-bmad, strix, obsidian-cli, scrapling, agents-cli | All (`*`) |
 
 ---
 
