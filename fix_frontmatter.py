@@ -6,15 +6,7 @@ import re
 import sys
 from pathlib import Path
 
-
-def resolve_skills_dir() -> Path:
-    env_dir = os.environ.get("SKILLS_DIR")
-    if env_dir:
-        return Path(env_dir).expanduser()
-    return Path(__file__).resolve().parent / ".god-skills"
-
-
-SKILLS_DIR = resolve_skills_dir()
+SKILLS_DIR = Path(__file__).resolve().parent / ".god-skills"
 
 
 def parse_frontmatter(content: str):
