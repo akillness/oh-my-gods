@@ -392,6 +392,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `obsidian-cli` | Obsidian 공식 터미널 CLI — 단일 명령·TUI, 보관함/파일 타게팅, 데일리 노트, 검색, 태그, 태스크, `obsidian://` URI, 개발자 명령어 |
 | `scrapling` | 라우팅 우선 적응형 웹 스크래핑 — 파서→HTTP→동적 브라우저→스텔스→스파이더; 적응형 셀렉터 복구, CLI, MCP 서버, 멀티 페이지 크롤 |
 | `agents-cli` | Google Cloud 에이전트 생명주기 — 스캐폴드, 로컬 개발, LLM 점수 평가, 배포 (Agent Runtime/Cloud Run/GKE), Gemini Enterprise 등록, Cloud Trace |
+| `openclone` | AI 페르소나 클론 대화 — 공개 인터뷰 기반 클론 생성·활성화, 그룹 채팅, 패널 브로드캐스트, 지식 주입; 로컬 마크다운 저장, 서버 불필요 |
 
 ---
 
@@ -448,7 +449,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill strix \
   --skill obsidian-cli \
   --skill scrapling \
-  --skill agents-cli
+  --skill agents-cli \
+  --skill openclone
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes

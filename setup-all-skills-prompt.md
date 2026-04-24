@@ -160,6 +160,7 @@ skills add -g "$REPO_URL" \
   --skill obsidian-cli \
   --skill scrapling \
   --skill agents-cli \
+  --skill openclone \
   -a '*' --yes --copy
 
 # Also install the official LangChain skills
