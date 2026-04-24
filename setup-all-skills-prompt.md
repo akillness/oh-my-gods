@@ -58,7 +58,7 @@ fi
 
 ## Step 1 — Install All Shared Skills (Batch)
 
-Install all 79 skills to the global location, then link shared skills to all detected agents.
+Install all 80 skills to the global location, then link shared skills to all detected agents.
 Re-running this step safely overwrites existing skills (symlinks are updated in place).
 
 > **Do not skip Step 2** — it re-links platform-specific skills to their correct agents only.
@@ -76,7 +76,7 @@ npm install -g skills
 #   --copy      : copy files instead of symlinks (robust overwrite)
 # ────────────────────────────────────────────────────────
 
-# Install ALL 79 skills to global store, link shared skills to all detected agents
+# Install ALL 80 skills to global store, link shared skills to all detected agents
 # Platform-specific skills (omc, ohmg, omx, ralphmode) are corrected in Step 2
 skills add -g "$REPO_URL" \
   --skill agent-browser \
@@ -459,7 +459,7 @@ The OMG workflow automatically:
 
 ---
 
-## Skill Inventory (79 skills)
+## Skill Inventory (80 skills)
 
 | Category | Skills | Agent Target |
 |----------|--------|--------------|
