@@ -1,179 +1,309 @@
 ---
 name: performance-optimization
-description: >
-  Run measurement-led performance tuning across frontend, backend, database,
-  cache, and runtime bottlenecks. Use when the main job is to locate the
-  tightest latency, throughput, memory, bundle-size, or frame-time constraint;
-  choose the right profiling evidence; stage one or two high-leverage
-  optimizations; and verify the before/after impact. Triggers on: performance
-  bottleneck, slow page, slow API, bad p95, throughput issue, memory spike,
-  bundle too large, query plan, CPU hot path, load test regression, and
-  optimize this flow.
-allowed-tools: Read Write Edit Grep Glob
+description: Optimize application performance for speed, efficiency, and scalability. Use when improving page load times, reducing bundle size, optimizing database queries, or fixing performance bottlenecks. Handles React optimization, lazy loading, caching, code splitting, and profiling.
+allowed-tools: Bash Read Write Edit Grep Glob
 metadata:
-  tags: performance-optimization, latency, throughput, memory, bundle-size,
-    profiling, bottlenecks, query-plan, frame-time
-  platforms: Claude, ChatGPT, Gemini, Codex
-  version: "2.0.0"
+  tags: performance, optimization, React, lazy-loading, caching, profiling, web-vitals
+  platforms: Claude, ChatGPT, Gemini
 ---
+
 
 # Performance Optimization
 
-Performance work is a measurement surface, not a bag of framework-specific
-tips. Keep the main skill focused on proving the bottleneck, choosing one or
-two high-leverage changes, and routing stack-specific work to narrower sibling
-skills when they are the better owner.
 
 ## When to use this skill
 
-- Diagnose a slow page, slow API, throughput drop, memory spike, query bottleneck, or frame-time problem
-- Turn a vague "the app feels slow" complaint into a profiling plan and a bounded tuning pass
-- Choose whether the tightest constraint is frontend, backend, database, cache, or runtime
-- Verify before/after impact for a candidate optimization instead of guessing
-- Reduce performance risk on a broad system path when the first job is measurement and prioritization
-
-Prefer a narrower sibling skill when the main job is more specific:
-
-- `react-best-practices` for React and Next.js waterfalls, hydration, rerender churn, or client/server boundary tuning
-- `monitoring-observability` when the missing work is instrumentation, dashboards, alerting, or telemetry design
-- `debugging` when there is a concrete regression or failure to isolate before tuning starts
-- `code-refactoring` when the user wants behavior-preserving cleanup rather than measured performance work
-- `testing-strategies` when the question is release confidence or performance-test policy
+- **Slow page loads**: low Lighthouse score
+- **Slow rendering**: delayed user interactions
+- **Large bundle size**: increased download time
+- **Slow queries**: database bottlenecks
 
 ## Instructions
 
-### Step 1: Frame the performance complaint before changing code
+### Step 1: Measure performance
 
-Capture the minimum facts first:
+**Lighthouse (Chrome DevTools)**:
+```bash
+# CLI
+npm install -g lighthouse
+lighthouse https://example.com --view
 
-- symptom shape: latency, throughput, memory, CPU, bundle size, startup time, or frame time
-- affected path: route, endpoint, job, query, render path, or background worker
-- severity signal: p95, timeout rate, crash rate, dropped frames, or user-visible wait
-- environment: local, CI, staging, production, one browser, one device class, or one dataset size
-- current evidence: profiler capture, query plan, flamegraph, bundle report, trace, or benchmark
+# Automate in CI
+lighthouse https://example.com --output=json --output-path=./report.json
+```
 
-If there is no evidence yet, your first task is measurement setup, not optimization.
+**Measure Web Vitals** (React):
+```typescript
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
 
-### Step 2: Pick the cheapest measurement that can expose the bottleneck
+function sendToAnalytics(metric: any) {
+  // Send to Google Analytics, Datadog, etc.
+  console.log(metric);
+}
 
-Use the narrowest tool that can prove where time or resources are going:
+getCLS(sendToAnalytics);
+getFID(sendToAnalytics);
+getFCP(sendToAnalytics);
+getLCP(sendToAnalytics);
+getTTFB(sendToAnalytics);
+```
 
-| Surface | Common evidence |
-|------|------------------|
-| Frontend | browser profiler, Web Vitals, bundle analyzer, network waterfall |
-| Backend | endpoint timings, flamegraph, trace spans, load-test sample |
-| Database | query plan, slow query log, row counts, index usage |
-| Cache/runtime | hit rate, eviction rate, heap growth, GC pause, CPU profile |
-| Rendering/game/UI | frame-time capture, compositor or render profiler |
+### Step 2: Optimize React
 
-Read `references/measurement-modes-and-bottleneck-ladder.md` when the symptom is broad or crosses multiple layers.
+**React.memo (prevent unnecessary re-renders)**:
+```tsx
+// ❌ Bad: child re-renders whenever the parent re-renders
+function ExpensiveComponent({ data }: { data: Data }) {
+  return <div>{/* complex rendering */}</div>;
+}
 
-### Step 3: Choose one or two optimization lanes only
+// ✅ Good: re-render only when props change
+const ExpensiveComponent = React.memo(({ data }: { data: Data }) => {
+  return <div>{/* complex rendering */}</div>;
+});
+```
 
-Do not optimize everything at once. Based on the evidence, pick the dominant lane:
+**useMemo & useCallback**:
+```tsx
+function ProductList({ products, category }: Props) {
+  // ✅ Memoize filtered results
+  const filteredProducts = useMemo(() => {
+    return products.filter(p => p.category === category);
+  }, [products, category]);
 
-- request or render waterfalls
-- oversized bundle or startup cost
-- expensive query, serialization, or N+1 access pattern
-- cache policy, memory churn, or repeated work
-- CPU hot path or frame-time spike
+  // ✅ Memoize callback
+  const handleAddToCart = useCallback((id: string) => {
+    addToCart(id);
+  }, []);
 
-For each lane, write:
+  return (
+    <div>
+      {filteredProducts.map(product => (
+        <ProductCard key={product.id} product={product} onAdd={handleAddToCart} />
+      ))}
+    </div>
+  );
+}
+```
 
-- bottleneck hypothesis
-- proof you expect to see
-- smallest change worth trying first
-- success metric for before/after comparison
+**Lazy Loading & Code Splitting**:
+```tsx
+import { lazy, Suspense } from 'react';
 
-### Step 4: Keep the boundary clean and route specialized work outward
+// ✅ Route-based code splitting
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Profile = lazy(() => import('./pages/Profile'));
+const Settings = lazy(() => import('./pages/Settings'));
 
-- Route React and Next.js subtree tuning to `react-best-practices`
-- Route missing traces, dashboards, SLOs, and alerts to `monitoring-observability`
-- Route failure isolation or regression investigation to `debugging`
-- Route cleanup-only rewrites to `code-refactoring`
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
+    </Suspense>
+  );
+}
 
-Read `references/boundaries-and-handoffs.md` when the work sits between performance tuning and a sibling surface.
+// ✅ Component-based lazy loading
+const HeavyChart = lazy(() => import('./components/HeavyChart'));
 
-### Step 5: Verify impact and record remaining risk
+function Dashboard() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <Suspense fallback={<Skeleton />}>
+        <HeavyChart data={data} />
+      </Suspense>
+    </div>
+  );
+}
+```
 
-Before calling the tuning pass done:
+### Step 3: Optimize bundle size
 
-- compare before and after using the same measurement path
-- confirm the targeted metric actually moved in the expected direction
-- note any tradeoffs: memory for latency, CPU for throughput, cache freshness for speed
-- name the next bottleneck only if the current dominant one is now proven smaller
-- state what remains unverified
+**Webpack Bundle Analyzer**:
+```bash
+npm install --save-dev webpack-bundle-analyzer
 
-Good output ends with measured impact plus any routed follow-on work, not a generic list of tips.
+# package.json
+{
+  "scripts": {
+    "analyze": "webpack-bundle-analyzer build/stats.json"
+  }
+}
+```
+
+**Tree Shaking (remove unused code)**:
+```typescript
+// ❌ Bad: import entire library
+import _ from 'lodash';
+
+// ✅ Good: import only what you need
+import debounce from 'lodash/debounce';
+```
+
+**Dynamic Imports**:
+```typescript
+// ✅ Load only when needed
+button.addEventListener('click', async () => {
+  const { default: Chart } = await import('chart.js');
+  new Chart(ctx, config);
+});
+```
+
+### Step 4: Optimize images
+
+**Next.js Image component**:
+```tsx
+import Image from 'next/image';
+
+function ProductImage() {
+  return (
+    <Image
+      src="/product.jpg"
+      alt="Product"
+      width={500}
+      height={500}
+      priority  // for the LCP image
+      placeholder="blur"  // blur placeholder
+      sizes="(max-width: 768px) 100vw, 50vw"
+    />
+  );
+}
+```
+
+**Use WebP format**:
+```html
+<picture>
+  <source srcset="image.webp" type="image/webp">
+  <source srcset="image.jpg" type="image/jpeg">
+  <img src="image.jpg" alt="Fallback">
+</picture>
+```
+
+### Step 5: Optimize database queries
+
+**Fix the N+1 query problem**:
+```typescript
+// ❌ Bad: N+1 queries
+const posts = await db.post.findMany();
+for (const post of posts) {
+  const author = await db.user.findUnique({ where: { id: post.authorId } });
+  // 101 queries (1 + 100)
+}
+
+// ✅ Good: JOIN or include
+const posts = await db.post.findMany({
+  include: {
+    author: true
+  }
+});
+// 1 query
+```
+
+**Add indexes**:
+```sql
+-- Identify slow queries
+EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'test@example.com';
+
+-- Add index
+CREATE INDEX idx_users_email ON users(email);
+
+-- Composite index
+CREATE INDEX idx_orders_user_date ON orders(user_id, created_at);
+```
+
+**Caching (Redis)**:
+```typescript
+async function getUserProfile(userId: string) {
+  // 1. Check cache
+  const cached = await redis.get(`user:${userId}`);
+  if (cached) {
+    return JSON.parse(cached);
+  }
+
+  // 2. Query DB
+  const user = await db.user.findUnique({ where: { id: userId } });
+
+  // 3. Store in cache (1 hour)
+  await redis.setex(`user:${userId}`, 3600, JSON.stringify(user));
+
+  return user;
+}
+```
 
 ## Output format
 
-Expected response shape:
+### Performance optimization checklist
 
-- `Symptom summary`: what is slow and where it shows up
-- `Evidence plan`: the measurement path that can prove the bottleneck
-- `Optimization lane`: the one or two highest-leverage changes worth trying
-- `Verification`: the before/after metric that proves improvement
-- `Follow-on work`: sibling skills that should own any narrower next step
+```markdown
+## Frontend
+- [ ] Prevent unnecessary re-renders with React.memo
+- [ ] Use useMemo/useCallback appropriately
+- [ ] Lazy loading & Code splitting
+- [ ] Optimize images (WebP, lazy loading)
+- [ ] Analyze and reduce bundle size
 
-## Examples
+## Backend
+- [ ] Remove N+1 queries
+- [ ] Add database indexes
+- [ ] Redis caching
+- [ ] Compress API responses (gzip)
+- [ ] Use a CDN
 
-### Example 1: Broad API latency complaint
-
-Input:
-
-```text
-Our checkout API p95 jumped from 280ms to 1.4s after the last release. Help
-me find the bottleneck and cut it back down.
+## Measurement
+- [ ] Lighthouse score 90+
+- [ ] LCP < 2.5s
+- [ ] FID < 100ms
+- [ ] CLS < 0.1
 ```
 
-Expected shape:
+## Constraints
 
-- frames the issue as measurement-led latency work
-- asks for or chooses evidence such as traces, flamegraphs, or query plans
-- proposes one or two bounded optimization lanes instead of many speculative fixes
+### Required rules (MUST)
 
-### Example 2: Route React-specific work outward
+1. **Measure first**: profile, don't guess
+2. **Incremental improvements**: optimize one thing at a time
+3. **Performance monitoring**: track continuously
 
-Input:
+### Prohibited items (MUST NOT)
 
-```text
-This Next.js route waterfalls data fetches, ships too much client JavaScript,
-and rerenders heavily after hydration.
-```
-
-Expected shape:
-
-- recognizes the React/Next.js-specific boundary
-- routes the implementation guidance to `react-best-practices`
-- keeps this skill as the broader measurement surface only if needed
-
-### Example 3: Route observability setup outward
-
-Input:
-
-```text
-We need traces, dashboards, and alert thresholds before we can understand our
-production latency problem.
-```
-
-Expected shape:
-
-- recognizes missing instrumentation as the blocker
-- routes setup work to `monitoring-observability`
-- preserves this skill for the later tuning pass once the evidence exists
+1. **Premature optimization**: don't optimize when there is no bottleneck
+2. **Sacrificing readability**: don't make code complex for performance
 
 ## Best practices
 
-- Measure before tuning and verify after every claimed improvement.
-- Pick the tightest bottleneck first instead of stacking unrelated optimizations.
-- Prefer one or two high-leverage changes over a generic optimization checklist.
-- Keep stack-specific implementation detail in narrower sibling skills.
-- Add references and evals before any `skill-autoresearch` loop on this skill.
-- Keep the main entrypoint compact enough to trigger reliably.
+1. **80/20 rule**: 80% improvement with 20% effort
+2. **User-centered**: focus on improving real user experience
+3. **Automation**: performance regression tests in CI
 
 ## References
 
-- Local: `references/measurement-modes-and-bottleneck-ladder.md`
-- Local: `references/boundaries-and-handoffs.md`
-- Practical profiling mindset: https://queue.acm.org/detail.cfm?id=1854041
+- [web.dev/vitals](https://web.dev/vitals/)
+- [React Optimization](https://react.dev/learn/render-and-commit#optimizing-performance)
+- [Webpack Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer)
+
+## Metadata
+
+### Version
+- **Current version**: 1.0.0
+- **Last updated**: 2025-01-01
+- **Compatible platforms**: Claude, ChatGPT, Gemini
+
+### Related skills
+- [database-schema-design](../database-schema-design/SKILL.md)
+- [ui-components](../ui-component-patterns/SKILL.md)
+
+### Tags
+`#performance` `#optimization` `#React` `#caching` `#lazy-loading` `#web-vitals` `#code-quality`
+
+## Examples
+
+### Example 1: Basic usage
+<!-- Add example content here -->
+
+### Example 2: Advanced usage
+<!-- Add advanced example content here -->

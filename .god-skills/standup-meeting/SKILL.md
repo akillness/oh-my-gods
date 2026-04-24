@@ -1,201 +1,185 @@
 ---
 name: standup-meeting
-description: >
-  Facilitate useful daily standups, daily scrums, async check-ins, or
-  walk-the-board delivery syncs without turning them into manager-facing status
-  theater. Use when the user needs a short daily coordination ritual, blocker
-  triage, async standup format, remote-team check-in, or help converting a
-  verbose standup into a board-first or blocker-first flow. Not for backlog
-  decomposition, story-point sizing, or retrospective analysis.
+description: Conduct effective daily standup meetings for agile teams. Use when facilitating standups, tracking blockers, or improving team synchronization. Handles standup format, time management, and blocker resolution.
 allowed-tools: Read Write Grep Glob
-compatibility: >
-  Best for sprint boards, in-flight task lists, delivery updates, remote-team
-  check-ins, and blocker-heavy coordination where the team needs a short shared
-  execution rhythm rather than a planning workshop.
 metadata:
-  tags: standup-meeting, daily-scrum, async-standup, blocker-triage, agile, delivery-coordination
-  platforms: Claude, ChatGPT, Gemini, Codex
-  version: "2.0.0"
+  tags: standup, daily-scrum, agile, team-sync, blockers
+  platforms: Claude, ChatGPT, Gemini
 ---
+
 
 # Standup Meeting
 
-Use this skill to keep daily coordination short, useful, and tied to actual
-delivery movement.
-
-The goal is not to collect performative status updates. The goal is to:
-
-- choose the right standup format for the team's working mode
-- focus on work in motion and blockers, not personal narration
-- expose follow-ups that need owners after the standup ends
-- keep planning, estimation, and retrospective work out of the daily sync
-- return a concise coordination packet the team can act on immediately
-
-Read `references/standup-patterns.md` and
-`references/blocker-triage.md` before handling unusual sync or blocker cases.
-
-If the user mainly needs:
-
-- backlog shaping, task decomposition, or sprint-candidate planning: route to
-  `task-planning`
-- sizing, story points, or forecast confidence: route to `task-estimation`
-- completed-work reflection or process-change decisions: route to
-  `sprint-retrospective`
 
 ## When to use this skill
 
-- Run a daily standup or scrum for an active sprint or delivery cycle
-- Convert a vague status ritual into a board-first or blocker-first sync
-- Design an async check-in format for remote or distributed teams
-- Triage blockers and assign immediate follow-up owners
-- Summarize work in motion, ready-for-review items, and blocked items
-- Reset a standup that has become too long, too managerial, or too unfocused
-
-## When not to use this skill
-
-- The main job is decomposing or grooming work for future execution: use
-  `task-planning`
-- The main job is assigning story points, t-shirt sizes, or forecast ranges:
-  use `task-estimation`
-- The main job is reflecting on what went well, what failed, or what to change
-  next sprint: use `sprint-retrospective`
+- **Daily**: same time, same place
+- **During a sprint**: when team sync is needed
+- **Remote teams**: async standup
 
 ## Instructions
 
-### Step 1: Identify the standup mode
-
-Label the request before writing the standup.
-
-Possible modes:
-
-- `daily-sync`
-- `walk-the-board`
-- `async-check-in`
-- `blocker-triage`
-- `cadence-reset`
-- `mixed-needs-clarification`
-
-Capture the minimum inputs:
-
-- current sprint, milestone, or delivery goal
-- participants or team shape
-- work source: board, ticket list, issue queue, or freeform updates
-- blocked work, missing owners, or urgent dependencies
-- whether the sync is live or async
-- whether the team needs a one-off summary or a reusable format
-
-If the request is really about future planning, estimation, or retrospective
-analysis, route it before forcing a standup answer.
-
-### Step 2: Choose the lightest useful standup format
-
-Use the simplest format that matches the coordination need:
-
-| Format | Use when | Typical output |
-|------|----------|----------------|
-| Daily sync | Team needs a short live update | sprint goal, work in motion, blockers, follow-ups |
-| Walk the board | The board is the real source of truth | items by state, owners, blocked work, review load |
-| Async check-in | Team is distributed or not co-located | concise template plus response expectations |
-| Blocker triage | Delivery risk is concentrated in a few stuck items | blocker list, owner, next escalation |
-| Cadence reset | The ritual is too long or low-signal | new standup rules, timing, and follow-up boundaries |
-
-Read `references/standup-patterns.md` when the format choice is unclear.
-
-### Step 3: Center the sync on work, not personal theater
-
-Build the standup around:
-
-- sprint or milestone goal
-- work currently in motion
-- blocked items and who owns the unblock
-- review-ready or handoff-ready items
-- follow-ups that should happen after the standup, not inside it
-
-Rules:
-
-- Prefer board-first updates over person-first narration when a tracker exists
-- Keep problem-solving outside the standup unless the ask is explicitly blocker
-  triage
-- Separate "inform the team" from "need a follow-up meeting"
-- Surface missing owners or silent blockers directly
-- Keep the sync short enough that people do not treat it as a planning session
-
-### Step 4: Capture blockers and follow-ups clearly
-
-For each blocker, capture:
-
-- blocked item
-- blocker type
-- owner
-- next action
-- escalation or follow-up need
-
-Use this blocker vocabulary when helpful:
-
-- `missing-scope`
-- `external-dependency`
-- `environment-access`
-- `review-needed`
-- `approval-needed`
-- `handoff-risk`
-- `priority-conflict`
-
-### Step 5: Return the standup packet
-
-Return a concise packet with this exact structure:
+### Step 1: 3 Questions Format
 
 ```markdown
-# Standup Packet
+## Daily Standup Template
 
-## Standup mode
-- Mode: ...
-- Why this format: ...
+**Date**: 2025-01-15
+**Time**: 9:30 AM
+**Duration**: 15 minutes
 
-## Goal and attendance
-- Goal: ...
-- Participants: ...
+### Team Member A
+- **Yesterday**:
+  - Completed user authentication API (#123)
+  - 2 code reviews
+- **Today**:
+  - Implement JWT refresh token (#124)
+  - Write unit tests
+- **Blockers**:
+  - Need Redis setup docs (ask Team Member B for help)
 
-## Work in motion
-- ...
+### Team Member B
+- **Yesterday**:
+  - Frontend form validation (#125)
+- **Today**:
+  - Implement profile page UI (#126)
+- **Blockers**: None
 
-## Blockers
-- ...
+### Team Member C
+- **Yesterday**:
+  - Database migration (#127)
+  - Performance testing
+- **Today**:
+  - Index optimization (#128)
+- **Blockers**:
+  - Need production DB access (urgent)
 
-## Follow-ups after standup
-- ...
-
-## Recommended next move
-- ...
+### Action Items
+1. [ ] Team Member B shares Redis docs with Team Member A (Today 10:00)
+2. [ ] Team lead requests DB access for Team Member C (Today)
 ```
+
+### Step 2: Walking the Board (Board-Based)
+
+```markdown
+## Standup: Walking the Board
+
+**Sprint Goal**: Complete user authentication system
+
+### In Progress
+- #123: User Login API (Team Member A, 80% done)
+- #124: Refresh Token (Team Member A, planned)
+- #125: Form Validation (Team Member B, 90% done)
+
+### Blocked
+- #127: DB Migration (Team Member C)
+  - **Blocker**: Access needed
+  - **Owner**: Team Lead
+  - **ETA**: This afternoon
+
+### Ready for Review
+- #122: Password Reset (Team Member D)
+  - Need reviewer
+
+### Done
+- #120: Email Service Integration
+- #121: User Registration
+
+### Sprint Progress
+- **Completed**: 12 points
+- **Remaining**: 13 points
+- **On Track**: Yes ✅
+```
+
+### Step 3: Async Standup (Remote Teams)
+
+**Slack template**:
+```markdown
+[Daily Update - 2025-01-15]
+
+**Yesterday**
+- Completed user authentication flow
+- Fixed bug in password validation
+
+**Today**
+- Implementing JWT refresh tokens
+- Writing unit tests
+
+**Blockers**
+- None
+
+**Sprint Progress**
+- 8/13 story points completed
+```
+
+## Output format
+
+### Standup Minutes
+
+```markdown
+# Daily Standup - 2025-01-15
+
+**Attendees**: 5/5
+**Duration**: 12 minutes
+**Sprint**: Sprint 10 (Day 3/10)
+
+## Summary
+- Stories Completed: 2 (5 points)
+- Stories In Progress: 3 (8 points)
+- Blockers: 1 (DB access permission)
+
+## Individual Updates
+[Refer to the 3 Questions format above]
+
+## Action Items
+1. Team lead: Request DB access (High priority)
+2. Team Member B: Share Redis docs
+3. Team Member D: Assign reviewer for PR #122
+
+## Notes
+- Sprint goal on track
+- Team morale: High
+```
+
+## Constraints
+
+### Required Rules (MUST)
+
+1. **Time-boxed**: within 15 minutes
+2. **Same time**: consistent time every day
+3. **Everyone participates**: every team member gives an update
+
+### Prohibited (MUST NOT)
+
+1. **Problem Solving**: Do not solve problems in the standup
+2. **Status Report**: Not a status report to management
+3. **Late Start**: Start on time
+
+## Best practices
+
+1. **Stand Up**: Actually stand up (keep it short)
+2. **Parking Lot**: Deep discussion goes to a separate time
+3. **Visualize**: Run it while looking at the board
+
+## References
+
+- [Scrum Guide - Daily Scrum](https://scrumguides.org/)
+- [15 Minute Stand-up](https://www.mountaingoatsoftware.com/agile/scrum/meetings/daily-scrum)
+
+## Metadata
+
+### Version
+- **Current version**: 1.0.0
+- **Last updated**: 2025-01-01
+- **Supported platforms**: Claude, ChatGPT, Gemini
+
+### Tags
+`#standup` `#daily-scrum` `#agile` `#team-sync` `#project-management`
 
 ## Examples
 
-### Example 1: Tighten a live daily sync
+### Example 1: Basic usage
+<!-- Add example content here -->
 
-Input:
-
-```text
-Help me run today's engineering standup. We have three items in progress, one
-blocked API dependency, and two PRs waiting for review.
-```
-
-Expected behavior:
-
-- chooses a live daily-sync or walk-the-board mode
-- highlights in-flight work, blockers, and review load
-- ends with explicit follow-ups instead of long discussion notes
-
-### Example 2: Build an async standup template
-
-Input:
-
-```text
-Our team is split across time zones. Give me an async standup format that stays
-short and makes blockers obvious.
-```
-
-Expected behavior:
-
-- chooses async-check-in mode
-- provides a concise reusable template
-- emphasizes blocker visibility and response discipline
+### Example 2: Advanced usage
+<!-- Add advanced example content here -->

@@ -1,194 +1,514 @@
 ---
 name: responsive-design
-description: >
-  Plan and fix responsive layouts for modern web apps: mobile-first structure,
-  breakpoint strategy, flexbox or grid choices, container queries, fluid type,
-  and responsive media. Use when building or repairing layouts across phones,
-  tablets, desktops, or embedded panels, even if the user says overflow,
-  breakpoint bug, card collapse, or viewport issue. Triggers on: responsive
-  layout, mobile-first, breakpoint, container query, horizontal scroll,
-  viewport, fluid type, srcset, adaptive grid.
+description: Create responsive web designs that work across all devices and screen sizes. Use when building mobile-first layouts, implementing breakpoints, or optimizing for different viewports. Handles CSS Grid, Flexbox, media queries, viewport units, and responsive images.
 allowed-tools: Read Write Edit Grep Glob
 metadata:
-  tags: responsive, mobile-first, CSS, flexbox, grid, container-query, viewport
-  platforms: Claude, ChatGPT, Gemini, Codex
-  version: "2.0.0"
+  tags: responsive, mobile-first, CSS, Flexbox, Grid, media-query, viewport
+  platforms: Claude, ChatGPT, Gemini
 ---
+
 
 # Responsive Design
 
-Responsive design work is mainly about matching layout, media, and interaction
-behavior to the content and container that own them. Keep the entrypoint
-focused on diagnosing the failure mode, choosing the smallest responsive
-pattern that fixes it, and pulling references only when concrete CSS or
-browser checks are needed.
 
 ## When to use this skill
 
-- Build or refactor layouts that must work across phone, tablet, desktop, and
-  wide-screen contexts
-- Remove overflow, breakpoint thrash, fixed-width shells, or cramped card and
-  form layouts
-- Choose between flexbox, grid, container queries, fluid spacing, and fluid
-  type
-- Make images, tables, dashboards, and navigation adapt without duplicating
-  markup
-- Verify responsive behavior in a running app after layout edits
-
-Prefer a narrower sibling skill when the main job is not responsive layout
-strategy:
-
-- `ui-component-patterns` for reusable component API design
-- `design-system` for tokens, theming, and visual language
-- `web-accessibility` when the main issue is WCAG or assistive-technology
-  behavior
-- `performance-optimization` when media delivery or rendering cost is the
-  primary bottleneck
-- `playwriter` when browser or runtime validation is required
+- **New website/app**: Layout design for combined mobile-desktop use
+- **Legacy improvement**: Converting fixed layouts to responsive
+- **Performance optimization**: Image optimization per device
+- **Multiple screens**: Tablet, desktop, and large screen support
 
 ## Instructions
 
-### Step 1: Classify the responsive problem before editing
+### Step 1: Mobile-First Approach
 
-Sort the request into one or two primary lanes:
+Design from small screens and progressively expand.
 
-- layout structure: stack, wrap, sidebar collapse, grid density, dashboard
-  regions
-- component behavior: navigation, tables, forms, cards, tabs, drawers, modal
-  content
-- media or typography: image sizing, hero crops, fluid type, readable line
-  length
-- verification or debugging: overflow, clipped content, tap-target crowding,
-  viewport mismatch
+**Example**:
+```css
+/* Default: Mobile (320px~) */
+.container {
+  padding: 1rem;
+  font-size: 14px;
+}
 
-Ground the request with the failing widths, affected content, and whether the
-problem is viewport-driven or container-driven. Do not start by scattering new
-breakpoints through the stylesheet.
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
 
-### Step 2: Choose a content-driven strategy
+/* Tablet (768px~) */
+@media (min-width: 768px) {
+  .container {
+    padding: 2rem;
+    font-size: 16px;
+  }
 
-Use these defaults unless the app proves otherwise:
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
 
-- mobile-first base styles, then `min-width` rules when the layout meaning
-  changes
-- `max-width`, `%`, `minmax()`, `auto-fit`, `auto-fill`, `clamp()`, and `rem`
-  before hard widths
-- content-driven breakpoints; treat `640`, `768`, `1024`, and `1280` as
-  starting points, not laws
-- default styles for shared rules, breakpoint blocks only for differences
-- container queries when a reusable component changes with its parent width,
-  not the whole viewport
+/* Desktop (1024px~) */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem;
+  }
 
-### Step 3: Pick the smallest layout primitive that fits
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
 
-Choose the lightest layout tool that solves the real problem:
+/* Large screen (1440px~) */
+@media (min-width: 1440px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+```
 
-- flexbox for one-dimensional alignment, wrapping, nav rows, button groups,
-  and card rails
-- grid for two-dimensional page shells, dashboards, galleries, and form
-  columns
-- container queries for components that live in multiple shells or sidebars
-- simple block flow plus width constraints when no advanced layout system is
-  needed
+### Step 2: Flexbox/Grid Layout
 
-Load `references/layout-and-breakpoint-strategy.md` when the user needs exact
-CSS patterns, breakpoint heuristics, or grid-vs-flex guidance.
+Leverage modern CSS layout systems.
 
-### Step 4: Handle media, type, and dense content explicitly
+**Flexbox** (1-dimensional layout):
+```css
+/* Navigation bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-Before calling a layout responsive, check:
+/* Card list */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
-- images: `srcset`, `sizes`, `picture`, `aspect-ratio`, and `object-fit`
-- typography: `clamp()`, line length, and spacing that scales with type
-- dense surfaces: tables, filters, forms, and charts need an explicit
-  narrow-screen plan
-- touch behavior: viewport meta tag, sticky controls, and reachable primary
-  actions
+@media (min-width: 768px) {
+  .card-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 
-Load `references/media-typography-and-density.md` when the request is mainly
-about images, fluid type, forms, or cramped content.
+  .card {
+    flex: 1 1 calc(50% - 0.5rem);  /* 2 columns */
+  }
+}
 
-### Step 5: Verify behavior in the browser, not only in CSS diff
+@media (min-width: 1024px) {
+  .card {
+    flex: 1 1 calc(33.333% - 0.667rem);  /* 3 columns */
+  }
+}
+```
 
-Validate the edited layout at the key failing widths:
+**CSS Grid** (2-dimensional layout):
+```css
+/* Dashboard layout */
+.dashboard {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "sidebar"
+    "main"
+    "footer";
+  gap: 1rem;
+}
 
-- no unintended horizontal scrolling
-- navigation and primary actions remain reachable
-- text and controls stay readable without pinch-zoom hacks
-- media, cards, and tables preserve intended hierarchy
-- keyboard and focus behavior still work after layout shifts
+@media (min-width: 768px) {
+  .dashboard {
+    grid-template-areas:
+      "header header"
+      "sidebar main"
+      "footer footer";
+    grid-template-columns: 250px 1fr;
+  }
+}
 
-Use `playwriter` for browser or runtime verification when a live app needs
-checking instead of relying on headless browser assumptions. Load
-`references/testing-and-common-failures.md` for checklists and remediation
-patterns.
+@media (min-width: 1024px) {
+  .dashboard {
+    grid-template-columns: 300px 1fr;
+  }
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+```
+
+### Step 3: Responsive Images
+
+Provide images suited to the device.
+
+**Using srcset**:
+```html
+<img
+  src="image-800.jpg"
+  srcset="
+    image-400.jpg 400w,
+    image-800.jpg 800w,
+    image-1200.jpg 1200w,
+    image-1600.jpg 1600w
+  "
+  sizes="
+    (max-width: 600px) 100vw,
+    (max-width: 900px) 50vw,
+    33vw
+  "
+  alt="Responsive image"
+/>
+```
+
+**picture element** (Art Direction):
+```html
+<picture>
+  <!-- Mobile: portrait image -->
+  <source media="(max-width: 767px)" srcset="portrait.jpg">
+
+  <!-- Tablet: square image -->
+  <source media="(max-width: 1023px)" srcset="square.jpg">
+
+  <!-- Desktop: landscape image -->
+  <img src="landscape.jpg" alt="Art direction example">
+</picture>
+```
+
+**CSS background images**:
+```css
+.hero {
+  background-image: url('hero-mobile.jpg');
+}
+
+@media (min-width: 768px) {
+  .hero {
+    background-image: url('hero-tablet.jpg');
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    background-image: url('hero-desktop.jpg');
+  }
+}
+
+/* Or use image-set() */
+.hero {
+  background-image: image-set(
+    url('hero-1x.jpg') 1x,
+    url('hero-2x.jpg') 2x
+  );
+}
+```
+
+### Step 4: Responsive Typography
+
+Adjust text size based on screen size.
+
+**clamp() function** (fluid sizing):
+```css
+:root {
+  /* min, preferred, max */
+  --font-size-body: clamp(14px, 2.5vw, 18px);
+  --font-size-h1: clamp(24px, 5vw, 48px);
+  --font-size-h2: clamp(20px, 4vw, 36px);
+}
+
+body {
+  font-size: var(--font-size-body);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  line-height: 1.3;
+}
+```
+
+**Media query approach**:
+```css
+body {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  body { font-size: 16px; }
+}
+
+@media (min-width: 1024px) {
+  body { font-size: 18px; }
+}
+```
+
+### Step 5: Container Queries (New Feature)
+
+Apply styles based on parent container size.
+
+```css
+.card-container {
+  container-type: inline-size;
+  container-name: card;
+}
+
+.card {
+  padding: 1rem;
+}
+
+.card h2 {
+  font-size: 1.2rem;
+}
+
+/* When container is 400px or wider */
+@container card (min-width: 400px) {
+  .card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    padding: 1.5rem;
+  }
+
+  .card h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* When container is 600px or wider */
+@container card (min-width: 600px) {
+  .card {
+    grid-template-columns: 300px 1fr;
+    padding: 2rem;
+  }
+}
+```
+
+## Output format
+
+### Standard Breakpoints
+
+```css
+/* Mobile (default): 320px ~ 767px */
+/* Tablet: 768px ~ 1023px */
+/* Desktop: 1024px ~ 1439px */
+/* Large: 1440px+ */
+
+:root {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* Usage example */
+@media (min-width: 768px) { /* Tablet */ }
+@media (min-width: 1024px) { /* Desktop */ }
+```
+
+## Constraints
+
+### Mandatory Rules (MUST)
+
+1. **Viewport meta tag**: Must be included in HTML
+   ```html
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   ```
+
+2. **Mobile-First**: Mobile default, use min-width media queries
+   - ✅ `@media (min-width: 768px)`
+   - ❌ `@media (max-width: 767px)` (Desktop-first)
+
+3. **Relative units**: Use rem, em, %, vw/vh instead of px
+   - font-size: rem
+   - padding/margin: rem or em
+   - width: % or vw
+
+### Prohibited (MUST NOT)
+
+1. **Fixed width prohibited**: Avoid `width: 1200px`
+   - Use `max-width: 1200px`
+
+2. **Duplicate code**: Avoid repeating same styles across all breakpoints
+   - Common styles as default, only differences in media queries
 
 ## Examples
 
-### Example 1: Replace a fixed-width landing page shell
+### Example 1: Responsive Navigation
 
-Input:
+```tsx
+function ResponsiveNav() {
+  const [isOpen, setIsOpen] = useState(false);
 
-```text
-Our marketing page still uses a 1200px wrapper and the hero explodes on phones.
-How should I make the layout responsive without cloning the page for mobile?
+  return (
+    <nav className="navbar">
+      {/* Logo */}
+      <a href="/" className="logo">MyApp</a>
+
+      {/* Hamburger button (mobile) */}
+      <button
+        className="menu-toggle"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle menu"
+        aria-expanded={isOpen}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      {/* Navigation links */}
+      <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
+        <li><a href="/about">About</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+  );
+}
 ```
 
-Expected shape:
+```css
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
 
-- identifies this as a layout-structure plus media-sizing problem
-- switches the page to mobile-first constraints instead of separate markup
-- uses width constraints, grid or flex decisions, and responsive media checks
+/* Hamburger button (mobile only) */
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
-### Example 2: Decide between grid and container queries
+.nav-links {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: white;
+  flex-direction: column;
+}
 
-Input:
+.nav-links.active {
+  display: flex;
+}
 
-```text
-The same analytics card appears full-width on mobile, in a two-column dashboard
-on desktop, and inside a narrow sidebar in admin. Should I use more viewport
-breakpoints or container queries?
+/* Tablet and above: hide hamburger, always show */
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex;
+    position: static;
+    flex-direction: row;
+    gap: 2rem;
+  }
+}
 ```
 
-Expected shape:
+### Example 2: Responsive Grid Card
 
-- distinguishes viewport-driven shell changes from component-level resizing
-- recommends container queries for the reusable card if the parent width is the
-  real driver
-- keeps global breakpoints limited to true page-layout changes
-
-### Example 3: Validate a live responsive bug
-
-Input:
-
-```text
-The app still has horizontal scrolling around 390px wide and the mobile nav is
-hard to reach. How should I verify and fix it?
+```tsx
+function ProductGrid({ products }) {
+  return (
+    <div className="product-grid">
+      {products.map(product => (
+        <div key={product.id} className="product-card">
+          <img src={product.image} alt={product.name} />
+          <h3>{product.name}</h3>
+          <p className="price">${product.price}</p>
+          <button>Add to Cart</button>
+        </div>
+      ))}
+    </div>
+  );
+}
 ```
 
-Expected shape:
+```css
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;  /* Mobile: 1 column */
+  gap: 1rem;
+  padding: 1rem;
+}
 
-- starts from concrete overflow and interaction checks at the failing width
-- uses browser verification rather than CSS theory alone
-- pulls in common-failure guidance and mentions `playwriter` when a live app is
-  involved
+@media (min-width: 640px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);  /* 2 columns */
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);  /* 3 columns */
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);  /* 4 columns */
+    gap: 2rem;
+  }
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+```
 
 ## Best practices
 
-- Treat breakpoints as content decisions, not a preset checklist
-- Prefer progressive enhancement over separate mobile and desktop markup
-- Use flexbox for one dimension, grid for two dimensions, and container
-  queries for reusable embedded components
-- Make media, tables, and forms part of the responsive plan, not afterthoughts
-- Verify in a real browser at the widths that actually fail
-- Keep concrete CSS recipes in references so the entrypoint stays compact and
-  triggerable
+1. **Container queries first**: Use container queries instead of media queries when possible
+2. **Flexbox vs Grid**: Flexbox for 1-dimensional, Grid for 2-dimensional
+3. **Performance**: Image lazy loading, use WebP format
+4. **Testing**: Chrome DevTools Device Mode, BrowserStack
 
 ## References
 
-- `references/layout-and-breakpoint-strategy.md`
-- `references/media-typography-and-density.md`
-- `references/testing-and-common-failures.md`
-- [MDN Responsive design](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
-- [MDN CSS container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries)
-- [web.dev Responsive images](https://web.dev/learn/images/responsive-images/)
+- [MDN Responsive Design](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
+- [CSS Grid Guide](https://css-tricks.com/snippets/css/complete-guide-grid/)
+- [Flexbox Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+- [Container Queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Container_Queries)
+
+## Metadata
+
+### Version
+- **Current Version**: 1.0.0
+- **Last Updated**: 2025-01-01
+- **Compatible Platforms**: Claude, ChatGPT, Gemini
+
+### Related Skills
+- [ui-component-patterns](../ui-component-patterns/SKILL.md): Responsive components
+- [web-accessibility](../web-accessibility/SKILL.md): Consider alongside accessibility
+
+### Tags
+`#responsive` `#mobile-first` `#CSS` `#Flexbox` `#Grid` `#media-query` `#frontend`

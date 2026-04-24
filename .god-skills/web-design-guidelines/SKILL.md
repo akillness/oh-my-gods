@@ -1,175 +1,141 @@
 ---
 name: web-design-guidelines
-description: >
-  Run a broad web UI review for pages, flows, or component surfaces using audit
-  categories such as layout hierarchy, content clarity, CTA emphasis, visual
-  consistency, interaction states, responsiveness basics, performance signals,
-  and accessibility basics. Use when the user asks to review a UI, audit a
-  page, critique UX polish, check interface quality before launch, or turn
-  vague design-feedback requests into a structured audit packet. Triggers on:
-  UI audit, design review, UX review, interface critique, polish review,
-  landing-page review, dashboard review, usability review, visual consistency,
-  CTA clarity.
+description: "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\". Fetches latest Vercel guidelines and checks files against all rules."
 allowed-tools: Read Write Grep Glob WebFetch
 metadata:
   author: vercel
-  version: "2.0.0"
+  version: 1.0.0
   argument-hint: "<file-or-pattern>"
-  tags: ui, review, web-interface, guidelines, vercel, design-audit, ux
-  platforms: Claude, ChatGPT, Gemini, Codex
+  tags: UI, review, web-interface, guidelines, vercel, design-audit, UX
+  platforms: Claude, ChatGPT, Gemini
 ---
 
-# Web Design Guidelines
 
-This skill is a broad UI audit lane. It should review code or UI surfaces
-against the current Vercel Web Interface Guidelines, then report concise,
-actionable findings without collapsing into an accessibility-only or
-implementation-heavy workflow.
+# Web Interface Guidelines Review
+
+Review files for compliance with Vercel's Web Interface Guidelines.
 
 ## When to use this skill
 
-- Review a page, flow, or component surface for UI polish and guideline
-  compliance
-- Audit a landing page, dashboard, form, or app surface before launch
-- Turn vague feedback like "check this UI" or "audit this UX" into structured
-  findings
-- Check a bounded file set or pattern against the current Vercel Web Interface
-  Guidelines
+- **UI code review**: check compliance with Web Interface Guidelines
+- **Accessibility check**: when asked "check accessibility"
+- **Design audit**: when asked "audit design"
+- **UX review**: when asked "review UX"
+- **Best practices review**: when asked "check my site against best practices"
 
-Route out when the request is narrower than a broad UI audit:
+## How It Works
 
-- `web-accessibility` for accessibility-first remediation or WCAG-specific
-  implementation work
-- `ui-component-patterns` for reusable component API design, slots, variants,
-  and primitive extraction
-- `react-best-practices` for React or Next.js runtime and performance diagnosis
-- `playwriter` when validation requires a real logged-in or stateful browser
-  session
+1. Fetch the latest guidelines from the source URL below
+2. Read the specified files (or prompt user for files/pattern)
+3. Check against all rules in the fetched guidelines
+4. Output findings in the terse `file:line` format
 
-## Instructions
+## Guidelines Source
 
-### Step 1: Confirm the audit scope
+Fetch fresh guidelines before each review:
 
-Capture the minimum review target before loading files:
-
-- file path, glob pattern, or bounded UI surface
-- whether the user wants a broad UI audit or a narrower accessibility or
-  runtime/browser check
-- whether the target is code, a screenshot-driven review, or a rendered app
-  surface
-
-If the task is actually accessibility-only, component-API design, or runtime
-browser validation, route out before doing a broad guideline audit.
-
-### Step 2: Fetch the current Vercel guideline command
-
-Always fetch the latest guideline command before reviewing:
-
-```text
+```
 https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md
 ```
 
-Use WebFetch to retrieve the rules and keep the local audit scaffold aligned
-with the current upstream command.
+Use WebFetch to retrieve the latest rules. The fetched content contains all the rules and output format instructions.
 
-### Step 3: Read only the relevant files
+## Instructions
 
-Analyze only the user-provided file or pattern:
+### Step 1: Fetch Guidelines
 
-- React, Vue, or Svelte components
-- HTML templates
-- CSS or SCSS files
-- JavaScript or TypeScript files that own UI behavior
-
-Do not widen the review scope unless the user explicitly asks for a broader
-audit.
-
-### Step 4: Review by category, not by random rule order
-
-Apply the fetched rules using the local category scaffold:
-
-- layout and hierarchy
-- accessibility basics and semantics
-- focus and interaction states
-- forms and content handling
-- motion and responsiveness basics
-- performance-adjacent UI signals
-- navigation, state reflection, and destructive-action safety
-
-Use the support references when they add leverage:
-
-- `references/review-workflow-and-route-outs.md`
-- `references/vercel-guideline-categories.md`
-
-### Step 5: Report concise findings with locations
-
-Return findings with exact file references in concise review format.
-
-Preferred shape:
-
-```text
-path/to/file.tsx:line - issue summary; recommended fix
+**Use WebFetch**:
+```
+WebFetch URL: https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md
+Prompt: "Extract all UI rules and guidelines"
 ```
 
-Report the highest-signal issues first. If there are no findings, say so
-explicitly and note any residual risk, such as runtime-only behavior not
-verified from static code.
+### Step 2: Analyze Files
 
-## Examples
+Read and analyze the files or patterns provided by the user.
 
-### Example 1: Broad UI audit
+**Files to analyze**:
+- React/Vue/Svelte components
+- HTML files
+- CSS/SCSS files
+- TypeScript/JavaScript files
 
-Input:
+### Step 3: Apply Rules
 
-```text
-Review this landing page UI and tell me what feels off before launch:
-src/app/page.tsx
+Apply all rules from the fetched guidelines to the files and output violations.
+
+## Input Format
+
+### Required info
+- **File or pattern**: file path or glob pattern to review
+
+### Input examples
+
+```
+Review my UI code:
+- File: src/components/Button.tsx
 ```
 
-Expected behavior:
-
-- fetches the latest Vercel guideline command
-- reviews only the provided page and directly related UI code if needed
-- reports concise findings across layout, content, interaction, and basics-level
-  accessibility
-
-### Example 2: Accessibility-only task
-
-Input:
-
-```text
-Audit this modal for keyboard traps and screen-reader issues.
+```
+Check accessibility:
+- Pattern: src/**/*.tsx
 ```
 
-Expected behavior:
+## Output Format
 
-- routes the task to `web-accessibility`
-- does not keep the work in `web-design-guidelines` as the main lane
+Follow the format specified in the guidelines (typically `file:line`):
 
-### Example 3: Stateful browser validation
-
-Input:
-
-```text
-Check this deployed dashboard in my logged-in browser and tell me which states
-are visually broken.
+```
+src/components/Button.tsx:15 - Button should have aria-label for icon-only buttons
+src/components/Modal.tsx:42 - Modal should trap focus within itself
+src/pages/Home.tsx:8 - Main content should be wrapped in <main> element
 ```
 
-Expected behavior:
+## Usage
 
-- routes the browser phase to `playwriter`
-- does not pretend a static code review is enough for the runtime ask
+When a user provides a file or pattern argument:
+1. Fetch guidelines from the source URL above
+2. Read the specified files
+3. Apply all rules from the fetched guidelines
+4. Output findings using the format specified in the guidelines
+
+If no files specified, ask the user which files to review.
+
+## Constraints
+
+### Required Rules (MUST)
+
+1. **Use latest guidelines**: fetch fresh guidelines from the source URL for every review
+2. **Apply all rules**: check every rule from the fetched guidelines
+3. **Accurate locations**: specify violation locations in `file:line` format
+
+### Prohibited (MUST NOT)
+
+1. **Use stale cache**: always fetch the latest guidelines
+2. **Partial check**: do not apply only some rules
 
 ## Best practices
 
-- Fetch the latest upstream guideline command for every real audit
-- Keep the skill broad enough for general UI review but not so broad that it
-  swallows accessibility-only or implementation-heavy tasks
-- Read only the requested file set to avoid low-signal repo-wide audits
-- Group findings by signal and severity rather than dumping guideline text
-- Call out when a suspected issue needs rendered-browser validation
+1. **Limit file scope**: be careful about context overflow when reviewing too many files at once
+2. **Prioritize**: report critical issues first
+3. **Suggest fixes**: include how to fix along with each violation
 
 ## References
 
-- `references/review-workflow-and-route-outs.md`
-- `references/vercel-guideline-categories.md`
+- [Vercel Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines)
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+
+## Metadata
+
+### Version
+- **Current version**: 1.0.0
+- **Last updated**: 2026-01-22
+- **Supported platforms**: Claude, ChatGPT, Gemini
+- **Source**: vercel/agent-skills
+
+### Related Skills
+- [web-accessibility](../web-accessibility/SKILL.md): WCAG accessibility implementation
+- [ui-component-patterns](../ui-component-patterns/SKILL.md): UI component patterns
+
+### Tags
+`#UI` `#review` `#web-interface` `#guidelines` `#vercel` `#design-audit` `#UX` `#frontend`

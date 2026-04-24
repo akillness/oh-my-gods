@@ -1,172 +1,293 @@
 ---
 name: testing-strategies
-description: >
-  Design a risk-based validation policy across unit, integration, contract,
-  smoke, exploratory, and release checks before code or rollout work starts.
-  Use when the user needs to decide what test layers are required, how much
-  evidence is enough before merge or release, how to control flaky or
-  expensive suites, or how to route work between testing policy, backend test
-  implementation, debugging, and code review. Triggers on: test strategy,
-  testing pyramid, testing trophy, coverage plan, regression policy, flaky
-  test policy, release confidence, QA gate, and what should we test.
+description: Design comprehensive testing strategies for software quality assurance. Use when planning test coverage, implementing test pyramids, or setting up testing infrastructure. Handles unit testing, integration testing, E2E testing, TDD, and testing best practices.
 allowed-tools: Bash Read Write Grep Glob
 metadata:
-  tags: testing-strategies, testing-policy, regression-policy, release-confidence, flaky-tests, test-layer-selection, testing-pyramid, testing-trophy
-  platforms: Claude, ChatGPT, Gemini, Codex
-  version: "2.0.0"
+  tags: testing, test-strategy, TDD, unit-test, integration-test, E2E, test-pyramid
+  platforms: Claude, ChatGPT, Gemini
 ---
 
 
 # Testing Strategies
 
-Testing strategy is a policy and prioritization surface, not a generic dump of
-test examples. Keep the main entrypoint focused on deciding what evidence is
-required, which layer should carry it, and when to route implementation work to
-another skill.
 
 ## When to use this skill
 
-- Decide which test layers are required for a feature, bug fix, refactor, or release
-- Turn vague "what should we test?" requests into a risk-based validation plan
-- Choose how much unit, integration, contract, smoke, exploratory, or release testing is enough
-- Set a policy for flaky, slow, or expensive suites instead of arguing case by case
-- Define merge or release gates without immediately writing the tests
-
-Prefer a narrower sibling skill when the real job is implementation or root-cause work:
-
-- `backend-testing` for service/API/auth test implementation
-- `web-design-guidelines` or `playwriter` when the issue is browser behavior or UI verification
-- `debugging` when the main task is isolating a flaky failure or regression root cause
-- `code-review` when the task is reviewing an existing diff rather than setting policy
+- **New project**: define a testing strategy
+- **Quality issues**: bugs happen frequently
+- **Before refactoring**: build a safety net
+- **CI/CD setup**: automated tests
 
 ## Instructions
 
-### Step 1: Triage the risk before naming test types
+### Step 1: Understand the Test Pyramid
 
-Capture the minimum facts first:
+```
+       /\
+      /E2E\          ← few (slow, expensive)
+     /______\
+    /        \
+   /Integration\    ← medium
+  /____________\
+ /              \
+/   Unit Tests   \  ← many (fast, inexpensive)
+/________________\
+```
 
-- change shape: feature, bug fix, refactor, migration, release, or incident follow-up
-- failure cost: user-visible bug, data loss, security boundary, revenue path, or internal-only issue
-- system shape: pure logic, service/API, async pipeline, browser flow, or multi-service contract
-- current coverage: what already exists and what failed recently
-- execution budget: local, PR, nightly, staging, or release-only
+**Ratio guide**:
+- Unit: 70%
+- Integration: 20%
+- E2E: 10%
 
-Do not start from a fixed pyramid ratio. Start from risk, observability, and cost.
+### Step 2: Unit testing strategy
 
-### Step 2: Choose the cheapest layer that still proves the risk
+**Given-When-Then pattern**:
+```typescript
+describe('calculateDiscount', () => {
+  it('should apply 10% discount for orders over $100', () => {
+    // Given: setup
+    const order = { total: 150, customerId: '123' };
 
-Use these layers deliberately:
+    // When: perform action
+    const discount = calculateDiscount(order);
 
-| Layer | Use when | Typical evidence |
-|------|----------|------------------|
-| Unit | Pure logic, branching rules, serializers, adapters | deterministic input/output checks |
-| Integration | Middleware, persistence, auth, queue, or service composition | boundary request plus real side-effect verification |
-| Contract | External API/schema/event compatibility matters | payload, schema, or consumer/provider compatibility proof |
-| Smoke | Deployment or runtime sanity matters | a few critical-path checks against a built system |
-| Exploratory | UX ambiguity or real-world workflow risk matters | targeted manual session notes |
-| Release gate | Failure cost is high enough to block ship | explicit must-pass suites and rollback criteria |
+    // Then: verify result
+    expect(discount).toBe(15);
+  });
 
-Read `references/test-layer-selection.md` when the layer choice is ambiguous.
+  it('should not apply discount for orders under $100', () => {
+    const order = { total: 50, customerId: '123' };
+    const discount = calculateDiscount(order);
+    expect(discount).toBe(0);
+  });
 
-### Step 3: Build a validation policy, not a test wish list
+  it('should throw error for invalid order', () => {
+    const order = { total: -10, customerId: '123' };
+    expect(() => calculateDiscount(order)).toThrow('Invalid order');
+  });
+});
+```
 
-For each risk, decide:
+**Mocking strategy**:
+```typescript
+// Mock external dependencies
+jest.mock('../services/emailService');
+import { sendEmail } from '../services/emailService';
 
-- what could fail
-- which layer proves it fastest
-- when it must run: local, PR, nightly, staging, or release
-- whether it blocks merge, blocks release, or is informational only
-- what is intentionally deferred
+describe('UserService', () => {
+  it('should send welcome email on registration', async () => {
+    // Arrange
+    const mockSendEmail = sendEmail as jest.MockedFunction<typeof sendEmail>;
+    mockSendEmail.mockResolvedValueOnce(true);
 
-Good strategy output is explicit about non-goals. Not every path deserves E2E coverage.
+    // Act
+    await userService.register({ email: 'test@example.com', password: 'pass' });
 
-### Step 4: Control slow or flaky suites instead of normalizing them
+    // Assert
+    expect(mockSendEmail).toHaveBeenCalledWith({
+      to: 'test@example.com',
+      subject: 'Welcome!',
+      body: expect.any(String)
+    });
+  });
+});
+```
 
-- Keep fast deterministic checks in local or PR lanes
-- Push expensive environment-heavy coverage to scheduled, staging, or release lanes when possible
-- Treat flaky suites as defects with owners, not permanent background noise
-- Separate confidence-building exploratory work from repeatable automated gates
-- Keep release blockers explicit and small enough to debug quickly
+### Step 3: Integration Testing
 
-Read `references/release-confidence-and-flaky-policy.md` for release gates,
-suite budgets, and flaky-test triage policy.
+**API endpoint tests**:
+```typescript
+describe('POST /api/users', () => {
+  beforeEach(async () => {
+    await db.user.deleteMany();  // Clean DB
+  });
 
-### Step 5: Route implementation work to the right skill
+  it('should create user with valid data', async () => {
+    const response = await request(app)
+      .post('/api/users')
+      .send({
+        email: 'test@example.com',
+        username: 'testuser',
+        password: 'Password123!'
+      });
 
-After the policy is clear:
+    expect(response.status).toBe(201);
+    expect(response.body.user).toMatchObject({
+      email: 'test@example.com',
+      username: 'testuser'
+    });
 
-- use `backend-testing` to add or repair backend tests
-- use `debugging` to isolate why an existing suite is unstable
-- use `code-review` to assess whether a diff's verification is adequate
-- use browser/runtime verification tools only when a live UI or environment check is required
+    // Verify it was actually saved to the DB
+    const user = await db.user.findUnique({ where: { email: 'test@example.com' } });
+    expect(user).toBeTruthy();
+  });
 
-This skill should end with a clear validation plan, not a giant block of framework boilerplate.
+  it('should reject duplicate email', async () => {
+    // Create first user
+    await request(app)
+      .post('/api/users')
+      .send({ email: 'test@example.com', username: 'user1', password: 'Pass123!' });
+
+    // Attempt duplicate
+    const response = await request(app)
+      .post('/api/users')
+      .send({ email: 'test@example.com', username: 'user2', password: 'Pass123!' });
+
+    expect(response.status).toBe(409);
+  });
+});
+```
+
+### Step 4: E2E Testing (Playwright)
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test.describe('User Registration Flow', () => {
+  test('should complete full registration process', async ({ page }) => {
+    // 1. Visit homepage
+    await page.goto('http://localhost:3000');
+
+    // 2. Click Sign Up button
+    await page.click('text=Sign Up');
+
+    // 3. Fill out form
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('input[name="username"]', 'testuser');
+    await page.fill('input[name="password"]', 'Password123!');
+
+    // 4. Submit
+    await page.click('button[type="submit"]');
+
+    // 5. Confirm success message
+    await expect(page.locator('text=Welcome')).toBeVisible();
+
+    // 6. Confirm redirect to dashboard
+    await expect(page).toHaveURL('http://localhost:3000/dashboard');
+
+    // 7. Confirm user info is displayed
+    await expect(page.locator('text=testuser')).toBeVisible();
+  });
+
+  test('should show error for invalid email', async ({ page }) => {
+    await page.goto('http://localhost:3000/signup');
+    await page.fill('input[name="email"]', 'invalid-email');
+    await page.fill('input[name="password"]', 'Password123!');
+    await page.click('button[type="submit"]');
+
+    await expect(page.locator('text=Invalid email')).toBeVisible();
+  });
+});
+```
+
+### Step 5: TDD (Test-Driven Development)
+
+**Red-Green-Refactor Cycle**:
+
+```typescript
+// 1. RED: write a failing test
+describe('isPalindrome', () => {
+  it('should return true for palindrome', () => {
+    expect(isPalindrome('racecar')).toBe(true);
+  });
+});
+
+// 2. GREEN: minimal code to pass the test
+function isPalindrome(str: string): boolean {
+  return str === str.split('').reverse().join('');
+}
+
+// 3. REFACTOR: improve the code
+function isPalindrome(str: string): boolean {
+  const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return cleaned === cleaned.split('').reverse().join('');
+}
+
+// 4. Additional test cases
+it('should ignore case and spaces', () => {
+  expect(isPalindrome('A man a plan a canal Panama')).toBe(true);
+});
+
+it('should return false for non-palindrome', () => {
+  expect(isPalindrome('hello')).toBe(false);
+});
+```
 
 ## Output format
 
-Expected response shape:
+### Testing strategy document
 
-- `Risk summary`: the important failures worth proving
-- `Layer plan`: unit, integration, contract, smoke, exploratory, and release-gate choices
-- `Execution`: where each check runs and whether it blocks merge or release
-- `Follow-on work`: which sibling skill should implement or debug the plan
-- `Gaps`: deferred coverage or unresolved uncertainty
+```markdown
+## Testing Strategy
 
-## Examples
+### Coverage Goals
+- Unit Tests: 80%
+- Integration Tests: 60%
+- E2E Tests: Critical user flows
 
-### Example 1: Decide what a risky API change needs
+### Test Execution
+- Unit: Every commit (local + CI)
+- Integration: Every PR
+- E2E: Before deployment
 
-Input:
+### Tools
+- Unit: Jest
+- Integration: Supertest
+- E2E: Playwright
+- Coverage: Istanbul/nyc
 
-```text
-We are changing auth token refresh and role checks. What should we test before merge and before release?
+### CI/CD Integration
+- GitHub Actions: Run all tests on PR
+- Fail build if coverage < 80%
+- E2E tests on staging environment
 ```
 
-Expected shape:
+## Constraints
 
-- chooses a mix of integration and release-gate coverage instead of only unit tests
-- calls out auth and permission boundaries as first-class risks
-- distinguishes PR blockers from release-only checks
+### Required rules (MUST)
 
-### Example 2: Stop an E2E suite from owning every decision
+1. **Test isolation**: each test is independent
+2. **Fast feedback**: unit tests should be fast (<1 min)
+3. **Deterministic**: same input → same result
 
-Input:
+### Prohibited items (MUST NOT)
 
-```text
-Our checkout E2E suite is slow and flaky, but product wants confidence for the next release. How should we structure testing?
-```
-
-Expected shape:
-
-- keeps a narrow smoke or release gate for the true critical path
-- moves lower-value coverage to cheaper layers or exploratory testing
-- treats flaky suites as a policy problem to reduce, not accept
-
-### Example 3: Route out to implementation
-
-Input:
-
-```text
-Add tests for this FastAPI endpoint and fix the flaky suite while you are there.
-```
-
-Expected shape:
-
-- recognizes that direct implementation belongs in `backend-testing`
-- sends flaky isolation work to `debugging` if root cause is still unknown
-- does not pretend this strategy skill should own all of the coding work
+1. **Test dependencies**: do not let test A depend on test B
+2. **Production DB**: do not use a real DB in tests
+3. **Sleep/Timeout**: avoid time-based tests
 
 ## Best practices
 
-- Tie coverage to risk and observability, not dogmatic percentages.
-- Keep merge gates smaller than release gates.
-- Prefer cheaper layers unless a higher layer is the first place the risk becomes visible.
-- Make flaky or expensive suites owned, named, and reviewable.
-- Add eval coverage before any `skill-autoresearch` loop on this skill.
-- Keep detailed heuristics in references so the entrypoint stays compact and triggerable.
+1. **AAA pattern**: Arrange-Act-Assert
+2. **Test names**: "should ... when ..."
+3. **Edge Cases**: boundary values, null, empty values
+4. **Happy Path + Sad Path**: both success/failure scenarios
 
 ## References
 
-- Local: `references/test-layer-selection.md`
-- Local: `references/release-confidence-and-flaky-policy.md`
-- Practical Test Pyramid: https://martinfowler.com/articles/practical-test-pyramid.html
+- [Test Pyramid](https://martinfowler.com/articles/practical-test-pyramid.html)
+- [Jest](https://jestjs.io/)
+- [Playwright](https://playwright.dev/)
+- [Testing Best Practices](https://github.com/goldbergyoni/javascript-testing-best-practices)
+
+## Metadata
+
+### Version
+- **Current version**: 1.0.0
+- **Last updated**: 2025-01-01
+- **Compatible platforms**: Claude, ChatGPT, Gemini
+
+### Related skills
+- [backend-testing](../backend-testing/SKILL.md)
+- [code-review](../code-review/SKILL.md)
+
+### Tags
+`#testing` `#test-strategy` `#TDD` `#unit-test` `#integration-test` `#E2E` `#code-quality`
+
+## Examples
+
+### Example 1: Basic usage
+<!-- Add example content here -->
+
+### Example 2: Advanced usage
+<!-- Add advanced example content here -->

@@ -1,19 +1,14 @@
 ---
 name: agent-principles
-description: >
-  Use this skill when a user needs the baseline habits for working effectively
-  with AI coding agents: break work into smaller steps, keep context clean,
-  choose the right plan-versus-execute depth, spot repeatable automation, and
-  verify outputs before trusting them. Triggers on: agent principles, AI
-  collaboration principles, working with AI agents, context management, divide
-  and conquer, plan vs execute, verify AI output, AI workflow habits.
+description: Core principles for collaborative development with AI agents. Defines divide-and-conquer, context management, abstraction-level selection, automation philosophy, and verification/retrospectives. Apply optimal collaboration patterns when using any AI agent.
 allowed-tools: Read Write Bash Grep Glob
 metadata:
   tags: agentic-development, principles, context-management, automation, multi-agent
   platforms: Claude, Gemini, ChatGPT, Codex
-  version: 2.1.0
+  version: 2.0.0
   source: "Claude Code Complete Guide: 70 Tips (ykdojo + Ado Kukic)"
 ---
+
 
 # Core Principles for AI-Agent Collaboration (Agentic Development Principles)
 
@@ -28,91 +23,234 @@ metadata:
 - Review workflows to improve productivity
 - Onboard teammates on how to use AI agents
 
-## Do not use this skill when
+---
 
-- The user needs day-to-day tooling tactics, shortcuts, session choreography, or Git/MCP habits; route to `agent-workflow`
-- The user needs instruction-file, hooks, permissions, plugin, or team-sharing setup; route to `agent-configuration`
-- The user needs a platform-specific implementation recipe instead of cross-platform collaboration principles
+## Principle 1: Divide and Conquer
 
-## Instructions
+### Core concept
+AI performs far better with **small, clear instructions** than with large, ambiguous tasks.
 
-### Step 1: Confirm this is a principles question
+### How to apply
 
-- Use `agent-principles` when the user is asking how to work well with AI agents in general, not how to configure one platform or execute one daily workflow.
-- If the request is really about runtime configuration or workflow mechanics, hand off early to the narrower sibling skill.
+| Bad example | Good example |
+|----------|----------|
+| "Build me a login page" | 1. "Create the login form UI component" |
+| | 2. "Implement the login API endpoint" |
+| | 3. "Wire up the authentication logic" |
+| | 4. "Write tests" |
 
-### Step 2: Apply the six-principle checklist
+### Practical pattern: staged implementation
 
-Use the principles below as a compact operating checklist:
-
-1. Divide and conquer
-2. Keep context fresh
-3. Choose the right abstraction level
-4. Automate repeated work
-5. Balance plan mode and execute mode
-6. Verify outputs and reflect
-
-For detailed examples, templates, and platform notes, use the reference file in `references/core-principles.md`.
-
-### Step 3: Recommend the smallest useful adjustment
-
-- Point to the one or two principles that matter most for the current situation.
-- Give a concrete next step, such as splitting the task, starting a fresh session, or switching from direct execution to a plan-first pass.
-- Prefer corrective guidance over a generic motivational lecture.
-
-### Step 4: Route adjacent jobs out explicitly
-
-- If the user needs workflow choreography, session rituals, or Git/MCP habits, route to `agent-workflow`.
-- If the user needs hooks, permissions, instruction files, or shared team setup, route to `agent-configuration`.
-- If the user needs verification depth or evaluation system design, route to `agent-evaluation`.
-
-## Principles Summary
-
-| Principle | Core question | Immediate correction |
-|-----------|---------------|----------------------|
-| Divide and conquer | Is the task too broad? | Split it into independently checkable steps |
-| Context hygiene | Is stale context hurting focus? | Start a fresh session or write a handoff |
-| Abstraction choice | Am I too shallow or too deep? | Switch between overview and line-level review deliberately |
-| Automation | Have I repeated this enough to encode it? | Turn repetition into a command, skill, or rule |
-| Plan vs execute | Is this safe to do directly? | Use plan-first for risky or wide-scope work |
-| Verification | Have I proved the output works? | Add tests, diff review, or self-checks before trusting it |
-
-## Examples
-
-### Example 1: Broad request before implementation
-
-Input:
-```text
-How should I work with an AI coding agent on a messy refactor?
+```
+Step 1: Design and validate models/schemas
+Step 2: Implement core logic (minimum viable functionality)
+Step 3: Connect APIs/interfaces
+Step 4: Write and run tests
+Step 5: Integrate and refactor
 ```
 
-Output shape:
-- surfaces divide-and-conquer, plan-vs-execute, and verification as the main principles
-- recommends a staged plan instead of one monolithic prompt
-- routes workflow-specific mechanics elsewhere if needed
+### Verification points
+- [ ] Can each step be verified independently?
+- [ ] If something fails, can you fix only that step?
+- [ ] Is the scope small enough for the AI to understand clearly?
 
-### Example 2: Route a workflow question away
+---
 
-Input:
-```text
-What slash commands and MCP habits should I use in Claude Code?
+## Principle 2: Context is Like Milk
+
+### Core concept
+Context (the AI's working memory) should always be kept **fresh and compressed**.
+- Old, irrelevant information reduces AI performance
+- Context drift: mixing topics can reduce performance by 39%
+
+### Context-management strategies
+
+#### Strategy 1: Single-purpose conversations
+```
+Tab 1: Authentication system work
+Tab 2: UI component work
+Tab 3: Test writing
+Tab 4: DevOps/deployment work
 ```
 
-Output shape:
-- states that the request belongs to `agent-workflow`, not `agent-principles`
-- briefly explains why the issue is workflow-specific rather than principle-level
-- keeps the route-out explicit instead of trying to answer both skills at once
+#### Strategy 2: HANDOFF.md technique
+When the conversation gets long, document the state:
+```markdown
+# HANDOFF.md
 
-## Best practices
+## Completed work
+- Implemented user authentication API
+- Implemented JWT issuance logic
 
-- Keep the entrypoint focused on durable collaboration habits, not platform trivia
-- Prefer one or two relevant principles over dumping the whole checklist every time
-- Route adjacent jobs out early so this skill stays distinct from workflow and configuration surfaces
-- Keep deep examples, templates, and platform notes in references instead of bloating the main file
+## Current status
+- Working on token refresh logic
+
+## Next steps
+- Implement refresh tokens
+- Add logout endpoint
+
+## Notes
+- Watch for conflicts with existing session-management code
+```
+
+#### Strategy 3: Check context state
+- Claude: `/context`, `/clear`
+- Gemini: start a new session
+- ChatGPT: start a new chat
+
+### Optimization metrics
+- Active tools/plugins: keep **minimal**
+- Conversation length: if it gets too long, create HANDOFF.md and start a new session
+
+---
+
+## Principle 3: Choose the Right Level of Abstraction
+
+### Core concept
+Choose an appropriate abstraction level for the situation.
+
+| Mode | Description | When to use |
+|------|------|----------|
+| **Vibe Coding** | High-level: focus on overall structure | Rapid prototyping, idea validation, one-off projects |
+| **Deep Dive** | Low-level: go line-by-line through code | Bug fixes, security reviews, performance optimization, production code |
+
+### Practical application
+
+```
+When adding a new feature:
+1. High abstraction: "Create a user profile page" → understand the overall structure
+2. Mid abstraction: "Show me the validation logic for the profile edit form" → review a specific feature
+3. Low abstraction: "Explain why this regex fails email validation" → detailed debugging
+```
+
+---
+
+## Principle 4: Automation of Automation
+
+### Core concept
+```
+If you've repeated the same task 3+ times → find a way to automate it
+Then automate the automation process itself
+```
+
+### Automation level evolution
+
+| Level | Approach | Example |
+|-------|------|------|
+| 1 | Manual copy/paste | ChatGPT → terminal |
+| 2 | Terminal integration | Use Claude Code, Gemini CLI directly |
+| 3 | Voice input | Speech-to-text system |
+| 4 | Automate repeated instructions | Use project instruction files |
+| 5 | Workflow automation | Custom commands/skills |
+| 6 | Decision automation | Use AI skills |
+| 7 | Enforced-rule automation | Hooks/Guard Rails |
+
+### Identify automation targets
+- [ ] Do you run the same command 3+ times?
+- [ ] Do you repeat the same explanations?
+- [ ] Do you often write the same code patterns?
+
+---
+
+## Principle 5: Plan Mode vs Execute Mode
+
+### Plan mode (Plan First)
+Analyze only; do not modify anything
+
+**When to use:**
+- Complex work you're doing for the first time
+- Large refactors spanning multiple files
+- Architecture changes
+- Database migrations
+
+### Execute mode (Just Do It)
+**When to use:**
+- Simple, clear tasks
+- Experimental prototypes
+- Repetitive, time-consuming work
+- **Always** use in a safe environment (containers, etc.)
+
+### Recommended ratio
+- Plan mode: **90%** (use as the default)
+- Execute mode: **10%** (only in a safe environment)
+
+---
+
+## Principle 6: Verification and Retrospectives
+
+### How to verify outputs
+
+1. **Write tests**
+   ```
+   "Write tests for this function, including edge cases."
+   ```
+
+2. **Visual review**
+   - Review changed files via diff
+   - Revert unwanted changes
+
+3. **Create a draft PR**
+   ```
+   "Create a draft PR."
+   ```
+
+4. **Ask for self-verification**
+   ```
+   "Review the code you just generated again.
+   Verify every claim, and end with a table summarizing verification results."
+   ```
+
+### Verification checklist
+- [ ] Does the code behave as intended?
+- [ ] Are edge cases handled?
+- [ ] Are there any security vulnerabilities?
+- [ ] Are tests sufficient?
+
+---
+
+## Applying a Multi-Agent Workflow
+
+### Role split by agent
+
+| Agent | Role | Best For |
+|-------|------|----------|
+| **Claude** | Orchestrator | Planning, code generation, skill interpretation |
+| **Gemini** | Analyst | Large-context analysis (1M+ tokens), research |
+| **Codex** | Executor | Command execution, builds, deployments |
+
+### Orchestration pattern
+```
+[Planning agent] Plan → [Analysis agent] Analyze/research → [Execution agent] Write code → [Verification] Test → [Synthesis] Summarize results
+```
+
+---
+
+## Quick Reference
+
+### Six principles summary
+```
+1. Divide & conquer  → Split into small, clear steps
+2. Context           → Keep it fresh; single-purpose conversations
+3. Abstraction       → Vibe ↔ Deep Dive depending on context
+4. Automation        → Automate after 3 repeats
+5. Plan/execute      → Plan 90%, execute 10%
+6. Verify/retro      → Tests, PRs, self-verification
+```
+
+### Key questions
+```
+- Can I break this work into smaller pieces?
+- Is the context still clean?
+- Am I using the right level of abstraction?
+- Have I repeated this 3+ times?
+- Did I plan first?
+- Did I verify the result?
+```
+
+---
 
 ## References
 
-- [references/core-principles.md](references/core-principles.md)
 - [Claude Code Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
 - [ykdojo claude-code-tips](https://github.com/ykdojo/claude-code-tips)
 - [Ado's Advent of Claude](https://adocomplete.com/advent-of-claude-2025/)

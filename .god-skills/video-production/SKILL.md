@@ -1,14 +1,6 @@
 ---
 name: video-production
-description: >
-  Plan and route programmable or automated video production across code-first,
-  template-first, and hybrid content pipelines. Use when the user needs
-  repeatable video generation, branded short-form content, personalized videos,
-  social clip batches, captioned or localized variants, video APIs, or video
-  creation from data and templates, even if they only say video production.
-  Triggers on: Remotion, programmatic video, automated video creation, video
-  API, personalized video, batch-create shorts, render videos from code,
-  repurpose content into clips.
+description: Produce programmable videos with Remotion using scene planning, asset orchestration, and validation gates for automated, brand-consistent video content.
 allowed-tools: Bash Read Write Grep Glob
 metadata:
   tags: video, remotion, animation, storytelling, automation, react
@@ -16,11 +8,9 @@ metadata:
 ---
 
 
-# Video Production
+# Remotion Video Production
 
-This skill covers programmable and automated video production. It supports
-code-first, template-first, and hybrid pipelines, with Remotion as one valid
-implementation lane rather than the only surface.
+Programmable video production skill using Remotion. Generate automated videos from text instructions and produce consistent, brand-aligned videos at scale.
 
 ## When to use this skill
 
@@ -33,23 +23,7 @@ implementation lane rather than the only surface.
 
 ## Instructions
 
-Load `references/video-direction.md` when the user needs the canonical pipeline
-chooser, route-out boundaries, or a compact video brief instead of relying on
-the full inline examples.
-
-### Step 1: Define the delivery lane
-
-Choose the delivery lane before drafting scenes:
-
-- `code-first`: Remotion or another programmable render stack
-- `template-first`: high-volume templated content without deep code ownership
-- `hybrid`: templated assets plus programmable assembly, localization, or
-  render automation
-
-If the request explicitly mentions `remotion-video-production`, keep the work
-in this canonical skill and treat the old name as alias-only discovery.
-
-### Step 2: Define the Video Spec
+### Step 1: Define the Video Spec
 
 ```yaml
 video_spec:
@@ -61,10 +35,9 @@ video_spec:
   voice:
     style: [narration style]
     language: [language]
-  pipeline: "code-first" | "template-first" | "hybrid"
 ```
 
-### Step 3: Outline Scenes
+### Step 2: Outline Scenes
 
 Scene structuring template:
 
@@ -87,7 +60,7 @@ Scene structuring template:
 ...
 ```
 
-### Step 4: Prepare Assets
+### Step 3: Prepare Assets
 
 ```bash
 # Asset checklist
@@ -111,9 +84,7 @@ assets/
 - Audio: MP3 or WAV; normalize volume
 - Fonts: Webfont or local font files
 
-### Step 5: Implement the chosen pipeline
-
-For code-first video work, Remotion remains the default example:
+### Step 4: Implement Remotion Composition
 
 ```tsx
 // src/Video.tsx
@@ -151,10 +122,7 @@ const IntroScene: React.FC<{ frame: number }> = ({ frame }) => {
 };
 ```
 
-For template-first or hybrid lanes, keep the same scene, asset, and QA
-contracts even if the render stack changes.
-
-### Step 6: Render and QA
+### Step 5: Render and QA
 
 ```bash
 # 1. Preview render (low quality)
@@ -224,8 +192,6 @@ with callouts and 9:16 format for mobile.
 3. **Audio sync**: Align narration cues with visuals
 4. **Template reuse**: Save reusable compositions
 5. **Safe zones**: Reserve margins for mobile aspect ratios
-6. **Choose the pipeline first**: Avoid jumping into Remotion when a hybrid or
-   template-first lane better matches the actual job
 
 ---
 
@@ -250,16 +216,6 @@ with callouts and 9:16 format for mobile.
 ### Issue: Text unreadable
 **Cause**: Font size too small or insufficient contrast
 **Solution**: Use at least 24px fonts and high-contrast colors
-
-## References
-
-- Direction reference: `references/video-direction.md`
-- Agent Skills specification: `https://agentskills.io/specification`
-- Agent Skills best practices:
-  `https://agentskills.io/skill-creation/best-practices`
-- LangChain skills launch: `https://blog.langchain.com/langchain-skills/`
-- GitHub CLI `gh skill` launch:
-  `https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli`
 
 ---
 

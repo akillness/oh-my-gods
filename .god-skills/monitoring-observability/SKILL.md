@@ -1,187 +1,395 @@
 ---
 name: monitoring-observability
-description: >
-  Design or review observability for services, pipelines, and live operations:
-  instrumentation, health signals, dashboards, alerting, retention, and
-  ownership handoffs. Use when the main job is deciding what telemetry to
-  emit, which symptoms deserve alerts, how to review dashboard/alert coverage,
-  how to make data or marketing pipelines observable, or how to add
-  crash/session visibility for game or multi-service systems. Not for
-  root-cause log triage, code-level debugging, or engine-only profiler
-  diagnosis; route those to `log-analysis`, `debugging`,
-  `performance-optimization`, or `game-performance-profiler` as appropriate.
-allowed-tools: Read Write Edit Grep Glob
+description: Set up monitoring, logging, and observability for applications and infrastructure. Use when implementing health checks, metrics collection, log aggregation, or alerting systems. Handles Prometheus, Grafana, ELK Stack, Datadog, and monitoring best practices.
+allowed-tools: Bash Read Write Edit Grep Glob
 metadata:
-  tags: monitoring-observability, telemetry, tracing, dashboards, alerting,
-    health-checks, observability, runbooks
-  platforms: Claude, ChatGPT, Gemini, Codex
-  version: "2.0.0"
+  tags: monitoring, observability, logging, metrics, Prometheus, Grafana, alerts
+  platforms: Claude, ChatGPT, Gemini
 ---
+
 
 # Monitoring & Observability
 
-Observability work is a signal-design job, not a dump of vendor setup snippets.
-Keep the main skill focused on choosing the right telemetry, turning that into
-dashboards and alerts people can operate, and routing narrower diagnosis work
-to sibling skills once the missing signal surface is fixed.
-
-Read `references/telemetry-layers-and-signal-design.md` when the system is
-large, the signal package is unclear, or the request spans metrics, logs,
-traces, and business events. Read
-`references/alerting-dashboards-and-handoffs.md` when you need to decide what
-deserves an alert, how dashboards should be structured, or how to hand off
-ownership after setup.
 
 ## When to use this skill
 
-- Decide what telemetry a service, background job, pipeline, or live-ops system should emit
-- Add or review health checks, dashboards, alert thresholds, tracing, or logging policy
-- Turn a vague "we cannot see what is happening" complaint into an instrumentation plan
-- Review whether current dashboards and alerts are sufficient for release, on-call, or live operations
-- Make product, data, or AI/agent workflows observable before debugging or performance tuning begins
-
-## When not to use this skill
-
-- The main task is finding the first actionable error in raw logs: use `log-analysis`
-- The main task is isolating a concrete bug or regression after the key symptom is known: use `debugging`
-- The main task is bottleneck measurement or performance tuning rather than telemetry design: use `performance-optimization`
-- The main task is engine-only frame-time or profiler analysis for Unity or Unreal: use `game-performance-profiler`
-- There is already enough signal and the remaining work is execution inside a deployment pipeline: consider `deployment-automation`
+- **Before Production Deployment**: Essential monitoring system setup
+- **Performance Issues**: Identify bottlenecks
+- **Incident Response**: Quick root cause identification
+- **SLA Compliance**: Track availability/response times
 
 ## Instructions
 
-### Step 1: Frame the observability decision before adding tools
+### Step 1: Metrics Collection (Prometheus)
 
-Capture the minimum facts first:
+**Application Instrumentation** (Node.js):
+```typescript
+import express from 'express';
+import promClient from 'prom-client';
 
-- system surface: web app, API, worker, pipeline, game backend, or multi-service flow
-- operating goal: release confidence, on-call response, debugging readiness, SLO review, or business/process visibility
-- current blind spot: no health signal, no alerting, no traces, noisy logs, weak dashboard coverage, or missing ownership
-- incident shape: outage detection, latency spikes, data drift, background job failures, user-session issues, or cost anomalies
-- environment and audience: local, staging, production, operators, engineers, PMs, or support
+const app = express();
 
-If the user cannot name the blind spot, start by identifying what decisions they need the telemetry to support.
+// Default metrics (CPU, Memory, etc.)
+promClient.collectDefaultMetrics();
 
-### Step 2: Pick the smallest signal package that closes the blind spot
+// Custom metrics
+const httpRequestDuration = new promClient.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'Duration of HTTP requests in seconds',
+  labelNames: ['method', 'route', 'status_code']
+});
 
-Do not add every telemetry type by default. Choose the narrowest package that
-answers the operating question:
+const httpRequestTotal = new promClient.Counter({
+  name: 'http_requests_total',
+  help: 'Total number of HTTP requests',
+  labelNames: ['method', 'route', 'status_code']
+});
 
-| Blind spot | Typical first signal package |
-|------|-------------------------------|
-| Is it up? | health checks, uptime, saturation, deploy markers |
-| Is it slow? | latency metrics, traces, percentile dashboards |
-| Is it failing? | error-rate metrics, structured logs, failure-class breakdown |
-| Is a pipeline drifting or stalling? | stage timings, throughput, lag, freshness, retry counts |
-| Are users or agents hitting invisible issues? | session or workflow events, trace correlation, crash reporting |
+// Middleware to track requests
+app.use((req, res, next) => {
+  const start = Date.now();
 
-Use `references/telemetry-layers-and-signal-design.md` when multiple signal
-types overlap or the system crosses product, infra, and agent surfaces.
+  res.on('finish', () => {
+    const duration = (Date.now() - start) / 1000;
+    const labels = {
+      method: req.method,
+      route: req.route?.path || req.path,
+      status_code: res.statusCode
+    };
 
-### Step 3: Turn signals into operator-facing surfaces
+    httpRequestDuration.observe(labels, duration);
+    httpRequestTotal.inc(labels);
+  });
 
-For each selected signal, define:
+  next();
+});
 
-- source: metric, log field, trace span, event, or synthetic check
-- owner: team or role responsible for acting on it
-- consumption surface: dashboard, alert, weekly review, or incident workflow
-- threshold or review rule: what counts as abnormal
-- retention and correlation need: how long to keep it and what identifiers must link across systems
+// Metrics endpoint
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', promClient.register.contentType);
+  res.end(await promClient.register.metrics());
+});
 
-Prefer a few operator-usable dashboards and alerts over a large pile of unowned telemetry.
+app.listen(3000);
+```
 
-### Step 4: Keep the boundary clean and route narrower work outward
+**prometheus.yml**:
+```yaml
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
 
-- Route raw log triage to `log-analysis`
-- Route concrete bug isolation to `debugging`
-- Route measured performance tuning to `performance-optimization`
-- Route engine-only profiler interpretation to `game-performance-profiler`
-- Route deploy mechanics and rollout automation to `deployment-automation` when the observability design is already decided
+scrape_configs:
+  - job_name: 'my-app'
+    static_configs:
+      - targets: ['localhost:3000']
+    metrics_path: '/metrics'
 
-Read `references/alerting-dashboards-and-handoffs.md` when deciding whether the
-next step is still observability work or belongs to a sibling skill.
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['localhost:9100']
 
-### Step 5: Verify the observability plan is actionable
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['localhost:9093']
 
-Before calling the work done:
+rule_files:
+  - 'alert_rules.yml'
+```
 
-- confirm each signal answers a specific operating question
-- confirm every alert has an owner and expected action
-- confirm dashboards distinguish symptom, scope, and likely next checks
-- confirm identifiers allow correlation across services or workflow stages
-- state what remains intentionally uninstrumented and why
+### Step 2: Alert Rules
 
-Good output ends with a focused signal package, ownership, and next checks, not
-a vendor checklist.
+**alert_rules.yml**:
+```yaml
+groups:
+  - name: application_alerts
+    interval: 30s
+    rules:
+      # High error rate
+      - alert: HighErrorRate
+        expr: |
+          (
+            sum(rate(http_requests_total{status_code=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total[5m]))
+          ) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }}% (threshold: 5%)"
+
+      # Slow response time
+      - alert: SlowResponseTime
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(http_request_duration_seconds_bucket[5m])) by (le)
+          ) > 1
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Slow response time"
+          description: "95th percentile is {{ $value }}s"
+
+      # Pod down
+      - alert: PodDown
+        expr: up{job="my-app"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Pod is down"
+          description: "{{ $labels.instance }} has been down for more than 2 minutes"
+
+      # High memory usage
+      - alert: HighMemoryUsage
+        expr: |
+          (
+            node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes
+          ) / node_memory_MemTotal_bytes > 0.90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is {{ $value }}%"
+```
+
+### Step 3: Log Aggregation (Structured Logging)
+
+**Winston (Node.js)**:
+```typescript
+import winston from 'winston';
+
+const logger = winston.createLogger({
+  level: process.env.LOG_LEVEL || 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.errors({ stack: true }),
+    winston.format.json()
+  ),
+  defaultMeta: {
+    service: 'my-app',
+    environment: process.env.NODE_ENV
+  },
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple()
+      )
+    }),
+    new winston.transports.File({
+      filename: 'logs/error.log',
+      level: 'error'
+    }),
+    new winston.transports.File({
+      filename: 'logs/combined.log'
+    })
+  ]
+});
+
+// Usage
+logger.info('User logged in', { userId: '123', ip: '1.2.3.4' });
+logger.error('Database connection failed', { error: err.message, stack: err.stack });
+
+// Express middleware
+app.use((req, res, next) => {
+  logger.info('HTTP Request', {
+    method: req.method,
+    path: req.path,
+    ip: req.ip,
+    userAgent: req.get('user-agent')
+  });
+  next();
+});
+```
+
+### Step 4: Grafana Dashboard
+
+**dashboard.json** (example):
+```json
+{
+  "dashboard": {
+    "title": "Application Metrics",
+    "panels": [
+      {
+        "title": "Request Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[5m])",
+            "legendFormat": "{{method}} {{route}}"
+          }
+        ]
+      },
+      {
+        "title": "Error Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total{status_code=~\"5..\"}[5m])",
+            "legendFormat": "Errors"
+          }
+        ]
+      },
+      {
+        "title": "Response Time (p95)",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))"
+          }
+        ]
+      },
+      {
+        "title": "CPU Usage",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "rate(process_cpu_seconds_total[5m]) * 100"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Step 5: Health Checks
+
+**Advanced Health Check**:
+```typescript
+interface HealthStatus {
+  status: 'healthy' | 'degraded' | 'unhealthy';
+  timestamp: string;
+  uptime: number;
+  checks: {
+    database: { status: string; latency?: number; error?: string };
+    redis: { status: string; latency?: number };
+    externalApi: { status: string; latency?: number };
+  };
+}
+
+app.get('/health', async (req, res) => {
+  const startTime = Date.now();
+  const health: HealthStatus = {
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    checks: {
+      database: { status: 'unknown' },
+      redis: { status: 'unknown' },
+      externalApi: { status: 'unknown' }
+    }
+  };
+
+  // Database check
+  try {
+    const dbStart = Date.now();
+    await db.raw('SELECT 1');
+    health.checks.database = {
+      status: 'healthy',
+      latency: Date.now() - dbStart
+    };
+  } catch (error) {
+    health.status = 'unhealthy';
+    health.checks.database = {
+      status: 'unhealthy',
+      error: error.message
+    };
+  }
+
+  // Redis check
+  try {
+    const redisStart = Date.now();
+    await redis.ping();
+    health.checks.redis = {
+      status: 'healthy',
+      latency: Date.now() - redisStart
+    };
+  } catch (error) {
+    health.status = 'degraded';
+    health.checks.redis = { status: 'unhealthy' };
+  }
+
+  const statusCode = health.status === 'healthy' ? 200 : health.status === 'degraded' ? 200 : 503;
+  res.status(statusCode).json(health);
+});
+```
 
 ## Output format
 
-Expected response shape:
+### Monitoring Dashboard Configuration
 
-- `System summary`: what surface is being observed and why it matters now
-- `Blind spots`: the missing signals or operator questions
-- `Signal package`: the smallest useful set of metrics, logs, traces, events, or checks
-- `Operator surfaces`: dashboards, alerts, reviews, and ownership
-- `Verification`: what would prove the observability plan is usable
-- `Route-outs`: narrower sibling skills that should own any next step
+```
+Golden Signals:
+1. Latency (Response Time)
+   - P50, P95, P99 percentiles
+   - Per API endpoint
 
-## Examples
+2. Traffic (Request Volume)
+   - Requests per second
+   - Per endpoint, per status code
 
-### Example 1: Missing production visibility
+3. Errors (Error Rate)
+   - 5xx error rate
+   - 4xx error rate
+   - Per error type
 
-Input:
-
-```text
-We keep learning about API incidents from customer reports because we have no
-useful dashboards or alerts. What should we instrument first?
+4. Saturation (Resource Utilization)
+   - CPU usage
+   - Memory usage
+   - Disk I/O
+   - Network bandwidth
 ```
 
-Expected shape:
+## Constraints
 
-- stays on `monitoring-observability`
-- frames the problem as a blind-spot and operator-surface issue
-- proposes a bounded signal package with ownership and alert thresholds
+### Required Rules (MUST)
 
-### Example 2: Route raw logs outward
+1. **Structured Logging**: JSON format logs
+2. **Metric Labels**: Maintain uniqueness (be careful of high cardinality)
+3. **Prevent Alert Fatigue**: Only critical alerts
 
-Input:
+### Prohibited (MUST NOT)
 
-```text
-Here are 6,000 container log lines. Find the real error and tell me what broke.
-```
-
-Expected shape:
-
-- recognizes raw log triage as the immediate task
-- routes the request to `log-analysis`
-- keeps observability as a follow-on topic only if signal design is still missing
-
-### Example 3: Route tuning outward once telemetry exists
-
-Input:
-
-```text
-We already have traces and dashboards. Now I need to cut checkout latency and
-prove the fix improved p95.
-```
-
-Expected shape:
-
-- recognizes that the missing work is no longer telemetry design
-- routes the tuning pass to `performance-optimization`
-- avoids turning this skill into a generic optimization surface
+1. **Do Not Log Sensitive Data**: Never log passwords, API keys
+2. **Excessive Metrics**: Unnecessary metrics waste resources
 
 ## Best practices
 
-- Start from the operating decision, not the vendor tool.
-- Add the smallest signal package that closes the current blind spot.
-- Prefer owned dashboards and alerts over unreviewed telemetry sprawl.
-- Keep route-outs explicit once the work becomes debugging, tuning, or log triage.
-- Add references and evals before any `skill-autoresearch` loop on this skill.
-- Keep the main entrypoint compact enough to trigger reliably.
+1. **Define SLO**: Clearly define Service Level Objectives
+2. **Write Runbooks**: Document response procedures per alert
+3. **Dashboards**: Customize dashboards as needed per team
 
 ## References
 
-- Local: `references/telemetry-layers-and-signal-design.md`
-- Local: `references/alerting-dashboards-and-handoffs.md`
-- Google SRE workbook: https://sre.google/workbook/alerting-on-slos/
+- [Prometheus](https://prometheus.io/)
+- [Grafana](https://grafana.com/)
+- [Google SRE Book](https://sre.google/books/)
+
+## Metadata
+
+### Version
+- **Current Version**: 1.0.0
+- **Last Updated**: 2025-01-01
+- **Compatible Platforms**: Claude, ChatGPT, Gemini
+
+### Related Skills
+- [deployment](../deployment/SKILL.md): Monitoring alongside deployment
+- [security](../security/SKILL.md): Security event monitoring
+
+### Tags
+`#monitoring` `#observability` `#Prometheus` `#Grafana` `#logging` `#metrics` `#infrastructure`
+
+## Examples
+
+### Example 1: Basic usage
+<!-- Add example content here -->
+
+### Example 2: Advanced usage
+<!-- Add advanced example content here -->

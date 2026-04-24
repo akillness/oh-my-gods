@@ -1,178 +1,679 @@
 ---
 name: genkit
-description: >
-  Build or review Genkit-based AI features with typed flows, prompts, tools,
-  retrieval, and deployment paths. Use when the user wants to create, debug,
-  or ship a Genkit app, choose a Genkit language/runtime, wire model providers,
-  define flows, add tool calling or RAG, use Dev UI/evals, or deploy to
-  Firebase or Cloud Run. Triggers on: genkit, dotprompt, Genkit flow,
-  onCallGenkit, Genkit Dev UI, Genkit RAG, Genkit tools, Genkit deploy.
+description: Build production-ready AI workflows using Firebase Genkit. Use when creating flows, tool-calling agents, RAG pipelines, multi-agent systems, or deploying AI to Firebase/Cloud Run. Supports TypeScript, Go, and Python with Gemini, OpenAI, Anthropic, Ollama, and Vertex AI plugins.
 allowed-tools: Bash Read Write Edit Glob Grep WebFetch
 metadata:
-  tags: genkit, ai, flows, agents, prompts, rag, firebase, cloud-run
+  tags: genkit, firebase, ai, llm, flows, agents, rag, gemini, typescript, google-cloud
   platforms: Claude, ChatGPT, Gemini, Codex
-  version: 1.1.0
+  version: 1.0.0
 ---
 
-# Genkit
 
-Genkit is best treated as a typed workflow framework, not just a prompt helper.
-Keep the entrypoint focused on triage, flow boundaries, and deployment shape,
-then pull the support files for language-specific setup and deeper patterns.
+# Firebase Genkit
 
 ## When to use this skill
 
-- Build a new Genkit app or add Genkit to an existing service
-- Choose between JavaScript/TypeScript, Go, or Python for a Genkit workflow
-- Define a flow with typed input/output, prompts, tools, or retrieval
-- Add Dev UI, evaluations, or tracing before release
-- Deploy Genkit-backed features to Firebase or Cloud Run
-- Review a Genkit implementation for provider drift, schema gaps, or runtime risk
+- **AI workflow orchestration**: Building multi-step AI pipelines with type-safe inputs/outputs
+- **Flow-based APIs**: Wrapping LLM calls into deployable HTTP endpoints
+- **Tool calling / agents**: Equipping models with custom tools and implementing agentic loops
+- **RAG pipelines**: Retrieval-augmented generation with vector databases (Pinecone, pgvector, Firestore, Chroma, etc.)
+- **Multi-agent systems**: Coordinating multiple specialized AI agents
+- **Streaming responses**: Real-time token-by-token output for chat or long-form content
+- **Firebase/Cloud Run deployment**: Deploying AI functions to Google Cloud
+- **Prompt management**: Managing prompts as versioned `.prompt` files with Dotprompt
 
-Do not rely on this skill alone for fast-moving provider package names or
-preview-surface guarantees. Check the official Genkit docs before locking a
-specific SDK or deployment contract.
+---
 
-## Instructions
+## Installation & Setup
 
-### Step 1: Triage the implementation lane first
+### Step 1: Install the Genkit CLI
 
-Capture the minimum facts before proposing code:
+```bash
+# npm (recommended for JavaScript/TypeScript)
+npm install -g genkit-cli
 
-- language: JavaScript/TypeScript, Go, or Python
-- model provider: Gemini, Vertex AI, OpenAI-compatible, Anthropic-compatible,
-  Ollama, or another supported integration
-- workflow shape: generation, structured output, tool calling, RAG, chat, or
-  multi-step orchestration
-- runtime target: local dev only, Firebase Functions, Cloud Run, or another
-  HTTP service
-- delivery need: greenfield example, production review, migration plan, or
-  debugging
-
-If the user has not chosen a language or deployment target, narrow that first
-instead of jumping straight into code.
-
-### Step 2: Start from flows and schemas
-
-Make flows the default unit of work:
-
-- define typed input and output schemas first
-- keep one clear responsibility per flow
-- use plain generation only when the task is truly single-step
-- treat prompts, tools, retrievers, and sessions as supporting pieces around a
-  reviewable flow boundary
-
-If the request is only for a small prototype, still keep the main AI path in a
-flow so it can be traced, evaluated, and deployed later.
-
-### Step 3: Pick the smallest matching Genkit pattern
-
-Use the least complex pattern that satisfies the request:
-
-- simple content generation or structured extraction
-- prompt file with Dotprompt when the team needs reusable prompt assets
-- tool-calling flow when external actions or data fetches are required
-- retrieval flow when answers must stay grounded in indexed content
-- chat/session flow when state must persist across turns
-- multi-step orchestration only when one flow is not enough
-
-Avoid turning every feature into a multi-agent system just because Genkit can
-support orchestration.
-
-### Step 4: Keep the runtime observable during development
-
-Before calling the design ready:
-
-- make sure the flow can run locally
-- use the Genkit Dev UI or CLI to inspect execution and traces
-- define at least one concrete evaluation or smoke path for the main workflow
-- handle null or invalid model output explicitly
-- keep provider credentials in env vars or secret management, never in source
-
-### Step 5: Match deployment to the real hosting shape
-
-Choose deployment based on how the app already ships:
-
-1. Firebase Functions when the project already lives in Firebase and wants
-   `onCallGenkit` or related Firebase-first integration
-2. Cloud Run or another HTTP service when the team wants container-based
-   deployment and explicit runtime control
-3. local-first prototyping when the workflow is still being shaped and should
-   not be locked to a production hosting contract yet
-
-State the deployment tradeoff if more than one option is plausible.
-
-### Step 6: Pull support files only when needed
-
-Load the smallest supporting reference that matches the job:
-
-- `references/getting-started-and-providers.md` for language choice, provider
-  setup, auth, and current doc entry points
-- `references/workflow-patterns.md` for flows, prompts, tool calling, RAG,
-  chat, and orchestration patterns
-- `references/runtime-and-deployment.md` for Dev UI, CLI, evals, secrets, and
-  Firebase/Cloud Run deployment notes
-
-## Examples
-
-### Example 1: TypeScript flow plus local Dev UI
-
-Input:
-
-```text
-Set up a minimal Genkit TypeScript flow that uses Gemini, validates structured
-output, and runs locally with the Dev UI.
+# macOS/Linux binary
+curl -sL cli.genkit.dev | bash
 ```
 
-Expected shape:
+### Step 2: Create a TypeScript project
 
-- confirms TypeScript plus Gemini as the chosen lane
-- defines a typed flow with explicit input and output schemas
-- includes the local run path for the Dev UI
-- keeps credentials in environment variables, not inline code
-
-### Example 2: Retrieval pipeline heading toward production
-
-Input:
-
-```text
-Design a Genkit RAG workflow that starts local, then can move to Cloud Run once
-we validate retrieval quality.
+```bash
+mkdir my-genkit-app && cd my-genkit-app
+npm init -y
+npm pkg set type=module
+npm install -D typescript tsx
+npx tsc --init
+mkdir src && touch src/index.ts
 ```
 
-Expected shape:
+### Step 3: Install Genkit core and a model plugin
 
-- separates indexing, retrieval, and answer-generation responsibilities
-- explains what to validate locally before production rollout
-- names the hosting and secret-management decisions needed for Cloud Run
+```bash
+# Core + Google AI (Gemini) — free tier, no credit card required
+npm install genkit @genkit-ai/google-genai
 
-### Example 3: Review a shaky Genkit implementation
+# Or: Vertex AI (requires GCP project)
+npm install genkit @genkit-ai/vertexai
 
-Input:
+# Or: OpenAI
+npm install genkit genkitx-openai
 
-```text
-Review this Genkit app. It calls generate() directly in route handlers, mixes
-tool logic into one file, and has no local evaluation path.
+# Or: Anthropic (Claude)
+npm install genkit genkitx-anthropic
+
+# Or: Ollama (local models)
+npm install genkit genkitx-ollama
 ```
 
-Expected shape:
+### Step 4: Configure API Key
 
-- recommends moving the core AI path into named flows
-- calls out missing observability or evaluation coverage
-- separates tool code, retrieval code, and deployment concerns
+```bash
+# Google AI (Gemini)
+export GEMINI_API_KEY=your_key_here
 
-## Best practices
+# OpenAI
+export OPENAI_API_KEY=your_key_here
 
-- Choose language, provider, and hosting target before writing example code
-- Keep flows small enough that traces stay readable and reviews stay bounded
-- Use typed schemas for inputs and outputs whenever the API contract matters
-- Treat provider integration details as drift-prone; verify them in official docs
-- Add an evaluation or smoke path before shipping prompt or retrieval changes
-- Prefer support files for long code examples and provider matrices, not the
-  entrypoint
+# Anthropic
+export ANTHROPIC_API_KEY=your_key_here
+```
+
+---
+
+## Core Concepts
+
+### Initializing Genkit
+
+```typescript
+import { googleAI } from '@genkit-ai/google-genai';
+import { genkit } from 'genkit';
+
+const ai = genkit({
+  plugins: [googleAI()],
+  model: googleAI.model('gemini-2.5-flash'), // default model
+});
+```
+
+### Defining Flows
+
+Flows are the core primitive: type-safe, observable, deployable AI functions.
+
+```typescript
+import { genkit, z } from 'genkit';
+import { googleAI } from '@genkit-ai/google-genai';
+
+const ai = genkit({ plugins: [googleAI()] });
+
+// Input/output schemas with Zod
+const SummaryInputSchema = z.object({
+  text: z.string().describe('Text to summarize'),
+  maxWords: z.number().optional().default(100),
+});
+
+const SummaryOutputSchema = z.object({
+  summary: z.string(),
+  keyPoints: z.array(z.string()),
+});
+
+export const summarizeFlow = ai.defineFlow(
+  {
+    name: 'summarizeFlow',
+    inputSchema: SummaryInputSchema,
+    outputSchema: SummaryOutputSchema,
+  },
+  async ({ text, maxWords }) => {
+    const { output } = await ai.generate({
+      model: googleAI.model('gemini-2.5-flash'),
+      prompt: `Summarize the following text in at most ${maxWords} words and extract key points:\n\n${text}`,
+      output: { schema: SummaryOutputSchema },
+    });
+
+    if (!output) throw new Error('No output generated');
+    return output;
+  }
+);
+
+// Call the flow
+const result = await summarizeFlow({
+  text: 'Long article content here...',
+  maxWords: 50,
+});
+console.log(result.summary);
+```
+
+### Generating Content
+
+```typescript
+// Simple text generation
+const { text } = await ai.generate({
+  model: googleAI.model('gemini-2.5-flash'),
+  prompt: 'Explain quantum computing in one sentence.',
+});
+
+// Structured output
+const { output } = await ai.generate({
+  prompt: 'List 3 programming languages with their use cases',
+  output: {
+    schema: z.object({
+      languages: z.array(z.object({
+        name: z.string(),
+        useCase: z.string(),
+      })),
+    }),
+  },
+});
+
+// With system prompt
+const { text: response } = await ai.generate({
+  system: 'You are a senior TypeScript engineer. Be concise.',
+  prompt: 'What is the difference between interface and type in TypeScript?',
+});
+
+// Multimodal (image + text)
+const { text: description } = await ai.generate({
+  prompt: [
+    { text: 'What is in this image?' },
+    { media: { url: 'https://example.com/image.jpg', contentType: 'image/jpeg' } },
+  ],
+});
+```
+
+### Streaming Flows
+
+```typescript
+export const streamingFlow = ai.defineFlow(
+  {
+    name: 'streamingFlow',
+    inputSchema: z.object({ topic: z.string() }),
+    streamSchema: z.string(),        // type of each chunk
+    outputSchema: z.object({ full: z.string() }),
+  },
+  async ({ topic }, { sendChunk }) => {
+    const { stream, response } = ai.generateStream({
+      prompt: `Write a detailed essay about ${topic}.`,
+    });
+
+    for await (const chunk of stream) {
+      sendChunk(chunk.text);         // stream each token to client
+    }
+
+    const { text } = await response;
+    return { full: text };
+  }
+);
+
+// Client-side consumption
+const stream = streamingFlow.stream({ topic: 'AI ethics' });
+for await (const chunk of stream.stream) {
+  process.stdout.write(chunk);
+}
+const finalOutput = await stream.output;
+```
+
+### Tool Calling (Agents)
+
+```typescript
+import { z } from 'genkit';
+
+// Define tools
+const getWeatherTool = ai.defineTool(
+  {
+    name: 'getWeather',
+    description: 'Get current weather for a city',
+    inputSchema: z.object({ city: z.string() }),
+    outputSchema: z.object({ temp: z.number(), condition: z.string() }),
+  },
+  async ({ city }) => {
+    // Call real weather API
+    return { temp: 22, condition: 'sunny' };
+  }
+);
+
+const searchWebTool = ai.defineTool(
+  {
+    name: 'searchWeb',
+    description: 'Search the web for information',
+    inputSchema: z.object({ query: z.string() }),
+    outputSchema: z.string(),
+  },
+  async ({ query }) => {
+    // Call search API
+    return `Search results for: ${query}`;
+  }
+);
+
+// Agent flow with tools
+export const agentFlow = ai.defineFlow(
+  {
+    name: 'agentFlow',
+    inputSchema: z.object({ question: z.string() }),
+    outputSchema: z.string(),
+  },
+  async ({ question }) => {
+    const { text } = await ai.generate({
+      prompt: question,
+      tools: [getWeatherTool, searchWebTool],
+      returnToolRequests: false, // auto-execute tools
+    });
+    return text;
+  }
+);
+```
+
+### Prompts with Dotprompt
+
+Manage prompts as versioned `.prompt` files:
+
+```
+# src/prompts/summarize.prompt
+---
+model: googleai/gemini-2.5-flash
+input:
+  schema:
+    text: string
+    style?: string
+output:
+  schema:
+    summary: string
+    sentiment: string
+---
+Summarize the following text in a {{style, default: "professional"}} tone:
+
+{{text}}
+
+Return JSON with summary and sentiment (positive/negative/neutral).
+```
+
+```typescript
+// Load and use dotprompt
+const summarizePrompt = ai.prompt('summarize');
+const { output } = await summarizePrompt({
+  text: 'Article content here...',
+  style: 'casual',
+});
+```
+
+### RAG — Retrieval-Augmented Generation
+
+```typescript
+import { devLocalVectorstore } from '@genkit-ai/dev-local-vectorstore';
+import { textEmbedding004 } from '@genkit-ai/google-genai';
+
+const ai = genkit({
+  plugins: [
+    googleAI(),
+    devLocalVectorstore([{
+      indexName: 'documents',
+      embedder: textEmbedding004,
+    }]),
+  ],
+});
+
+// Index documents
+await ai.index({
+  indexer: devLocalVectorstoreIndexer('documents'),
+  docs: [
+    { content: [{ text: 'Document 1 content...' }], metadata: { source: 'doc1' } },
+    { content: [{ text: 'Document 2 content...' }], metadata: { source: 'doc2' } },
+  ],
+});
+
+// RAG flow
+export const ragFlow = ai.defineFlow(
+  {
+    name: 'ragFlow',
+    inputSchema: z.object({ question: z.string() }),
+    outputSchema: z.string(),
+  },
+  async ({ question }) => {
+    // Retrieve relevant documents
+    const docs = await ai.retrieve({
+      retriever: devLocalVectorstoreRetriever('documents'),
+      query: question,
+      options: { k: 3 },
+    });
+
+    // Generate answer grounded in retrieved docs
+    const { text } = await ai.generate({
+      system: 'Answer questions using only the provided context.',
+      prompt: question,
+      docs,
+    });
+
+    return text;
+  }
+);
+```
+
+### Chat Sessions
+
+```typescript
+export const chatFlow = ai.defineFlow(
+  {
+    name: 'chatFlow',
+    inputSchema: z.object({ message: z.string(), sessionId: z.string() }),
+    outputSchema: z.string(),
+  },
+  async ({ message, sessionId }) => {
+    const session = ai.loadSession(sessionId) ?? ai.createSession({ sessionId });
+    const chat = session.chat({
+      system: 'You are a helpful assistant.',
+    });
+
+    const { text } = await chat.send(message);
+    return text;
+  }
+);
+```
+
+### Multi-Agent Systems
+
+```typescript
+// Specialist agents
+const researchAgent = ai.defineFlow(
+  { name: 'researchAgent', inputSchema: z.string(), outputSchema: z.string() },
+  async (query) => {
+    const { text } = await ai.generate({
+      system: 'You are a research expert. Gather facts and cite sources.',
+      prompt: query,
+      tools: [searchWebTool],
+    });
+    return text;
+  }
+);
+
+const writerAgent = ai.defineFlow(
+  { name: 'writerAgent', inputSchema: z.string(), outputSchema: z.string() },
+  async (brief) => {
+    const { text } = await ai.generate({
+      system: 'You are a professional writer. Write clear, engaging content.',
+      prompt: brief,
+    });
+    return text;
+  }
+);
+
+// Orchestrator delegates to specialists
+export const contentPipelineFlow = ai.defineFlow(
+  {
+    name: 'contentPipelineFlow',
+    inputSchema: z.object({ topic: z.string() }),
+    outputSchema: z.string(),
+  },
+  async ({ topic }) => {
+    const research = await researchAgent(`Research: ${topic}`);
+    const article = await writerAgent(`Write an article based on: ${research}`);
+    return article;
+  }
+);
+```
+
+---
+
+## Developer Tools
+
+### CLI Commands
+
+```bash
+# Start Developer UI + connect to your app
+genkit start -- npx tsx --watch src/index.ts
+genkit start -o -- npx tsx src/index.ts    # auto-open browser
+
+# Run a specific flow from CLI
+genkit flow:run summarizeFlow '{"text": "Hello world", "maxWords": 10}'
+
+# Run with streaming output
+genkit flow:run streamingFlow '{"topic": "AI"}' -s
+
+# Evaluate a flow
+genkit eval:flow ragFlow --input eval-inputs.json
+
+# View all commands
+genkit --help
+
+# Disable analytics telemetry
+genkit config set analyticsOptOut true
+```
+
+### Developer UI
+
+The Developer UI runs at **http://localhost:4000** and provides:
+
+- **Flow runner**: Execute flows with custom JSON inputs
+- **Trace inspector**: Visualize each step (generate, embed, retrieve, tool calls)
+- **Prompt playground**: Test prompts interactively
+- **Model tester**: Compare outputs across different models
+- **Evaluator**: Run evaluation datasets against flows
+
+```bash
+# Add npm script for convenience
+# package.json
+"scripts": {
+  "genkit:dev": "genkit start -- npx tsx --watch src/index.ts"
+}
+
+npm run genkit:dev
+```
+
+---
+
+## Deployment
+
+### Firebase Cloud Functions
+
+```typescript
+import { onCallGenkit } from 'firebase-functions/https';
+import { defineSecret } from 'firebase-functions/params';
+
+const apiKey = defineSecret('GOOGLE_AI_API_KEY');
+
+export const summarize = onCallGenkit(
+  { secrets: [apiKey] },
+  summarizeFlow
+);
+```
+
+```bash
+firebase deploy --only functions
+```
+
+### Express.js Server
+
+```typescript
+import express from 'express';
+import { expressHandler } from 'genkit/express';
+
+const app = express();
+app.use(express.json());
+
+app.post('/summarize', expressHandler(summarizeFlow));
+app.post('/chat', expressHandler(chatFlow));
+
+app.listen(3000, () => console.log('Server running on port 3000'));
+```
+
+### Cloud Run
+
+```bash
+# Build and deploy
+gcloud run deploy genkit-app \
+  --source . \
+  --region us-central1 \
+  --set-env-vars GEMINI_API_KEY=$GEMINI_API_KEY
+```
+
+---
+
+## Supported Plugins
+
+### Model Providers
+
+| Plugin | Package | Models |
+|--------|---------|--------|
+| Google AI | `@genkit-ai/google-genai` | Gemini 2.5 Flash/Pro |
+| Vertex AI | `@genkit-ai/vertexai` | Gemini, Imagen, Claude |
+| OpenAI | `genkitx-openai` | GPT-4o, o1, etc. |
+| Anthropic | `genkitx-anthropic` | Claude 3.5/3 |
+| AWS Bedrock | `genkitx-aws-bedrock` | Claude, Titan, etc. |
+| Ollama | `genkitx-ollama` | Local models |
+| DeepSeek | `genkitx-deepseek` | DeepSeek-R1 |
+| xAI (Grok) | `genkitx-xai` | Grok models |
+
+### Vector Databases
+
+| Plugin | Package |
+|--------|---------|
+| Dev Local (testing) | `@genkit-ai/dev-local-vectorstore` |
+| Pinecone | `genkitx-pinecone` |
+| pgvector | `genkitx-pgvector` |
+| Chroma | `genkitx-chroma` |
+| Cloud Firestore | `@genkit-ai/firebase` |
+| LanceDB | `genkitx-lancedb` |
+
+---
+
+## Best Practices
+
+1. **Always define input/output schemas** — Use Zod objects for Dev UI labeled fields and API safety
+2. **Use flows for all AI logic** — Even simple calls; flows give you tracing and deployment for free
+3. **Store API keys in environment variables** — Never hardcode; use Firebase Secrets for production
+4. **Use `ai.run()` to trace custom steps** — Wrap non-Genkit code in `ai.run()` for trace visibility
+5. **Stream long-form content** — Use `defineFlow` with `streamSchema` + `sendChunk` for better UX
+6. **Separate concerns with agents** — Specialized subflows > one monolithic flow
+7. **Use Dotprompt for team prompts** — `.prompt` files enable versioning, review, and reuse
+
+## Constraints
+
+### Must Do
+- Define schemas for all flow inputs and outputs
+- Handle `null` output from `generate()` — throw meaningful errors
+- Set `GENKIT_ENV=dev` when running flows separately from the dev server
+- Use `onCallGenkit` (not raw Cloud Functions) when deploying to Firebase
+
+### Must Not Do
+- Never hardcode API keys in source code
+- Do not use `generate()` outside a flow if you need tracing/observability
+- Do not call `genkit start` without a command — always pass `-- <your-run-command>`
+- Avoid blocking the event loop in tool handlers — use `async/await`
+
+---
 
 ## References
 
-- `references/getting-started-and-providers.md`
-- `references/workflow-patterns.md`
-- `references/runtime-and-deployment.md`
+- [Official Docs](https://genkit.dev/docs/overview/)
+- [Get Started Guide](https://genkit.dev/docs/get-started/)
+- [Developer Tools](https://genkit.dev/docs/devtools/)
+- [Flows Reference](https://genkit.dev/docs/flows/)
+- [Tool Calling](https://genkit.dev/docs/tool-calling/)
+- [RAG Guide](https://genkit.dev/docs/rag/)
+- [Multi-Agent Systems](https://genkit.dev/docs/multi-agent/)
+- [Dotprompt](https://genkit.dev/docs/dotprompt/)
+- [GitHub Repository](https://github.com/firebase/genkit)
+- [API References](https://genkit.dev/docs/api-references/)
+
+## Examples
+
+### Example 1: Minimal Flow
+
+```typescript
+import { googleAI } from '@genkit-ai/google-genai';
+import { genkit, z } from 'genkit';
+
+const ai = genkit({ plugins: [googleAI()] });
+
+export const helloFlow = ai.defineFlow(
+  {
+    name: 'helloFlow',
+    inputSchema: z.object({ name: z.string() }),
+    outputSchema: z.string(),
+  },
+  async ({ name }) => {
+    const { text } = await ai.generate(`Say hello to ${name} in a creative way.`);
+    return text;
+  }
+);
+
+// Run it
+const greeting = await helloFlow({ name: 'World' });
+console.log(greeting);
+```
+
+### Example 2: Full RAG + Agent Pipeline
+
+```typescript
+import { googleAI, textEmbedding004 } from '@genkit-ai/google-genai';
+import { devLocalVectorstore } from '@genkit-ai/dev-local-vectorstore';
+import { genkit, z } from 'genkit';
+
+const ai = genkit({
+  plugins: [
+    googleAI(),
+    devLocalVectorstore([{ indexName: 'kb', embedder: textEmbedding004 }]),
+  ],
+});
+
+// Index knowledge base documents
+const indexKnowledgeBase = ai.defineFlow(
+  { name: 'indexKB', inputSchema: z.array(z.string()) },
+  async (texts) => {
+    await ai.index({
+      indexer: devLocalVectorstoreIndexer('kb'),
+      docs: texts.map(text => ({ content: [{ text }] })),
+    });
+  }
+);
+
+// Answer questions using RAG
+export const answerFlow = ai.defineFlow(
+  {
+    name: 'answerFlow',
+    inputSchema: z.object({ question: z.string() }),
+    outputSchema: z.object({ answer: z.string(), sources: z.number() }),
+  },
+  async ({ question }) => {
+    const docs = await ai.retrieve({
+      retriever: devLocalVectorstoreRetriever('kb'),
+      query: question,
+      options: { k: 5 },
+    });
+
+    const { text } = await ai.generate({
+      system: 'Answer only from the provided context. If unsure, say so.',
+      prompt: question,
+      docs,
+    });
+
+    return { answer: text, sources: docs.length };
+  }
+);
+```
+
+### Example 3: Multi-Model Comparison
+
+```typescript
+import { googleAI } from '@genkit-ai/google-genai';
+import { openAI } from 'genkitx-openai';
+import { genkit, z } from 'genkit';
+
+const ai = genkit({ plugins: [googleAI(), openAI()] });
+
+export const compareModelsFlow = ai.defineFlow(
+  {
+    name: 'compareModelsFlow',
+    inputSchema: z.object({ prompt: z.string() }),
+    outputSchema: z.object({ gemini: z.string(), gpt4o: z.string() }),
+  },
+  async ({ prompt }) => {
+    const [geminiResult, gptResult] = await Promise.all([
+      ai.generate({ model: googleAI.model('gemini-2.5-flash'), prompt }),
+      ai.generate({ model: 'openai/gpt-4o', prompt }),
+    ]);
+
+    return {
+      gemini: geminiResult.text,
+      gpt4o: gptResult.text,
+    };
+  }
+);
+```

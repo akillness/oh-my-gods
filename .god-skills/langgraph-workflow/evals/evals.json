@@ -3,52 +3,32 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Build a LangGraph StateGraph for a multi-step content workflow: plan -> write -> review. If quality < 0.7, loop back to write and cap retries at 3.",
-      "expected_output": "A typed StateGraph with nodes for plan, write, and review, plus conditional routing and explicit retry_count handling.",
+      "prompt": "Build a LangGraph StateGraph for a multi-step content generation pipeline: plan → write → review. If quality score < 0.7, loop back to write. Max 3 retries.",
+      "expected_output": "Working StateGraph with conditional edges routing from review back to write on low quality, AND to END on success or max retries.",
       "assertions": [
-        "StateGraph is created with nodes for plan, write, and review",
-        "Conditional edge from review routes back to write when quality is low",
-        "retry_count is part of the state and capped"
+        "StateGraph is created with nodes: plan, write, review",
+        "Conditional edge from review routes to write on low quality and to END on pass",
+        "retry_count field is incremented and capped at 3"
       ]
     },
     {
       "id": 2,
-      "prompt": "Add a deploy approval gate to my LangGraph workflow. I want the graph to pause and then resume after a reviewer approves it.",
-      "expected_output": "A graph compiled with a checkpointer plus either interrupt_before for static pause or interrupt()/Command for dynamic pause.",
+      "prompt": "Add a Human-in-the-Loop approval gate before the deploy node in my LangGraph pipeline. The agent should pause and wait for human confirmation.",
+      "expected_output": "Graph compiled with interrupt_before=['deploy'] and MemorySaver checkpointer. Resume logic shown.",
       "assertions": [
-        "A checkpointer is included",
-        "thread_id config is shown for resume",
-        "Resume flow uses Command(resume=...) or equivalent"
+        "compile() is called with interrupt_before=['deploy']",
+        "MemorySaver or equivalent checkpointer is provided",
+        "Resume invocation shown with None input and thread_id"
       ]
     },
     {
       "id": 3,
-      "prompt": "Show how to stream a long-running LangGraph workflow and keep its execution durable across retries.",
-      "expected_output": "Streaming example with version='v2', a checkpointer, and guidance that durable execution requires persistence and stable thread IDs.",
+      "prompt": "Set up LangSmith tracing for my LangGraph workflow so I can monitor each node's token usage and latency.",
+      "expected_output": "Environment variables set (LANGCHAIN_TRACING_V2, LANGCHAIN_API_KEY). @traceable decorator shown for custom spans.",
       "assertions": [
-        "Streaming API is shown",
-        "Persistence requirement is explained",
-        "thread_id is mentioned explicitly"
-      ]
-    },
-    {
-      "id": 4,
-      "prompt": "I have a deepagents specialist but I still want LangGraph to own retries and routing. Show me a hybrid pattern.",
-      "expected_output": "A LangGraph supervisor node invoking a compiled deep agent while the outer graph owns orchestration.",
-      "assertions": [
-        "Response includes create_deep_agent()",
-        "Deep agent is called from inside a LangGraph node",
-        "Response explains why LangGraph remains the outer supervisor"
-      ]
-    },
-    {
-      "id": 5,
-      "prompt": "Explain when I should compile a subgraph with checkpointer=False inside a larger LangGraph workflow.",
-      "expected_output": "Guidance that stateless compilation is appropriate when repeatedly invoking the same subgraph inside one parent node and durable resume is unnecessary.",
-      "assertions": [
-        "checkpointer=False is shown or mentioned",
-        "Repeated subgraph invocation is described",
-        "Tradeoff between persistence and simplicity is explained"
+        "LANGCHAIN_TRACING_V2=true is set",
+        "LANGCHAIN_API_KEY is referenced",
+        "@traceable decorator is used on at least one function"
       ]
     }
   ]

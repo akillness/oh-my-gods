@@ -1,178 +1,553 @@
 ---
 name: state-management
-description: >
-  Choose and structure state management for frontend applications. Use when the
-  user needs to decide between local component state, React Context, Zustand,
-  Redux Toolkit, TanStack Query, or form-state tools; when props drilling or
-  duplicated client/server state is causing complexity; or when reviewing a
-  store design for over-globalization, stale derived state, or synchronization
-  bugs. Triggers on: global state, props drilling, Redux vs Zustand, React
-  Context, TanStack Query, client state, server state, form state, store
-  design.
+description: Implement state management patterns for frontend applications. Use when managing global state, handling complex data flows, or coordinating state across components. Handles React Context, Redux, Zustand, Recoil, and state management best practices.
 allowed-tools: Read Write Edit Grep Glob
 metadata:
-  tags: state-management, React, Redux, Context, Zustand, TanStack-Query, frontend
-  platforms: Claude, ChatGPT, Gemini, Codex
-  version: "2.0.0"
+  tags: state-management, React, Redux, Context, Zustand, Recoil, global-state
+  platforms: Claude, ChatGPT, Gemini
 ---
+
 
 # State Management
 
-State management is mainly a boundary-choice problem. Keep the entrypoint
-focused on separating local, shared client, server, form, and URL state, then
-load the support files only when the user needs concrete library patterns.
 
 ## When to use this skill
 
-- Choose between `useState`, Context, Zustand, Redux Toolkit, or a server-state
-  library for a frontend workflow
-- Fix props drilling, duplicated state, or a store that keeps growing without
-  clear ownership
-- Review persistence, hydration, or subscription patterns for correctness and
-  performance
-- Separate fetched API data from client-owned UI state and draft form state
-- Introduce state management to an app that has outgrown local-only patterns
-
-Prefer a narrower sibling skill when the request is not primarily a
-state-ownership problem:
-
-- `ui-component-patterns` for component composition and prop interface design
-- `react-best-practices` for broader React performance and rendering guidance
-- `backend-testing` when the main gap is test coverage for reducers, stores, or
-  async state flows
-- `authentication-setup` when auth protocols or token lifecycle are the core
-  concern rather than store structure
+- **Global State Required**: Multiple components share the same data
+- **Props Drilling Problem**: Passing props through 5+ levels
+- **Complex State Logic**: Authentication, shopping cart, themes, etc.
+- **State Synchronization**: Sync server data with client state
 
 ## Instructions
 
-### Step 1: Triage the state classes before picking a library
+### Step 1: Determine State Scope
 
-Separate the problem first:
+Distinguish between local and global state.
 
-- local UI state: toggles, inline forms, transient component state
-- shared client state: theme, cart, auth session shell, feature flags, wizard
-  progress
-- server state: fetched data, caching, background refetch, optimistic updates
-- form state: draft inputs, validation, dirty tracking, submission lifecycle
-- URL or navigation state: filters, tabs, route-driven selection
+**Decision Criteria**:
+- **Local State**: Used only within a single component
+  - Form input values, toggle states, dropdown open/close
+  - Use `useState`, `useReducer`
 
-If these categories are mixed together in the request, untangle them before
-recommending a tool.
+- **Global State**: Shared across multiple components
+  - User authentication, shopping cart, theme, language settings
+  - Use Context API, Redux, Zustand
 
-### Step 2: Choose the smallest viable state surface
+**Example**:
+```tsx
+// ✅ Local state (single component)
+function SearchBox() {
+  const [query, setQuery] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
 
-Start small and escalate only when the workflow truly needs more structure:
+  return (
+    <div>
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onFocus={() => setIsOpen(true)}
+      />
+      {isOpen && <SearchResults query={query} />}
+    </div>
+  );
+}
 
-- local component state for single-owner UI state
-- React Context for low-frequency shared values and simple app shells
-- Zustand for medium-complexity shared client state with lightweight store
-  ergonomics
-- Redux Toolkit for large apps that need explicit events, middleware, async
-  workflows, or team-wide conventions
-- TanStack Query or another server-state tool for API caching, invalidation,
-  and background freshness
-- React Hook Form plus a schema validator when form lifecycle is the real
-  problem
-
-Do not default to one global store for fetched data, form drafts, and UI
-toggles all at once.
-
-### Step 3: Keep ownership and boundaries explicit
-
-Before calling the design done:
-
-- keep one source of truth for each piece of data
-- derive totals, counts, and booleans instead of storing them redundantly
-- avoid copying server responses into client stores unless there is a clear
-  offline or workflow reason
-- keep actions narrow and named by domain behavior, not vague `setData` style
-  verbs
-- persist only intentional state such as cart contents or user preferences
-
-### Step 4: Review correctness, performance, and persistence
-
-Check the design against the common failure modes:
-
-- selective subscription instead of subscribing broad components to the entire
-  store
-- immutable updates and predictable reset behavior
-- clear hydration boundaries for SSR or persisted state
-- optimistic updates only when rollback or invalidation is defined
-- avoid giant providers or a single catch-all store that owns unrelated
-  domains
-
-### Step 5: Pull support files only when they add leverage
-
-Load only the smallest reference that matches the request:
-
-- `references/state-selection-matrix.md` for choosing the right state surface
-- `references/context-and-zustand-patterns.md` for shared client-state
-  structure and store examples
-- `references/redux-server-and-form-patterns.md` for Redux Toolkit, server
-  state, form-state boundaries, and review checklists
-
-## Examples
-
-### Example 1: Props drilling and app shell state
-
-Input:
-
-```text
-We pass auth, theme, and locale through six levels of components. Should we use
-Context, Zustand, or Redux?
+// ✅ Global state (multiple components)
+// User authentication info is used in Header, Profile, Settings, etc.
+const { user, logout } = useAuth();  // Context or Zustand
 ```
 
-Expected shape:
+### Step 2: React Context API (Simple Global State)
 
-- separates shared shell state from other state classes first
-- chooses Context or a lightweight store before jumping to Redux by default
-- explains when Redux would only be justified if broader workflow complexity
-  exists
+Suitable for lightweight global state management.
 
-### Example 2: Server data in the wrong store
+**Example** (Authentication Context):
+```tsx
+// contexts/AuthContext.tsx
+import { createContext, useContext, useState, ReactNode } from 'react';
 
-Input:
+interface User {
+  id: string;
+  email: string;
+  name: string;
+}
 
-```text
-Our dashboard keeps API responses, loading flags, and retries in Redux for
-every page. Is that still the right approach?
+interface AuthContextType {
+  user: User | null;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+  isAuthenticated: boolean;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
+
+  const login = async (email: string, password: string) => {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+    setUser(data.user);
+    localStorage.setItem('token', data.token);
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('token');
+  };
+
+  return (
+    <AuthContext.Provider value={{
+      user,
+      login,
+      logout,
+      isAuthenticated: !!user
+    }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+// Custom hook
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within AuthProvider');
+  }
+  return context;
+}
 ```
 
-Expected shape:
+**Usage**:
+```tsx
+// App.tsx
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <Header />
+        <Routes />
+      </Router>
+    </AuthProvider>
+  );
+}
 
-- identifies this as largely server-state management
-- recommends a server-state tool or clearer separation rather than stuffing
-  everything into one client store
-- calls out invalidation, freshness, and optimistic update concerns
+// Header.tsx
+function Header() {
+  const { user, logout, isAuthenticated } = useAuth();
 
-### Example 3: Mixed checkout state
-
-Input:
-
-```text
-We have a checkout flow with cart state, shipping form drafts, promo-code API
-calls, and URL-driven steps. How should we structure it?
+  return (
+    <header>
+      {isAuthenticated ? (
+        <>
+          <span>Welcome, {user!.name}</span>
+          <button onClick={logout}>Logout</button>
+        </>
+      ) : (
+        <Link to="/login">Login</Link>
+      )}
+    </header>
+  );
+}
 ```
 
-Expected shape:
+### Step 3: Zustand (Modern and Concise State Management)
 
-- splits cart, form, server, and URL state into different ownership lanes
-- avoids recommending one store for every concern
-- names the smallest tools or patterns needed for each lane
+Simpler than Redux with less boilerplate.
+
+**Installation**:
+```bash
+npm install zustand
+```
+
+**Example** (Shopping Cart):
+```tsx
+// stores/cartStore.ts
+import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
+
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+interface CartStore {
+  items: CartItem[];
+  addItem: (item: Omit<CartItem, 'quantity'>) => void;
+  removeItem: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
+  clearCart: () => void;
+  total: () => number;
+}
+
+export const useCartStore = create<CartStore>()(
+  devtools(
+    persist(
+      (set, get) => ({
+        items: [],
+
+        addItem: (item) => set((state) => {
+          const existing = state.items.find(i => i.id === item.id);
+          if (existing) {
+            return {
+              items: state.items.map(i =>
+                i.id === item.id
+                  ? { ...i, quantity: i.quantity + 1 }
+                  : i
+              )
+            };
+          }
+          return { items: [...state.items, { ...item, quantity: 1 }] };
+        }),
+
+        removeItem: (id) => set((state) => ({
+          items: state.items.filter(item => item.id !== id)
+        })),
+
+        updateQuantity: (id, quantity) => set((state) => ({
+          items: state.items.map(item =>
+            item.id === id ? { ...item, quantity } : item
+          )
+        })),
+
+        clearCart: () => set({ items: [] }),
+
+        total: () => {
+          const { items } = get();
+          return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        }
+      }),
+      { name: 'cart-storage' }  // localStorage key
+    )
+  )
+);
+```
+
+**Usage**:
+```tsx
+// components/ProductCard.tsx
+function ProductCard({ product }) {
+  const addItem = useCartStore(state => state.addItem);
+
+  return (
+    <div>
+      <h3>{product.name}</h3>
+      <p>${product.price}</p>
+      <button onClick={() => addItem(product)}>
+        Add to Cart
+      </button>
+    </div>
+  );
+}
+
+// components/Cart.tsx
+function Cart() {
+  const items = useCartStore(state => state.items);
+  const total = useCartStore(state => state.total());
+  const removeItem = useCartStore(state => state.removeItem);
+
+  return (
+    <div>
+      <h2>Cart</h2>
+      {items.map(item => (
+        <div key={item.id}>
+          <span>{item.name} x {item.quantity}</span>
+          <span>${item.price * item.quantity}</span>
+          <button onClick={() => removeItem(item.id)}>Remove</button>
+        </div>
+      ))}
+      <p>Total: ${total.toFixed(2)}</p>
+    </div>
+  );
+}
+```
+
+### Step 4: Redux Toolkit (Large-Scale Apps)
+
+Use when complex state logic and middleware are required.
+
+**Installation**:
+```bash
+npm install @reduxjs/toolkit react-redux
+```
+
+**Example** (Todo):
+```tsx
+// store/todosSlice.ts
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+
+interface Todo {
+  id: string;
+  text: string;
+  completed: boolean;
+}
+
+interface TodosState {
+  items: Todo[];
+  status: 'idle' | 'loading' | 'failed';
+}
+
+const initialState: TodosState = {
+  items: [],
+  status: 'idle'
+};
+
+// Async action
+export const fetchTodos = createAsyncThunk('todos/fetch', async () => {
+  const response = await fetch('/api/todos');
+  return response.json();
+});
+
+const todosSlice = createSlice({
+  name: 'todos',
+  initialState,
+  reducers: {
+    addTodo: (state, action: PayloadAction<string>) => {
+      state.items.push({
+        id: Date.now().toString(),
+        text: action.payload,
+        completed: false
+      });
+    },
+    toggleTodo: (state, action: PayloadAction<string>) => {
+      const todo = state.items.find(t => t.id === action.payload);
+      if (todo) {
+        todo.completed = !todo.completed;
+      }
+    },
+    removeTodo: (state, action: PayloadAction<string>) => {
+      state.items = state.items.filter(t => t.id !== action.payload);
+    }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTodos.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchTodos.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.items = action.payload;
+      })
+      .addCase(fetchTodos.rejected, (state) => {
+        state.status = 'failed';
+      });
+  }
+});
+
+export const { addTodo, toggleTodo, removeTodo } = todosSlice.actions;
+export default todosSlice.reducer;
+
+// store/index.ts
+import { configureStore } from '@reduxjs/toolkit';
+import todosReducer from './todosSlice';
+
+export const store = configureStore({
+  reducer: {
+    todos: todosReducer
+  }
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+```
+
+**Usage**:
+```tsx
+// App.tsx
+import { Provider } from 'react-redux';
+import { store } from './store';
+
+function App() {
+  return (
+    <Provider store={store}>
+      <TodoApp />
+    </Provider>
+  );
+}
+
+// components/TodoList.tsx
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../store';
+import { toggleTodo, removeTodo } from '../store/todosSlice';
+
+function TodoList() {
+  const todos = useSelector((state: RootState) => state.todos.items);
+  const dispatch = useDispatch();
+
+  return (
+    <ul>
+      {todos.map(todo => (
+        <li key={todo.id}>
+          <input
+            type="checkbox"
+            checked={todo.completed}
+            onChange={() => dispatch(toggleTodo(todo.id))}
+          />
+          <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+            {todo.text}
+          </span>
+          <button onClick={() => dispatch(removeTodo(todo.id))}>Delete</button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### Step 5: Server State Management (React Query / TanStack Query)
+
+Specialized for API data fetching and caching.
+
+```tsx
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
+function UserProfile({ userId }: { userId: string }) {
+  const queryClient = useQueryClient();
+
+  // GET: Fetch user info
+  const { data: user, isLoading, error } = useQuery({
+    queryKey: ['user', userId],
+    queryFn: async () => {
+      const res = await fetch(`/api/users/${userId}`);
+      return res.json();
+    },
+    staleTime: 5 * 60 * 1000,  // Cache for 5 minutes
+  });
+
+  // POST: Update user info
+  const mutation = useMutation({
+    mutationFn: async (updatedUser: Partial<User>) => {
+      const res = await fetch(`/api/users/${userId}`, {
+        method: 'PATCH',
+        body: JSON.stringify(updatedUser)
+      });
+      return res.json();
+    },
+    onSuccess: () => {
+      // Invalidate cache and refetch
+      queryClient.invalidateQueries({ queryKey: ['user', userId] });
+    }
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+      <button onClick={() => mutation.mutate({ name: 'New Name' })}>
+        Update Name
+      </button>
+    </div>
+  );
+}
+```
+
+## Output format
+
+### State Management Tool Selection Guide
+
+```
+Recommended tools by scenario:
+
+1. Simple global state (theme, language)
+   → React Context API
+
+2. Medium complexity (shopping cart, user settings)
+   → Zustand
+
+3. Large-scale apps, complex logic, middleware required
+   → Redux Toolkit
+
+4. Server data fetching/caching
+   → React Query (TanStack Query)
+
+5. Form state
+   → React Hook Form + Zod
+```
+
+## Constraints
+
+### Required Rules (MUST)
+
+1. **State Immutability**: Never mutate state directly
+   ```tsx
+   // ❌ Bad example
+   state.items.push(newItem);
+
+   // ✅ Good example
+   setState({ items: [...state.items, newItem] });
+   ```
+
+2. **Minimal State Principle**: Do not store derivable values in state
+   ```tsx
+   // ❌ Bad example
+   const [items, setItems] = useState([]);
+   const [count, setCount] = useState(0);  // Can be calculated as items.length
+
+   // ✅ Good example
+   const [items, setItems] = useState([]);
+   const count = items.length;  // Derived value
+   ```
+
+3. **Single Source of Truth**: Do not duplicate the same data in multiple places
+
+### Prohibited Rules (MUST NOT)
+
+1. **Excessive Props Drilling**: Prohibited when passing props through 5+ levels
+   - Use Context or a state management library
+
+2. **Avoid Making Everything Global State**: Prefer local state when sufficient
 
 ## Best practices
 
-- Pick the state class before the library
-- Default to the smallest viable state surface
-- Keep server data out of client-owned global stores unless there is a clear
-  reason
-- Derive values whenever possible instead of storing duplicates
-- Persist only user-owned state that must survive reloads
-- Keep detailed examples in references so the entrypoint stays compact and
-  triggerable
+1. **Selective Subscription**: Subscribe only to the state you need
+   ```tsx
+   // ✅ Good: only what you need
+   const items = useCartStore(state => state.items);
+
+   // ❌ Bad: subscribing to everything
+   const { items, addItem, removeItem, updateQuantity, clearCart } = useCartStore();
+   ```
+
+2. **Clear Action Names**: `update` → `updateUserProfile`
+
+3. **Use TypeScript**: Ensure type safety
 
 ## References
 
-- `references/state-selection-matrix.md`
-- `references/context-and-zustand-patterns.md`
-- `references/redux-server-and-form-patterns.md`
+- [Zustand](https://zustand-demo.pmnd.rs/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [React Query](https://tanstack.com/query/latest)
+- [Jotai](https://jotai.org/)
+- [Recoil](https://recoiljs.org/)
+
+## Metadata
+
+### Version
+- **Current Version**: 1.0.0
+- **Last Updated**: 2025-01-01
+- **Compatible Platforms**: Claude, ChatGPT, Gemini
+
+### Related Skills
+- [ui-component-patterns](../ui-component-patterns/SKILL.md): Component and state integration
+- [backend-testing](../../backend/backend-testing/SKILL.md): Testing state logic
+
+### Tags
+`#state-management` `#React` `#Redux` `#Zustand` `#Context` `#global-state` `#frontend`
+
+## Examples
+
+### Example 1: Basic usage
+<!-- Add example content here -->
+
+### Example 2: Advanced usage
+<!-- Add advanced example content here -->
