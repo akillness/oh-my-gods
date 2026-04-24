@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Skills](https://img.shields.io/badge/Skills-73-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
+[![Skills](https://img.shields.io/badge/Skills-76-blue?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0tMiAxNWwtNS01IDEuNDEtMS40MUwxMCAxNC4xN2w3LjU5LTcuNTlMMTkgOGwtOSA5eiIvPjwvc3ZnPg==)](https://github.com/akillness/oh-my-gods)
 [![Platform](https://img.shields.io/badge/Platform-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-2.0.0-purple?style=for-the-badge)](CHANGELOG.md)
@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **73 skills** including the new `frouter` — free AI model router for OpenCode/OpenClaw
+> **76 skills** — new: `ai-research-skills` — 86 AI research skills for autonomous ML research from idea to paper
 
 [Quick Start](#-quick-start) · [OMG Core](#-omg--core-orchestration-skill) · [Hidden Features](#-hidden-power-features) · [LangChain](#-langchain-integration) · [Full Catalog](#-full-skill-catalog) · [한국어](README.ko.md)
 
@@ -70,7 +70,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
 
 ## 🎯 What is oh-my-gods?
 
-`oh-my-gods` is a curated collection of **73 AI agent skills** designed for LLM-based development workflows. Built around the `omg` orchestration protocol, it provides:
+`oh-my-gods` is a curated collection of **76 AI agent skills** designed for LLM-based development workflows. Built around the `omg` orchestration protocol, it provides:
 
 - **Unified orchestration** across Claude Code, Gemini CLI, OpenAI Codex, and OpenCode
 - **Plan → Execute → Verify → Cleanup** automated pipelines
@@ -182,6 +182,10 @@ stateDiagram-v2
 ║  playwriter  ║  Playwright automation with live browser         ║
 ║  frouter     ║  Free AI model router — discover & configure     ║
 ║  deepagents  ║  LangGraph batteries-included agent harness      ║
+║  clawteam    ║  Framework-agnostic multi-agent coordination CLI  ║
+║  agent-manager║ tmux+Python agent lifecycle mgr — no server     ║
+║  pm-skills   ║  AI OS for PMs — 65 skills, 36 commands, 8 plugins║
+║  ai-research-skills║ 86 AI research skills — from ideation to paper (autonomous)║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -201,6 +205,10 @@ stateDiagram-v2
 | `playwriter` | `playwriter` | Playwright automation connecting to your *running* browser (preserves cookies/logins) | Internal |
 | `frouter` | `frouter`, `--best` | Free AI model router — discover, benchmark & configure NVIDIA NIM / OpenRouter models for OpenCode/OpenClaw | [jyoung105/frouter](https://github.com/jyoung105/frouter) |
 | `deepagents` | `deepagents`, `create_deep_agent` | Batteries-included LangGraph agent harness — file tools, middleware, subagents, HITL out of the box | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) |
+| `clawteam` | `clawteam`, `agent swarm` | Framework-agnostic multi-agent coordination CLI — spawn tmux teams, task queues, inboxes, kanban board | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) |
+| `agent-manager` | `agent-manager`, `start agent`, `stop agent`, `monitor agent` | tmux + Python agent lifecycle manager — start/stop/monitor/schedule/heartbeat without a server | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) |
+| `pm-skills` | `pm-skills`, `product discovery`, `write PRD`, `user stories`, `product strategy` | AI OS for product managers — 65 skills, 36 commands across 8 plugins (Teresa Torres, Marty Cagan, Alberto Savoia) | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) |
+| `ai-research-skills` | `ai-research-skills`, `autoresearch`, `ml experiments`, `fine-tuning`, `grpo`, `vllm`, `rlhf` | 86 AI research skills (22 categories) for autonomous research — fine-tuning, RLHF, GRPO, vLLM, RAG, multimodal, ML papers | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
 
 ---
 
@@ -266,7 +274,7 @@ graph TD
 
 | Skill | Keyword | Platform | Description |
 |-------|---------|----------|-------------|
-|  | `omg` |  | `omg` | All | Integrated orchestration: PLAN→EXECUTE→VERIFY→CLEANUP |
+| `omg` | `omg` | All | Integrated orchestration: PLAN→EXECUTE→VERIFY→CLEANUP |
 | `omc` | `omc`, `autopilot` | Claude Code | 32-agent multi-agent orchestration layer |
 | `omx` | `omx` | Codex CLI | 40+ workflow skills, tmux team orchestration |
 | `ohmg` | `ohmg` | Gemini CLI | Antigravity multi-agent framework |
@@ -275,6 +283,8 @@ graph TD
 | `bmad` | `bmad`, `/workflow-init` | All | Structured phase-based AI development |
 | `bmad-idea` | `bmad-idea` | All | Creative intelligence — 5 specialist ideation agents |
 | `survey` | `survey` | All | Pre-implementation landscape scan |
+| `clawteam` | `clawteam`, `agent swarm` | All | Framework-agnostic multi-agent coordination — spawn tmux teams, task queues, kanban board |
+| `pm-skills` | `pm-skills`, `product discovery`, `write PRD` | All | AI OS for product managers — 65 skills, 36 commands, 8 plugins encoding PM frameworks |
 
 ### Planning & Review
 
@@ -300,6 +310,7 @@ graph TD
 | `git-submodule` | Git submodule management |
 | `debugging` | Root cause analysis, regression isolation |
 | `code-review` | Comprehensive code review with API contracts |
+| `agent-manager` | tmux + Python agent lifecycle manager — start/stop/monitor/schedule/heartbeat without a server |
 
 ### Backend & Infrastructure
 
@@ -345,6 +356,7 @@ graph TD
 | `prompt-repetition` | LLM accuracy via prompt repetition technique |
 | `deepagents` | Batteries-included LangGraph agent harness — `create_deep_agent()`, middleware, subagents, HITL |
 | `langgraph-workflow` | Stateful multi-agent workflows — StateGraph, checkpointing, HITL gates, parallel execution |
+| `ai-research-skills` | 86 AI research skills (22 categories) — autoresearch orchestration, fine-tuning, RLHF/GRPO, vLLM, RAG, multimodal, ML paper writing |
 
 ### Content & Media
 
@@ -405,7 +417,9 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
   --skill fabric --skill autoresearch --skill langextract \
-  --skill frouter --skill deepagents
+  --skill frouter --skill deepagents --skill langgraph-workflow --skill clawteam \
+  --skill agent-manager --skill pm-skills \
+  --skill ai-research-skills
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -473,9 +487,13 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | `agentation` | [benjitaylor/agentation](https://github.com/benjitaylor/agentation) | MIT |
 | `fabric` | [danielmiessler/fabric](https://github.com/danielmiessler/fabric) | MIT |
 | `autoresearch` | Andrej Karpathy methodology | — |
+| `agent-manager` | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) | MIT |
 | LangChain skills | [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills) | MIT |
 | `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |
+| `clawteam` | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) | MIT |
+| `pm-skills` | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) | MIT |
+| `ai-research-skills` | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | MIT |
 | `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
