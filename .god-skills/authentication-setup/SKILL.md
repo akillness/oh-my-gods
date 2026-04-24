@@ -1,213 +1,667 @@
 ---
 name: authentication-setup
-description: >
-  Design and implement authentication and authorization for web apps and APIs,
-  including password login, sessions, JWTs, OAuth, MFA, and role or permission
-  checks. Use when the user needs a login system, token or session management,
-  social sign-in, auth migration, refresh-token flow, RBAC, or SSO. Triggers
-  on: JWT auth, session auth, OAuth login, SSO, refresh token, MFA, RBAC,
-  permission checks.
+description: Design and implement authentication and authorization systems. Use when setting up user login, JWT tokens, OAuth, session management, or role-based access control. Handles password security, token management, SSO integration.
 allowed-tools: Read Write Bash Grep Glob
 metadata:
-  tags: authentication, authorization, security, jwt, oauth, rbac, session, sso, mfa
-  version: "2.0"
+  tags: authentication, authorization, security, JWT, OAuth, RBAC
+  platforms: Claude, ChatGPT, Gemini
 ---
+
 
 # Authentication Setup
 
-Authentication work is mostly boundary design: identity proof, session or token
-issuance, permission checks, and the operational controls that keep secrets and
-privileged actions safe. Keep this entrypoint compact, then pull the support
-files only when framework boilerplate or security detail is needed.
 
 ## When to use this skill
 
-- Add login, signup, logout, refresh-token, or current-user flows
-- Choose between session auth, JWT auth, OAuth, SSO, or mixed auth models
-- Add RBAC, permission checks, or admin-only boundaries
-- Add MFA or step-up verification to an existing auth system
-- Migrate an existing service from one auth model to another
-- Review an auth implementation for obvious security and lifecycle gaps
+Lists specific situations where this skill should be triggered:
 
-Do not use this skill as the only source of truth for highly regulated identity
-requirements or custom cryptography design. In those cases, pair it with the
-project's security requirements and official vendor guidance.
+- **User Login System**: When adding user authentication to a new application
+- **API Security**: When adding an authentication layer to a REST or GraphQL API
+- **Permission Management**: When role-based access control is needed
+- **Authentication Migration**: When migrating an existing auth system to JWT or OAuth
+- **SSO Integration**: When integrating social login with Google, GitHub, Microsoft, etc.
+
+## Input Format
+
+The required and optional input information to collect from the user:
+
+### Required Information
+- **Authentication Method**: Choose from JWT, Session, or OAuth 2.0
+- **Backend Framework**: Express, Django, FastAPI, Spring Boot, etc.
+- **Database**: PostgreSQL, MySQL, MongoDB, etc.
+- **Security Requirements**: Password policy, token expiry times, etc.
+
+### Optional Information
+- **MFA Support**: Whether to enable 2FA/MFA (default: false)
+- **Social Login**: OAuth providers (Google, GitHub, etc.)
+- **Session Storage**: Redis, in-memory, etc. (if using sessions)
+- **Refresh Token**: Whether to use (default: true)
+
+### Input Example
+
+```
+Build a user authentication system:
+- Auth method: JWT
+- Framework: Express.js + TypeScript
+- Database: PostgreSQL
+- MFA: Google Authenticator support
+- Social login: Google, GitHub
+- Refresh Token: enabled
+```
 
 ## Instructions
 
-### Step 1: Triage the auth shape before choosing an implementation
+Specifies the step-by-step task sequence to follow precisely.
 
-Capture the minimum facts first:
+### Step 1: Design the Data Model
 
-- app type: API, SPA plus API, server-rendered app, mobile backend, internal tool
-- auth surface: email or password, magic link, session, JWT, OAuth, SSO, MFA
-- storage and runtime: framework, database, cache, reverse proxy, deployment model
-- trust boundary: user roles, privileged actions, tenant model, internal vs external users
-- operational needs: token revocation, account recovery, audit trail, device/session management
+Design the database schema for users and authentication.
 
-If the user has not chosen an auth model yet, stop and classify the product
-shape before writing code.
+**Tasks**:
+- Design the User table (id, email, password_hash, role, created_at, updated_at)
+- RefreshToken table (optional)
+- OAuthProvider table (if using social login)
+- Never store passwords in plaintext (bcrypt/argon2 hashing is mandatory)
 
-### Step 2: Choose the auth model deliberately
+**Example** (PostgreSQL):
+```sql
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255),  -- NULL if OAuth only
+    role VARCHAR(50) DEFAULT 'user',
+    is_verified BOOLEAN DEFAULT false,
+    mfa_secret VARCHAR(255),
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
 
-Pick the smallest model that matches the product:
+CREATE TABLE refresh_tokens (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    token VARCHAR(500) UNIQUE NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
 
-| Model | Prefer when | Watch for |
-|------|-------------|-----------|
-| Session cookies | Server-rendered apps, admin tools, same-origin web apps | CSRF, cookie flags, shared session storage |
-| JWT access plus refresh | APIs, SPAs, mobile clients, distributed services | token rotation, revocation, refresh storage, secret rotation |
-| OAuth or SSO | Third-party identity, enterprise login, social sign-in | redirect validation, account linking, provider outage handling |
-| Hybrid | Existing password login plus social or enterprise login | duplicate identities, upgrade path, privilege consistency |
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_refresh_tokens_user_id ON refresh_tokens(user_id);
+```
 
-State the tradeoff briefly before implementing. If a stateless token model is
-not clearly required, do not default to JWT just because it is familiar.
+### Step 2: Implement Password Security
 
-### Step 3: Design identity, secret, and persistence boundaries
+Implement password hashing and verification logic.
 
-Lock these decisions before endpoint work:
+**Tasks**:
+- Use bcrypt (Node.js) or argon2 (Python)
+- Set salt rounds to a minimum of 10
+- Password strength validation (minimum 8 chars, upper/lowercase, numbers, special characters)
 
-- canonical user identity and unique identifiers
-- password hashing or external identity-only mode
-- refresh token or session persistence and revocation strategy
-- secret storage via environment or secret manager, never in source
-- audit fields such as verification state, last login, or MFA enrollment only when they matter
+**Decision Criteria**:
+- Node.js projects → use the bcrypt library
+- Python projects → use argon2-cffi or passlib
+- Performance-critical cases → choose bcrypt
+- Cases requiring maximum security → choose argon2
 
-Minimum expectations:
+**Example** (Node.js + TypeScript):
+```typescript
+import bcrypt from 'bcrypt';
 
-- passwords use bcrypt or argon2
-- access tokens are short-lived
-- refresh tokens or sessions can be revoked
-- privileged roles are stored and checked explicitly
-- secrets and provider credentials stay outside the repo
+const SALT_ROUNDS = 12;
 
-Detailed implementation recipes live in `references/framework-recipes.md`.
+export async function hashPassword(password: string): Promise<string> {
+    // Validate password strength
+    if (password.length < 8) {
+        throw new Error('Password must be at least 8 characters');
+    }
 
-### Step 4: Implement the core auth flows
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-Build only the flows the product actually needs:
+    if (!hasUpperCase || !hasLowerCase || !hasNumber || !hasSpecial) {
+        throw new Error('Password must contain uppercase, lowercase, number, and special character');
+    }
 
-1. registration or account bootstrap
-2. login or provider callback
-3. logout or revocation
-4. refresh or session renewal
-5. current-user or claims lookup
-6. password reset or account recovery when requested
+    return await bcrypt.hash(password, SALT_ROUNDS);
+}
 
-For every flow, make the boundary observable:
+export async function verifyPassword(password: string, hash: string): Promise<boolean> {
+    return await bcrypt.compare(password, hash);
+}
+```
 
-- validate inputs
-- return consistent auth errors
-- avoid leaking whether an account exists unless the product explicitly requires it
-- persist or revoke refresh tokens or sessions deliberately
-- keep token payloads minimal
+### Step 3: Generate and Verify JWT Tokens
 
-### Step 5: Enforce authorization and operational defenses
+Implement a token system for JWT-based authentication.
 
-Authentication proves identity. Authorization proves the caller can perform the
-action.
+**Tasks**:
+- Access Token (short expiry: 15 minutes)
+- Refresh Token (long expiry: 7–30 days)
+- Use a strong SECRET key for JWT signing (manage via environment variables)
+- Include only the minimum necessary information in the token payload (user_id, role)
 
-Always cover:
+**Example** (Node.js):
+```typescript
+import jwt from 'jsonwebtoken';
 
-- route or handler-level permission checks
-- default-deny behavior for privileged actions
-- rate limits on login, reset, and MFA verification
-- secure cookie settings or token transport rules
-- CORS or redirect allowlists where cross-origin flows exist
-- logging and monitoring that avoid passwords, tokens, or secrets
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET!;
+const ACCESS_TOKEN_EXPIRY = '15m';
+const REFRESH_TOKEN_EXPIRY = '7d';
 
-Use `references/security-checklist.md` for the hardening and common-failure
-checklist.
+interface TokenPayload {
+    userId: string;
+    email: string;
+    role: string;
+}
 
-### Step 6: Verify the risky paths, not just the happy path
+export function generateAccessToken(payload: TokenPayload): string {
+    return jwt.sign(payload, ACCESS_TOKEN_SECRET, {
+        expiresIn: ACCESS_TOKEN_EXPIRY,
+        issuer: 'your-app-name',
+        audience: 'your-app-users'
+    });
+}
 
-Minimum auth verification should include:
+export function generateRefreshToken(payload: TokenPayload): string {
+    return jwt.sign(payload, REFRESH_TOKEN_SECRET, {
+        expiresIn: REFRESH_TOKEN_EXPIRY,
+        issuer: 'your-app-name',
+        audience: 'your-app-users'
+    });
+}
 
-- successful login
-- invalid credentials
-- unauthorized access
-- forbidden access for the wrong role
-- expired or revoked refresh token or session
-- logout or revocation behavior
-- one recovery path if password reset or OAuth linking is in scope
+export function verifyAccessToken(token: string): TokenPayload {
+    return jwt.verify(token, ACCESS_TOKEN_SECRET, {
+        issuer: 'your-app-name',
+        audience: 'your-app-users'
+    }) as TokenPayload;
+}
 
-When the user wants implementation, write or update the tests instead of
-stopping at advice. If the repository already has an auth system, review the
-current code before rewriting the model.
+export function verifyRefreshToken(token: string): TokenPayload {
+    return jwt.verify(token, REFRESH_TOKEN_SECRET, {
+        issuer: 'your-app-name',
+        audience: 'your-app-users'
+    }) as TokenPayload;
+}
+```
 
-### Step 7: Pull support files only when needed
+### Step 4: Implement Authentication Middleware
 
-Use the support files instead of bloating this entrypoint:
+Write authentication middleware to protect API requests.
 
-- `references/framework-recipes.md` for schema, endpoint, Node/Python, and environment examples
-- `references/security-checklist.md` for hardening rules, rollout checks, and common auth failures
+**Checklist**:
+- [x] Extract Bearer token from the Authorization header
+- [x] Verify token and check expiry
+- [x] Attach user info to req.user for valid tokens
+- [x] Error handling (401 Unauthorized)
+
+**Example** (Express.js):
+```typescript
+import { Request, Response, NextFunction } from 'express';
+import { verifyAccessToken } from './jwt';
+
+export interface AuthRequest extends Request {
+    user?: {
+        userId: string;
+        email: string;
+        role: string;
+    };
+}
+
+export function authenticateToken(req: AuthRequest, res: Response, next: NextFunction) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+
+    if (!token) {
+        return res.status(401).json({ error: 'Access token required' });
+    }
+
+    try {
+        const payload = verifyAccessToken(token);
+        req.user = payload;
+        next();
+    } catch (error) {
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({ error: 'Token expired' });
+        }
+        return res.status(403).json({ error: 'Invalid token' });
+    }
+}
+
+// Role-based authorization middleware
+export function requireRole(...roles: string[]) {
+    return (req: AuthRequest, res: Response, next: NextFunction) => {
+        if (!req.user) {
+            return res.status(401).json({ error: 'Authentication required' });
+        }
+
+        if (!roles.includes(req.user.role)) {
+            return res.status(403).json({ error: 'Insufficient permissions' });
+        }
+
+        next();
+    };
+}
+```
+
+### Step 5: Implement Authentication API Endpoints
+
+Write APIs for registration, login, token refresh, etc.
+
+**Tasks**:
+- POST /auth/register - registration
+- POST /auth/login - login
+- POST /auth/refresh - token refresh
+- POST /auth/logout - logout
+- GET /auth/me - current user info
+
+**Example**:
+```typescript
+import express from 'express';
+import { hashPassword, verifyPassword } from './password';
+import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from './jwt';
+import { authenticateToken } from './middleware';
+
+const router = express.Router();
+
+// Registration
+router.post('/register', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Check for duplicate email
+        const existingUser = await db.user.findUnique({ where: { email } });
+        if (existingUser) {
+            return res.status(409).json({ error: 'Email already exists' });
+        }
+
+        // Hash the password
+        const passwordHash = await hashPassword(password);
+
+        // Create the user
+        const user = await db.user.create({
+            data: { email, password_hash: passwordHash, role: 'user' }
+        });
+
+        // Generate tokens
+        const accessToken = generateAccessToken({
+            userId: user.id,
+            email: user.email,
+            role: user.role
+        });
+        const refreshToken = generateRefreshToken({
+            userId: user.id,
+            email: user.email,
+            role: user.role
+        });
+
+        // Store Refresh token in DB
+        await db.refreshToken.create({
+            data: {
+                user_id: user.id,
+                token: refreshToken,
+                expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+            }
+        });
+
+        res.status(201).json({
+            user: { id: user.id, email: user.email, role: user.role },
+            accessToken,
+            refreshToken
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Login
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Find the user
+        const user = await db.user.findUnique({ where: { email } });
+        if (!user || !user.password_hash) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        // Verify the password
+        const isValid = await verifyPassword(password, user.password_hash);
+        if (!isValid) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        // Generate tokens
+        const accessToken = generateAccessToken({
+            userId: user.id,
+            email: user.email,
+            role: user.role
+        });
+        const refreshToken = generateRefreshToken({
+            userId: user.id,
+            email: user.email,
+            role: user.role
+        });
+
+        // Store Refresh token
+        await db.refreshToken.create({
+            data: {
+                user_id: user.id,
+                token: refreshToken,
+                expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            }
+        });
+
+        res.json({
+            user: { id: user.id, email: user.email, role: user.role },
+            accessToken,
+            refreshToken
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Token refresh
+router.post('/refresh', async (req, res) => {
+    try {
+        const { refreshToken } = req.body;
+
+        if (!refreshToken) {
+            return res.status(401).json({ error: 'Refresh token required' });
+        }
+
+        // Verify Refresh token
+        const payload = verifyRefreshToken(refreshToken);
+
+        // Check token in DB
+        const storedToken = await db.refreshToken.findUnique({
+            where: { token: refreshToken }
+        });
+
+        if (!storedToken || storedToken.expires_at < new Date()) {
+            return res.status(403).json({ error: 'Invalid or expired refresh token' });
+        }
+
+        // Generate new Access token
+        const accessToken = generateAccessToken({
+            userId: payload.userId,
+            email: payload.email,
+            role: payload.role
+        });
+
+        res.json({ accessToken });
+    } catch (error) {
+        res.status(403).json({ error: 'Invalid refresh token' });
+    }
+});
+
+// Current user info
+router.get('/me', authenticateToken, async (req: AuthRequest, res) => {
+    try {
+        const user = await db.user.findUnique({
+            where: { id: req.user!.userId },
+            select: { id: true, email: true, role: true, created_at: true }
+        });
+
+        res.json({ user });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+export default router;
+```
 
 ## Output format
 
-Expected response shape:
+Defines the exact format that deliverables should follow.
 
-- `Auth surface`: selected model and why
-- `Plan`: identity, storage, token or session, and permission decisions
-- `Implementation`: files or modules to create or modify
-- `Verification`: tests, manual checks, or review points
-- `Gaps`: deferred risks, compliance items, or rollout concerns
+### Basic Structure
+
+```
+Project directory/
+├── src/
+│   ├── auth/
+│   │   ├── password.ts          # password hashing/verification
+│   │   ├── jwt.ts                # JWT token generation/verification
+│   │   ├── middleware.ts         # authentication middleware
+│   │   └── routes.ts             # authentication API endpoints
+│   ├── models/
+│   │   └── User.ts               # user model
+│   └── database/
+│       └── schema.sql            # database schema
+├── .env.example                  # environment variable template
+└── README.md                     # authentication system documentation
+```
+
+### Environment Variable File (.env.example)
+
+```bash
+# JWT Secrets (MUST change in production)
+ACCESS_TOKEN_SECRET=your-access-token-secret-min-32-characters
+REFRESH_TOKEN_SECRET=your-refresh-token-secret-min-32-characters
+
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/myapp
+
+# OAuth (Optional)
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+```
+
+## Constraints
+
+Specifies mandatory rules and prohibited actions.
+
+### Mandatory Rules (MUST)
+
+1. **Password Security**: Never store passwords in plaintext
+   - Use a proven hashing algorithm such as bcrypt or argon2
+   - Salt rounds minimum of 10
+
+2. **Environment Variable Management**: Manage all secret keys via environment variables
+   - Add .env files to .gitignore
+   - Provide a list of required variables via .env.example
+
+3. **Token Expiry**: Access Tokens should be short-lived (15 min), Refresh Tokens appropriately longer (7 days)
+   - Balance security and user experience
+   - Store Refresh Tokens in the DB to enable revocation
+
+### Prohibited Actions (MUST NOT)
+
+1. **Plaintext Passwords**: Never store passwords in plaintext or print them to logs
+   - Serious security risk
+   - Legal liability issues
+
+2. **Hardcoding JWT SECRET**: Do not write SECRET keys directly in code
+   - Risk of being exposed on GitHub
+   - Production security vulnerability
+
+3. **Sensitive Data in Tokens**: Do not include passwords, card numbers, or other sensitive data in JWT payloads
+   - JWT can be decoded (it is not encrypted)
+   - Include only the minimum information (user_id, role)
+
+### Security Rules
+
+- **Rate Limiting**: Apply rate limiting to the login API (prevents brute-force attacks)
+- **HTTPS Required**: Use HTTPS only in production environments
+- **CORS Configuration**: Allow only approved domains to access the API
+- **Input Validation**: Validate all user input (prevents SQL Injection and XSS)
 
 ## Examples
 
-### Example 1: Add JWT auth to a Node API
+Demonstrates how to apply the skill through real-world use cases.
 
-Input:
+### Example 1: Express.js + PostgreSQL JWT Authentication
 
-```text
-Add login, refresh-token, and admin-role protection to this Express API with PostgreSQL.
+**Situation**: Adding JWT-based user authentication to a Node.js Express app
+
+**User Request**:
+```
+Add JWT authentication to an Express.js app using PostgreSQL,
+with access token expiry of 15 minutes and refresh token expiry of 7 days.
 ```
 
-Output shape:
+**Skill Application Process**:
 
-- chooses JWT access plus refresh only if the client shape justifies it
-- includes password hashing and revocable refresh-token storage
-- adds permission checks for admin routes
-- verifies login, refresh, forbidden, and logout behavior
+1. Install packages:
+   ```bash
+   npm install jsonwebtoken bcrypt pg
+   npm install --save-dev @types/jsonwebtoken @types/bcrypt
+   ```
 
-### Example 2: Prefer sessions for a server-rendered app
+2. Create the database schema (use the SQL above)
 
-Input:
+3. Set environment variables:
+   ```bash
+   ACCESS_TOKEN_SECRET=$(openssl rand -base64 32)
+   REFRESH_TOKEN_SECRET=$(openssl rand -base64 32)
+   ```
 
-```text
-Build secure auth for an internal admin dashboard with server-rendered pages and Redis available.
+4. Implement auth modules (use the code examples above)
+
+5. Connect API routes:
+   ```typescript
+   import authRoutes from './auth/routes';
+   app.use('/api/auth', authRoutes);
+   ```
+
+**Final Result**: JWT-based authentication system complete, registration/login/token-refresh APIs working
+
+### Example 2: Role-Based Access Control (RBAC)
+
+**Situation**: A permission system that distinguishes administrators from regular users
+
+**User Request**:
+```
+Create an API accessible only to administrators.
+Regular users should receive a 403 error.
 ```
 
-Output shape:
+**Final Result**:
+```typescript
+// Admin-only API
+router.delete('/users/:id',
+    authenticateToken,           // verify authentication
+    requireRole('admin'),         // verify role
+    async (req, res) => {
+        // user deletion logic
+        await db.user.delete({ where: { id: req.params.id } });
+        res.json({ message: 'User deleted' });
+    }
+);
 
-- prefers session cookies over JWTs
-- includes secure cookie flags, CSRF protection, and Redis-backed session storage
-- keeps auth scoped to admin access and auditability
-
-### Example 3: Add social login to an existing product
-
-Input:
-
-```text
-Add Google sign-in to this app without breaking the existing email/password accounts.
+// Usage example
+// Regular user (role: 'user') request → 403 Forbidden
+// Admin (role: 'admin') request → 200 OK
 ```
-
-Output shape:
-
-- covers provider callback validation and account-linking rules
-- avoids duplicate identities or accidental privilege escalation
-- explains what data to store from the provider and what to keep local
 
 ## Best practices
 
-1. Choose the auth model from product shape, not from habit.
-2. Keep access tokens short-lived and revocable state explicit.
-3. Separate authentication from authorization in both code and reasoning.
-4. Never log secrets, passwords, raw tokens, or reset links.
-5. Add eval coverage before considering any `skill-autoresearch` loop on this skill.
-6. Push framework boilerplate and security detail into references so the main skill stays reviewable.
+Recommendations for using this skill effectively.
+
+### Quality Improvement
+
+1. **Password Rotation Policy**: Recommend periodic password changes
+   - Change notification every 90 days
+   - Prevent reuse of the last 5 passwords
+   - Balance user experience and security
+
+2. **Multi-Factor Authentication (MFA)**: Apply 2FA to important accounts
+   - Use TOTP apps such as Google Authenticator or Authy
+   - SMS is less secure (risk of SIM swapping)
+   - Provide backup codes
+
+3. **Audit Logging**: Log all authentication events
+   - Record login success/failure, IP address, and User Agent
+   - Anomaly detection and post-incident analysis
+   - GDPR compliance (exclude sensitive data)
+
+### Efficiency Improvements
+
+- **Token Blacklist**: Revoke Refresh Tokens on logout
+- **Redis Caching**: Cache frequently used user data
+- **Database Indexing**: Add indexes on email and refresh_token
+
+## Common Issues
+
+Common problems and their solutions.
+
+### Issue 1: "JsonWebTokenError: invalid signature"
+
+**Symptom**:
+- Error occurs during token verification
+- Login succeeds but authenticated API calls fail
+
+**Cause**:
+The SECRET keys for Access Token and Refresh Token are different,
+but the same key is being used to verify both.
+
+**Solution**:
+1. Check environment variables: `ACCESS_TOKEN_SECRET`, `REFRESH_TOKEN_SECRET`
+2. Use the correct SECRET for each token type
+3. Verify that environment variables load correctly (initialize `dotenv`)
+
+### Issue 2: Frontend Cannot Log In Due to CORS Error
+
+**Symptom**: "CORS policy" error in the browser console
+
+**Cause**: Missing CORS configuration on the Express server
+
+**Solution**:
+```typescript
+import cors from 'cors';
+
+app.use(cors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    credentials: true
+}));
+```
+
+### Issue 3: Refresh Token Keeps Expiring
+
+**Symptom**: Users are frequently logged out
+
+**Cause**: Refresh Token is not properly managed in the DB
+
+**Solution**:
+1. Confirm Refresh Token is saved to DB upon creation
+2. Set an appropriate expiry time (minimum 7 days)
+3. Add a cron job to regularly clean up expired tokens
 
 ## References
 
-- Local: `references/framework-recipes.md`
-- Local: `references/security-checklist.md`
-- OWASP Authentication Cheat Sheet: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
-- OAuth 2.0 Security Best Current Practice: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics
+### Official Documentation
+- [JWT.io - JSON Web Token Introduction](https://jwt.io/introduction)
+- [OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
+- [OAuth 2.0 RFC 6749](https://datatracker.ietf.org/doc/html/rfc6749)
+
+### Libraries
+- [jsonwebtoken (Node.js)](https://github.com/auth0/node-jsonwebtoken)
+- [bcrypt (Node.js)](https://github.com/kelektiv/node.bcrypt.js)
+- [Passport.js](http://www.passportjs.org/) - multiple authentication strategies
+- [NextAuth.js](https://next-auth.js.org/) - Next.js authentication
+
+### Security Guides
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [NIST Digital Identity Guidelines](https://pages.nist.gov/800-63-3/)
+
+## Metadata
+
+### Version
+- **Current Version**: 1.0.0
+- **Last Updated**: 2025-01-01
+- **Compatible Platforms**: Claude, ChatGPT, Gemini
+
+### Related Skills
+- [api-design](../api-design/SKILL.md): API endpoint design
+- [security](../../infrastructure/security/SKILL.md): Security best practices
+
+### Tags
+`#authentication` `#authorization` `#JWT` `#OAuth` `#security` `#backend`
