@@ -1,35 +1,44 @@
-# Cleanup Plan: `code-refactoring` packaging lane
+# Cleanup Plan: review `langchain-bmad` and advance it to merge
 
 ## Goal
 
-Advance the recurring improvement loop after `security-best-practices` closes
-by standardizing `code-refactoring`. Keep the work focused on packaging and
-boundary repair: tighten the trigger wording, add concise reference files, add
-eval coverage, and decide whether `skill-autoresearch` is still unnecessary
-after that package exists.
+Review the bounded `langchain-bmad` PR lane for duplicate work, missing
+standardization fixes, or support-surface gaps. If the lane stays clean, apply
+only lifecycle-state updates and move the branch onto the merge path.
 
 ## Behavior lock
 
-- Keep the next run focused on `code-refactoring` only.
-- Do not reopen already-merged unrelated lanes.
-- Keep the support package decision explicit:
-  - `assets`: no
-  - `scripts`: no
-  - `references`: yes, add focused cleanup-plan and behavior-lock guidance
-  - `evals`: yes, add trigger, route-out, and behavior-preservation review
-    checks
-- Do not start a `skill-autoresearch` mutation loop until the packaged lane
-  still shows measured failures.
+- Keep this run focused on:
+  - `.survey/llm-agent-skill-landscape/*`
+  - `.god-skills/langchain-bmad/*`
+- Do not reopen the merged `agent-configuration`, `agent-workflow`,
+  `agent-principles`, `agent-development-principles`, `git-workflow`,
+  `responsive-design`, `opencontext`, `bmad`, or `bmad-idea` lanes unless
+  measured failures appear.
+- Do not widen this run into `clawteam` or `presentation-builder`; they are
+  next-lane decisions, not this branch's work.
+- Do not add scripts or assets unless review evidence proves a reusable
+  deterministic helper or bundled template is required.
+- Do not start a `skill-autoresearch` mutation loop for `langchain-bmad`; this
+  review pass only validates the packaging slice and advances its lifecycle
+  state.
 
-## Planned checks
+## Planned edits
 
-1. Re-read `code-refactoring` for generic or catch-all wording.
-2. Add only the references and evals needed to make the skill measurable.
-3. Re-run repo validation with the repo-local validator.
-4. Open a narrow PR for the packaged `code-refactoring` lane.
+1. Reuse the saved survey evidence and re-run focused standards validation on
+   `.god-skills/langchain-bmad/`.
+2. Re-run the repo-wide validator and confirm the branch warning total stays at
+   `26` without introducing new regressions.
+3. Review the diff against `main` and the live PR metadata to confirm the slice
+   remains bounded to `langchain-bmad` plus recurring survey state.
+4. If the review remains clean, update the durable lock files from `pr-open` to
+   `merge` and queue the next survey target instead of reopening the same lane.
 
 ## Verification
 
-- `python3 validate_frontmatter.py`
-- `git diff --stat origin/main...HEAD`
-- `gh pr create --fill`
+- Run `bash .god-skills/skill-standardization/scripts/validate_skill.sh .god-skills/langchain-bmad`
+- Run
+  `bash .god-skills/skill-standardization/scripts/validate_skill.sh --all .god-skills`
+- Check `gh pr view 46 --json state,isDraft,mergeStateStatus,mergeable,url`
+- Review `git diff --name-only origin/main...HEAD`
+- Keep the repo in explicit `merge` state for the next owner
