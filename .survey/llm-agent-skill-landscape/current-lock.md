@@ -1,6 +1,6 @@
 # Current Lock
 
-Date: 2026-04-21
+Date: 2026-04-19
 
 ## Survey refresh
 
@@ -13,109 +13,150 @@ Date: 2026-04-21
 - Agent Skills still centers directory structure, progressive disclosure, and
   optional `references/`, `scripts/`, `assets/`, and `evals/` support files:
   https://agentskills.io/specification
-- GitHub Docs still frames agent skills as portable folders of instructions,
-  scripts, and resources that load when relevant across multiple hosts:
-  https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
-- Gemini CLI now exposes built-in skills, hooks, subagents, and memory
-  surfaces, which reinforces the value of compact reusable workflows:
-  https://github.com/google-gemini/gemini-cli/discussions/17790
-- OpenAI's eval guidance still reinforces reproducible evaluation gates before
-  deeper optimization loops:
-  https://developers.openai.com/api/docs/guides/agent-evals
+- OpenAI's current developer surface continues to position Codex around
+  agentic workflows, while Anthropic and LangChain keep emphasizing subagents
+  and reusable workflow surfaces:
+  https://developers.openai.com/
+  https://docs.anthropic.com/en/docs/claude-code/sub-agents
+  https://docs.langchain.com/oss/python/deepagents/skills
+- Review-heavy workflows gained even more weight in the current ecosystem:
+  OpenAI's Codex app positions PR review and delegation as core workflows, and
+  GitHub Copilot's coding agent emphasizes pull-request review and self-review:
+  https://openai.com/index/introducing-the-codex-app/
+  https://docs.github.com/en/copilot/concepts/about-copilot-coding-agent
 
 ## Live GitHub state
 
-- PR `#67` for `debugging` is merged.
-- PR `#68` for `performance-optimization` is merged.
-- PR `#69` for `monitoring-observability` is merged.
-- PR `#70` for `log-analysis` is merged.
-- PR `#71` for `environment-setup` is merged.
-- PR `#72` for `user-guide-writing` is merged.
-- PR `#73` for `data-analysis` is merged.
-- PR `#74` for `pattern-detection` is merged.
-- PR `#75` for `task-planning` is merged.
-- PR `#76` for `task-estimation` is merged.
-- PR `#77` for `standup-meeting` is merged on April 21, 2026:
-  https://github.com/akillness/oh-my-gods/pull/77
-- PR `#78` for `sprint-retrospective` is merged on April 21, 2026:
-  https://github.com/akillness/oh-my-gods/pull/78
-- PR `#79` for `vercel-deploy` merged on April 21, 2026:
-  https://github.com/akillness/oh-my-gods/pull/79
-- PR `#80` for `web-design-guidelines` is now open:
-  https://github.com/akillness/oh-my-gods/pull/80
+- PR `#51` for `langextract` is merged:
+  https://github.com/akillness/oh-my-gods/pull/51
+- PR `#52` for `marketing-automation` is merged:
+  https://github.com/akillness/oh-my-gods/pull/52
+- PR `#53` for `agent-evaluation` is merged:
+  https://github.com/akillness/oh-my-gods/pull/53
+- PR `#54` for `survey` is merged:
+  https://github.com/akillness/oh-my-gods/pull/54
+- PR `#55` for `playwriter` is merged:
+  https://github.com/akillness/oh-my-gods/pull/55
+- PR `#56` for the React guidance lane is merged:
+  https://github.com/akillness/oh-my-gods/pull/56
+- PR `#57` for `ralphmode` is merged:
+  https://github.com/akillness/oh-my-gods/pull/57
+- PR `#58` for `workflow-automation` is merged:
+  https://github.com/akillness/oh-my-gods/pull/58
+- PR `#59` for the `workflow-automation` follow-up lane is merged:
+  https://github.com/akillness/oh-my-gods/pull/59
+- PR `#60` for `testing-strategies` is merged:
+  https://github.com/akillness/oh-my-gods/pull/60
+- PR `#61` for `code-review` is merged:
+  https://github.com/akillness/oh-my-gods/pull/61
+- PR `#62` for `security-best-practices` is open, draft, and mergeable after a
+  clean re-review:
+  https://github.com/akillness/oh-my-gods/pull/62
 
 ## Audit snapshot
 
 - Repo-wide validation passes at `80/80` skills with `0` spec violations when
   run via `python3 validate_frontmatter.py`.
-- `standup-meeting` is now a closed lane because PR `#77` is merged on
-  `origin/main`.
-- `sprint-retrospective` is now a closed lane because PR `#78` is merged on
-  `origin/main`.
-- `vercel-deploy` is now a closed lane because PR `#79` is merged on
-  `origin/main`.
-- `web-design-guidelines` is the active recurring lane because it still had a
-  thin 1.0 entrypoint, broad trigger overlap with neighboring frontend skills,
-  and no packaged references or eval-backed route-outs despite depending on a
-  live external Vercel guideline command.
-- The first pass repackaged the lane around broad UI audit routing, live
-  guideline fetches, neighboring-skill route-outs, and eval-backed boundary
-  checks.
-- This review run found no duplicate work, no missing support files, and no
-  new standards gap on the branch; the packaged lane is clean enough to merge
-  without another content patch.
-- `skill-autoresearch` is still deferred because the target first needed a
-  truthful boundary and support package before a mutation loop would be
-  credible.
+- `agent-evaluation`, `survey`, `playwriter`, the React guidance lane,
+  `ralphmode`, `workflow-automation`, and `testing-strategies` are closed lanes
+  and should not be re-opened without review feedback or new measured failures.
+- Official and primary-source signal still favors progressive-disclosure skill
+  packaging: concise entrypoints plus referenced support files and eval-backed
+  trigger surfaces now matter even more as GitHub's `gh skill` support expands
+  cross-host discovery and installation.
+- The repo-local audit surface remains `validate_frontmatter.py`.
+- PR `#62` raises `security-best-practices` to the repo's compact
+  review-and-design baseline with focused references, eval coverage, and
+  refreshed `SKILL.toon`.
+- After PR `#62` closes, the next highest-value open gap is `code-refactoring`:
+  it is the longest remaining general-purpose development skill in the repo
+  and still ships as a monolithic entrypoint with no `references/` or
+  `evals/` package.
 
 ## Target decisions
 
 | Skill | Current status | Assets | Scripts | References | Evals | Skill-autoresearch justified now? | Locked next move |
 |---|---|---|---|---|---|---|---|
-| `debugging` | Merged via PR `#67` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures appear |
-| `performance-optimization` | Merged via PR `#68` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures appear |
-| `monitoring-observability` | Merged via PR `#69` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures appear |
-| `log-analysis` | Merged via PR `#70` | No | No | Added | Added | No | Keep closed unless review feedback or measured failures appear |
-| `environment-setup` | Merged via PR `#71` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `user-guide-writing` | Merged via PR `#72` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `data-analysis` | Merged via PR `#73` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `pattern-detection` | Merged via PR `#74` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `task-planning` | Merged via PR `#75` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `task-estimation` | Merged via PR `#76` | No | No | Added | Added | No | Keep closed unless post-merge review or measured failures appear |
-| `standup-meeting` | Merged via PR `#77` | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
-| `sprint-retrospective` | Merged via PR `#78` | No | No | Yes | Yes | No | Keep closed unless new review evidence appears |
-| `vercel-deploy` | Merged via PR `#79` | No | Existing helper retained | Yes | Yes | No | Keep closed unless post-merge review or measured failures appear |
-| `web-design-guidelines` | PR `#80` reviewed clean | No | No | Yes | Yes | No | Merge PR `#80`, then return to survey mode for the next bounded lane |
+| `langextract` | Merged via PR `#51` | No | Existing helper refreshed | Added | Refreshed | No | Keep closed unless review feedback or new measured failures appear |
+| `marketing-automation` | Merged via PR `#52` | No | No | Added | Added | No | Keep closed unless review feedback or new measured failures appear |
+| `agent-evaluation` | Merged via PR `#53` | No | No | Added | Added | Not yet | Keep closed unless review feedback or new measured failures appear |
+| `survey` | Merged via PR `#54` | No | No | Added | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
+| `playwriter` | Merged via PR `#55` | No | No | Added install/session and MCP/security recovery support files | Refreshed | Not yet | Keep closed unless review feedback or new measured failures appear |
+| `react-best-practices` | Merged via PR `#56` | No | No | Reuse bundled `AGENTS.md` | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
+| `vercel-react-best-practices` | Merged via PR `#56` | No | No | Point to canonical skill only | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
+| `ralphmode` | Merged via PR `#57` | No | No | Existing permission profile reference merged | Added | Not yet | Keep closed unless review feedback or failing evidence reopens the lane |
+| `workflow-automation` | Merged via PR `#58`; follow-up PR `#59` merged | No | No | Added runner-selection and local-CI parity references | Tightened in follow-up PR | Not yet | Keep closed unless new measured failures appear |
+| `testing-strategies` | Merged via PR `#60` | No | No | Added focused layer-selection and release-confidence references | Added | Not yet | Keep closed unless review feedback or new measured failures appear |
 | `skill-standardization` | Repo audit gate | No | Existing validator is enough | No | Already present | Not yet | Keep as the compliance surface |
-| `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | No | Revisit only after a packaged reviewed target still misses objective checks |
+| `skill-autoresearch` | Optimization surface | No | No | Already present | Already present | Only after measured failures | Revisit only after a review-clean target still misses objective checks |
+| `code-review` | Merged via PR `#61` | No | No | Added focused review-priority and findings-format guidance | Added trigger, route-out, and findings-first review checks | No | Keep closed unless review feedback or new measured failures appear |
+| `security-best-practices` | PR `#62` open; review clean; mergeable | No | No | Added focused hardening and verification guidance | Added trigger, route-out, and verification assertions | Not yet | Merge PR `#62`, then keep closed unless review feedback or new measured failures appear |
+| `code-refactoring` | Next high-frequency legacy lane after `security-best-practices` closes | No | No | Yes, add focused cleanup-plan and behavior-lock guidance | Yes, add trigger, route-out, and behavior-preservation review checks | Not yet | Open the next bounded packaging lane after PR `#62` closes |
 
 ## Locked direction
 
 - Keep already-merged lanes closed unless new review feedback or failing eval
   evidence reopens them.
-- Treat `standup-meeting` as closed because PR `#77` is merged.
-- Treat `sprint-retrospective` as closed because PR `#78` is merged.
-- Treat `vercel-deploy` as closed because PR `#79` is merged.
-- Treat `web-design-guidelines` as the active lane and move it to merge after
-  this clean PR review.
-- Defer `skill-autoresearch` again because the target needed support-surface
-  hardening before any mutation loop would be credible.
+- Keep `workflow-automation` closed because PR `#59` is merged and validation
+  still passes.
+- Keep `testing-strategies` closed because PR `#60` is merged and validation
+  still passes.
+- Keep `code-review` closed because PR `#61` merged, the review pass found no
+  further blockers, and validation still passes.
+- Move the current run through PR `#62` for `security-best-practices`, because
+  the branch is review-clean, validator-clean, and mergeable.
+- Move the next run onto `code-refactoring`, because it is now the strongest
+  remaining general-purpose monolith without the references and eval package
+  expected across the repo's stronger lanes once PR `#62` closes.
+- Defer `skill-autoresearch` until `code-refactoring` or another packaged target
+  still shows measured failures after standardization.
 
 ## Packaging decision for the active lane
 
-- Active lane on this run: `web-design-guidelines`
+- Closed lane: `workflow-automation`
   - Assets: no
   - Scripts: no
-  - References: yes
-  - Evals: yes
-  - Skill-autoresearch: no, because the review stayed clean and did not expose
-    a residual measured failure that would justify a mutation loop
+  - References: yes, keep runner-selection and local-CI parity guidance
+  - Evals: yes, keep trigger and repo-boundary coverage for task-runner choice,
+    local parity, and hook guardrails
+  - Skill-autoresearch: still deferred unless later measured failures appear
+- Closed lane: `testing-strategies`
+  - Assets: no
+  - Scripts: no
+  - References: yes, keep concise guidance for test-layer selection and release
+    confidence
+  - Evals: yes, keep trigger, boundary, and validation-policy assertions
+  - Skill-autoresearch: still deferred unless later measured failures appear
+- Closed lane on the previous run: `code-review`
+  - Assets: no
+  - Scripts: no
+  - References: yes, keep focused review-priority and findings-format guidance
+  - Evals: yes, keep trigger, route-out, and findings-first review assertions
+  - Skill-autoresearch: still deferred unless later measured failures appear
+- Active lane on this run: `security-best-practices`
+  - Assets: no
+  - Scripts: no
+  - References: yes, keep focused hardening-control and verification/rollout
+    guidance
+  - Evals: yes, keep trigger, route-out, and verification assertions
+  - Skill-autoresearch: still deferred unless later measured failures appear
+- Active lane on the next run after PR `#62` closes: `code-refactoring`
+  - Assets: no
+  - Scripts: no
+  - References: yes, add focused cleanup-plan and behavior-lock guidance
+  - Evals: yes, add trigger, route-out, and behavior-preservation review
+    assertions
+  - Skill-autoresearch: not justified until the packaged lane still misses
+    objective checks
 
 ## Current state
 
-- Current state: `web-design-guidelines` has completed packaging, passed the
-  first PR review cleanly, and is ready for merge
-- PR: https://github.com/akillness/oh-my-gods/pull/80
+- Current state: PR `#62` is open for the bounded
+  `security-best-practices` packaging lane, and the scheduled re-review found
+  no duplicate work, no missing support surfaces, and no remaining validator
+  gaps.
+- PR: https://github.com/akillness/oh-my-gods/pull/62
 - Blocker: none
-- Next owner: merge PR `#80`, then return to survey mode on the next run
+- Next owner: current run to advance PR `#62` through merge, then the next
+  scheduled improvement run on `code-refactoring`
 - Stage: `merge`
