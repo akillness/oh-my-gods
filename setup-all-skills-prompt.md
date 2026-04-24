@@ -474,7 +474,7 @@ The OMG workflow automatically:
 | **Creative & Content** | video-production, remotion-video-production, presentation-builder, marketing-automation, technical-writing, user-guide-writing, web-design-guidelines, prompt-repetition | All (`*`) |
 | **Agent Frameworks** | deepagents, clawteam, agent-manager, agent-browser, agent-development-principles, agent-principles, agent-workflow, agent-configuration, agent-evaluation | All (`*`) |
 | **Productivity** | task-planning, task-estimation, sprint-retrospective, standup-meeting, pm-skills, skill-standardization, opencontext, fabric, playwriter, frouter | All (`*`) |
-| **Integrations** | langextract, langchain-bmad, strix, obsidian-cli, scrapling, agents-cli | All (`*`) |
+| **Integrations** | langextract, langchain-bmad, strix, obsidian-cli, scrapling, agents-cli, openclone | All (`*`) |
 
 ---
 
