@@ -375,6 +375,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `deepagents` | Batteries-included LangGraph agent harness — `create_deep_agent()`, middleware, subagents, HITL |
 | `ai-research-skills` | 86 AI research skills (22 categories) — autoresearch orchestration, fine-tuning, RLHF/GRPO, vLLM, RAG, multimodal, ML paper writing |
 | `langchain-bmad` | BMAD × LangChain unified workflow — phase-gated development with `framework-selection` → `langgraph-*` → `deep-agents-*` |
+| `langgraph-workflow` | Durable stateful multi-agent workflows with LangGraph StateGraph — branching, retry, persistence (thread_id + checkpointer), HITL interrupt, subgraphs, deep-agent supervisor |
 
 ### Content & Media
 
@@ -447,7 +448,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill obsidian-cli \
   --skill scrapling \
   --skill agents-cli \
-  --skill openclone
+  --skill openclone \
+  --skill langgraph-workflow
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes

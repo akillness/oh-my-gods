@@ -379,6 +379,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `deepagents` | 배터리 포함 LangGraph 에이전트 하네스 — `create_deep_agent()`, 미들웨어, 서브에이전트, HITL |
 | `ai-research-skills` | AI 연구 86개 스킬 (22개 카테고리) — 자율 연구 오케스트레이션, 파인튜닝, RLHF/GRPO, vLLM, RAG, 멀티모달, ML 논문 작성 |
 | `langchain-bmad` | BMAD × LangChain 통합 워크플로우 — `framework-selection` → `langgraph-*` → `deep-agents-*` 단계별 개발 |
+| `langgraph-workflow` | LangGraph StateGraph 기반 내구성 있는 상태 저장 멀티에이전트 워크플로우 — 분기/재시도, 영속성 (thread_id + checkpointer), HITL interrupt, 서브그래프, 딥에이전트 수퍼바이저 |
 
 ### 콘텐츠 & 미디어
 
@@ -450,7 +451,8 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill obsidian-cli \
   --skill scrapling \
   --skill agents-cli \
-  --skill openclone
+  --skill openclone \
+  --skill langgraph-workflow
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes

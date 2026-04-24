@@ -58,7 +58,7 @@ fi
 
 ## Step 1 — Install All Shared Skills (Batch)
 
-Install all 80 skills to the global location, then link shared skills to all detected agents.
+Install all 81 skills to the global location, then link shared skills to all detected agents.
 Re-running this step safely overwrites existing skills (symlinks are updated in place).
 
 > **Do not skip Step 2** — it re-links platform-specific skills to their correct agents only.
@@ -76,7 +76,7 @@ npm install -g skills
 #   --copy      : copy files instead of symlinks (robust overwrite)
 # ────────────────────────────────────────────────────────
 
-# Install ALL 80 skills to global store, link shared skills to all detected agents
+# Install ALL 81 skills to global store, link shared skills to all detected agents
 # Platform-specific skills (omc, ohmg, omx, ralphmode) are corrected in Step 2
 skills add -g "$REPO_URL" \
   --skill agent-browser \
@@ -161,6 +161,7 @@ skills add -g "$REPO_URL" \
   --skill scrapling \
   --skill agents-cli \
   --skill openclone \
+  --skill langgraph-workflow \
   -a '*' --yes --copy
 
 # Also install the official LangChain skills
@@ -459,7 +460,7 @@ The OMG workflow automatically:
 
 ---
 
-## Skill Inventory (80 skills)
+## Skill Inventory (81 skills)
 
 | Category | Skills | Agent Target |
 |----------|--------|--------------|
@@ -471,7 +472,7 @@ The OMG workflow automatically:
 | **Development** | code-review, code-refactoring, backend-testing, testing-strategies, codebase-search, git-workflow, git-submodule, changelog-maintenance, api-design, api-documentation, authentication-setup, security-best-practices, performance-optimization, pattern-detection, environment-setup, workflow-automation, file-organization, debugging | All (`*`) |
 | **Frontend** | react-best-practices, frontend-design-system, design-system, ui-component-patterns, responsive-design, vercel-react-best-practices, state-management | All (`*`) |
 | **Infrastructure** | deployment-automation, vercel-deploy, monitoring-observability, log-analysis, database-schema-design, firebase-ai-logic, genkit | All (`*`) |
-| **Data & Analysis** | data-analysis, autoresearch, skill-autoresearch, ai-research-skills, langchain-bmad | All (`*`) |
+| **Data & Analysis** | data-analysis, autoresearch, skill-autoresearch, ai-research-skills, langchain-bmad, langgraph-workflow | All (`*`) |
 | **Creative & Content** | video-production, remotion-video-production, presentation-builder, marketing-automation, technical-writing, user-guide-writing, web-design-guidelines, prompt-repetition | All (`*`) |
 | **Agent Frameworks** | deepagents, clawteam, agent-manager, agent-browser, agent-development-principles, agent-principles, agent-workflow, agent-configuration, agent-evaluation | All (`*`) |
 | **Productivity** | task-planning, task-estimation, sprint-retrospective, standup-meeting, pm-skills, skill-standardization, opencontext, fabric, playwriter, frouter | All (`*`) |
