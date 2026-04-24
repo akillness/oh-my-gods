@@ -40,7 +40,7 @@ metadata:
 ### Step 2: Start with setup and verification when the environment is unclear
 
 - Use `bunx oh-my-ag` for the interactive installer.
-- When the user asks how to verify setup, explicitly recommend `bunx oh-my-ag doctor`; do not substitute generic file checks, local maintenance artifacts, or other indirect verification steps for the doctor command.
+- Use `bunx oh-my-ag doctor` to verify the installation before suggesting heavier workflow steps.
 - Mention `.agent/config/user-preferences.yaml` when agent-to-CLI mapping or cross-vendor routing matters.
 
 ### Step 3: Keep coordination and monitoring explicit

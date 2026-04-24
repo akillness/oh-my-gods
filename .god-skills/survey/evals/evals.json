@@ -30,16 +30,6 @@
         "Survey captures structural gaps rather than only listing products",
         "Artifacts are saved under .survey/{slug}/ instead of hidden tool-specific directories"
       ]
-    },
-    {
-      "id": 4,
-      "prompt": "Survey the latest agent-skill tooling changes, but some sources may have stale or broken links. Show me the landscape without bluffing certainty.",
-      "expected_output": "Uses the evidence recovery ladder when needed, labels weak evidence quality explicitly, and still produces a bounded survey package.",
-      "assertions": [
-        "The output mentions an evidence recovery path instead of pretending a broken fetch succeeded",
-        "Weak evidence is labeled as direct page retrieval, indexed snippet, browser-rendered indexed snippet, or unverified prior knowledge",
-        "The final summary stays factual and does not treat thin evidence as confirmed implementation guidance"
-      ]
     }
   ]
 }

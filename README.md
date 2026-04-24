@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Skills](https://img.shields.io/badge/Skills-90%2B-blue?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0tMiAxNWwtNS01IDEuNDEtMS40MUwxMCAxNC4xN2w3LjU5LTcuNTlMMTkgOGwtOSA5eiIvPjwvc3ZnPg==)](https://github.com/akillness/oh-my-gods)
+[![Skills](https://img.shields.io/badge/Skills-73-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![Platform](https://img.shields.io/badge/Platform-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-2.0.0-purple?style=for-the-badge)](CHANGELOG.md)
@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **92+ skills** — new: `openclone` — AI persona clone conversations (local, no server) · `scrapling` — routing-first adaptive web scraping (parser→HTTP→browser→stealth→spiders) · `agents-cli` — Google Cloud agent lifecycle (scaffold, eval, deploy, Gemini Enterprise) · `obsidian-cli` — terminal-driven Obsidian automation · `strix` — AI-driven appsec testing
+> **73 skills** including the new `frouter` — free AI model router for OpenCode/OpenClaw
 
 [Quick Start](#-quick-start) · [OMG Core](#-omg--core-orchestration-skill) · [Hidden Features](#-hidden-power-features) · [LangChain](#-langchain-integration) · [Full Catalog](#-full-skill-catalog) · [한국어](README.ko.md)
 
@@ -47,6 +47,10 @@ npm install -g skills
 curl -s https://raw.githubusercontent.com/akillness/oh-my-gods/main/setup-all-skills-prompt.md
 ```
 
+```bash
+# Or install directly in one line
+curl -fsSL https://raw.githubusercontent.com/akillness/oh-my-gods/main/install.sh | bash
+```
 
 ```bash
 # Manual — core OMG stack
@@ -66,7 +70,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
 
 ## 🎯 What is oh-my-gods?
 
-`oh-my-gods` is a curated collection of **86+ AI agent skills** designed for LLM-based development workflows. Built around the `omg` orchestration protocol, it provides:
+`oh-my-gods` is a curated collection of **73 AI agent skills** designed for LLM-based development workflows. Built around the `omg` orchestration protocol, it provides:
 
 - **Unified orchestration** across Claude Code, Gemini CLI, OpenAI Codex, and OpenCode
 - **Plan → Execute → Verify → Cleanup** automated pipelines
@@ -115,8 +119,6 @@ graph TD
 > **The central nervous system of oh-my-gods**
 
 OMG orchestrates a complete, automated development pipeline across all AI agent platforms.
-
-- **Project management** — `.omg/` folder tracks long-term plans (concept, rules, validation), short-term plans (system, tests), backlog, progress, and history. The OMG agent checks and updates these documents automatically during execution.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -173,7 +175,6 @@ stateDiagram-v2
 ║  bmad-idea   ║  Creative AI — 5 specialist ideation agents      ║
 ║  survey      ║  Pre-implementation landscape scan               ║
 ║  autoresearch║  Autonomous overnight ML experiments (Karpathy)  ║
-║  skill-autoresearch║ Eval-driven skill optimization loop        ║
 ║  fabric      ║  AI prompt patterns & content extraction CLI     ║
 ║  agentation  ║  UI annotation → agent code fix (annotate)      ║
 ║  plannotator ║  Visual plan/diff review browser UI              ║
@@ -181,14 +182,6 @@ stateDiagram-v2
 ║  playwriter  ║  Playwright automation with live browser         ║
 ║  frouter     ║  Free AI model router — discover & configure     ║
 ║  deepagents  ║  LangGraph batteries-included agent harness      ║
-║  clawteam    ║  Framework-agnostic multi-agent coordination CLI  ║
-║  agent-manager║ tmux+Python agent lifecycle mgr — no server     ║
-║  pm-skills   ║  AI OS for PMs — 65 skills, 36 commands, 8 plugins║
-║  ai-research-skills║ 86 AI research skills — from ideation to paper (autonomous)║
-║  strix       ║  AI-driven appsec CLI — local/repo/URL scans, CI/CD, Docker sandbox║
-║  obsidian-cli║  Terminal-driven Obsidian automation — CLI/TUI, vault/file targeting  ║
-║  scrapling   ║  Routing-first adaptive web scraping — parser→HTTP→browser→stealth  ║
-║  agents-cli  ║  Google Cloud agent lifecycle — scaffold, eval, deploy, Gemini Ent. ║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -197,11 +190,10 @@ stateDiagram-v2
 | `omc` | `omc`, `autopilot` | 32 specialized Claude Code agents with smart model routing, persistent loops, real-time HUD | [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) |
 | `omx` | `omx` | 40+ workflow skills, team orchestration in tmux for OpenAI Codex CLI | Internal |
 | `ohmg` | `ohmg` | Google Antigravity/Gemini multi-agent framework with 6 specialist agents | Internal |
-| `bmad` | `bmad`, `/workflow-init` | Analysis → Planning → Solutioning → Implementation structured phases | [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD) |
-| `bmad-idea` | `bmad-idea` | 5 creative specialist agents — design thinking, innovation, storytelling | [Creative Intelligence Suite](https://docs.bmad-method.org/explanation/creative-intelligence/) |
+| `bmad` | `bmad`, `/workflow-init` | Analysis → Planning → Solutioning → Implementation structured phases | [BMAD Method](https://github.com/bmad-dev/BMAD-METHOD) |
+| `bmad-idea` | `bmad-idea` | 5 creative specialist agents — design thinking, innovation, storytelling | Internal |
 | `survey` | `survey` | Cross-platform landscape scan before planning; saves artifacts to `.survey/` | Internal |
 | `autoresearch` | `autoresearch`, `val_bpb` | Karpathy-style autonomous GPU overnight experiments with git ratchet | Karpathy methodology |
-| `skill-autoresearch` | `skill-autoresearch`, `optimize this skill` | Eval-driven loop for improving an existing SKILL.md with binary checks and mutation tracking | olelehmann100kMRR/autoresearch-skill |
 | `fabric` | `fabric` | AI prompt orchestration via reusable Patterns; YouTube summaries, doc analysis | [fabric](https://github.com/danielmiessler/fabric) |
 | `agentation` | `annotate`, `UI검토` | Click UI elements → AI applies targeted code fixes via CSS selectors | [agentation](https://github.com/benjitaylor/agentation) |
 | `plannotator` | `plan` | Visual browser UI for reviewing AI-generated plans; approve or send feedback | [plannotator](https://plannotator.ai) |
@@ -209,14 +201,6 @@ stateDiagram-v2
 | `playwriter` | `playwriter` | Playwright automation connecting to your *running* browser (preserves cookies/logins) | Internal |
 | `frouter` | `frouter`, `--best` | Free AI model router — discover, benchmark & configure NVIDIA NIM / OpenRouter models for OpenCode/OpenClaw | [jyoung105/frouter](https://github.com/jyoung105/frouter) |
 | `deepagents` | `deepagents`, `create_deep_agent` | Batteries-included LangGraph agent harness — file tools, middleware, subagents, HITL out of the box | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) |
-| `clawteam` | `clawteam`, `agent swarm` | Framework-agnostic multi-agent coordination CLI — spawn tmux teams, task queues, inboxes, kanban board | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) |
-| `agent-manager` | `agent-manager`, `start agent`, `stop agent`, `monitor agent` | tmux + Python agent lifecycle manager — start/stop/monitor/schedule/heartbeat without a server | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) |
-| `pm-skills` | `pm-skills`, `product discovery`, `write PRD`, `user stories`, `product strategy` | AI OS for product managers — 65 skills, 36 commands across 8 plugins (Teresa Torres, Marty Cagan, Alberto Savoia) | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) |
-| `ai-research-skills` | `ai-research-skills`, `autoresearch`, `ml experiments`, `fine-tuning`, `grpo`, `vllm`, `rlhf` | 86 AI research skills (22 categories) for autonomous research — fine-tuning, RLHF, GRPO, vLLM, RAG, multimodal, ML papers | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
-| `strix` | `strix`, `ai pentest`, `vulnerability scan cli`, `appsec scan`, `strix ci` | AI-driven application security CLI — authorized scans against local dirs, GitHub repos, live URLs; quick/standard/deep modes; Docker sandbox; CI/CD headless mode | [usestrix/strix](https://github.com/usestrix/strix) |
-| `obsidian-cli` | `obsidian cli`, `obsidian uri`, `obsidian daily note command`, `obsidian plugin reload cli`, `obsidian vault command` | Official terminal CLI for Obsidian — single commands, interactive TUI, vault/file targeting, daily notes, search, tags, tasks, developer commands (plugin reload, screenshot, eval), `obsidian://` URI workflows | [obsidian.md/help/cli](https://obsidian.md/help/cli) |
-| `scrapling` | `scrapling`, `scrape website`, `crawl site`, `adaptive scraping`, `selector drift`, `stealthy fetch`, `browser scraping`, `scrapling mcp`, `scrapling spider` | Routing-first adaptive web scraping — choose the lightest mode (parser → HTTP → dynamic browser → stealth → spiders); adaptive selector recovery, MCP server, CLI shell, multi-page crawl with checkpointing | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) |
-| `agents-cli` | `agents-cli`, `google agents cli`, `agent scaffold`, `agents-cli eval`, `deploy agent`, `gemini enterprise agent`, `adk`, `google adk`, `uvx google-agents-cli` | Google Cloud agent lifecycle toolkit — scaffold new agent projects, run LLM-scored evaluations, deploy to Agent Runtime/Cloud Run/GKE, register with Gemini Enterprise, CI/CD pipelines, Cloud Trace observability | [google/agents-cli](https://github.com/google/agents-cli) |
 
 ---
 
@@ -269,18 +253,10 @@ graph TD
 | `langgraph-fundamentals` | "langgraph", "StateGraph" | Graph nodes, edges, streaming |
 | `langgraph-persistence` | "persist state", "checkpointer" | State persistence, PostgresSaver |
 | `langgraph-human-in-the-loop` | "interrupt", "pause for approval" | HITL patterns, idempotency |
+| `langgraph-workflow` | "stateful agent", "agent pipeline", "StateGraph workflow" | Production stateful multi-agent workflows — checkpointing, conditional branching, HITL gates, parallel nodes |
 | `deep-agents-core` | "deep agent", "create_deep_agent" | Deep Agents architecture & middleware |
 | `deep-agents-memory` | "agent memory", "StoreBackend" | Memory, persistence, filesystem |
 | `deep-agents-orchestration` | "subagent", "todo list", "HITL" | Subagents, task planning, approval |
-| `langchain-bmad` | "langchain bmad", "bmad langchain", "structured agent" | BMAD × LangChain unified workflow — install both skill sets and follow phase-gated development |
-
-### Combined Install (LangChain + BMAD)
-
-```bash
-# Install BMAD + all 11 LangChain skills together
-npx skills add https://github.com/akillness/oh-my-gods --skill bmad --skill langchain-bmad
-npx skills add langchain-ai/langchain-skills --skill '*' --yes
-```
 
 ---
 
@@ -299,8 +275,6 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `bmad` | `bmad`, `/workflow-init` | All | Structured phase-based AI development |
 | `bmad-idea` | `bmad-idea` | All | Creative intelligence — 5 specialist ideation agents |
 | `survey` | `survey` | All | Pre-implementation landscape scan |
-| `clawteam` | `clawteam`, `agent swarm` | All | Framework-agnostic multi-agent coordination — spawn tmux teams, task queues, kanban board |
-| `pm-skills` | `pm-skills`, `product discovery`, `write PRD` | All | AI OS for product managers — 65 skills, 36 commands, 8 plugins encoding PM frameworks |
 
 ### Planning & Review
 
@@ -317,16 +291,15 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 
 | Skill | Description |
 |-------|-------------|
-| `agent-development-principles` | Compatibility alias for `agent-principles` |
-| `agent-principles` | Canonical AI-agent collaboration principles (context, plan/execute, verification) |
+| `agent-development-principles` | Universal AI collaboration principles (divide-and-conquer, context management) |
+| `agent-principles` | Core principles for AI agent collaboration |
 | `agent-workflow` | Daily workflow optimization: shortcuts, Git, MCP, sessions |
 | `agent-configuration` | Agent policy, security, hooks/skills/plugins setup |
 | `agent-evaluation` | Comprehensive agent evaluation system design |
 | `git-workflow` | Commit, branch, merge, PR workflows |
 | `git-submodule` | Git submodule management |
 | `debugging` | Root cause analysis, regression isolation |
-| `code-review` | Findings-first review for PRs, diffs, and merge risk |
-| `agent-manager` | tmux + Python agent lifecycle manager — start/stop/monitor/schedule/heartbeat without a server |
+| `code-review` | Comprehensive code review with API contracts |
 
 ### Backend & Infrastructure
 
@@ -341,7 +314,6 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `environment-setup` | Dev/staging/production environment config |
 | `monitoring-observability` | Health checks, metrics, log aggregation |
 | `security-best-practices` | OWASP Top 10, RBAC, API security |
-| `strix` | AI-driven appsec CLI — authorized vulnerability scans (local, GitHub, URLs), Docker sandbox, CI/CD headless mode |
 
 ### Frontend & Design
 
@@ -352,7 +324,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `responsive-design` | Mobile-first layouts, breakpoints |
 | `ui-component-patterns` | Reusable component libraries |
 | `react-best-practices` | React/Next.js performance optimization |
-| `vercel-react-best-practices` | Compatibility alias for `react-best-practices` |
+| `vercel-react-best-practices` | Vercel Engineering React guidelines |
 | `state-management` | Redux, Context, Zustand patterns |
 | `web-accessibility` | WCAG 2.1 compliance |
 | `web-design-guidelines` | Web Interface Guidelines compliance review |
@@ -362,7 +334,6 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | Skill | Description |
 |-------|-------------|
 | `autoresearch` | Autonomous ML experiments (Karpathy methodology) |
-| `skill-autoresearch` | Eval-driven optimization loop for improving an existing SKILL.md |
 | `fabric` | AI prompt patterns — YouTube summaries, doc analysis · [LM Studio 설정](docs/fabric/README.md) |
 | `langextract` | LLM-powered structured extraction from text with character-level provenance (Gemini/OpenAI/Ollama) |
 | `genkit` | Firebase Genkit AI flows and RAG pipelines |
@@ -373,23 +344,17 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `opencontext` | Persistent memory and context management |
 | `prompt-repetition` | LLM accuracy via prompt repetition technique |
 | `deepagents` | Batteries-included LangGraph agent harness — `create_deep_agent()`, middleware, subagents, HITL |
-| `ai-research-skills` | 86 AI research skills (22 categories) — autoresearch orchestration, fine-tuning, RLHF/GRPO, vLLM, RAG, multimodal, ML paper writing |
-| `langchain-bmad` | BMAD × LangChain unified workflow — phase-gated development with `framework-selection` → `langgraph-*` → `deep-agents-*` |
-| `langgraph-workflow` | Durable stateful multi-agent workflows with LangGraph StateGraph — branching, retry, persistence (thread_id + checkpointer), HITL interrupt, subgraphs, deep-agent supervisor |
+| `langgraph-workflow` | Stateful multi-agent workflows — StateGraph, checkpointing, HITL gates, parallel execution |
 
 ### Content & Media
 
 | Skill | Description |
 |-------|-------------|
 | `presentation-builder` | HTML slides with `slides-grab`, export to PPTX/PDF |
-| `video-production` | Programmable or automated video production across code-first, template-first, and hybrid pipelines |
+| `video-production` | Remotion-based programmable video production |
 | `image-generation` | Image generation via Gemini/compatible APIs |
 | `pollinations-ai` | Free image generation (no API key needed) |
 | `marketing-automation` | 23 sub-skills: CRO, copywriting, SEO, growth |
-| `obsidian-cli` | Official Obsidian terminal CLI — single commands, TUI, vault/file targeting, daily notes, search, tags, tasks, `obsidian://` URI, developer commands |
-| `scrapling` | Routing-first adaptive web scraping — parser→HTTP→dynamic browser→stealth→spiders; adaptive selector recovery, CLI, MCP server, multi-page crawl |
-| `agents-cli` | Google Cloud agent lifecycle — scaffold, local dev, LLM-scored eval, deploy (Agent Runtime/Cloud Run/GKE), Gemini Enterprise registration, Cloud Trace |
-| `openclone` | AI persona clone conversations — create/activate clones from public interviews, group chats, panel broadcasts, knowledge injection; local markdown storage, no server |
 
 ---
 
@@ -440,16 +405,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
   --skill fabric --skill autoresearch --skill langextract \
-  --skill frouter --skill deepagents --skill clawteam \
-  --skill agent-manager --skill pm-skills \
-  --skill ai-research-skills \
-  --skill langchain-bmad \
-  --skill strix \
-  --skill obsidian-cli \
-  --skill scrapling \
-  --skill agents-cli \
-  --skill openclone \
-  --skill langgraph-workflow
+  --skill frouter --skill deepagents
 
 # Also install LangChain skills
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -513,24 +469,15 @@ If oh-my-gods has been helpful to you, consider supporting the project!
 | `omc` | [Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) | MIT |
 | `ralph` | [Q00/ouroboros](https://github.com/Q00/ouroboros) | MIT |
 | `plannotator` | [backnotprop/plannotator](https://plannotator.ai) | MIT |
-| `bmad` | [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | MIT |
+| `bmad` | [bmad-dev/BMAD-METHOD](https://github.com/bmad-dev/BMAD-METHOD) | MIT |
 | `agentation` | [benjitaylor/agentation](https://github.com/benjitaylor/agentation) | MIT |
 | `fabric` | [danielmiessler/fabric](https://github.com/danielmiessler/fabric) | MIT |
 | `autoresearch` | Andrej Karpathy methodology | — |
-| `agent-manager` | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) | MIT |
 | LangChain skills | [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills) | MIT |
 | `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |
-| `clawteam` | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) | MIT |
-| `pm-skills` | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) | MIT |
-| `ai-research-skills` | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | MIT |
-| `agent-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
+| `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
-| `strix` | [usestrix/strix](https://github.com/usestrix/strix) | Apache-2.0 |
-| `obsidian-cli` | [obsidian.md/help/cli](https://obsidian.md/help/cli) | Proprietary |
-| `openclone` | [open-clone/openclone](https://github.com/open-clone/openclone) | MIT |
-| `scrapling` | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) | BSD-3-Clause |
-| `agents-cli` | [google/agents-cli](https://github.com/google/agents-cli) | Apache-2.0 |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
 ---

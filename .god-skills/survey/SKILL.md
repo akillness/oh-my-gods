@@ -1,18 +1,17 @@
 ---
 name: survey
 description: >
-  Research context, workarounds, existing solutions, and structural gaps before
-  planning or implementation, then write reusable survey artifacts for OMC,
-  OMX, OHMG, and general agent workflows. Use when the user wants a market
-  scan, competitor scan, platform comparison, or a map of what exists before
-  building. Triggers on: survey, landscape scan, research this space, what
-  exists, compare platforms, map the ecosystem.
+  Scan a landscape before planning or implementation, then write reusable
+  survey artifacts for OMC, OMX, OHMG, and general agent workflows. Use when
+  the user wants a market scan, competitor scan, platform comparison, or a
+  map of what exists before building. Triggers on: survey, landscape scan,
+  research this space, what exists, compare platforms, map the ecosystem.
 allowed-tools: Read Write Bash Grep Glob WebFetch
 metadata:
   tags: survey, landscape-scan, research, discovery, groundwork, omc, omx, ohmg, claude, codex, gemini, hooks, rules, settings
   platforms: Claude Code, Codex, Gemini-CLI, OpenCode
   keyword: survey
-  version: 1.1.0
+  version: 1.0.0
   source: supercent-io/skills-template
 ---
 
@@ -122,23 +121,7 @@ If a platform-specific specialist does not exist, fall back to a general-purpose
 - Run all 4 research lanes in parallel whenever possible.
 - Keep claims source-backed. Include links for quotes, rankings, and non-obvious claims.
 - Deduplicate tools that appear under multiple names or product tiers.
-- If search or fetch quality is weak, retry with the evidence recovery ladder in [references/evidence-recovery-ladder.md](references/evidence-recovery-ladder.md) instead of bluffing certainty.
-- Label weak evidence explicitly as `direct page retrieval`, `indexed snippet`, `browser-rendered indexed snippet`, or `unverified prior knowledge`.
 - Do not recommend build/kill/adopt by default. Present the landscape and gaps.
-
-## Evidence Recovery Ladder
-
-When normal search or extraction is weak, use this order:
-
-1. Direct primary-page retrieval
-2. Stable official substitution
-3. Structured feed recovery
-4. Browser-rendered retrieval
-5. Indexed snippet recovery
-6. Thin-evidence stop
-
-Keep the main skill concise. Put the detailed decision rules and examples in
-[references/evidence-recovery-ladder.md](references/evidence-recovery-ladder.md).
 
 ---
 
@@ -392,16 +375,13 @@ Expected outcome:
 - Prefer current official docs, repos, and product docs for platform claims.
 - Normalize findings into `settings`, `rules`, and `hooks` for agent-platform topics.
 - Separate "what vendors advertise" from "what users still do manually."
-- Use the evidence recovery ladder when direct search results are thin or stale.
 - Keep the final user summary factual and short; save the detail in the survey files.
 
 ## References
 
 - https://agentskills.io/home
-- https://agentskills.io/specification
 - https://agentskills.io/skill-creation/optimizing-descriptions
 - https://agentskills.io/skill-creation/evaluating-skills
-- [Evidence recovery ladder](references/evidence-recovery-ladder.md)
 - https://code.claude.com/docs/en/skills
 - https://developers.openai.com/codex
 - https://google-gemini.github.io/gemini-cli/docs/extensions/

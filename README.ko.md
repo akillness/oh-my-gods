@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![스킬](https://img.shields.io/badge/스킬-90개%2B-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
+[![스킬](https://img.shields.io/badge/스킬-73개-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![플랫폼](https://img.shields.io/badge/플랫폼-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![라이선스](https://img.shields.io/badge/라이선스-MIT-green?style=for-the-badge)](LICENSE)
 [![버전](https://img.shields.io/badge/버전-2.0.0-purple?style=for-the-badge)](CHANGELOG.md)
@@ -26,7 +26,7 @@
 
 *Plan → Execute → Verify → Ship*
 
-> **92개 이상의 스킬** — 신규 추가: `openclone` — AI 페르소나 클론 대화 (로컬, 서버 불필요) · `scrapling` — 라우팅 우선 적응형 웹 스크래핑 (파서→HTTP→브라우저→스텔스→스파이더) · `agents-cli` — Google Cloud 에이전트 생명주기 (스캐폴드, 평가, 배포, Gemini Enterprise) · `obsidian-cli` — 터미널 기반 Obsidian 자동화 · `strix` — AI 기반 appsec 테스트
+> **73개 스킬** — 신규 추가: `frouter` — OpenCode/OpenClaw를 위한 무료 AI 모델 라우터
 
 [빠른 시작](#-빠른-시작) · [OMG 핵심](#-omg--핵심-오케스트레이션-스킬) · [숨겨진 기능](#-숨겨진-강력-기능) · [LangChain](#-langchain-통합) · [전체 카탈로그](#-전체-스킬-카탈로그) · [English](README.md)
 
@@ -70,7 +70,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
 
 ## 🎯 oh-my-gods란?
 
-`oh-my-gods`는 LLM 기반 개발 워크플로우를 위한 **86개 이상의 AI 에이전트 스킬** 모음입니다. `omg` 오케스트레이션 프로토콜을 중심으로 구성되어 있으며 다음을 제공합니다:
+`oh-my-gods`는 LLM 기반 개발 워크플로우를 위한 **73개 AI 에이전트 스킬** 모음입니다. `omg` 오케스트레이션 프로토콜을 중심으로 구성되어 있으며 다음을 제공합니다:
 
 - **통합 오케스트레이션** — Claude Code, Gemini CLI, OpenAI Codex, OpenCode 전 플랫폼 지원
 - **Plan → Execute → Verify → Cleanup** 자동화 파이프라인
@@ -119,8 +119,6 @@ graph TD
 > **oh-my-gods의 중추 신경계**
 
 OMG는 모든 AI 에이전트 플랫폼에서 완전 자동화된 개발 파이프라인을 오케스트레이션합니다.
-
-- **프로젝트 관리** — `.omg/` 폴더가 장기계획(기획 컨셉, 규칙, 유효성 검증), 단기계획(시스템, 테스트), 백로그, 진행 현황, 히스토리를 추적합니다. OMG 에이전트가 실행 중 자동으로 이 문서들을 체크하고 업데이트합니다.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -177,7 +175,6 @@ stateDiagram-v2
 ║  bmad-idea   ║  창의적 AI — 5개 전문 아이디에이션 에이전트       ║
 ║  survey      ║  구현 전 환경 분석 스캔                           ║
 ║  autoresearch║  자율 야간 ML 실험 (Karpathy 방법론)              ║
-║  skill-autoresearch║ eval 기반 스킬 최적화 루프                 ║
 ║  fabric      ║  재사용 패턴 기반 AI 프롬프트 오케스트레이션 CLI  ║
 ║  agentation  ║  UI 어노테이션 → 에이전트 코드 수정 (annotate)   ║
 ║  plannotator ║  시각적 계획/diff 리뷰 브라우저 UI               ║
@@ -185,14 +182,6 @@ stateDiagram-v2
 ║  playwriter  ║  실제 브라우저 연결 Playwright 자동화             ║
 ║  frouter     ║  무료 AI 모델 라우터 — 탐색 & 설정               ║
 ║  deepagents  ║  LangGraph 배터리 포함 AI 에이전트 하네스         ║
-║  clawteam    ║  프레임워크 무관 멀티에이전트 조율 CLI             ║
-║  agent-manager║ tmux+Python 에이전트 생명주기 관리 — 서버 불필요 ║
-║  pm-skills   ║  PM용 AI OS — 65개 스킬, 36개 명령어, 8개 플러그인║
-║  ai-research-skills║ AI 연구 86개 스킬 — 아이디어에서 논문까지 자율 연구║
-║  strix       ║  AI 기반 appsec CLI — 로컬/저장소/URL 스캔, CI/CD, Docker 샌드박스║
-║  obsidian-cli║  터미널 기반 Obsidian 자동화 — CLI/TUI, 보관함·파일 타게팅         ║
-║  scrapling   ║  라우팅 우선 적응형 웹 스크래핑 — 파서→HTTP→브라우저→스텔스      ║
-║  agents-cli  ║  Google Cloud 에이전트 생명주기 — 스캐폴드, 평가, 배포, Gemini Ent║
 ╚══════════════╩═══════════════════════════════════════════════════╝
 ```
 
@@ -201,11 +190,10 @@ stateDiagram-v2
 | `omc` | `omc`, `autopilot` | 32개 특화 에이전트, 스마트 모델 라우팅, 실시간 HUD | [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) |
 | `omx` | `omx` | 40개+ 워크플로우 스킬, tmux 팀 오케스트레이션 | 내부 |
 | `ohmg` | `ohmg` | Google Antigravity/Gemini 멀티에이전트 프레임워크 | 내부 |
-| `bmad` | `bmad`, `/workflow-init` | 분석→계획→솔루션→구현 구조화 단계 | [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD) |
-| `bmad-idea` | `bmad-idea` | 5개 창의적 전문 에이전트 — 디자인 씽킹, 혁신, 스토리텔링 | [Creative Intelligence Suite](https://docs.bmad-method.org/explanation/creative-intelligence/) |
+| `bmad` | `bmad`, `/workflow-init` | 분석→계획→솔루션→구현 구조화 단계 | [BMAD Method](https://github.com/bmad-dev/BMAD-METHOD) |
+| `bmad-idea` | `bmad-idea` | 5개 창의적 전문 에이전트 — 디자인 씽킹, 혁신, 스토리텔링 | 내부 |
 | `survey` | `survey` | 구현 전 크로스 플랫폼 환경 분석; `.survey/`에 결과물 저장 | 내부 |
 | `autoresearch` | `autoresearch`, `val_bpb` | Karpathy 스타일 자율 GPU 야간 실험 및 git 래칫 | Karpathy 방법론 |
-| `skill-autoresearch` | `skill-autoresearch`, `optimize this skill` | 기존 `SKILL.md` 를 바이너리 체크와 mutation 기록으로 개선하는 eval 기반 루프 | olelehmann100kMRR/autoresearch-skill |
 | `fabric` | `fabric` | 재사용 패턴 AI 프롬프트; YouTube 요약, 문서 분석 | [fabric](https://github.com/danielmiessler/fabric) |
 | `agentation` | `annotate`, `UI검토` | UI 요소 클릭 → AI가 CSS 선택자로 코드 수정 | [agentation](https://github.com/benjitaylor/agentation) |
 | `plannotator` | `plan` | AI 생성 계획 브라우저 리뷰 UI; 승인 또는 피드백 전송 | [plannotator](https://plannotator.ai) |
@@ -213,14 +201,6 @@ stateDiagram-v2
 | `playwriter` | `playwriter` | 실행 중인 브라우저에 연결하는 Playwright 자동화 | 내부 |
 | `frouter` | `frouter`, `--best` | 무료 AI 모델 라우터 — NVIDIA NIM / OpenRouter 모델 탐색·벤치마크·설정 | [jyoung105/frouter](https://github.com/jyoung105/frouter) |
 | `deepagents` | `deepagents`, `create_deep_agent` | 배터리 포함 LangGraph 에이전트 하네스 — 파일 도구, 미들웨어, 서브에이전트, HITL 즉시 사용 가능 | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) |
-| `clawteam` | `clawteam`, `agent swarm` | 프레임워크 무관 멀티에이전트 조율 CLI — tmux 팀 스폰, 태스크 큐, 인박스, 칸반 보드 | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) |
-| `agent-manager` | `agent-manager`, `start agent`, `stop agent`, `monitor agent` | tmux + Python 에이전트 생명주기 관리 — 서버 없이 시작/중지/모니터/일정 예약/하트비트 | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) |
-| `pm-skills` | `pm-skills`, `product discovery`, `write PRD`, `user stories`, `product strategy` | PM용 AI OS — Teresa Torres, Marty Cagan, Alberto Savoia 프레임워크를 담은 65개 스킬, 36개 명령어, 8개 플러그인 | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) |
-| `ai-research-skills` | `ai-research-skills`, `autoresearch`, `ml experiments`, `fine-tuning`, `grpo`, `vllm`, `rlhf` | AI 연구 86개 스킬 (22개 카테고리) — 파인튜닝, RLHF, GRPO, vLLM, RAG, 멀티모달, ML 논문 작성 자율 연구 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
-| `strix` | `strix`, `ai pentest`, `vulnerability scan cli`, `appsec scan`, `strix ci` | AI 기반 애플리케이션 보안 CLI — 로컬 디렉토리·GitHub 저장소·라이브 URL 대상 인가된 스캔; quick/standard/deep 모드; Docker 샌드박스; CI/CD 헤드리스 모드 | [usestrix/strix](https://github.com/usestrix/strix) |
-| `obsidian-cli` | `obsidian cli`, `obsidian uri`, `obsidian daily note command`, `obsidian plugin reload cli`, `obsidian vault command` | Obsidian 공식 터미널 CLI — 단일 명령·인터랙티브 TUI, 보관함/파일 타게팅, 데일리 노트, 검색, 태그, 태스크, 개발자 명령어(플러그인 리로드·스크린샷·eval), `obsidian://` URI 워크플로우 | [obsidian.md/help/cli](https://obsidian.md/help/cli) |
-| `scrapling` | `scrapling`, `scrape website`, `crawl site`, `adaptive scraping`, `selector drift`, `stealthy fetch`, `browser scraping`, `scrapling mcp`, `scrapling spider` | 라우팅 우선 적응형 웹 스크래핑 — 파서→HTTP→동적 브라우저→스텔스→스파이더 최적 모드 선택; 적응형 셀렉터 복구, MCP 서버, CLI 쉘, 멀티 페이지 크롤 | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) |
-| `agents-cli` | `agents-cli`, `google agents cli`, `agent scaffold`, `agents-cli eval`, `deploy agent`, `gemini enterprise agent`, `adk`, `google adk`, `uvx google-agents-cli` | Google Cloud 에이전트 생명주기 툴킷 — 프로젝트 스캐폴드, LLM 점수 평가, Agent Runtime/Cloud Run/GKE 배포, Gemini Enterprise 등록, CI/CD 파이프라인, Cloud Trace 관찰성 | [google/agents-cli](https://github.com/google/agents-cli) |
 
 ---
 
@@ -273,18 +253,10 @@ graph TD
 | `langgraph-fundamentals` | "langgraph", "StateGraph" | 그래프 노드, 엣지, 스트리밍 |
 | `langgraph-persistence` | "상태 유지", "checkpointer" | 상태 영속성, PostgresSaver |
 | `langgraph-human-in-the-loop` | "interrupt", "승인 대기" | `interrupt()`, `Command(resume=...)`, 멱등성 |
+| `langgraph-workflow` | "상태 에이전트", "에이전트 파이프라인", "StateGraph 워크플로우" | 프로덕션 상태 기반 멀티에이전트 워크플로우 — 체크포인팅, 조건 분기, HITL 게이트, 병렬 실행 |
 | `deep-agents-core` | "deep agent", "create_deep_agent" | 핵심 아키텍처, 미들웨어, SKILL.md 형식 |
 | `deep-agents-memory` | "에이전트 메모리", "StoreBackend" | 메모리 백엔드: 임시, 영속, 파일시스템 |
 | `deep-agents-orchestration` | "서브에이전트", "할 일 목록" | SubAgentMiddleware, TodoListMiddleware, HITL |
-| `langchain-bmad` | "langchain bmad", "bmad langchain", "structured agent" | BMAD × LangChain 통합 워크플로우 — 두 스킬셋을 함께 설치하고 단계별 개발 진행 |
-
-### 통합 설치 (LangChain + BMAD)
-
-```bash
-# BMAD + LangChain 11개 스킬 함께 설치
-npx skills add https://github.com/akillness/oh-my-gods --skill bmad --skill langchain-bmad
-npx skills add langchain-ai/langchain-skills --skill '*' --yes
-```
 
 ---
 
@@ -303,8 +275,6 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `bmad` | `bmad`, `/workflow-init` | 전체 | 단계 기반 AI 구조적 개발 |
 | `bmad-idea` | `bmad-idea` | 전체 | 창의적 지능 — 5개 전문 아이디에이션 에이전트 |
 | `survey` | `survey` | 전체 | 구현 전 환경 분석 스캔 |
-| `clawteam` | `clawteam`, `agent swarm` | 전체 | 프레임워크 무관 멀티에이전트 조율 — tmux 팀 스폰, 태스크 큐, 칸반 보드 |
-| `pm-skills` | `pm-skills`, `product discovery`, `write PRD` | 전체 | PM용 AI OS — 65개 스킬, 36개 명령어, 8개 플러그인 (Teresa Torres, Marty Cagan 프레임워크) |
 
 ### 계획 & 리뷰
 
@@ -321,16 +291,15 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 
 | 스킬 | 설명 |
 |------|------|
-| `agent-development-principles` | `agent-principles` 호환성 별칭 |
-| `agent-principles` | 정식 AI 에이전트 협업 원칙 스킬 (컨텍스트, 계획/실행, 검증) |
+| `agent-development-principles` | 보편적 AI 협업 원칙 (분할정복, 컨텍스트 관리) |
+| `agent-principles` | AI 에이전트 협업 핵심 원칙 |
 | `agent-workflow` | 일상 워크플로우 최적화: 단축키, Git, MCP, 세션 |
 | `agent-configuration` | 에이전트 정책, 보안, 훅/스킬/플러그인 설정 |
 | `agent-evaluation` | 종합 에이전트 평가 시스템 설계 |
 | `git-workflow` | 커밋, 브랜치, 머지, PR 워크플로우 |
 | `git-submodule` | Git 서브모듈 관리 |
 | `debugging` | 근본 원인 분석, 회귀 격리 |
-| `code-review` | PR/디프 병합 위험을 찾는 findings-first 코드 리뷰 |
-| `agent-manager` | tmux + Python 에이전트 생명주기 관리 — 서버 없이 시작/중지/모니터/일정 예약/하트비트 |
+| `code-review` | API 계약 포함 종합 코드 리뷰 |
 
 ### 백엔드 & 인프라
 
@@ -345,7 +314,6 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `environment-setup` | 개발/스테이징/프로덕션 환경 설정 |
 | `monitoring-observability` | 헬스 체크, 메트릭, 로그 집계 |
 | `security-best-practices` | OWASP Top 10, RBAC, API 보안 |
-| `strix` | AI 기반 appsec CLI — 인가된 취약점 스캔 (로컬·GitHub·URL), Docker 샌드박스, CI/CD 헤드리스 모드 |
 
 ### 프론트엔드 & 디자인
 
@@ -356,7 +324,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `responsive-design` | 모바일 우선 레이아웃, 브레이크포인트 |
 | `ui-component-patterns` | 재사용 가능한 컴포넌트 라이브러리 |
 | `react-best-practices` | React/Next.js 성능 최적화 |
-| `vercel-react-best-practices` | `react-best-practices`용 호환 별칭 |
+| `vercel-react-best-practices` | Vercel 엔지니어링 React 가이드라인 |
 | `state-management` | Redux, Context, Zustand 패턴 |
 | `web-accessibility` | WCAG 2.1 준수 |
 | `web-design-guidelines` | 웹 인터페이스 가이드라인 준수 검토 |
@@ -366,7 +334,6 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | 스킬 | 설명 |
 |------|------|
 | `autoresearch` | 자율 ML 실험 (Karpathy 방법론) |
-| `skill-autoresearch` | 기존 `SKILL.md` 자체를 eval 기반으로 반복 개선하는 최적화 루프 |
 | `fabric` | AI 프롬프트 패턴 — YouTube 요약, 문서 분석 · [LM Studio 설정](docs/fabric/README.md) |
 | `langextract` | LLM 기반 비정형 텍스트 구조화 추출 — 문자 단위 출처 추적 지원 (Gemini/OpenAI/Ollama) |
 | `genkit` | Firebase Genkit AI 플로우 및 RAG 파이프라인 |
@@ -377,23 +344,17 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 | `opencontext` | 세션 간 영속적 메모리 및 컨텍스트 관리 |
 | `prompt-repetition` | 프롬프트 반복 기법으로 LLM 정확도 향상 |
 | `deepagents` | 배터리 포함 LangGraph 에이전트 하네스 — `create_deep_agent()`, 미들웨어, 서브에이전트, HITL |
-| `ai-research-skills` | AI 연구 86개 스킬 (22개 카테고리) — 자율 연구 오케스트레이션, 파인튜닝, RLHF/GRPO, vLLM, RAG, 멀티모달, ML 논문 작성 |
-| `langchain-bmad` | BMAD × LangChain 통합 워크플로우 — `framework-selection` → `langgraph-*` → `deep-agents-*` 단계별 개발 |
-| `langgraph-workflow` | LangGraph StateGraph 기반 내구성 있는 상태 저장 멀티에이전트 워크플로우 — 분기/재시도, 영속성 (thread_id + checkpointer), HITL interrupt, 서브그래프, 딥에이전트 수퍼바이저 |
+| `langgraph-workflow` | 상태 기반 멀티에이전트 워크플로우 — StateGraph, 체크포인팅, HITL 게이트, 병렬 실행 |
 
 ### 콘텐츠 & 미디어
 
 | 스킬 | 설명 |
 |------|------|
 | `presentation-builder` | `slides-grab`으로 HTML 슬라이드 제작, PPTX/PDF 내보내기 |
-| `video-production` | 코드 중심·템플릿 중심·하이브리드 파이프라인 전반의 프로그래밍형/자동화 영상 제작 |
+| `video-production` | Remotion 기반 프로그래밍형 영상 제작 |
 | `image-generation` | Gemini/호환 API를 통한 이미지 생성 |
 | `pollinations-ai` | API 키 없이 무료 이미지 생성 |
 | `marketing-automation` | 23개 서브스킬: CRO, 카피라이팅, SEO, 성장 |
-| `obsidian-cli` | Obsidian 공식 터미널 CLI — 단일 명령·TUI, 보관함/파일 타게팅, 데일리 노트, 검색, 태그, 태스크, `obsidian://` URI, 개발자 명령어 |
-| `scrapling` | 라우팅 우선 적응형 웹 스크래핑 — 파서→HTTP→동적 브라우저→스텔스→스파이더; 적응형 셀렉터 복구, CLI, MCP 서버, 멀티 페이지 크롤 |
-| `agents-cli` | Google Cloud 에이전트 생명주기 — 스캐폴드, 로컬 개발, LLM 점수 평가, 배포 (Agent Runtime/Cloud Run/GKE), Gemini Enterprise 등록, Cloud Trace |
-| `openclone` | AI 페르소나 클론 대화 — 공개 인터뷰 기반 클론 생성·활성화, 그룹 채팅, 패널 브로드캐스트, 지식 주입; 로컬 마크다운 저장, 서버 불필요 |
 
 ---
 
@@ -444,15 +405,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
   --skill ralph --skill ralphmode --skill skill-standardization \
   --skill survey --skill vibe-kanban --skill workflow-automation \
   --skill fabric --skill autoresearch --skill langextract \
-  --skill frouter --skill deepagents --skill clawteam \
-  --skill agent-manager --skill pm-skills \
-  --skill ai-research-skills \
-  --skill strix \
-  --skill obsidian-cli \
-  --skill scrapling \
-  --skill agents-cli \
-  --skill openclone \
-  --skill langgraph-workflow
+  --skill frouter --skill deepagents
 
 # LangChain 스킬 (선택 사항)
 npx skills add langchain-ai/langchain-skills --skill '*' --yes
@@ -516,24 +469,15 @@ oh-my-gods가 도움이 되셨다면 프로젝트를 후원해 주세요!
 | `omc` | [Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) | MIT |
 | `ralph` | [Q00/ouroboros](https://github.com/Q00/ouroboros) | MIT |
 | `plannotator` | [backnotprop/plannotator](https://plannotator.ai) | MIT |
-| `bmad` | [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | MIT |
+| `bmad` | [bmad-dev/BMAD-METHOD](https://github.com/bmad-dev/BMAD-METHOD) | MIT |
 | `agentation` | [benjitaylor/agentation](https://github.com/benjitaylor/agentation) | MIT |
 | `fabric` | [danielmiessler/fabric](https://github.com/danielmiessler/fabric) | MIT |
 | `autoresearch` | Andrej Karpathy 방법론 | — |
 | LangChain 스킬 | [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills) | MIT |
 | `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |
-| `clawteam` | [HKUDS/ClawTeam](https://github.com/HKUDS/ClawTeam) | MIT |
-| `agent-manager` | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) | MIT |
-| `pm-skills` | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) | MIT |
-| `ai-research-skills` | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | MIT |
 | 에이전트 개발 원칙 | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) + Ado Kukic | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
-| `strix` | [usestrix/strix](https://github.com/usestrix/strix) | Apache-2.0 |
-| `obsidian-cli` | [obsidian.md/help/cli](https://obsidian.md/help/cli) | Proprietary |
-| `openclone` | [open-clone/openclone](https://github.com/open-clone/openclone) | MIT |
-| `scrapling` | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) | BSD-3-Clause |
-| `agents-cli` | [google/agents-cli](https://github.com/google/agents-cli) | Apache-2.0 |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
 ---
