@@ -10,8 +10,8 @@
 
 ## Scope (2026 cleanup)
 
-This catalog is **agent-skill only** — 11 retained + 10 new (2026 agentic-workflow / agent-architect focus).
-Removed: 65 duplicates with `oh-my-skills/.agent-skills`, plus `omg` workflow and 7 marginal skills.
+This catalog is **agent + agent-adjacent** — 11 core agent + 10 new 2026 agentic + 7 adjacent (research / routing / extraction / PM) = **28 total**.
+Removed: 65 duplicates with `oh-my-skills/.agent-skills`, plus `omg` workflow.
 
 ## Execution Policy (Required)
 
@@ -74,7 +74,7 @@ chmod +x ~/.claude/hooks/survey-default.sh
 
 ---
 
-### Step 2: Full Install (21 agent-only skills)
+### Step 2: Full Install (28 skills — 21 agent + 7 adjacent)
 
 > Update mode: existing skills are overwritten with the latest version.
 
@@ -100,8 +100,17 @@ npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill multi-agent-eval-harness \
   --skill a2a-protocol \
   --skill reflexion-pattern \
-  --skill agent-benchmarking
+  --skill agent-benchmarking \
+  --skill agent-development-principles \
+  --skill ai-research-skills \
+  --skill cli-oss-scout \
+  --skill frouter \
+  --skill langextract \
+  --skill openclone \
+  --skill pm-skills
 ```
+
+> `agent-development-principles` is a legacy alias of `agent-principles` — kept for backward compatibility; merge is a future cleanup.
 
 Skip only when explicitly requested (`core only`, `minimal install`, `quick install`).
 
@@ -178,7 +187,7 @@ Only run with explicit consent. Requires `gh auth login`.
 
 ---
 
-## Skill Reference (21)
+## Skill Reference (28)
 
 ### Retained Agent-Focused (11)
 
@@ -210,6 +219,18 @@ Only run with explicit consent. Requires `gh auth login`.
 | `a2a-protocol` | Agent-to-Agent horizontal messaging (Linux Foundation AAIF 2026 standard) |
 | `reflexion-pattern` | Critic node + verbal memory of failures, stable rubric scoring, retry budgets |
 | `agent-benchmarking` | Map capabilities to SWE-bench/WebArena/OSWorld + custom regression packs |
+
+### Agent-Adjacent (7)
+
+| Skill | Description |
+|-------|-------------|
+| `agent-development-principles` | Legacy alias of `agent-principles` (backward compat — merge candidate) |
+| `ai-research-skills` | ML / RAG research skills, partially agent-relevant |
+| `cli-oss-scout` | General CLI evaluation, useful for agent tooling research |
+| `frouter` | Free AI model router for OpenCode / OpenClaw |
+| `langextract` | LLM-powered structured information extraction |
+| `openclone` | AI persona / clone conversation simulation |
+| `pm-skills` | PM framework — 65 skills + 36 commands for product management |
 
 ---
 
