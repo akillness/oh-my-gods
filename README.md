@@ -81,35 +81,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
 
 ## 🏗 Architecture
 
-```mermaid
-graph TD
-    OMG["🎯 OMG\nCore Orchestration"] --> PLAN["📋 PLAN\nralph + plannotator"]
-    OMG --> EXEC["⚡ EXECUTE\nteam / bmad"]
-    OMG --> VERIFY["🔍 VERIFY\nagent-browser"]
-    OMG --> UI["🎨 VERIFY_UI\nagentation annotate"]
-    OMG --> CLEAN["🧹 CLEANUP\nworktree prune"]
-
-    PLAN --> |"Claude Code"| OMC["omc\noh-my-claudecode"]
-    PLAN --> |"Gemini CLI"| OHMG["ohmg\noh-my-gemini"]
-    PLAN --> |"Codex CLI"| OMX["omx\noh-my-codex"]
-
-    EXEC --> BMAD["bmad\nBMAD Workflow"]
-    EXEC --> RALPH["ralph\nOuroboros Loop"]
-
-    SURVEY["🔭 survey\nlandscape scan"] -.-> OMG
-    FABRIC["🧵 fabric\npattern AI"] -.-> OMG
-    AUTORESEARCH["🔬 autoresearch\nML experiments"] -.-> EXEC
-
-    classDef core fill:#4A90D9,stroke:#2C5F8A,color:#fff,font-weight:bold
-    classDef hidden fill:#9B59B6,stroke:#6C3483,color:#fff
-    classDef platform fill:#27AE60,stroke:#1A7A40,color:#fff
-    classDef support fill:#E67E22,stroke:#A85000,color:#fff
-
-    class OMG core
-    class SURVEY,FABRIC,AUTORESEARCH,BMAD,RALPH hidden
-    class OMC,OHMG,OMX platform
-    class PLAN,EXEC,VERIFY,UI,CLEAN support
-```
+_(architecture diagram removed — see Full Skill Catalog below)_
 
 ---
 
@@ -137,17 +109,7 @@ OMG orchestrates a complete, automated development pipeline across all AI agent 
 
 ### OMG State Machine
 
-```mermaid
-stateDiagram-v2
-    [*] --> plan : omg keyword detected
-    plan --> execute : plan_approved = true
-    plan --> plan : feedback received
-    execute --> verify : execution complete
-    verify --> verify_ui : annotate keyword
-    verify --> cleanup : no annotate
-    verify_ui --> cleanup : annotations resolved
-    cleanup --> [*] : done
-```
+_(state machine diagram removed)_
 
 ### Platform Support
 
@@ -226,19 +188,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 
 ### LangChain Skill Map
 
-```mermaid
-graph TD
-    LC(("🔗 LangChain\nSkills"))
-    LC --> GS["📚 Getting Started\nframework-selection\nlangchain-dependencies"]
-    LC --> LCH["🔗 LangChain\nlangchain-fundamentals\nlangchain-middleware\nlangchain-rag"]
-    LC --> LG["📊 LangGraph\nlanggraph-fundamentals\nlanggraph-persistence\nlanggraph-human-in-the-loop"]
-    LC --> DA["🤖 Deep Agents\ndeep-agents-core\ndeep-agents-memory\ndeep-agents-orchestration"]
-
-    classDef group fill:#1C3C3C,stroke:#0D1F1F,color:#fff,font-weight:bold
-    classDef leaf fill:#2D6A4F,stroke:#1B4332,color:#fff
-    class LC group
-    class GS,LCH,LG,DA leaf
-```
+_(LangChain skill map diagram removed — see LangChain Skill Catalog table below)_
 
 ### Framework Selection Guide
 

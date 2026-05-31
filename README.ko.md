@@ -81,35 +81,7 @@ npx skills add https://github.com/akillness/oh-my-gods \
 
 ## 🏗 아키텍처
 
-```mermaid
-graph TD
-    OMG["🎯 OMG\n핵심 오케스트레이션"] --> PLAN["📋 PLAN\nralph + plannotator"]
-    OMG --> EXEC["⚡ EXECUTE\nteam / bmad"]
-    OMG --> VERIFY["🔍 VERIFY\nagent-browser"]
-    OMG --> UI["🎨 VERIFY_UI\nagentation annotate"]
-    OMG --> CLEAN["🧹 CLEANUP\nworktree prune"]
-
-    PLAN --> |"Claude Code"| OMC["omc\noh-my-claudecode"]
-    PLAN --> |"Gemini CLI"| OHMG["ohmg\noh-my-gemini"]
-    PLAN --> |"Codex CLI"| OMX["omx\noh-my-codex"]
-
-    EXEC --> BMAD["bmad\nBMAD 워크플로우"]
-    EXEC --> RALPH["ralph\nOuroboros 루프"]
-
-    SURVEY["🔭 survey\n환경 분석"] -.-> OMG
-    FABRIC["🧵 fabric\n패턴 AI"] -.-> OMG
-    AUTORESEARCH["🔬 autoresearch\nML 자동 실험"] -.-> EXEC
-
-    classDef core fill:#4A90D9,stroke:#2C5F8A,color:#fff,font-weight:bold
-    classDef hidden fill:#9B59B6,stroke:#6C3483,color:#fff
-    classDef platform fill:#27AE60,stroke:#1A7A40,color:#fff
-    classDef support fill:#E67E22,stroke:#A85000,color:#fff
-
-    class OMG core
-    class SURVEY,FABRIC,AUTORESEARCH,BMAD,RALPH hidden
-    class OMC,OHMG,OMX platform
-    class PLAN,EXEC,VERIFY,UI,CLEAN support
-```
+_(아키텍처 다이어그램 제거됨 — 아래 전체 스킬 카탈로그 참조)_
 
 ---
 
@@ -137,17 +109,7 @@ OMG는 모든 AI 에이전트 플랫폼에서 완전 자동화된 개발 파이�
 
 ### OMG 상태 머신
 
-```mermaid
-stateDiagram-v2
-    [*] --> plan : omg 키워드 감지
-    plan --> execute : plan_approved = true
-    plan --> plan : 피드백 수신 → 재작성
-    execute --> verify : 실행 완료
-    verify --> verify_ui : annotate 키워드
-    verify --> cleanup : annotate 없음
-    verify_ui --> cleanup : 어노테이션 처리 완료
-    cleanup --> [*] : done
-```
+_(상태 머신 다이어그램 제거됨)_
 
 ### 플랫폼 지원
 
@@ -226,19 +188,7 @@ npx skills add langchain-ai/langchain-skills --skill '*' --yes
 
 ### LangChain 스킬 구조
 
-```mermaid
-graph TD
-    LC(("🔗 LangChain\n스킬"))
-    LC --> GS["📚 시작하기\nframework-selection\nlangchain-dependencies"]
-    LC --> LCH["🔗 LangChain\nlangchain-fundamentals\nlangchain-middleware\nlangchain-rag"]
-    LC --> LG["📊 LangGraph\nlanggraph-fundamentals\nlanggraph-persistence\nlanggraph-human-in-the-loop"]
-    LC --> DA["🤖 Deep Agents\ndeep-agents-core\ndeep-agents-memory\ndeep-agents-orchestration"]
-
-    classDef group fill:#1C3C3C,stroke:#0D1F1F,color:#fff,font-weight:bold
-    classDef leaf fill:#2D6A4F,stroke:#1B4332,color:#fff
-    class LC group
-    class GS,LCH,LG,DA leaf
-```
+_(LangChain 스킬 맵 다이어그램 제거됨 — 아래 LangChain 스킬 목록 참조)_
 
 ### 프레임워크 선택 가이드
 
