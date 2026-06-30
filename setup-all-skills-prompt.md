@@ -11,7 +11,7 @@
 ## Scope (2026 cleanup)
 
 This catalog is **agent + agent-adjacent** — 11 core agent + 10 new 2026 agentic + 7 adjacent (research / routing / extraction / PM) = **28 total**.
-Removed: 65 duplicates with `oh-my-skills/.agent-skills`, plus `omg` workflow.
+Removed: 65 duplicates with [`jeo-skills`](https://github.com/akillness/jeo-skills), plus `omg` workflow.
 
 ## Execution Policy (Required)
 
@@ -24,7 +24,7 @@ Removed: 65 duplicates with `oh-my-skills/.agent-skills`, plus `omg` workflow.
 ### Step 0: Assess Environment
 
 1. **Which platform?**
-   - Claude Code / Gemini CLI / Codex CLI / OpenCode → all platforms supported. No platform-specific orchestrator skill ships here anymore (use `omc`/`omx`/`ohmg` from `oh-my-skills` if needed).
+   - Claude Code / Gemini CLI / Codex CLI / OpenCode → all platforms supported. No platform-specific orchestrator skill ships here anymore (use `omc`/`omx`/`ohmg` from [`jeo-skills`](https://github.com/akillness/jeo-skills) if needed).
    - All / Unsure → install `survey` (default) + this catalog.
 
 2. **Verify `skills` CLI:**
@@ -55,10 +55,10 @@ Survey is the **always-on** default — it produces `.survey/` artifacts that ev
 
 ```bash
 # survey first — landscape scan before planning
-npx skills add -g https://github.com/akillness/oh-my-gods --skill survey
+npx skills add -g https://github.com/akillness/jeo-skills --skill survey
 ```
 
-> **Note**: `survey` lives in `oh-my-skills` (not duplicated here). The hook below ensures it stays callable.
+> **Note**: `survey` lives in [`jeo-skills`](https://github.com/akillness/jeo-skills) (not duplicated here). The hook below ensures it stays callable.
 
 **Default hook (Claude Code example):**
 ```bash
