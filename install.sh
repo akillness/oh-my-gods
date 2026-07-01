@@ -3,7 +3,7 @@
 # oh-my-gods — AI Agent-Engineering Skills Installer
 # Repository: https://github.com/akillness/oh-my-gods
 #
-# Installs 28 agent-engineering skills (no overlap with jeo-skills).
+# Installs 29 agent-engineering skills (no overlap with jeo-skills).
 #
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/akillness/oh-my-gods/main/install.sh | bash
@@ -24,7 +24,7 @@ REPO_URL="https://github.com/akillness/oh-my-gods.git"
 REPO_HTTP="https://github.com/akillness/oh-my-gods"
 SKILLS_SOURCE_DIR=".god-skills"
 TEMP_DIR="/tmp/_omg_setup_$$"
-VERSION="3.0.0"
+VERSION="3.1.0"
 
 INSTALL_GLOBAL="${INSTALL_GLOBAL:-true}"
 INSTALL_MODE="${INSTALL_MODE:-silent}"
@@ -40,7 +40,7 @@ SKILL_DESTS=(
   "$HOME/.config/opencode/skills"
 )
 
-# The 28 agent-engineering skills shipped by this repo.
+# The 29 agent-engineering skills shipped by this repo.
 ALL_SKILLS=(
   # Core agent (11)
   agent-configuration agent-evaluation agent-manager agent-principles agent-workflow
@@ -49,9 +49,9 @@ ALL_SKILLS=(
   agent-observability agent-memory-architecture mcp-server-design agent-guardrails
   agent-system-design agent-tool-routing multi-agent-eval-harness a2a-protocol
   reflexion-pattern agent-benchmarking
-  # Agent-adjacent (7)
+  # Agent-adjacent (8)
   agent-development-principles ai-research-skills cli-oss-scout frouter langextract
-  openclone pm-skills
+  openclone pm-skills scrapling
 )
 
 # --- Colors ---
@@ -113,7 +113,7 @@ check_dependencies() {
 
 # --- Install via skills CLI ---
 install_via_skills_cli() {
-  info "Installing 28 skills via npx skills add..."
+  info "Installing 29 skills via npx skills add..."
   local args=()
   for s in "${ALL_SKILLS[@]}"; do args+=("--skill" "$s"); done
   local global_flag=()

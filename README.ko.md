@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Skills](https://img.shields.io/badge/Skills-28-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
+[![Skills](https://img.shields.io/badge/Skills-29-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![Platform](https://img.shields.io/badge/Platform-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-orange?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/akillness3q)
@@ -22,7 +22,7 @@
 
 **LLM 에이전트를 만들고, 평가하고, 운영하기 위한 에이전트 엔지니어링 스킬셋**
 
-*28개 집중 스킬 · [jeo-skills](https://github.com/akillness/jeo-skills)와 중복 없음 · 크로스 플랫폼*
+*29개 집중 스킬 · [jeo-skills](https://github.com/akillness/jeo-skills)와 중복 없음 · 크로스 플랫폼*
 
 [빠른 시작](#-빠른-시작) · [스킬 카탈로그](#-스킬-카탈로그) · [설치](#-설치) · [English](README.md)
 
@@ -34,7 +34,7 @@
 
 `oh-my-gods`는 **에이전트 자체를 만들 때** 필요한 레이어에 집중한 가벼운 스킬셋입니다 — 아키텍처, 메모리, 툴 라우팅, 가드레일, 평가, 관측성, 멀티 에이전트 프로토콜.
 
-[`jeo-skills`](https://github.com/akillness/jeo-skills)와 **중복되지 않도록** 의도적으로 범위를 좁혔습니다. 일반 개발 워크플로우, 오케스트레이션(`omg`/`omc`/`omx`/`ohmg`), 기획, 프론트/백엔드, 콘텐츠 스킬은 모두 그쪽에 있습니다. oh-my-gods는 그 컬렉션을 보완하는 **에이전트 중심 28개 스킬**만 유지합니다.
+[`jeo-skills`](https://github.com/akillness/jeo-skills)와 **중복되지 않도록** 의도적으로 범위를 좁혔습니다. 일반 개발 워크플로우, 오케스트레이션(`omg`/`omc`/`omx`/`ohmg`), 기획, 프론트/백엔드, 콘텐츠 스킬은 모두 그쪽에 있습니다. oh-my-gods는 그 컬렉션을 보완하는 **에이전트 중심 29개 스킬**만 유지합니다.
 
 | 하려는 일 | 사용 |
 |-----------|------|
@@ -101,7 +101,7 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 | `reflexion-pattern` | 비평 노드 + 실패 언어 기억, 안정적 루브릭 채점, 재시도 예산 |
 | `agent-benchmarking` | SWE-bench/WebArena/OSWorld + 커스텀 회귀 팩으로 역량 매핑 |
 
-### 에이전트 인접 (7)
+### 에이전트 인접 (8)
 
 | 스킬 | 설명 |
 |------|------|
@@ -112,6 +112,7 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 | `langextract` | LLM 기반 출처 근거 구조화 추출 |
 | `openclone` | 다중 전문가 관점 대화를 위한 AI 페르소나 클론 |
 | `pm-skills` | 제품 관리 OS — 8개 플러그인의 65개 스킬, 36개 커맨드 |
+| `scrapling` | 적응형 웹 스크레이핑(Scrapling) + 스크린샷 기반 비주얼 RAG 폴백(PixelRAG) |
 
 ---
 
@@ -124,7 +125,7 @@ npm install -g skills
 # 권장 — 한 줄
 curl -fsSL https://raw.githubusercontent.com/akillness/oh-my-gods/main/install.sh | bash
 
-# 또는 28개 스킬 전체
+# 또는 29개 스킬 전체
 npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 ```
 
@@ -146,6 +147,7 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 | `ai-research-skills` | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | MIT |
 | `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) | MIT |
+| `scrapling` | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) + [StarTrail-org/PixelRAG](https://github.com/StarTrail-org/PixelRAG) | BSD-3-Clause / Apache-2.0 |
 | `a2a-protocol` | Linux Foundation AAIF | — |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 

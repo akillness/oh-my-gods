@@ -10,7 +10,7 @@
 
 ## Scope (2026 cleanup)
 
-This catalog is **agent + agent-adjacent** — 11 core agent + 10 new 2026 agentic + 7 adjacent (research / routing / extraction / PM) = **28 total**.
+This catalog is **agent + agent-adjacent** — 11 core agent + 10 new 2026 agentic + 8 adjacent (research / routing / extraction / scraping / PM) = **29 total**.
 Removed: 65 duplicates with [`jeo-skills`](https://github.com/akillness/jeo-skills), plus `omg` workflow.
 
 ## Execution Policy (Required)
@@ -74,7 +74,7 @@ chmod +x ~/.claude/hooks/survey-default.sh
 
 ---
 
-### Step 2: Full Install (28 skills — 21 agent + 7 adjacent)
+### Step 2: Full Install (29 skills — 21 agent + 8 adjacent)
 
 > Update mode: existing skills are overwritten with the latest version.
 
@@ -107,7 +107,8 @@ npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill frouter \
   --skill langextract \
   --skill openclone \
-  --skill pm-skills
+  --skill pm-skills \
+  --skill scrapling
 ```
 
 > `agent-development-principles` is a legacy alias of `agent-principles` — kept for backward compatibility; merge is a future cleanup.
@@ -187,7 +188,7 @@ Only run with explicit consent. Requires `gh auth login`.
 
 ---
 
-## Skill Reference (28)
+## Skill Reference (29)
 
 ### Retained Agent-Focused (11)
 
@@ -220,7 +221,7 @@ Only run with explicit consent. Requires `gh auth login`.
 | `reflexion-pattern` | Critic node + verbal memory of failures, stable rubric scoring, retry budgets |
 | `agent-benchmarking` | Map capabilities to SWE-bench/WebArena/OSWorld + custom regression packs |
 
-### Agent-Adjacent (7)
+### Agent-Adjacent (8)
 
 | Skill | Description |
 |-------|-------------|
@@ -231,6 +232,7 @@ Only run with explicit consent. Requires `gh auth login`.
 | `langextract` | LLM-powered structured information extraction |
 | `openclone` | AI persona / clone conversation simulation |
 | `pm-skills` | PM framework — 65 skills + 36 commands for product management |
+| `scrapling` | Adaptive web scraping (Scrapling) + screenshot-based visual RAG fallback (PixelRAG) |
 
 ---
 
