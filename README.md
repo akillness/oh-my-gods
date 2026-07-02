@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Skills](https://img.shields.io/badge/Skills-29-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
+[![Skills](https://img.shields.io/badge/Skills-42-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 
 [![Platform](https://img.shields.io/badge/Platform-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
@@ -23,7 +23,7 @@
 
 **Agent-engineering skills for building, evaluating, and operating LLM agents**
 
-*29 focused skills · no duplication with [jeo-skills](https://github.com/akillness/jeo-skills) · cross-platform*
+*42 focused skills · no duplication with [jeo-skills](https://github.com/akillness/jeo-skills) · cross-platform*
 
 [Quick Start](#-quick-start) · [Skill Catalog](#-skill-catalog) · [Installation](#-installation) · [한국어](README.ko.md)
 
@@ -35,7 +35,7 @@
 
 `oh-my-gods` is a lean, **agent-engineering** skill set — the layer you reach for when *building the agent itself*: architecture, memory, tool routing, guardrails, evaluation, observability, and multi-agent protocols.
 
-It is deliberately scoped to **not duplicate** [`jeo-skills`](https://github.com/akillness/jeo-skills). General development workflow, orchestration (`omg`/`omc`/`omx`/`ohmg`), planning, frontend/backend, and content skills all live there. oh-my-gods keeps only the **29 agent-focused skills** that complement that collection.
+It is deliberately scoped to **not duplicate** [`jeo-skills`](https://github.com/akillness/jeo-skills). General development workflow, orchestration (`omg`/`omc`/`omx`/`ohmg`), planning, frontend/backend, and content skills all live there. oh-my-gods keeps only the **42 agent-focused skills** that complement that collection.
 
 | You want to… | Use |
 |--------------|-----|
@@ -71,7 +71,7 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 
 ## 📚 Skill Catalog
 
-### Core Agent (11)
+### Core Agent & Frameworks (20)
 
 | Skill | Description |
 |-------|-------------|
@@ -86,6 +86,15 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 | `langgraph-workflow` | StateGraph, checkpointing, conditional branching, parallel nodes |
 | `ralph` | Ouroboros spec-first loop — interview → seed → execute → evaluate → evolve |
 | `ralphmode` | Sandbox + approval profiles for long-running agent loops |
+| `crewai` | Role-based multi-agent framework — crews, flows, tasks, tools |
+| `agno` | High-performance multi-agent framework (ex phidata) — AgentOS runtime |
+| `smolagents` | HuggingFace minimal code-first agents — CodeAgent writes actions as Python |
+| `mastra` | TypeScript agent framework — agents, workflows, RAG, evals, observability |
+| `letta` | Stateful agents with self-editing memory (MemGPT lineage) — memory blocks |
+| `claude-agent-sdk` | Anthropic's official SDK to build agents on the Claude Code harness |
+| `google-adk` | Google Agent Development Kit — code-first multi-agent |
+| `openclaw` | Personal AI assistant/agent runtime — gateway, channels, skills, node mode |
+| `pi-agent` | Minimal hackable coding agent + TypeScript toolkit monorepo |
 
 ### Agent Architecture & Ops (10)
 
@@ -102,21 +111,48 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 | `reflexion-pattern` | Critic node + verbal memory of failures, stable rubric scoring, retry budgets |
 | `agent-benchmarking` | Map capabilities to SWE-bench/WebArena/OSWorld + custom regression packs |
 
-### Agent-Adjacent (8)
+### Sandbox, Browser, Voice, Memory & Protocols (11)
+
+| Skill | Description |
+|-------|-------------|
+| `browser-use` | Make websites accessible for AI agents — autonomous browsing, DOM extraction |
+| `stagehand` | Production browser automation SDK mixing code and natural language |
+| `mem0` | Universal memory layer for AI agents — add/search memories, graph memory |
+| `graphiti` | Real-time temporal knowledge graphs for agent memory |
+| `e2b` | Open-source cloud sandboxes for AI code execution — Firecracker microVMs |
+| `daytona` | Secure elastic infrastructure for running AI-generated code — sub-90ms sandboxes |
+| `livekit-agents` | Realtime voice AI agents on LiveKit WebRTC — STT/LLM/TTS pipelines |
+| `pipecat` | Open-source framework for realtime voice and multimodal conversational agents |
+| `ag-ui` | Agent-User Interaction protocol — event-based agent-to-frontend streaming |
+| `goose` | Extensible local AI agent (Rust), MCP-native extensions, CLI + desktop |
+| `openhands` | Software-development agent platform — CLI, GUI, GitHub actions, sandboxed runtime |
+
+### Compatibility Aliases (1)
 
 | Skill | Description |
 |-------|-------------|
 | `agent-development-principles` | Compatibility alias of `agent-principles` (routes there) |
-| `ai-research-skills` | 86 AI-research skills for autonomous ML research — fine-tuning, RLHF, RAG, papers |
-| `cli-oss-scout` | Evidence-gated discovery/triage of OSS CLI candidates for agent tooling |
-| `frouter` | Free AI model router/benchmarker for OpenCode / OpenClaw |
-| `langextract` | LLM-powered, source-grounded structured extraction from text |
-| `openclone` | AI persona clones for multi-expert perspective conversations |
-| `pm-skills` | Product-management OS — 65 skills, 36 commands across 8 plugins |
-| `scrapling` | Adaptive web scraping (Scrapling) + screenshot-based visual RAG fallback (PixelRAG) |
 
 ---
 
+## 🤝 Collaborative Agent Ecosystem (Duo with jeo-skills)
+
+<div align="center">
+  <img src="assets/agent-companions.png" alt="Collaborative Agent Companions Silhouette" width="600">
+</div>
+
+The developer workspace is built for a team of autonomous AI agents working in harmony. Each agent has its own profile and directory in the workspace (e.g. `.pi`, `.goose`, `.openhands`, `.windsurf`, `.roo`, `.trae`, `.serena`), acting as digital developer peers.
+
+This repository (`oh-my-gods`) and [`jeo-skills`](https://github.com/akillness/jeo-skills) form the ultimate agent developer duo:
+
+| Layer | Responsibility | Project |
+|---|---|---|
+| **Agent Engineering** | Sandboxing, memory layers, tool routing, guardrails, evaluation, protocols | **oh-my-gods** (this repo) |
+| **Workflow & Task Ops** | Task planning, git workflow, documentation, multi-agent orchestration (`omg`/`omc`/`omx`/`ohmg`) | [jeo-skills](https://github.com/akillness/jeo-skills) |
+
+Together, they provide a comprehensive and robust foundation for building, executing, and deploying autonomous developer syndicates.
+
+---
 ## 📦 Installation
 
 ```bash
@@ -126,7 +162,7 @@ npm install -g skills
 # Recommended — one-liner
 curl -fsSL https://raw.githubusercontent.com/akillness/oh-my-gods/main/install.sh | bash
 
-# Or all 29 skills explicitly
+# Or all 42 skills explicitly
 npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 ```
 
@@ -139,17 +175,31 @@ See [`setup-all-skills-prompt.md`](setup-all-skills-prompt.md) for the full LLM-
 ## 📎 References & Sources
 
 | Skill | Source | License |
-|-------|--------|---------|
 | `ralph` | [Q00/ouroboros](https://github.com/Q00/ouroboros) | MIT |
 | `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |
-| `langextract` | [google/langextract](https://github.com/google/langextract) | Apache-2.0 |
 | `agent-manager` | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) | MIT |
-| `pm-skills` | [phuryn/pm-skills](https://github.com/phuryn/pm-skills) | MIT |
-| `ai-research-skills` | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | MIT |
-| `frouter` | [jyoung105/frouter](https://github.com/jyoung105/frouter) | MIT |
 | `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) | MIT |
-| `scrapling` | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) + [StarTrail-org/PixelRAG](https://github.com/StarTrail-org/PixelRAG) | BSD-3-Clause / Apache-2.0 |
 | `a2a-protocol` | Linux Foundation AAIF | — |
+| `openclaw` | [openclaw/openclaw](https://github.com/openclaw/openclaw) | MIT |
+| `pi-agent` | [earendil-works/pi](https://github.com/earendil-works/pi) | MIT |
+| `goose` | [aaif-goose/goose](https://github.com/aaif-goose/goose) | Apache-2.0 |
+| `openhands` | [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands) | MIT |
+| `claude-agent-sdk` | [anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | MIT |
+| `google-adk` | [google/adk-python](https://github.com/google/adk-python) | Apache-2.0 |
+| `crewai` | [crewAIInc/crewAI](https://github.com/crewAIInc/crewAI) | MIT |
+| `agno` | [agno-agi/agno](https://github.com/agno-agi/agno) | Apache-2.0 |
+| `smolagents` | [huggingface/smolagents](https://github.com/huggingface/smolagents) | Apache-2.0 |
+| `mastra` | [mastra-ai/mastra](https://github.com/mastra-ai/mastra) | Elastic-2.0 |
+| `letta` | [letta-ai/letta](https://github.com/letta-ai/letta) | Apache-2.0 |
+| `browser-use` | [browser-use/browser-use](https://github.com/browser-use/browser-use) | MIT |
+| `stagehand` | [browserbase/stagehand](https://github.com/browserbase/stagehand) | MIT |
+| `mem0` | [mem0ai/mem0](https://github.com/mem0ai/mem0) | Apache-2.0 |
+| `graphiti` | [getzep/graphiti](https://github.com/getzep/graphiti) | Apache-2.0 |
+| `e2b` | [e2b-dev/E2B](https://github.com/e2b-dev/E2B) | Apache-2.0 |
+| `daytona` | [daytonaio/daytona](https://github.com/daytonaio/daytona) | AGPL-3.0 / Apache-2.0 |
+| `livekit-agents` | [livekit/agents](https://github.com/livekit/agents) | Apache-2.0 |
+| `pipecat` | [pipecat-ai/pipecat](https://github.com/pipecat-ai/pipecat) | BSD-2-Clause |
+| `ag-ui` | [ag-ui-protocol/ag-ui](https://github.com/ag-ui-protocol/ag-ui) | MIT |
 | Agent Skills Spec | [agentskills.io](https://agentskills.io/specification) | — |
 
 ---

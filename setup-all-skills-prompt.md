@@ -8,10 +8,15 @@
 
 ---
 
-## Scope (2026 cleanup)
+## Scope (2026 update)
 
-This catalog is **agent + agent-adjacent** — 11 core agent + 10 new 2026 agentic + 8 adjacent (research / routing / extraction / scraping / PM) = **29 total**.
-Removed: 65 duplicates with [`jeo-skills`](https://github.com/akillness/jeo-skills), plus `omg` workflow.
+This catalog contains **42 agent-engineering skills**:
+- **20 Core Agent & Frameworks** (planning, execution, workflow, SDKs like OpenClaw, Pi, Claude Agent SDK, Google ADK, smolagents, CrewAI, Agno, Mastra, Letta)
+- **10 Architecture & Ops** (memory architecture, observability, guardrails, SLA design, tool routing, evaluation, benchmarking)
+- **11 Sandbox, Browser, Voice, Memory & Protocols** (E2B, Daytona sandboxes; Browser Use, Stagehand browser automation; Mem0, Graphiti memory; LiveKit, Pipecat voice; AG-UI protocol; Goose runtime; OpenHands platform)
+- **1 Compatibility Alias** (agent-development-principles -> agent-principles)
+
+All non-agent-engineering skills (ML research, generic web scraping, PM frameworks, persona cloning) have been removed.
 
 ## Execution Policy (Required)
 
@@ -24,7 +29,7 @@ Removed: 65 duplicates with [`jeo-skills`](https://github.com/akillness/jeo-skil
 ### Step 0: Assess Environment
 
 1. **Which platform?**
-   - Claude Code / Gemini CLI / Codex CLI / OpenCode → all platforms supported. No platform-specific orchestrator skill ships here anymore (use `omc`/`omx`/`ohmg` from [`jeo-skills`](https://github.com/akillness/jeo-skills) if needed).
+   - Claude Code / Gemini CLI / Codex CLI / OpenCode → all platforms supported.
    - All / Unsure → install `survey` (default) + this catalog.
 
 2. **Verify `skills` CLI:**
@@ -74,7 +79,7 @@ chmod +x ~/.claude/hooks/survey-default.sh
 
 ---
 
-### Step 2: Full Install (29 skills — 21 agent + 8 adjacent)
+### Step 2: Full Install (42 skills)
 
 > Update mode: existing skills are overwritten with the latest version.
 
@@ -91,6 +96,15 @@ npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill langgraph-workflow \
   --skill ralph \
   --skill ralphmode \
+  --skill crewai \
+  --skill agno \
+  --skill smolagents \
+  --skill mastra \
+  --skill letta \
+  --skill claude-agent-sdk \
+  --skill google-adk \
+  --skill openclaw \
+  --skill pi-agent \
   --skill agent-observability \
   --skill agent-memory-architecture \
   --skill mcp-server-design \
@@ -101,17 +115,19 @@ npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill a2a-protocol \
   --skill reflexion-pattern \
   --skill agent-benchmarking \
-  --skill agent-development-principles \
-  --skill ai-research-skills \
-  --skill cli-oss-scout \
-  --skill frouter \
-  --skill langextract \
-  --skill openclone \
-  --skill pm-skills \
-  --skill scrapling
+  --skill browser-use \
+  --skill stagehand \
+  --skill mem0 \
+  --skill graphiti \
+  --skill e2b \
+  --skill daytona \
+  --skill livekit-agents \
+  --skill pipecat \
+  --skill ag-ui \
+  --skill goose \
+  --skill openhands \
+  --skill agent-development-principles
 ```
-
-> `agent-development-principles` is a legacy alias of `agent-principles` — kept for backward compatibility; merge is a future cleanup.
 
 Skip only when explicitly requested (`core only`, `minimal install`, `quick install`).
 
@@ -158,18 +174,9 @@ done
 
 ```bash
 ls "${HOME}/.agent-skills" 2>/dev/null
-npx skills info ralph
-npx skills info agent-observability
+npx skills info openclaw
+npx skills info browser-use
 ```
-
-First run by platform:
-
-| Platform | Command |
-|----------|---------|
-| Claude Code | `/survey "task scope"` then any agent skill |
-| Gemini CLI  | `/survey "task scope"` |
-| Codex CLI   | `/survey "task scope"` |
-| OpenCode    | `/survey "task scope"` |
 
 ---
 
@@ -188,9 +195,9 @@ Only run with explicit consent. Requires `gh auth login`.
 
 ---
 
-## Skill Reference (29)
+## Skill Reference (42)
 
-### Retained Agent-Focused (11)
+### Core Agent & Frameworks (20)
 
 | Skill | Description |
 |-------|-------------|
@@ -205,8 +212,17 @@ Only run with explicit consent. Requires `gh auth login`.
 | `langgraph-workflow` | StateGraph, checkpointing, conditional branching, parallel nodes |
 | `ralph` | Ouroboros spec-first loop — interview→seed→execute→evaluate→evolve |
 | `ralphmode` | Sandbox + approval profiles for long-running agent loops |
+| `crewai` | Role-based multi-agent framework — crews, flows, tasks, tools |
+| `agno` | High-performance multi-agent framework (ex phidata) — AgentOS runtime |
+| `smolagents` | HuggingFace minimal code-first agents — CodeAgent writes actions as Python |
+| `mastra` | TypeScript agent framework — agents, workflows, RAG, evals, observability |
+| `letta` | Stateful agents with self-editing memory (MemGPT lineage) — memory blocks |
+| `claude-agent-sdk` | Anthropic's official SDK to build agents on the Claude Code harness |
+| `google-adk` | Google Agent Development Kit — code-first multi-agent |
+| `openclaw` | Personal AI assistant/agent runtime — gateway, channels, skills, node mode |
+| `pi-agent` | Minimal hackable coding agent + TypeScript toolkit monorepo |
 
-### New (2026 Agentic / Agent-Architect, 10)
+### Architecture & Ops (10)
 
 | Skill | Description |
 |-------|-------------|
@@ -221,18 +237,27 @@ Only run with explicit consent. Requires `gh auth login`.
 | `reflexion-pattern` | Critic node + verbal memory of failures, stable rubric scoring, retry budgets |
 | `agent-benchmarking` | Map capabilities to SWE-bench/WebArena/OSWorld + custom regression packs |
 
-### Agent-Adjacent (8)
+### Sandbox, Browser, Voice, Memory & Protocols (11)
+
+| Skill | Description |
+|-------|-------------|
+| `browser-use` | Make websites accessible for AI agents — autonomous browsing, DOM extraction |
+| `stagehand` | Production browser automation SDK mixing code and natural language |
+| `mem0` | Universal memory layer for AI agents — add/search memories, graph memory |
+| `graphiti` | Real-time temporal knowledge graphs for agent memory |
+| `e2b` | Open-source cloud sandboxes for AI code execution — Firecracker microVMs |
+| `daytona` | Secure elastic infrastructure for running AI-generated code — sub-90ms sandboxes |
+| `livekit-agents` | Realtime voice AI agents on LiveKit WebRTC — STT/LLM/TTS pipelines |
+| `pipecat` | Open-source framework for realtime voice and multimodal conversational agents |
+| `ag-ui` | Agent-User Interaction protocol — event-based agent-to-frontend streaming |
+| `goose` | Extensible local AI agent (Rust), MCP-native extensions, CLI + desktop |
+| `openhands` | Software-development agent platform — CLI, GUI, GitHub actions, sandboxed runtime |
+
+### Compatibility Aliases (1)
 
 | Skill | Description |
 |-------|-------------|
 | `agent-development-principles` | Legacy alias of `agent-principles` (backward compat — merge candidate) |
-| `ai-research-skills` | ML / RAG research skills, partially agent-relevant |
-| `cli-oss-scout` | General CLI evaluation, useful for agent tooling research |
-| `frouter` | Free AI model router for OpenCode / OpenClaw |
-| `langextract` | LLM-powered structured information extraction |
-| `openclone` | AI persona / clone conversation simulation |
-| `pm-skills` | PM framework — 65 skills + 36 commands for product management |
-| `scrapling` | Adaptive web scraping (Scrapling) + screenshot-based visual RAG fallback (PixelRAG) |
 
 ---
 

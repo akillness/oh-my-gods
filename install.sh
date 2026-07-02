@@ -40,18 +40,21 @@ SKILL_DESTS=(
   "$HOME/.config/opencode/skills"
 )
 
-# The 29 agent-engineering skills shipped by this repo.
+# The 42 agent-engineering skills shipped by this repo.
 ALL_SKILLS=(
-  # Core agent (11)
+  # Core Agent & Frameworks (20)
   agent-configuration agent-evaluation agent-manager agent-principles agent-workflow
   agents-cli deepagents langchain-bmad langgraph-workflow ralph ralphmode
-  # Architecture & ops (10)
+  crewai agno smolagents mastra letta claude-agent-sdk google-adk openclaw pi-agent
+  # Architecture & Ops (10)
   agent-observability agent-memory-architecture mcp-server-design agent-guardrails
   agent-system-design agent-tool-routing multi-agent-eval-harness a2a-protocol
   reflexion-pattern agent-benchmarking
-  # Agent-adjacent (8)
-  agent-development-principles ai-research-skills cli-oss-scout frouter langextract
-  openclone pm-skills scrapling
+  # Sandbox, Browser, Voice, Memory & Protocols (11)
+  browser-use stagehand mem0 graphiti e2b daytona livekit-agents pipecat ag-ui
+  goose openhands
+  # Compatibility Aliases (1)
+  agent-development-principles
 )
 
 # --- Colors ---
