@@ -9,20 +9,13 @@
 
 </div>
 
-```
-  ██████╗ ██╗  ██╗      ███╗   ███╗██╗   ██╗      ██████╗  ██████╗ ██████╗ ███████╗
- ██╔═══██╗██║  ██║      ████╗ ████║╚██╗ ██╔╝     ██╔════╝ ██╔═══██╗██╔══██╗██╔════╝
- ██║   ██║███████║█████╗██╔████╔██║ ╚████╔╝█████╗██║  ███╗██║   ██║██║  ██║███████╗
- ██║   ██║██╔══██║╚════╝██║╚██╔╝██║  ╚██╔╝ ╚════╝██║   ██║██║   ██║██║  ██║╚════██║
- ╚██████╔╝██║  ██║      ██║ ╚═╝ ██║   ██║         ╚██████╔╝╚██████╔╝██████╔╝███████║
-  ╚═════╝ ╚═╝  ╚═╝      ╚═╝     ╚═╝   ╚═╝          ╚═════╝  ╚═════╝ ╚═════╝ ╚══════╝
-```
-
 <div align="center">
 
 **LLM 에이전트를 만들고, 평가하고, 운영하기 위한 에이전트 엔지니어링 스킬셋**
 
 *42개 집중 스킬 · [jeo-skills](https://github.com/akillness/jeo-skills)와 중복 없음 · 크로스 플랫폼*
+
+<img src="assets/project-features.svg" alt="oh-my-gods 프로젝트 특징 맵" width="840">
 
 [빠른 시작](#-빠른-시작) · [스킬 카탈로그](#-스킬-카탈로그) · [설치](#-설치) · [English](README.md)
 
@@ -136,10 +129,10 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 ## 🤝 협업 에이전트 생태계 (jeo-skills와의 연계)
 
 <div align="center">
-  <img src="assets/agent-companions.png" alt="협업 에이전트 동료들의 실루엣" width="600">
+  <img src="assets/agent-companions.png" alt="jeo-code 마스코트에서 영감을 받은 네온 해양생물 AI 동료들" width="760">
 </div>
 
-The developer workspace is built for a team of autonomous AI agents working in harmony. Each agent has its own profile and directory in the workspace (e.g. `.pi`, `.goose`, `.openhands`, `.windsurf`, `.roo`, `.trae`, `.serena`), acting as digital developer peers.
+개발자 워크스페이스는 여러 자율 AI 에이전트가 조화롭게 협업하는 팀을 전제로 합니다. 동료 이미지는 [`jeo-code`](https://github.com/akillness/jeo-code)의 네온 마스코트 페르소나를 참고해, 가재·꽃게·새우·조개·소라·소라게 전문가 캐릭터로 재해석했습니다.
 
 이 저장소(`oh-my-gods`)와 [`jeo-skills`](https://github.com/akillness/jeo-skills)는 가장 강력한 에이전트 개발 듀오를 이룹니다:
 

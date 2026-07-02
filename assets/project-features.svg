@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">oh-my-gods agent-engineering feature map</title>
+  <desc id="desc">A neon feature map showing 42 skills grouped into core frameworks, architecture and ops, runtime surfaces, and compatibility.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050816"/>
+      <stop offset="0.45" stop-color="#081a38"/>
+      <stop offset="1" stop-color="#12031f"/>
+    </linearGradient>
+    <linearGradient id="cyanMagenta" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#31d7ff"/>
+      <stop offset="1" stop-color="#ff4fd8"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      .panel{fill:rgba(8,21,48,.78);stroke:url(#cyanMagenta);stroke-width:2;rx:22;filter:url(#glow)}
+      .thin{fill:none;stroke:#2bd8ff;stroke-width:1.2;opacity:.28}
+      .title{font:700 34px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#f3fbff;letter-spacing:.04em}
+      .subtitle{font:500 15px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#9bdcff;letter-spacing:.03em}
+      .big{font:800 58px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#ffffff}
+      .label{font:700 18px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#ffffff}
+      .small{font:500 13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#b8eaff}
+      .chip{fill:#0d2448;stroke:#31d7ff;stroke-width:1.2;rx:12}
+      .pink{stroke:#ff4fd8}.green{stroke:#49f7a7}.violet{stroke:#9b7cff}.amber{stroke:#ffd166}
+    </style>
+  </defs>
+
+  <rect width="1200" height="520" fill="url(#bg)"/>
+  <g opacity=".38">
+    <path class="thin" d="M0 430h1200M0 360h1200M0 290h1200M0 220h1200M0 150h1200"/>
+    <path class="thin" d="M80 520V80M200 520V40M320 520V80M440 520V40M560 520V80M680 520V40M800 520V80M920 520V40M1040 520V80"/>
+  </g>
+
+  <text x="60" y="70" class="title">AGENT-ENGINEERING SKILL MAP</text>
+  <text x="62" y="100" class="subtitle">42 focused skills · zero overlap with jeo-skills · Claude / Gemini / Codex / OpenCode</text>
+
+  <g transform="translate(500 118)">
+    <circle cx="100" cy="132" r="105" fill="#071a33" stroke="url(#cyanMagenta)" stroke-width="3" filter="url(#glow)"/>
+    <circle cx="100" cy="132" r="74" fill="none" stroke="#31d7ff" stroke-width="1.4" opacity=".52"/>
+    <circle cx="100" cy="132" r="42" fill="none" stroke="#ff4fd8" stroke-width="1.4" opacity=".52"/>
+    <text x="100" y="124" text-anchor="middle" class="big">42</text>
+    <text x="100" y="154" text-anchor="middle" class="subtitle">SKILLS</text>
+    <path d="M100 24v216M-8 132h216M25 57l150 150M175 57L25 207" stroke="#7ff7ff" stroke-width="1" opacity=".25"/>
+  </g>
+
+  <g transform="translate(60 148)">
+    <rect width="360" height="130" class="panel"/>
+    <text x="26" y="38" class="label">Core agents &amp; frameworks</text>
+    <text x="26" y="66" class="small">20 skills for framework choice, workflow</text>
+    <text x="26" y="88" class="small">graphs, crews, stateful agents, SDKs</text>
+    <g transform="translate(26 102)">
+      <rect width="62" height="22" class="chip"/><text x="31" y="15" text-anchor="middle" class="small">LangGraph</text>
+      <rect x="74" width="62" height="22" class="chip pink"/><text x="105" y="15" text-anchor="middle" class="small">Letta</text>
+      <rect x="148" width="62" height="22" class="chip violet"/><text x="179" y="15" text-anchor="middle" class="small">Mastra</text>
+    </g>
+  </g>
+
+  <g transform="translate(780 148)">
+    <rect width="360" height="130" class="panel"/>
+    <text x="26" y="38" class="label">Architecture &amp; ops</text>
+    <text x="26" y="66" class="small">10 skills for memory, routing, guardrails,</text>
+    <text x="26" y="88" class="small">observability, evals, protocol design</text>
+    <g transform="translate(26 102)">
+      <rect width="70" height="22" class="chip green"/><text x="35" y="15" text-anchor="middle" class="small">Memory</text>
+      <rect x="82" width="70" height="22" class="chip"/><text x="117" y="15" text-anchor="middle" class="small">Routing</text>
+      <rect x="164" width="70" height="22" class="chip pink"/><text x="199" y="15" text-anchor="middle" class="small">Evals</text>
+    </g>
+  </g>
+
+  <g transform="translate(120 332)">
+    <rect width="420" height="128" class="panel"/>
+    <text x="26" y="38" class="label">Runtime surfaces</text>
+    <text x="26" y="66" class="small">11 skills for browsers, sandboxes, voice,</text>
+    <text x="26" y="88" class="small">memory graphs, UI streams, local agents</text>
+    <g transform="translate(26 102)">
+      <rect width="74" height="22" class="chip amber"/><text x="37" y="15" text-anchor="middle" class="small">Browser</text>
+      <rect x="86" width="74" height="22" class="chip violet"/><text x="123" y="15" text-anchor="middle" class="small">Sandbox</text>
+      <rect x="172" width="74" height="22" class="chip green"/><text x="209" y="15" text-anchor="middle" class="small">Voice</text>
+    </g>
+  </g>
+
+  <g transform="translate(660 332)">
+    <rect width="420" height="128" class="panel"/>
+    <text x="26" y="38" class="label">Clean companion role</text>
+    <text x="26" y="66" class="small">Agent-building layer only; task ops, docs,</text>
+    <text x="26" y="88" class="small">planning, and shipping live in jeo-skills</text>
+    <g transform="translate(26 102)">
+      <rect width="86" height="22" class="chip"/><text x="43" y="15" text-anchor="middle" class="small">No dupes</text>
+      <rect x="98" width="86" height="22" class="chip pink"/><text x="141" y="15" text-anchor="middle" class="small">Cross CLI</text>
+      <rect x="196" width="86" height="22" class="chip green"/><text x="239" y="15" text-anchor="middle" class="small">Install all</text>
+    </g>
+  </g>
+
+  <g stroke="#31d7ff" stroke-width="2" fill="none" opacity=".52" filter="url(#glow)">
+    <path d="M420 212 C472 210 500 230 540 250"/>
+    <path d="M780 212 C728 210 700 230 660 250"/>
+    <path d="M540 396 C566 360 578 340 590 270"/>
+    <path d="M660 396 C634 360 622 340 610 270"/>
+  </g>
+</svg>

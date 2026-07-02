@@ -10,20 +10,13 @@
 
 </div>
 
-```
-  ██████╗ ██╗  ██╗      ███╗   ███╗██╗   ██╗      ██████╗  ██████╗ ██████╗ ███████╗
- ██╔═══██╗██║  ██║      ████╗ ████║╚██╗ ██╔╝     ██╔════╝ ██╔═══██╗██╔══██╗██╔════╝
- ██║   ██║███████║█████╗██╔████╔██║ ╚████╔╝█████╗██║  ███╗██║   ██║██║  ██║███████╗
- ██║   ██║██╔══██║╚════╝██║╚██╔╝██║  ╚██╔╝ ╚════╝██║   ██║██║   ██║██║  ██║╚════██║
- ╚██████╔╝██║  ██║      ██║ ╚═╝ ██║   ██║         ╚██████╔╝╚██████╔╝██████╔╝███████║
-  ╚═════╝ ╚═╝  ╚═╝      ╚═╝     ╚═╝   ╚═╝          ╚═════╝  ╚═════╝ ╚═════╝ ╚══════╝
-```
-
 <div align="center">
 
 **Agent-engineering skills for building, evaluating, and operating LLM agents**
 
 *42 focused skills · no duplication with [jeo-skills](https://github.com/akillness/jeo-skills) · cross-platform*
+
+<img src="assets/project-features.svg" alt="oh-my-gods project feature map" width="840">
 
 [Quick Start](#-quick-start) · [Skill Catalog](#-skill-catalog) · [Installation](#-installation) · [한국어](README.ko.md)
 
@@ -138,10 +131,10 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 ## 🤝 Collaborative Agent Ecosystem (Duo with jeo-skills)
 
 <div align="center">
-  <img src="assets/agent-companions.png" alt="Collaborative Agent Companions Silhouette" width="600">
+  <img src="assets/agent-companions.png" alt="Neon sea-creature AI companion squad inspired by the jeo-code mascot" width="760">
 </div>
 
-The developer workspace is built for a team of autonomous AI agents working in harmony. Each agent has its own profile and directory in the workspace (e.g. `.pi`, `.goose`, `.openhands`, `.windsurf`, `.roo`, `.trae`, `.serena`), acting as digital developer peers.
+The developer workspace is built for a team of autonomous AI agents working in harmony. Inspired by the [`jeo-code`](https://github.com/akillness/jeo-code) neon mascot, the companion image recasts those digital peers as friendly sea-creature agents — crayfish, crab, shrimp, clam, conch, and hermit-crab specialists.
 
 This repository (`oh-my-gods`) and [`jeo-skills`](https://github.com/akillness/jeo-skills) form the ultimate agent developer duo:
 
