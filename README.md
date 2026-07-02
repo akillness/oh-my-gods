@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="assets/agent-companions.png" alt="Neon sea-creature AI companion squad inspired by the jeo-code mascot" width="100%">
+</div>
+
 # oh-my-gods
 
 <div align="center">
@@ -130,9 +134,6 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 
 ## 🤝 Collaborative Agent Ecosystem (Duo with jeo-skills)
 
-<div align="center">
-  <img src="assets/agent-companions.png" alt="Neon sea-creature AI companion squad inspired by the jeo-code mascot" width="760">
-</div>
 
 The developer workspace is built for a team of autonomous AI agents working in harmony. Inspired by the [`jeo-code`](https://github.com/akillness/jeo-code) neon mascot, the companion image recasts those digital peers as friendly sea-creature agents — crayfish, crab, shrimp, clam, conch, and hermit-crab specialists.
 

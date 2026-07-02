@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="assets/agent-companions.png" alt="jeo-code 마스코트에서 영감을 받은 네온 해양생물 AI 동료들" width="100%">
+</div>
+
 # oh-my-gods
 
 <div align="center">
@@ -128,9 +132,6 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 
 ## 🤝 협업 에이전트 생태계 (jeo-skills와의 연계)
 
-<div align="center">
-  <img src="assets/agent-companions.png" alt="jeo-code 마스코트에서 영감을 받은 네온 해양생물 AI 동료들" width="760">
-</div>
 
 개발자 워크스페이스는 여러 자율 AI 에이전트가 조화롭게 협업하는 팀을 전제로 합니다. 동료 이미지는 [`jeo-code`](https://github.com/akillness/jeo-code)의 네온 마스코트 페르소나를 참고해, 가재·꽃게·새우·조개·소라·소라게 전문가 캐릭터로 재해석했습니다.
 
