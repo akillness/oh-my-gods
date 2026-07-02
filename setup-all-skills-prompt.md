@@ -10,8 +10,8 @@
 
 ## Scope (2026 update)
 
-This catalog contains **42 agent-engineering skills**:
-- **20 Core Agent & Frameworks** (planning, execution, workflow, SDKs like OpenClaw, Pi, Claude Agent SDK, Google ADK, smolagents, CrewAI, Agno, Mastra, Letta)
+This catalog contains **41 agent-engineering skills**:
+- **19 Core Agent & Frameworks** (planning, execution, workflow, SDKs like OpenClaw, Pi, Claude Agent SDK, Google ADK, smolagents, CrewAI, Agno, Mastra, Letta)
 - **10 Architecture & Ops** (memory architecture, observability, guardrails, SLA design, tool routing, evaluation, benchmarking)
 - **11 Sandbox, Browser, Voice, Memory & Protocols** (E2B, Daytona sandboxes; Browser Use, Stagehand browser automation; Mem0, Graphiti memory; LiveKit, Pipecat voice; AG-UI protocol; Goose runtime; OpenHands platform)
 - **1 Compatibility Alias** (agent-development-principles -> agent-principles)
@@ -79,7 +79,7 @@ chmod +x ~/.claude/hooks/survey-default.sh
 
 ---
 
-### Step 2: Full Install (42 skills)
+### Step 2: Full Install (41 skills)
 
 > Update mode: existing skills are overwritten with the latest version.
 
@@ -94,7 +94,6 @@ npx skills add -g https://github.com/akillness/oh-my-gods \
   --skill deepagents \
   --skill langchain-bmad \
   --skill langgraph-workflow \
-  --skill ralph \
   --skill ralphmode \
   --skill crewai \
   --skill agno \
@@ -195,9 +194,9 @@ Only run with explicit consent. Requires `gh auth login`.
 
 ---
 
-## Skill Reference (42)
+## Skill Reference (41)
 
-### Core Agent & Frameworks (20)
+### Core Agent & Frameworks (19)
 
 | Skill | Description |
 |-------|-------------|
@@ -210,7 +209,6 @@ Only run with explicit consent. Requires `gh auth login`.
 | `deepagents` | LangGraph batteries-included harness — file tools, subagents, HITL |
 | `langchain-bmad` | BMAD phase gates ↔ LangChain/LangGraph/Deep Agents routing |
 | `langgraph-workflow` | StateGraph, checkpointing, conditional branching, parallel nodes |
-| `ralph` | Ouroboros spec-first loop — interview→seed→execute→evaluate→evolve |
 | `ralphmode` | Sandbox + approval profiles for long-running agent loops |
 | `crewai` | Role-based multi-agent framework — crews, flows, tasks, tools |
 | `agno` | High-performance multi-agent framework (ex phidata) — AgentOS runtime |

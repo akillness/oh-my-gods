@@ -40,11 +40,11 @@ SKILL_DESTS=(
   "$HOME/.config/opencode/skills"
 )
 
-# The 42 agent-engineering skills shipped by this repo.
+# The 41 agent-engineering skills shipped by this repo.
 ALL_SKILLS=(
-  # Core Agent & Frameworks (20)
+  # Core Agent & Frameworks (19)
   agent-configuration agent-evaluation agent-manager agent-principles agent-workflow
-  agents-cli deepagents langchain-bmad langgraph-workflow ralph ralphmode
+  agents-cli deepagents langchain-bmad langgraph-workflow ralphmode
   crewai agno smolagents mastra letta claude-agent-sdk google-adk openclaw pi-agent
   # Architecture & Ops (10)
   agent-observability agent-memory-architecture mcp-server-design agent-guardrails
@@ -172,7 +172,7 @@ verify_install() {
     warn "$CANONICAL_DIR not found — check installation"
   fi
 
-  for skill in ralph deepagents agent-observability mcp-server-design agent-guardrails; do
+  for skill in deepagents agent-observability mcp-server-design agent-guardrails; do
     if [ -f "$CANONICAL_DIR/$skill/SKILL.md" ]; then
       ok "  ✓ $skill"
     else
@@ -203,7 +203,6 @@ main() {
   echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
   echo ""
   echo -e "${BOLD}Key skills installed:${NC}"
-  echo "  ralph                — Ouroboros spec-first agent loop"
   echo "  deepagents           — LangGraph batteries-included harness"
   echo "  agent-memory-architecture / agent-tool-routing / agent-guardrails"
   echo "  agent-observability / agent-evaluation / multi-agent-eval-harness"

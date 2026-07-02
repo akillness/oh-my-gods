@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[![Skills](https://img.shields.io/badge/Skills-42-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
+[![Skills](https://img.shields.io/badge/Skills-41-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 
 [![Platform](https://img.shields.io/badge/Platform-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
@@ -18,7 +18,7 @@
 
 **Agent-engineering skills for building, evaluating, and operating LLM agents**
 
-*42 focused skills · no duplication with [jeo-skills](https://github.com/akillness/jeo-skills) · cross-platform*
+*41 focused skills · no duplication with [jeo-skills](https://github.com/akillness/jeo-skills) · cross-platform*
 
 <img src="assets/project-features.svg" alt="oh-my-gods project feature map" width="840">
 
@@ -32,7 +32,7 @@
 
 `oh-my-gods` is a lean, **agent-engineering** skill set — the layer you reach for when *building the agent itself*: architecture, memory, tool routing, guardrails, evaluation, observability, and multi-agent protocols.
 
-It is deliberately scoped to **not duplicate** [`jeo-skills`](https://github.com/akillness/jeo-skills). General development workflow, orchestration (`omg`/`omc`/`omx`/`ohmg`), planning, frontend/backend, and content skills all live there. oh-my-gods keeps only the **42 agent-focused skills** that complement that collection.
+It is deliberately scoped to **not duplicate** [`jeo-skills`](https://github.com/akillness/jeo-skills). General development workflow, orchestration (`omg`/`omc`/`omx`/`ohmg`), planning, frontend/backend, and content skills all live there. oh-my-gods keeps only the **41 agent-focused skills** that complement that collection.
 
 | You want to… | Use |
 |--------------|-----|
@@ -68,7 +68,7 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 
 ## 📚 Skill Catalog
 
-### Core Agent & Frameworks (20)
+### Core Agent & Frameworks (19)
 
 | Skill | Description |
 |-------|-------------|
@@ -81,7 +81,6 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 | `deepagents` | LangGraph batteries-included harness — file tools, subagents, HITL |
 | `langchain-bmad` | BMAD phase gates ↔ LangChain / LangGraph / Deep Agents routing |
 | `langgraph-workflow` | StateGraph, checkpointing, conditional branching, parallel nodes |
-| `ralph` | Ouroboros spec-first loop — interview → seed → execute → evaluate → evolve |
 | `ralphmode` | Sandbox + approval profiles for long-running agent loops |
 | `crewai` | Role-based multi-agent framework — crews, flows, tasks, tools |
 | `agno` | High-performance multi-agent framework (ex phidata) — AgentOS runtime |
@@ -156,7 +155,7 @@ npm install -g skills
 # Recommended — one-liner
 curl -fsSL https://raw.githubusercontent.com/akillness/oh-my-gods/main/install.sh | bash
 
-# Or all 42 skills explicitly
+# Or all 41 skills explicitly
 npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 ```
 
@@ -169,7 +168,6 @@ See [`setup-all-skills-prompt.md`](setup-all-skills-prompt.md) for the full LLM-
 ## 📎 References & Sources
 
 | Skill | Source | License |
-| `ralph` | [Q00/ouroboros](https://github.com/Q00/ouroboros) | MIT |
 | `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |
 | `agent-manager` | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) | MIT |
 | `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) | MIT |

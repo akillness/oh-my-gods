@@ -14,7 +14,6 @@ When an agent fails, retrying with the same prompt produces the same failure. Re
 - Same task fails 2+ times with the same prompt
 - You have a clear success signal (tests, golden, judge)
 - Failure modes are recognizable in the trajectory (wrong tool, wrong arg, wrong plan)
-- Combined with `ralph` for spec-first persistent loops
 
 ## Don't use when
 
@@ -121,4 +120,4 @@ graph.add_conditional_edges("evaluator", lambda s: "done" if s["score"] > 0.85 e
 
 - Shinn et al. — original Reflexion paper (NeurIPS 2023)
 - LangGraph reflection examples
-- Pair with: `ralph`, `multi-agent-eval-harness`
+- Pair with: `multi-agent-eval-harness`

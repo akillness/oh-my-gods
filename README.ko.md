@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[![Skills](https://img.shields.io/badge/Skills-42-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
+[![Skills](https://img.shields.io/badge/Skills-41-blue?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![Platform](https://img.shields.io/badge/Platform-Claude%20%7C%20Gemini%20%7C%20Codex%20%7C%20OpenCode-orange?style=for-the-badge)](https://github.com/akillness/oh-my-gods)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-orange?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/akillness3q)
@@ -17,7 +17,7 @@
 
 **LLM 에이전트를 만들고, 평가하고, 운영하기 위한 에이전트 엔지니어링 스킬셋**
 
-*42개 집중 스킬 · [jeo-skills](https://github.com/akillness/jeo-skills)와 중복 없음 · 크로스 플랫폼*
+*41개 집중 스킬 · [jeo-skills](https://github.com/akillness/jeo-skills)와 중복 없음 · 크로스 플랫폼*
 
 <img src="assets/project-features.svg" alt="oh-my-gods 프로젝트 특징 맵" width="840">
 
@@ -31,7 +31,7 @@
 
 `oh-my-gods`는 **에이전트 자체를 만들 때** 필요한 레이어에 집중한 가벼운 스킬셋입니다 — 아키텍처, 메모리, 툴 라우팅, 가드레일, 평가, 관측성, 멀티 에이전트 프로토콜.
 
-[`jeo-skills`](https://github.com/akillness/jeo-skills)와 **중복되지 않도록** 의도적으로 범위를 좁혔습니다. 일반 개발 워크플로우, 오케스트레이션(`omg`/`omc`/`omx`/`ohmg`), 기획, 프론트/백엔드, 콘텐츠 스킬은 모두 그쪽에 있습니다. oh-my-gods는 그 컬렉션을 보완하는 **에이전트 중심 42개 스킬**만 유지합니다.
+[`jeo-skills`](https://github.com/akillness/jeo-skills)와 **중복되지 않도록** 의도적으로 범위를 좁혔습니다. 일반 개발 워크플로우, 오케스트레이션(`omg`/`omc`/`omx`/`ohmg`), 기획, 프론트/백엔드, 콘텐츠 스킬은 모두 그쪽에 있습니다. oh-my-gods는 그 컬렉션을 보완하는 **에이전트 중심 41개 스킬**만 유지합니다.
 
 | 하려는 일 | 사용 |
 |-----------|------|
@@ -67,7 +67,7 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 
 ## 📚 스킬 카탈로그
 
-### 코어 에이전트 & 프레임워크 (20)
+### 코어 에이전트 & 프레임워크 (19)
 
 | 스킬 | 설명 |
 |------|------|
@@ -80,7 +80,6 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 | `deepagents` | LangGraph 올인원 하니스 — 파일 툴, 서브에이전트, HITL |
 | `langchain-bmad` | BMAD 단계 게이트 ↔ LangChain / LangGraph / Deep Agents 라우팅 |
 | `langgraph-workflow` | StateGraph, 체크포인트, 조건 분기, 병렬 노드 |
-| `ralph` | 우로보로스 스펙 우선 루프 — 인터뷰 → 시드 → 실행 → 평가 → 진화 |
 | `ralphmode` | 장기 실행 에이전트 루프용 샌드박스 + 승인 프로파일 |
 | `crewai` | 역할 기반 멀티 에이전트 프레임워크 — 크루, 플로우, 태스크, 툴 |
 | `agno` | 고성능 멀티 에이전트 프레임워크 (구 phidata) — AgentOS 런타임 |
@@ -166,7 +165,6 @@ npx skills add -g https://github.com/akillness/oh-my-gods --skill '*' --yes
 ## 📎 참조 & 출처
 
 | 스킬 | 출처 | 라이선스 |
-| `ralph` | [Q00/ouroboros](https://github.com/Q00/ouroboros) | MIT |
 | `deepagents` | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | MIT |
 | `agent-manager` | [fractalmind-ai/agent-manager-skill](https://github.com/fractalmind-ai/agent-manager-skill) | MIT |
 | `agent-development-principles` | [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) | MIT |
