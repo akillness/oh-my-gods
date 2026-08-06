@@ -1,0 +1,47 @@
+name: PR Quality Gates
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  frontmatter-validate:
+    name: frontmatter-validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate SKILL frontmatter
+        run: python3 validate_frontmatter.py
+
+  json-yaml-lint:
+    name: json-yaml-lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate evals JSON files
+        run: python3 scripts/check_evals_json.py
+
+  survey-artifact-contract:
+    name: survey-artifact-contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate changed survey artifacts
+        run: |
+          python3 scripts/validate_survey_artifacts.py --changed-only
